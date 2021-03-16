@@ -68,3 +68,15 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+
+## Contributing
+
+Thanks to all the people who already contributed!
+
+
+
+<a href="https://github.com/Judge-Girl/Judge-Girl-CMS/graphs/contributors">
+  <img src="https://contributors-img.web.app/image?repo=Judge-Girl/Judge-Girl-CMS" />
+</a>

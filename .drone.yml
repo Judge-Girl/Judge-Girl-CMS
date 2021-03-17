@@ -1,0 +1,37 @@
+kind: pipeline
+type: exec
+name: default
+
+steps:
+  - name: Install Dependencies
+    commands:
+      - npm install
+  - name: Test
+    commands:
+      - CI=true npm test
+  - name: Build Website
+    commands:
+      - npm run build
+    when:
+      branch:
+        - master
+      event:
+        - push
+  - name: Build Docker Image
+    commands:
+      - npm install -g serve
+      - docker build . -t judge-cms
+    when:
+      branch:
+        - master
+      event:
+        - push
+  - name: Deploy
+    commands:
+      - docker rm -f judge-cms || echo "Container judge-cms not found, launch a new one."
+      - docker run --rm -d --name judge-cms -p 5000:5000 judge-cms
+    when:
+      branch:
+        - master
+      event:
+        - push

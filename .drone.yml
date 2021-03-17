@@ -3,6 +3,9 @@ type: exec
 name: default
 
 steps:
+  - name: Test
+    commands:
+      - CI=true npm test
   - name: Build Website
     commands:
       - npm install
@@ -11,6 +14,9 @@ steps:
     commands:
       - npm install -g serve
       - docker build . -t judge-cms
+    when:
+      branch:
+        - master
   - name: Deploy
     commands:
       - docker rm -f judge-cms || echo "Container judge-cms not found, launch a new one."

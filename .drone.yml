@@ -1,0 +1,14 @@
+kind: pipeline
+type: docker
+name: default
+
+steps:
+  - name: Build and Serve
+    image: node
+    commands:
+      - npm install
+      - npm run build
+      - npm install -g serve
+      - docker build . -t judge-cms
+      - docker rm -f judge-cms
+      - docker run --rm -d --name judge-cms -p 5000:5000 judge-cms

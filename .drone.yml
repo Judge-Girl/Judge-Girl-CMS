@@ -15,6 +15,8 @@ steps:
     when:
       branch:
         - master
+      event:
+        - push
   - name: Build Docker Image
     commands:
       - npm install -g serve
@@ -22,6 +24,8 @@ steps:
     when:
       branch:
         - master
+      event:
+        - push
   - name: Deploy
     commands:
       - docker rm -f judge-cms || echo "Container judge-cms not found, launch a new one."
@@ -29,3 +33,5 @@ steps:
     when:
       branch:
         - master
+      event:
+        - push

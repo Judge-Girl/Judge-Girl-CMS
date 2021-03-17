@@ -3,12 +3,16 @@ type: exec
 name: default
 
 steps:
-  - name: Build and Serve
+  - name: Build Website
     commands:
       - npm install
       - npm run build
+  - name: Build Docker Image
       - npm install -g serve
       - docker build . -t judge-cms
+  - name: Deploy
       - docker rm -f judge-cms || echo "Container judge-cms not found, launch a new one."
       - docker run --rm -d --name judge-cms -p 5000:5000 judge-cms
-
+      when:
+        branch:
+          - master

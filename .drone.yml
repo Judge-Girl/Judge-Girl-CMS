@@ -12,6 +12,9 @@ steps:
   - name: Build Website
     commands:
       - npm run build
+    when:
+      branch:
+        - master
   - name: Build Docker Image
     commands:
       - npm install -g serve

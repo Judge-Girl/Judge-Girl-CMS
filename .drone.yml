@@ -3,12 +3,14 @@ type: exec
 name: default
 
 steps:
+  - name: Install Dependencies
+    commands:
+      - npm install
   - name: Test
     commands:
       - CI=true npm test
   - name: Build Website
     commands:
-      - npm install
       - npm run build
   - name: Build Docker Image
     commands:

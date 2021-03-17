@@ -1,10 +1,9 @@
 kind: pipeline
-type: docker
+type: exec
 name: default
 
 steps:
   - name: Build and Serve
-    image: node
     commands:
       - npm install
       - npm run build

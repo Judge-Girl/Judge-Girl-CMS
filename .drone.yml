@@ -11,3 +11,4 @@ steps:
       - docker build . -t judge-cms
       - docker rm -f judge-cms
       - docker run --rm -d --name judge-cms -p 5000:5000 judge-cms
+

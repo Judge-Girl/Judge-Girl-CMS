@@ -1,5 +1,5 @@
 import logo from './logo.svg';
-import './App.css';
+import './Demo.css';
 import 'bulma';
 import {Component} from "react/cjs/react.production.min";
 import * as React from "react";

@@ -8,7 +8,7 @@ import CompilationScript from "./CompilationScript/CompilationScript";
 
 const ProblemEditor = withRouter(({history}) =>  {
     return (
-        <div className="columns">
+        <div className="columns problem-editor">
             <div className="column">
                 <h1>Problem Name</h1>
                 <section>
@@ -31,11 +31,9 @@ const ProblemEditor = withRouter(({history}) =>  {
 
             </div>
             <div className="column">
-                Second column
             </div>
         </div>
     );
 });
-
 
 export {ProblemEditor};

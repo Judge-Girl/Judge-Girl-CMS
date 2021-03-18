@@ -7,13 +7,10 @@ function SubmittedCode ({tags, removeTag}) {
             <div key={tag.id}>
                 {tag.text}
             </div>
-            {/*<div className='icons' class="tag-delete-icons">*/}
             <AiOutlineClose
                 onClick={() => removeTag(tag.id)}
                 className='delete-icon'
             />
-            {/*</div>*/}
-
         </div>
 
     ));

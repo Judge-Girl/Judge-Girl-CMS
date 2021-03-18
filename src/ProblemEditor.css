@@ -1,48 +1,42 @@
 :root {
     --brandColor: rgb(62, 189, 217);
-    --background: rgb(247, 247, 247);
+    /* not sure about the color */
+    --background: white;
     --textDark: hsla(0, 0%, 0%, 0.66);
     --textLight: rgb(62, 189, 217);
 }
 
-hr {
-    /*display: block;*/
-    /*border: 50px;*/
+.problem-editor hr {
     margin-top: 0.5em;
     margin-bottom: 0.5em;
-    /*margin-left: auto;*/
-    /*margin-right: auto;*/
     color: black;
     border-style: inset;
     border-width: 1px;
-    /*border-color: gray;*/
-    /*max-width: 4000mm;*/
 }
 
-h2 {
+.problem-editor h2 {
     padding-top: 10px;
     color: #6D6E7D;
     font-family: Poppins, sans-serif;
 }
 
-section {
+.problem-editor section {
     padding-left: 143px;
     padding-bottom: 70px;
 }
 
-.tag-input {
+.problem-editor .tag-input {
     width: 250px;
     height: 33px;
     border: 1px solid #E4E1E1;
 }
 
-.tag-button {
+.problem-editor .tag-button {
     width: 33px;
     height: 33px;
 
     /* Add Btn */
     /* Auto Layout */
-
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -54,7 +48,7 @@ section {
     box-sizing: border-box;
 }
 
-.tag-item {
+.problem-editor .tag-item {
     color: #1273BA;
     padding-left: 10px;
     padding-top: 5px;
@@ -66,29 +60,25 @@ section {
     border: 1px solid #E4E1E1;
     box-sizing: border-box;
 
-    /* ?????? */
     font-family: Poppins, sans-serif;
     font-style: normal;
     font-weight: normal;
     font-size: 15px;
     line-height: 22px;
-    /* identical to box height */
 
     display: flex;
     align-items: center;
 }
 
-.delete-icon {
+.problem-editor .delete-icon {
     position: absolute;
-    /*margin-right: 15px;*/
-    /*text-align:right;*/
     width: 10px;
     height: 10px;
     float: right;
     left: 405px;
 }
 
-.provided-code-item {
+.problem-editor .provided-code-item {
     color: #1273BA;
     padding-left: 10px;
     padding-top: 5px;
@@ -100,20 +90,18 @@ section {
     border: 1px solid #E4E1E1;
     box-sizing: border-box;
 
-    /* ?????? */
     font-family: Poppins, sans-serif;
     font-style: normal;
     font-weight: normal;
     font-size: 15px;
     line-height: 22px;
-    /* identical to box height */
 
     display: flex;
     align-items: center;
 }
 
 /* to hide original upload button */
-.provided-code-upload {
+.problem-editor .provided-code-upload {
     position: absolute;
     width: 1px;
     height: 1px;
@@ -124,7 +112,7 @@ section {
     border: 0;
 }
 
-.provided-code-button {
+.problem-editor .provided-code-button {
     width: 215px;
     height: 33px;
 
@@ -149,15 +137,14 @@ section {
     color: white;
 }
 
-li {
-    color: #1273BA;
-    /* radix-icons:dot-filled */
-    /*position: static;*/
-    /*width: 6px;*/
-    /*height: 6px;*/
-    /*left: 0px;*/
-    /*top: 9px;*/
+.problem-editor .provided-code-button:hover {
+    color: white;
+    font-weight: bold;
+    background: rgb(31, 152, 178);
+}
 
+.problem-editor li {
+    color: #1273BA;
     /* Inside Auto Layout */
 
     flex: none;
@@ -167,44 +154,14 @@ li {
     padding-bottom: 10px;
 }
 
-li span {
+.problem-editor li span {
     position: relative;
     left: -10px;
 }
 
-/*.resource-spec-font {*/
-/*    !* CPU *!*/
-/*    position: static;*/
-/*    width: 33px;*/
-/*    height: 24px;*/
-/*    left: 11px;*/
-/*    top: 0px;*/
-
-/*    font-family: Poppins;*/
-/*    font-style: normal;*/
-/*    font-weight: 500;*/
-/*    font-size: 16px;*/
-/*    line-height: 24px;*/
-/*    !* identical to box height *!*/
-
-/*    display: flex;*/
-/*    align-items: center;*/
-
-/*    color: #1273BA;*/
-
-/*    !* Inside Auto Layout *!*/
-
-/*    flex: none;*/
-/*    order: 1;*/
-/*    flex-grow: 0;*/
-/*    margin: 0px 5px;*/
-/*}*/
-
-.resource-spec-input-box {
+.problem-editor .resource-spec-input-box {
     /* Input Box - small */
     /* Auto Layout */
-
-    /*display: flex;*/
     flex-direction: row;
     align-items: center;
     padding: 2px 5px 2px 10px;
@@ -227,7 +184,7 @@ li span {
     margin: 0px 7px;
 }
 
-.compile-script-button {
+.problem-editor .compile-script-button {
     /* Button */
     position: static;
     width: 89px;
@@ -240,7 +197,6 @@ li span {
     font-weight: 600;
     font-size: 12px;
     line-height: 18px;
-    /* identical to box height */
 
     display: flex;
     align-items: center;
@@ -248,7 +204,6 @@ li span {
     color: #3EBDD9;
 
     /* Inside Auto Layout */
-
     flex: none;
     order: 0;
     flex-grow: 0;
@@ -260,24 +215,23 @@ li span {
     border-radius: 10px;
 }
 
-.compile-script-text-area {
+.problem-editor .compile-script-text-area {
     background: #F9F9F9;
     border: 1px solid #C4C4C4;
     box-sizing: border-box;
     border-radius: 5px;
 }
 
-body {
+.problem-editor body {
     background: var(--background);
     height: 100vh;
-
 }
 
-.field:not(:last-child) {
+.problem-editor .field:not(:last-child) {
     margin-bottom: 1rem;
 }
 
-#title {
+.problem-editor #title {
     color: white;
     font-weight: 500;
     font-size: 2rem;
@@ -285,16 +239,15 @@ body {
     font-family: 'Nunito Sans', sans-serif;
 }
 
-#title span {
+.problem-editor #title span {
     color: var(--brandColor);
 }
 
-
-.field {
+.problem-editor .field {
     padding-left: 0;
 }
 
-input {
+.problem-editor input {
     font-size: 1rem;
 }
 
@@ -303,22 +256,7 @@ input:focus {
     box-shadow: 0 0 0 1px var(--brandColor) !important;
 }
 
-/*.button-submit {*/
-/*    width: 150px;*/
-/*    height: 48px;*/
-
-/*    border: none;*/
-/*    color: white;*/
-/*    font-size: 1rem;*/
-/*    font-weight: bold;*/
-/*    background: var(--brandColor);*/
-/*    border-radius: 5px;*/
-/*    margin-left: auto;*/
-/*    margin-right: auto;*/
-/*}*/
-
 .button-submit:hover {
-
     color: white;
     font-size: 1rem;
     font-weight: bold;
@@ -327,9 +265,3 @@ input:focus {
     margin-left: auto;
     margin-right: auto;
 }
-
-#test_title {
-    /* Header - Name */
-
-}
-

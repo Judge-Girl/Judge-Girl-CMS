@@ -8,11 +8,7 @@ function ProvidedCodeForm () {
     const addFile = (event) => {
         const newFiles = [event.target.files[0], ...files];
         setFiles(newFiles);
-        console.log(files);
     };
-
-    // const handleSubmission = () => {
-    // };
 
     const removeFile = fileName => {
         const removeAttr = [...files].filter(file => file.name !== fileName);

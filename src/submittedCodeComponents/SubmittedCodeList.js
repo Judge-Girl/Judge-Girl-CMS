@@ -2,21 +2,19 @@ import React, {useState} from 'react';
 import SubmittedCodeForm from './SubmittedCodeForm';
 import SubmittedCode from './SubmittedCode';
 import '../ProblemEditor.css';
+import {isLegalText} from "../utils";
 
 function SubmittedCodeList() {
     const [tags, setTags] = useState([]);
 
     const addTags = tag => {
-        // avoid empty, illegal, or
-        // repeated input (not finished yet)
-        if (!tag.text || /^\s*$/.test(tag.text)) {
-            return
+        if (isLegalText(tag.text, tags)) {
+            return;
         }
 
         const newTags = [tag, ...tags];
 
         setTags(newTags);
-        console.log(...tags);
     }
 
     const removeTag = id => {

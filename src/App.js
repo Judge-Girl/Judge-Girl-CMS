@@ -6,15 +6,13 @@ import {Login} from "./Login";
 import {Dashboard} from "./Dashboard";
 import {ProblemEditor} from "./ProblemEditor";
 
-
 function App(props) {
     return (
         <Router>
             <div className="App">
                 <Route exact={true} path="/" component={Login}/>
                 <Route path="/dashboard" component={Dashboard}/>
-                <Route path="/problemEditor" component={ProblemEditor}/>
-
+                <Route path="/problems/:problemId/edit" component={ProblemEditor}/>
             </div>
         </Router>
     )

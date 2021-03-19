@@ -1,10 +1,10 @@
 import {withRouter} from "react-router";
 import './ProblemEditor.css';
-import TagList from "./tagsComponents/TagList";
-import SubmittedCodeList from './submittedCodeComponents/SubmittedCodeList';
-import ProvidedCodeList from './providedCodeComponents/ProvidedCodeList';
-import ResourceSpec from "./resourceSpecComponents/ResourceSpec";
-import CompilationScript from "./CompilationScript/CompilationScript";
+import TagList from "./tags/TagList";
+import SubmittedCodeList from './submittedCode/SubmittedCodeList';
+import ProvidedCodeList from './providedCode/ProvidedCodeList';
+import ResourceSpec from "./resourceSpec/ResourceSpec";
+import CompilationScript from "./compilationScript/CompilationScript";
 
 const ProblemEditor = withRouter(({history}) =>  {
     return (

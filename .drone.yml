@@ -19,7 +19,6 @@ steps:
         - push
   - name: Build Docker Image
     commands:
-      - npm install -g serve
       - docker build . -t judge-cms
     when:
       branch:

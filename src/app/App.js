@@ -1,18 +1,22 @@
 import './App.css';
 import * as React from "react";
-import 'bulma';
 import {BrowserRouter as Router, Route} from "react-router-dom";
 import {Login} from "./Login";
 import {Dashboard} from "./Dashboard";
 import {ProblemEditor} from "./problem/ProblemEditor";
+import 'bulma';
+import 'bulma';
+import {ExamList} from "./exam/ExamList";
+
 
 function App(props) {
     return (
         <Router>
-            <div className="App">
+            <div className="App has-text-centered">
                 <Route exact={true} path="/" component={Login}/>
                 <Route path="/dashboard" component={Dashboard}/>
                 <Route path="/problems/:problemId/edit" component={ProblemEditor}/>
+                <Route path="/exams" component={ExamList}/>
             </div>
         </Router>
     )

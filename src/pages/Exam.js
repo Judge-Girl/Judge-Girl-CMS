@@ -5,7 +5,7 @@ import 'bulma';
 const Exam = function () {
     return (
         <div className="font-poppins is-flex is-flex-direction-column p-6">
-            <div className="custom-title-font">
+            <div className="title-font">
                 Exam List
             </div>
             <div className="is-flex mb-3">

@@ -5,6 +5,8 @@ import {useState} from "react";
 import {useEffect} from "react";
 import {examService} from "../../services/services";
 import * as moment from "moment";
+import {CreateExamModal} from "./CreateExamModal";
+import {TitleLine} from "../commons/TitleLine";
 
 function formatDate(timestamp) {
     return moment(timestamp).format('YYYY/MM/DD  h:mm A');
@@ -16,7 +18,8 @@ function renderExamRows(exams) {
         rows.push((
             <tr>
                 <th scope="row"> {exam.id}</th>
-                <td><span className="fake-link" onClick={e => {}}> {exam.name} </span>
+                <td><span className="fake-link" onClick={e => {
+                }}> {exam.name} </span>
                 </td>
                 <td> {formatDate(exam.startTime)} </td>
                 <td> {formatDate(exam.endTime)} </td>
@@ -27,6 +30,7 @@ function renderExamRows(exams) {
 }
 
 const ExamList = function () {
+    const [showCreateExamModal, setShowCreateExamModel] = useState(false);
     const [exams, setExams] = useState([]);
 
     useEffect(() => {
@@ -36,12 +40,13 @@ const ExamList = function () {
         }
     }, [exams]);
 
+    const onCreateButtonClick = e => {
+        setShowCreateExamModel(true);
+    };
+
     return (
-        <div className="has-text-left container font-poppins">
-            <div className="custom-title-font">
-                Exam List
-            </div>
-            <hr className="my-4"/>
+        <div className="container font-poppins">
+            <TitleLine title="Exam List"/>
             <div className="is-flex is-justify-content-center">
                 <div>
                     <div className="select" id="filter">
@@ -53,7 +58,9 @@ const ExamList = function () {
                     </div>
                 </div>
                 <input style={{flexGrow: "1"}} type="text" id="searchBar"/>
-                <button className="button ml-2" id="create-exam-btn" style={{flexGrow: "1"}}>+Create</button>
+                <button className="button ml-2" id="create-exam-btn"
+                        style={{flexGrow: "1"}} onClick={onCreateButtonClick}>+Create
+                </button>
             </div>
 
             <table className="table my-exam-table mt-4">
@@ -69,6 +76,9 @@ const ExamList = function () {
                 {renderExamRows(exams)}
                 </tbody>
             </table>
+
+            <CreateExamModal show={showCreateExamModal}
+                             onClose={() => setShowCreateExamModel(false)}/>
         </div>
     )
 };

@@ -5,7 +5,6 @@ import {Login} from "./Login";
 import {Dashboard} from "./Dashboard";
 import {ProblemEditor} from "./problem/ProblemEditor";
 import 'bulma';
-import 'bulma';
 import {ExamList} from "./exam/ExamList";
 
 

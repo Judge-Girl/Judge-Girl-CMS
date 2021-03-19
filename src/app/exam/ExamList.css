@@ -6,7 +6,7 @@
 
 .custom-title-font {
     font-size: 35px;
-    font-weight: bold;
+    font-weight: 800;
     color: #374550;
     text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.25);
     display: inline-block;
@@ -15,11 +15,6 @@
 .my-btn-text {
     font-weight: 600;
     color: #676877;
-}
-
-#searchBar {
-    height: 30px;
-    width: 100%;
 }
 
 .table {
@@ -58,11 +53,17 @@
 }
 
 #filter {
+    font-size: 15px;
     color: #F9F9F9;
 }
 
+#searchBar {
+    height: 38px;
+    width: 100%;
+}
+
 #create-exam-btn {
-    height: 30px;
+    height: 38px;
     background: #91CB46;
     color: white;
 }

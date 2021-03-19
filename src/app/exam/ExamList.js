@@ -37,14 +37,14 @@ const ExamList = function () {
     }, [exams]);
 
     return (
-        <div className="container font-poppins">
+        <div className="has-text-left container font-poppins">
             <div className="custom-title-font">
                 Exam List
             </div>
             <hr className="my-4"/>
             <div className="is-flex is-justify-content-center">
                 <div>
-                    <div style={{fontSize: "12px"}} className="select" id="filter">
+                    <div className="select" id="filter">
                         <select>
                             <option>Filter</option>
                             <option>Id</option>

@@ -4,7 +4,7 @@ import 'bulma';
 import {BrowserRouter as Router, Route} from "react-router-dom";
 import {Login} from "./Login";
 import {Dashboard} from "./Dashboard";
-
+import {ProblemEditor} from "./ProblemEditor";
 
 function App(props) {
     return (
@@ -12,6 +12,7 @@ function App(props) {
             <div className="App">
                 <Route exact={true} path="/" component={Login}/>
                 <Route path="/dashboard" component={Dashboard}/>
+                <Route path="/problems/:problemId/edit" component={ProblemEditor}/>
             </div>
         </Router>
     )

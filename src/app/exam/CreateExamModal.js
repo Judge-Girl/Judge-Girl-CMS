@@ -96,7 +96,7 @@ const CreateExamModal = ({show, onClose, onExamCreated}) => {
                         <SubtitleLine title="Schedule"/>
 
                         {scheduleItem(startTimeInputRef, 'Start Time', 'startTime', startTime, setStartTimeHandler, new Date())}
-                        {scheduleItem(endTimeInputRef, 'End Time', 'endTime', endTime, setEndTimeHandler, new Date())}
+                        {scheduleItem(endTimeInputRef, 'End Time', 'endTime', endTime, setEndTimeHandler, new Date(startTime))}
 
                         {/* TODO: white-list */}
 

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../ProblemEditor.module.css';
+import '../ProblemEditor.css';
 
 function SubmittedCodeForm(props) {
     const [input, setInput] = useState('');

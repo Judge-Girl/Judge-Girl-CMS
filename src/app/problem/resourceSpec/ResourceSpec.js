@@ -1,5 +1,5 @@
 import React from 'react';
-import '../ProblemEditor.module.css';
+import '../ProblemEditor.css';
 
 function ResourceSpec () {
     return (

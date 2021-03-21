@@ -1,12 +1,12 @@
 import './ExamList.css';
 import * as React from "react";
-import 'bulma';
 import {useState} from "react";
 import {useEffect} from "react";
 import {examService} from "../../services/services";
 import * as moment from "moment";
 import {CreateExamModal} from "./CreateExamModal";
 import {TitleLine} from "../commons/TitleLine";
+
 
 function formatDate(timestamp) {
     return moment(timestamp).format('YYYY/MM/DD  h:mm A');

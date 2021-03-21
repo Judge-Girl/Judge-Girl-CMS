@@ -1,5 +1,5 @@
 import {withRouter} from "react-router";
-import './ProblemEditor.module.css';
+import './ProblemEditor.css';
 import TagList from "./tags/TagList";
 import SubmittedCodeList from './submittedCode/SubmittedCodeList';
 import ProvidedCodeList from './providedCode/ProvidedCodeList';

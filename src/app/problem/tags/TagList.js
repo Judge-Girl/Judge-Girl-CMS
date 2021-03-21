@@ -1,7 +1,7 @@
 import React from 'react';
 import TagsForm from "./TagsForm";
 import Tags from "./Tags";
-import '../ProblemEditor.module.css';
+import '../ProblemEditor.css';
 import {useTags} from "../../usecases/TagUseCase";
 
 function TagList() {

@@ -1,7 +1,7 @@
 import React from 'react';
 import SubmittedCodeForm from './SubmittedCodeForm';
 import SubmittedCode from './SubmittedCode';
-import '../ProblemEditor.module.css';
+import '../ProblemEditor.css';
 import {useTags} from "../../usecases/TagUseCase";
 
 function SubmittedCodeList() {

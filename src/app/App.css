@@ -8,7 +8,6 @@
 body {
     background: var(--background);
     height: 100vh;
-
 }
 
 .field:not(:last-child) {

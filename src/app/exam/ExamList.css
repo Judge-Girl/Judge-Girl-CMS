@@ -4,13 +4,6 @@
     padding-right: 100px;
 }
 
-.custom-title-font {
-    font-size: 35px;
-    font-weight: 800;
-    color: #374550;
-    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.25);
-    display: inline-block;
-}
 
 .my-btn-text {
     font-weight: 600;
@@ -64,6 +57,8 @@
 
 #create-exam-btn {
     height: 38px;
-    background: #91CB46;
-    color: white;
+}
+
+table tr > th:not(:first-child), table tr > td:not(:first-child)  {
+    text-align: left !important;
 }

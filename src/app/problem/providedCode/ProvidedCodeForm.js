@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import '../ProblemEditor.css';
+import '../ProblemEditor.module.css';
 import ProvidedCode from "./ProvidedCode";
 
 function ProvidedCodeForm () {

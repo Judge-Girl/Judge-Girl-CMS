@@ -1,11 +1,11 @@
-import './App.css';
 import * as React from "react";
 import {BrowserRouter as Router, Route} from "react-router-dom";
 import {Login} from "./Login";
 import {Dashboard} from "./Dashboard";
 import {ProblemEditor} from "./problem/ProblemEditor";
-import 'bulma';
 import {ExamList} from "./exam/ExamList";
+import 'bulma';
+import './App.css';
 
 
 function App(props) {

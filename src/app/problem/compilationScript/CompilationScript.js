@@ -1,5 +1,5 @@
 import React from 'react';
-import '../ProblemEditor.css';
+import '../ProblemEditor.module.css';
 
 function CompilationScript() {
     return (

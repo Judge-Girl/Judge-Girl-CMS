@@ -1,5 +1,5 @@
 import React from 'react';
-import '../ProblemEditor.css';
+import '../ProblemEditor.module.css';
 import {AiOutlineClose} from "react-icons/ai";
 
 function ProvidedCode({files, removeFile}) {

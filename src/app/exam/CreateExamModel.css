@@ -1,5 +1,38 @@
-#examNameInput {
+#exam-name-input {
     height: 41px;
-    padding-left: 48px;
-    padding-right: 48px;
+}
+
+.modal-card-body {
+    padding: 5px 40px 30px 40px;
+}
+
+#modal-card {
+    width: 465px;
+}
+
+#modal-card label {
+    font-size: 15px;
+}
+
+
+#create-btn {
+    width: 85%;
+    height: 38px;
+    background: #91CB46;
+    color: white;
+}
+
+#close-btn {
+    left: 210px; /*TODO: hard-coded, should be improved*/
+}
+
+.schedule-item * {
+    line-height: 25px;
+    height: 25px;
+}
+
+.dot {
+    height: 10px;
+    margin-top: auto;
+    margin-bottom: auto;
 }

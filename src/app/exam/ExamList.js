@@ -12,26 +12,19 @@ function formatDate(timestamp) {
     return moment(timestamp).format('YYYY/MM/DD  h:mm A');
 }
 
-function renderExamRows(exams) {
-    const rows = [];
-    for (const exam of exams) {
-        rows.push((
-            <tr>
-                <th scope="row"> {exam.id}</th>
-                <td><span className="fake-link" onClick={e => {
-                }}> {exam.name} </span>
-                </td>
-                <td> {formatDate(exam.startTime)} </td>
-                <td> {formatDate(exam.endTime)} </td>
-            </tr>
-        ));
-    }
-    return rows;
-}
+const useExamList = function () {
+    const [exams, setExams] = useState([]);
+    const addExam = (exam) => {
+        exams.push(exam);
+        setExams(exams);
+    };
+
+    return {exams, setExams, addExam}
+};
 
 const ExamList = function () {
     const [showCreateExamModal, setShowCreateExamModel] = useState(false);
-    const [exams, setExams] = useState([]);
+    const {exams, setExams, addExam} = useExamList();
 
     useEffect(() => {
         if (exams.length === 0) {
@@ -39,10 +32,6 @@ const ExamList = function () {
                 .then(exams => setExams(exams));
         }
     }, [exams]);
-
-    const onCreateButtonClick = e => {
-        setShowCreateExamModel(true);
-    };
 
     return (
         <div className="container font-poppins">
@@ -58,8 +47,8 @@ const ExamList = function () {
                     </div>
                 </div>
                 <input style={{flexGrow: "1"}} type="text" id="searchBar"/>
-                <button className="button ml-2" id="create-exam-btn"
-                        style={{flexGrow: "1"}} onClick={onCreateButtonClick}>+Create
+                <button className="button ml-2 my-green-btn" id="create-exam-btn"
+                        style={{flexGrow: "1"}} onClick={e => setShowCreateExamModel(true)}>+Create
                 </button>
             </div>
 
@@ -73,12 +62,22 @@ const ExamList = function () {
                 </tr>
                 </thead>
                 <tbody>
-                {renderExamRows(exams)}
+                {exams.map(exam =>
+                    <tr key={exam.id}>
+                        <td scope="row"> {exam.id}</td>
+                        <td> <span className="fake-link" onClick={e => {
+                        }}> {exam.name} </span>
+                        </td>
+                        <td> {formatDate(exam.startTime)} </td>
+                        <td> {formatDate(exam.endTime)} </td>
+                    </tr>
+                )}
                 </tbody>
             </table>
 
             <CreateExamModal show={showCreateExamModal}
-                             onClose={() => setShowCreateExamModel(false)}/>
+                             onClose={() => setShowCreateExamModel(false)}
+                             onExamCreated={exam => addExam(exam)}/>
         </div>
     )
 };

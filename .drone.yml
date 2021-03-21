@@ -11,7 +11,7 @@ steps:
       - CI=true npm test
   - name: Build Website
     commands:
-      - npm run build
+      - CI=true npm run build
     when:
       branch:
         - master

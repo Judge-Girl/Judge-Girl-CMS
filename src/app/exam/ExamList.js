@@ -13,7 +13,7 @@ function formatDate(timestamp) {
 }
 
 const useExamList = function () {
-    const [exams, setExams] = useState([]);
+    const [exams, setExams] = useState();
     const addExam = (exam) => {
         exams.push(exam);
         setExams(exams);
@@ -27,11 +27,11 @@ const ExamList = function () {
     const {exams, setExams, addExam} = useExamList();
 
     useEffect(() => {
-        if (exams.length === 0) {
+        if (!exams || exams.length === 0) {
             examService.getExams()
                 .then(exams => setExams(exams));
         }
-    }, [exams]);
+    });
 
     return (
         <div className="container font-poppins">
@@ -62,9 +62,9 @@ const ExamList = function () {
                 </tr>
                 </thead>
                 <tbody>
-                {exams.map(exam =>
+                {exams?.map(exam =>
                     <tr key={exam.id}>
-                        <td scope="row"> {exam.id}</td>
+                        <td> {exam.id}</td>
                         <td> <span className="fake-link" onClick={e => {
                         }}> {exam.name} </span>
                         </td>

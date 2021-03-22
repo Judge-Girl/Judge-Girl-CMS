@@ -1,16 +1,20 @@
 import {withRouter} from "react-router";
+import {studentService} from "../services/services";
 
-const Login = withRouter(({history}) =>  {
+const Login = withRouter(({history}) => {
     const onSubmit = (e) => {
         e.preventDefault();  // don't submit the form
 
-        const account = e.target[0].value;
+        const email = e.target[0].value;
         const password = e.target[1].value;
+        console.log(`Account: ${email}, Password: ${"*".repeat(password.length)}`);
 
-        // TODO: Login procedure
-
-        history.push('/dashboard');
-        console.log(`Account: ${account}, Password: ${"*".repeat(password.length)}`);
+        studentService.login(email, password)
+            .then(student => {
+                if (student.isAdmin) {
+                    history.push('/dashboard');
+                }
+            }).catch(error => alert(`Login failed.`));
     };
     return (
         <div className="App">
@@ -30,7 +34,7 @@ const Login = withRouter(({history}) =>  {
 
                                     <div className="field">
                                         <div className="control">
-                                            <input className="input is-medium" type="text" placeholder="Password"/>
+                                            <input className="input is-medium" type="password" placeholder="Password"/>
                                         </div>
                                     </div>
                                     <button type="submit" className="button-submit is-block">Submit</button>

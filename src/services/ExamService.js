@@ -1,4 +1,4 @@
-import Exam from "../models/exam";
+import Exam from "../models/Exam";
 
 export default class ExamService {
 

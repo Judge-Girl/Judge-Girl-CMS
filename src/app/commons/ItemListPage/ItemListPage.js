@@ -27,12 +27,11 @@ const FilterSearchBar = ({filterItems, onCreateButtonClick}) => {
 /**
  * @param title the title (str) of the page
  * @param filterItems the item's name (str) that is included in the filter drop-down list
- * @param onCreateButtonClick
- * @param tableHeaders
- * @param tableRowGenerator
- * @param tableDataStyle
- * @returns {*}
- * @constructor
+ * @param onCreateButtonClick the event listener triggered when the green 'Create' button get clicked
+ * @param tableHeaders a list of header names (str) in the table
+ * @param tableRowGenerator two fields (1) list: 'the data list' (2) a row generation function that
+ *  receives an index of the data and then return the content (html) of that within the <td></td>
+ * @param tableDataStyle the custom style of the <td> elements
  */
 const ItemListPage = ({
                           title, filterItems, onCreateButtonClick,

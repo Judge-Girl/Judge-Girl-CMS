@@ -17,16 +17,6 @@
     margin-right: auto;
 }
 
-.table th {
-    text-align: left;
-}
-
-.table tbody tr:nth-child(2n-1) {
-    background: #F9F9F9;
-}
-.table td {
-    text-align: left;
-}
 
 .font-poppins {
     font-family: 'Poppins', sans-serif;
@@ -41,24 +31,7 @@
     color: #6D6E7D;
 }
 
-.fake-link {
-    color: #1273BA;
-    cursor: pointer;
-}
 
-#filter {
-    font-size: 15px;
-    color: #F9F9F9;
-}
-
-#searchBar {
-    height: 38px;
-    width: 100%;
-}
-
-#create-exam-btn {
-    height: 38px;
-}
 
 table tr > th:not(:first-child), table tr > td:not(:first-child)  {
     text-align: left !important;

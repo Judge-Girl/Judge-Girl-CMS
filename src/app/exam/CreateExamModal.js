@@ -84,9 +84,9 @@ const CreateExamModal = ({show, onClose, onExamCreated}) => {
         <div className={`modal ${show ? 'is-active' : ''}`}>
             <div className="modal-background"/>
             <div id="modal-card" className="font-poppins modal-card">
+                <form onSubmit={handleSubmit} ref={formRef}>
 
-                <section className="modal-card-body">
-                    <form onSubmit={handleSubmit} ref={formRef}>
+                    <section className="modal-card-body has-text-centered">
                         <button id="close-btn" className="delete" ref={closeIcon}
                                 aria-label="close" onClick={e => onClose()}/>
                         <SubtitleLine title="Exam Name"/>
@@ -101,8 +101,8 @@ const CreateExamModal = ({show, onClose, onExamCreated}) => {
                         {/* TODO: white-list */}
 
                         <button className="button ml-2 mt-3 my-green-btn" id="create-btn">Create Exam</button>
-                    </form>
-                </section>
+                    </section>
+                </form>
 
             </div>
         </div>

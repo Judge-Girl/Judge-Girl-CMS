@@ -1,0 +1,34 @@
+#filter {
+    font-size: 15px;
+    color: #F9F9F9;
+}
+
+#searchBar {
+    height: 38px;
+    width: 100%;
+}
+
+#create-exam-btn {
+    height: 38px;
+}
+
+.items-table thead {
+    border-bottom: 2px solid #6D6E7D;
+    text: #676877;
+}
+
+.items-table tr {
+    color: #6D6E7D;
+}
+
+
+.items-table th {
+    text-align: left !important;
+}
+
+.items-table tbody tr:nth-child(2n-1) {
+    background: #F9F9F9;
+}
+.items-table td {
+    text-align: left;
+}

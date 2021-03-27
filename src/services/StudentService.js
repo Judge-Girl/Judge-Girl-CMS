@@ -1,5 +1,6 @@
 import axios from "axios";
 import Student from "../models/Student";
+import {Group} from "../models/Group";
 
 export default class StudentService {
     constructor() {
@@ -12,5 +13,25 @@ export default class StudentService {
     async login(email, password) {
         return this.axios.post('/api/students/login', {email, password})
             .then(res => new Student(res.data))
+    }
+
+    async getStudents() {
+        return new Promise(resolve => {
+            resolve([{
+                name: "Johnny",
+                email: "johnny@gmail.com"
+            }, {
+                name: "Wally",
+                email: "wally@gmail.com"
+            }, {
+                name: "Tim",
+                email: "Tim@gmail.com"
+            }])
+        });
+    }
+
+    async getGroups() {
+        return this.axios.get('/api/groups')
+            .then(res => res.data.map(obj => new Group(obj)))
     }
 }

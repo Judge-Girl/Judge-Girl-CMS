@@ -8,6 +8,7 @@ import {faCircle} from '@fortawesome/free-solid-svg-icons';
 import {examService} from "../../services/services";
 import {createRef} from "react";
 import {now} from "moment";
+import {renderModal} from "../commons/modals/modal";
 
 
 function formatDate(time) {
@@ -16,7 +17,7 @@ function formatDate(time) {
 
 function scheduleItem(inputRef, label, inputName, timeValue, setTime, minTime) {
     return (
-        <div key={inputName} className="is-flex is-align-content-center py-3 mr-2 schedule-item">
+        <div key={inputName} className="is-flex is-justify-content-center py-3 mr-2 schedule-item">
             <FontAwesomeIcon className="dot" icon={faCircle}/>
             <label className="ml-2 is-vcentered">{label}</label>
             <input className="ml-4" type="datetime-local"
@@ -34,7 +35,7 @@ const CreateExamModal = ({show, onClose, onExamCreated}) => {
     const [name, setName] = useState('');
     const [startTime, setStartTime] = useState(now() + oneHour);
     const [endTime, setEndTime] = useState(now() + oneHour * 2);
-    const closeIcon = createRef();
+    const closeIconRef = createRef();
     const formRef = createRef(), nameInputRef = createRef(), startTimeInputRef = createRef(),
         endTimeInputRef = createRef();
 
@@ -67,7 +68,7 @@ const CreateExamModal = ({show, onClose, onExamCreated}) => {
             examService.createExam({name, startTime, endTime})
                 .then(exam => {
                     onExamCreated(exam);
-                    closeIcon.current.click(); // close the modal
+                    closeIconRef.current.click(); // close the modal
 
                     // reset
                     setName('');
@@ -80,33 +81,28 @@ const CreateExamModal = ({show, onClose, onExamCreated}) => {
 
     };
 
-    return (
-        <div className={`modal ${show ? 'is-active' : ''}`}>
-            <div className="modal-background"/>
-            <div id="modal-card" className="font-poppins modal-card">
-                <form onSubmit={handleSubmit} ref={formRef}>
+    return renderModal({
+        show, onClose, closeIconRef,
+        contentRendering: () => (
+            <form onSubmit={handleSubmit} ref={formRef}>
+                <div className="has-text-centered">
+                    <SubtitleLine title="Exam Name"/>
+                    <input ref={nameInputRef} type="text" className="mt-3 mb-5 full-width" name="examName"
+                           value={name} id="exam-name-input" onChange={e => setName(e.target.value)} required/>
 
-                    <section className="modal-card-body has-text-centered">
-                        <button id="close-btn" className="delete" ref={closeIcon}
-                                aria-label="close" onClick={e => onClose()}/>
-                        <SubtitleLine title="Exam Name"/>
-                        <input ref={nameInputRef} type="text" className="mt-3 mb-5 full-width" name="examName"
-                               value={name} id="exam-name-input" onChange={e => setName(e.target.value)} required/>
+                    <SubtitleLine title="Schedule"/>
 
-                        <SubtitleLine title="Schedule"/>
+                    {scheduleItem(startTimeInputRef, 'Start Time', 'startTime', startTime, setStartTimeHandler, new Date())}
+                    {scheduleItem(endTimeInputRef, 'End Time', 'endTime', endTime, setEndTimeHandler, new Date(startTime))}
 
-                        {scheduleItem(startTimeInputRef, 'Start Time', 'startTime', startTime, setStartTimeHandler, new Date())}
-                        {scheduleItem(endTimeInputRef, 'End Time', 'endTime', endTime, setEndTimeHandler, new Date(startTime))}
+                    {/* TODO: white-list */}
 
-                        {/* TODO: white-list */}
+                    <button className="button ml-2 mt-3 my-green-btn" id="create-btn">Create Exam</button>
+                </div>
+            </form>
+        )
+    })
 
-                        <button className="button ml-2 mt-3 my-green-btn" id="create-btn">Create Exam</button>
-                    </section>
-                </form>
-
-            </div>
-        </div>
-    )
 };
 
 

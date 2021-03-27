@@ -3,7 +3,7 @@
 }
 
 .modal-card-body {
-    padding: 5px 40px 30px 40px;
+    padding: 0;
 }
 
 #modal-card {
@@ -14,7 +14,6 @@
     font-size: 15px;
 }
 
-
 #create-btn {
     width: 85%;
     height: 38px;
@@ -23,7 +22,8 @@
 }
 
 #close-btn {
-    left: 210px; /*TODO: hard-coded, should be improved*/
+    /*left: 210px; !*TODO: hard-coded, should be improved*!*/
+    float: right;
 }
 
 .schedule-item * {

@@ -3,7 +3,6 @@ import {ItemListPage} from "../commons/ItemListPage/ItemListPage";
 import {studentService} from "../../services/services";
 import FakeLink from "../commons/FakeLink";
 import {CreateGroupModal} from "./CreateGroupModal";
-import {CreateExamModal} from "../exam/CreateExamModal";
 
 const useExamList = function () {
     const [groups, setGroups] = useState(undefined);

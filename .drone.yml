@@ -12,11 +12,6 @@ steps:
   - name: Build Website
     commands:
       - CI=true npm run build
-    when:
-      branch:
-        - master
-      event:
-        - push
   - name: Build Docker Image
     commands:
       - docker build . -t judge-cms

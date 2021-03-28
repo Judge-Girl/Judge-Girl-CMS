@@ -1,11 +1,11 @@
 import React from 'react';
 import ProvidedCodeForm from './ProvidedCodeForm';
+import {SubtitleLine} from '../../commons/TitleLine';
 
 function ProvidedCodeList () {
     return (
         <div>
-            <h2>Provided Code</h2>
-            <hr />
+            <SubtitleLine title={"Provided Code"} />
             <ProvidedCodeForm />
         </div>
     )

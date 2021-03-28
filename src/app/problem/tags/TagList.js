@@ -1,18 +1,17 @@
 import React from 'react';
-import TagsForm from "./TagsForm";
-import Tags from "./Tags";
 import '../ProblemEditor.css';
 import {useTags} from "../../usecases/TagUseCase";
+import {SubtitleLine} from "../../commons/TitleLine";
+import {InputForm, Items} from '../../commons/ProblemEditorPage/ProblemEditorPage';
 
 function TagList() {
     const {tags, addTags, removeTag} = useTags();
 
     return (
         <div>
-            <h2>Tags</h2>
-            <hr />
-            <TagsForm onSubmit={addTags} />
-            <Tags tags={tags} removeTag={removeTag} />
+            <SubtitleLine title={"Tags"} />
+            <InputForm placeholder={"Add New Tags"} onSubmit={addTags}  />
+            <Items items={tags} removeItems={removeTag} />
         </div>
     )
 }

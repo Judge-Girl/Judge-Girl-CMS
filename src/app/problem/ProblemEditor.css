@@ -6,68 +6,23 @@
     --textLight: rgb(62, 189, 217);
 }
 
-.problem-editor hr {
-    margin-top: 0.5em;
-    margin-bottom: 0.5em;
-    color: black;
-    border-style: inset;
-    border-width: 1px;
+.problem-editor .column {
+    float: left;
 }
 
-.problem-editor h2 {
-    padding-top: 10px;
-    color: #6D6E7D;
-    font-family: Poppins, sans-serif;
+.problem-editor .left {
+    padding-left: 150px;
+    padding-right: 50px;
+    flex-grow: 1;
+}
+
+.problem-editor .right {
+    flex-grow: 2;
+    padding-right: 120px;
 }
 
 .problem-editor section {
-    padding-left: 143px;
     padding-bottom: 70px;
-}
-
-.problem-editor .tag-input {
-    width: 250px;
-    height: 33px;
-    border: 1px solid #E4E1E1;
-}
-
-.problem-editor .tag-button {
-    width: 33px;
-    height: 33px;
-
-    /* Add Btn */
-    /* Auto Layout */
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    padding: 4px;
-
-    background: #F9F9F9;
-    border: 1px solid #E5E5E5;
-    box-sizing: border-box;
-}
-
-.problem-editor .tag-item {
-    color: #1273BA;
-    padding-left: 10px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    width: 284px;
-    height: 33px;
-    border: 1px solid #E4E1E1;
-    box-sizing: border-box;
-
-    font-family: Poppins, sans-serif;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 15px;
-    line-height: 22px;
-
-    display: flex;
-    align-items: center;
 }
 
 .problem-editor .delete-icon {
@@ -249,6 +204,12 @@
 
 .problem-editor input {
     font-size: 1rem;
+}
+
+.problem-editor input[type="radio"] {
+    margin-right: 10px;
+    /*height: 23px;*/
+    font-family: 'Nunito Sans', sans-serif;
 }
 
 input:focus {

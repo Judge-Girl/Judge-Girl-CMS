@@ -1,11 +1,11 @@
 import React from 'react';
 import '../ProblemEditor.css';
+import {SubtitleLine} from "../../commons/TitleLine";
 
 function ResourceSpec () {
     return (
         <div>
-            <h2>Resource Spec</h2>
-            <hr />
+            <SubtitleLine title={"Resource Spec"} />
             <li>
                 <span>CPU</span>
                 <input type="text" className="resource-spec-input-box" /></li>

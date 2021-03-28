@@ -4,11 +4,11 @@ import {createRef} from "react";
 import {renderModal} from "../commons/modals/modal";
 import {ModalHeader} from "../commons/modals/ModalHeader";
 import {studentService} from "../../services/services";
-import './CreateStudentAccountModal.css';
+import './CreateAdminAccountModal.css';
 import {ModalInput} from "../commons/modals/ModalInput";
 
 
-const CreateStudentAccountModal = ({show, onClose, onStudentCreated}) => {
+const CreateAdminAccountModal = ({show, onClose, onAdminCreated}) => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -17,26 +17,29 @@ const CreateStudentAccountModal = ({show, onClose, onStudentCreated}) => {
 
     const handleSubmit = e => {
         e.preventDefault();
-        studentService.createStudentAccount({name, email, password})
+        studentService.createAdminAccount({name, email, password})
             .then(student => {
-                onStudentCreated(student);
+                onAdminCreated(student);
                 closeIconRef.current.click();
 
-                setName("");  // reset form
+                setName("");
                 setEmail("");
                 setPassword("");
             });
 
     };
 
+    // TODO: not sure if CreateAdminAccountModal will grow differently from CreateStudentAccountModal
+    //      hence keep them individually for the while
+    // noinspection DuplicatedCode
     return renderModal({
-        modalClassName: "create-student-account-modal",
+        modalClassName: "create-admin-account-modal",
         modalWidth: "530px",
         show, onClose, closeIconRef,
         contentRendering: () => (
             <form onSubmit={handleSubmit} ref={formRef}>
                 <div id="modal" className="font-poppins has-text-centered">
-                    <ModalHeader title="Create Student Account" textAlign="left"/>
+                    <ModalHeader title="Create Admin Account" textAlign="left"/>
                     <ModalInput labelText="Name" value={name} required={true} height="50px"
                                 placeholder="Name" placeholderTextAlign="left" fontSize="20px"
                                 onChange={e => setName(e.target.value)}/>
@@ -46,7 +49,7 @@ const CreateStudentAccountModal = ({show, onClose, onStudentCreated}) => {
                     <ModalInput type="password" labelText="Password" value={password} required={true} height="50px"
                                 placeholder="Password" placeholderTextAlign="left" fontSize="20px"
                                 onChange={e => setPassword(e.target.value)}/>
-                    <button className="button mt-5 my-green-btn" id="create-btn">Create Student Account</button>
+                    <button className="button mt-5 my-green-btn" id="create-btn">Create Admin Account</button>
                 </div>
             </form>
         )
@@ -54,4 +57,4 @@ const CreateStudentAccountModal = ({show, onClose, onStudentCreated}) => {
 };
 
 
-export {CreateStudentAccountModal}
+export {CreateAdminAccountModal}

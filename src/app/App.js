@@ -8,6 +8,7 @@ import {ProblemEditor} from "./problem/ProblemEditor";
 import {ExamList} from "./exam/ExamList";
 import {StudentList} from "./students/StudentList";
 import {GroupList} from "./students/GroupList";
+import {AdminList} from "./admins/AdminList";
 
 
 function App(props) {
@@ -17,6 +18,7 @@ function App(props) {
                 <Route exact={true} path="/" component={Login}/>
                 <Route path="/dashboard" component={Dashboard}/>
                 <Route path="/students" component={StudentList}/>
+                <Route path="/admins" component={AdminList}/>
                 <Route path="/groups" component={GroupList}/>
                 <Route path="/problems/:problemId/edit" component={ProblemEditor}/>
                 <Route path="/exams" component={ExamList}/>

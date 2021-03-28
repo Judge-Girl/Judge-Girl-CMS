@@ -33,6 +33,17 @@ export default class StudentService {
         });
     }
 
+    async getAdmins() {
+        return new Promise(resolve => {
+            resolve([{
+                id: 333,
+                name: "admin",
+                email: "adin@gmail.com"
+            }]);
+        });
+    }
+
+
     async getGroups() {
         return this.axios.get('/api/groups')
             .then(res => res.data.map(obj => new Group(obj)));
@@ -45,6 +56,11 @@ export default class StudentService {
 
     async createStudentAccount({name, email, password}) {
         return this.axios.post('/api/students/signUp', {name, email, password, isAdmin: false})
+            .then(res => new Student(res.data));
+    }
+
+    async createAdminAccount({name, email, password}) {
+        return this.axios.post('/api/students/signUp', {name, email, password, isAdmin: true})
             .then(res => new Student(res.data));
     }
 }

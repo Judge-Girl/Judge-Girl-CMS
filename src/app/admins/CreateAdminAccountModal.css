@@ -1,0 +1,15 @@
+.create-admin-account-modal #modal {
+    padding: 31px 53px 41px 53px;
+}
+
+.create-admin-account-modal #create-btn {
+    height: 50px;
+    background: #91CB46;
+    color: white;
+    width: 100%;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 30px;
+    border-radius: 10px;
+
+}

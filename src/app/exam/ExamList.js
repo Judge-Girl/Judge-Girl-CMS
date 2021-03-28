@@ -13,7 +13,7 @@ function formatDate(timestamp) {
 }
 
 const useExamList = function () {
-    const [exams, setExams] = useState();
+    const [exams, setExams] = useState(undefined);
     const addExam = (exam) => {
         exams.push(exam);
         setExams(exams);
@@ -23,7 +23,7 @@ const useExamList = function () {
 };
 
 const ExamList = function () {
-    const [showCreateExamModal, setShowCreateExamModel] = useState(false);
+    const [showCreateExamModal, setShowCreateExamModal] = useState(false);
     const {exams, setExams, addExam} = useExamList();
 
     useEffect(() => {
@@ -38,10 +38,11 @@ const ExamList = function () {
 
             <ItemListPage title="Exam List"
                           filterItems={["Filter", "Id", "name"]}
-                          onCreateButtonClick={e => setShowCreateExamModel(true)}
+                          onCreateButtonClick={e => setShowCreateExamModal(true)}
                           tableHeaders={["#", "Exam Name", "Start Time", "End Time"]}
                           tableRowGenerator={{
                               list: exams,
+                              key: (exam) => exam.id,
                               data: (exam) => [
                                   exam?.id,
                                   (<FakeLink content={exam.name}/>),
@@ -51,7 +52,7 @@ const ExamList = function () {
                           }}/>
 
             <CreateExamModal show={showCreateExamModal}
-                             onClose={() => setShowCreateExamModel(false)}
+                             onClose={() => setShowCreateExamModal(false)}
                              onExamCreated={exam => addExam(exam)}/>
         </div>
     )

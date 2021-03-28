@@ -1,0 +1,44 @@
+
+label.modal-input-label {
+    display: block;
+    margin-top: 20px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 30px;
+}
+
+
+input.modal-input {
+    padding: 20px;
+    border: 1px #C4C4C4 solid;
+    border-radius: 10px;
+    width: 100%;
+    display: inline-block;
+    background-color: #F9F9F9;
+}
+
+input.modal-input::placeholder {
+    text-align: center;
+    font-weight: 600;
+    color: #C4C4C4;
+}
+
+input.modal-input::placeholder {
+    text-align: center;
+    font-weight: 600;
+    color: #C4C4C4;
+}
+
+
+input.placeholder-align-right::placeholder {
+    text-align: right;
+}
+
+input.placeholder-align-center::placeholder {
+    text-align: center;
+}
+
+input.placeholder-align-left::placeholder {
+    text-align: left;
+}

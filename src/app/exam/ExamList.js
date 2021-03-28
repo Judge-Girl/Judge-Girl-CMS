@@ -42,6 +42,7 @@ const ExamList = function () {
                           tableHeaders={["#", "Exam Name", "Start Time", "End Time"]}
                           tableRowGenerator={{
                               list: exams,
+                              key: (exam) => exam.id,
                               data: (exam) => [
                                   exam?.id,
                                   (<FakeLink content={exam.name}/>),

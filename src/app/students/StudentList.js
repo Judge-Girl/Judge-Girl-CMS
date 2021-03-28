@@ -2,9 +2,19 @@ import React, {useEffect, useState} from "react";
 import {ItemListPage} from "../commons/ItemListPage/ItemListPage";
 import {studentService} from "../../services/services";
 import FakeLink from "../commons/FakeLink";
+import {CreateStudentAccountModal} from "./CreateStudentAccountModal";
+
+const useStudentList = () => {
+    const [students, setStudents] = useState(undefined);
+    const addStudent = (student) => students.push(student);
+    return {students, addStudent, setStudents};
+
+};
 
 const StudentList = () => {
-    const [students, setStudents] = useState();
+    const [showCreateStudentAccountModal, setShowCreateStudentAccountModal] = useState(false);
+    const {students, addStudent, setStudents} = useStudentList();
+
     useEffect(() => {
         if (!students) {
             studentService.getStudents()
@@ -15,19 +25,22 @@ const StudentList = () => {
         <div style={{padding: "40px 100px 20px 100px"}}>
             <ItemListPage title="Student List"
                           filterItems={["Filter", "Name", "Email"]}
-                          onCreateButtonClick={e => {
-                          }}
-                          tableHeaders={["Name", "Email", "Role", " "]}
+                          onCreateButtonClick={e => setShowCreateStudentAccountModal(true)}
+                          tableHeaders={["Name", "Email", " "]}
                           tableRowGenerator={{
                               list: students,
+                              key: (student) => student.id,
                               data: (student) => [
-                                  (<FakeLink content={student?.name}/>),
-                                  student?.email,
-                                  'Student',
+                                  (<FakeLink content={student.name}/>),
+                                  student.email,
                                   ""
                               ]
                           }}
                           tableDataStyle={{textAlign: "left"}}/>
+
+            <CreateStudentAccountModal show={showCreateStudentAccountModal}
+                                       onClose={() => setShowCreateStudentAccountModal(false)}
+                                       onStudentCreated={student => addStudent(student)}/>
         </div>
     )
 };

@@ -9,6 +9,7 @@ import {examService} from "../../services/services";
 import {createRef} from "react";
 import {now} from "moment";
 import {renderModal} from "../commons/modals/modal";
+import {ModalInput} from "../commons/modals/ModalInput";
 
 
 function formatDate(time) {
@@ -87,10 +88,10 @@ const CreateExamModal = ({show, onClose, onExamCreated}) => {
         show, onClose, closeIconRef,
         contentRendering: () => (
             <form onSubmit={handleSubmit} ref={formRef}>
-                <div className="has-text-centered">
+                <div className="p-5 has-text-centered">
                     <SubtitleLine title="Exam Name"/>
-                    <input ref={nameInputRef} type="text" className="mt-3 mb-5 full-width" name="examName"
-                           value={name} id="exam-name-input" onChange={e => setName(e.target.value)} required/>
+                    <ModalInput ref={nameInputRef} value={name} required={true} fontSize="20px" height="41px"
+                                onChange={e => setName(e.target.value)}/>
 
                     <SubtitleLine title="Schedule"/>
 

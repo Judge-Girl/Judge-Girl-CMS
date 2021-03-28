@@ -1,9 +1,8 @@
 export default class Student {
-    constructor({id, email, token, expiryTime, isAdmin}) {
+    constructor({id, name, email, isAdmin}) {
         this.id = id;
+        this.name = name;
         this.email = email;
-        this.token = token;
-        this.expiryTime = expiryTime;
         this.isAdmin = isAdmin;
     }
 }

@@ -7,11 +7,7 @@ import {CreateExamModal} from "../exam/CreateExamModal";
 
 const useExamList = function () {
     const [groups, setGroups] = useState(undefined);
-    const addGroup = (group) => {
-        groups.push(group);
-        setGroups(groups);
-    };
-
+    const addGroup = (group) => groups.push(group);
     return {groups, addGroup, setGroups};
 };
 
@@ -32,6 +28,7 @@ const GroupList = () => {
                           tableHeaders={["Group Name"]}
                           tableRowGenerator={{
                               list: groups,
+                              key: (group) => group.name,
                               data: (group) => [
                                   (<FakeLink content={group.name}/>)
                               ]

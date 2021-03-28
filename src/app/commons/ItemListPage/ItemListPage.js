@@ -1,6 +1,6 @@
 import './ItemListPage.css';
 import * as React from "react";
-import {TitleLine} from "../TitleLine";
+import {TitleLine} from "../titles/TitleLine";
 
 
 const FilterSearchBar = ({filterItems, onCreateButtonClick}) => {

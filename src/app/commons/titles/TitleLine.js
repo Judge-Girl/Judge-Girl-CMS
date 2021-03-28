@@ -16,7 +16,7 @@ const TitleLine = function ({
     const textShadow = shadow ? '2px 2px 0 rgba(0, 0, 0, 0.25)' : '0';
     return (
         <div className={`has-text-${alignment}`}>
-            <p className="title-font" style={{fontSize, color, textShadow, fontWeight}}>
+            <p className="title-line" style={{fontSize, color, textShadow, fontWeight}}>
                 {title}
             </p>
             <hr className={`my-${hrMarginY}`} style={{backgroundColor: lineColor, height: hrHeight}}/>

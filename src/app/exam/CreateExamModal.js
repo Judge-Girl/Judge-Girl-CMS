@@ -1,5 +1,5 @@
 import * as React from "react";
-import {SubtitleLine} from "../commons/TitleLine";
+import {SubtitleLine} from "../commons/titles/TitleLine";
 import "./CreateExamModel.css";
 import {useState} from "react";
 import * as moment from "moment";
@@ -82,6 +82,8 @@ const CreateExamModal = ({show, onClose, onExamCreated}) => {
     };
 
     return renderModal({
+        modalClassName: "create-exam-modal",
+        modalWidth: "465px",
         show, onClose, closeIconRef,
         contentRendering: () => (
             <form onSubmit={handleSubmit} ref={formRef}>

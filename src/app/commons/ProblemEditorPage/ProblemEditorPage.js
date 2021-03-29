@@ -33,11 +33,17 @@ const InputForm = ({placeholder, onSubmit}) => {
                     className="tag-input control"
                     onChange={handleChange}
                 />
-                <button className="control tag-button">
-                    +
-                </button>
+                <AddButton title={"+"} />
             </div>
         </form>
+    );
+};
+
+const AddButton = ({title="+"}) => {
+    return (
+        <button className="control tag-button">
+            {title}
+        </button>
     );
 };
 
@@ -76,5 +82,48 @@ const EditorButton = ({
     );
 };
 
+const InputBox = ({type = "text", className = "input-box"}) => {
+    return (
+        <input type={type} className={className} />
+    );
+};
 
-export {InputForm, EditorButton, Items};
+const InlineInputBox = ({title = "title"}) => {
+    return (
+        <li>
+            <span>{title}</span>
+            <InputBox type="text" className="input-box" />
+        </li>
+    )
+};
+
+const UploadFileButton = ({
+                              title="title", onChange="onChange",
+                              width, height, buttonColor="buttonColor",
+                              borderRadius=10, fontWeight=600,
+                              fontSize=15, lineHeight = 22,
+                              fontColor= "white"
+}) => {
+    return (
+        <label
+            style={{
+            width: width, height: height, background: buttonColor, borderRadius: borderRadius,
+            fontWeight: fontWeight, fontSize: fontSize, lineHeight: lineHeight, color: fontColor,
+            display: "flex", flexDirection: "row", justifyContent: "center",
+            alignItems: "center", padding: "5 10",
+        }}
+            className="provided-code-button"
+        >
+            <i>{title}</i>
+            <input
+                type="file"
+                name="file"
+                onChange={onChange}
+                className="original-upload-button"
+            />
+        </label>
+    );
+};
+
+
+export {InputForm, AddButton, EditorButton, Items, InputBox, InlineInputBox, UploadFileButton};

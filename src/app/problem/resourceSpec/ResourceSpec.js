@@ -1,17 +1,14 @@
 import React from 'react';
 import '../ProblemEditor.css';
-import {SubtitleLine} from "../../commons/TitleLine";
+import {SubtitleLine} from "../../commons/titles/TitleLine";
+import {InlineInputBox} from "../../commons/ProblemEditorPage/ProblemEditorPage";
 
 function ResourceSpec () {
     return (
         <div>
             <SubtitleLine title={"Resource Spec"} />
-            <li>
-                <span>CPU</span>
-                <input type="text" className="resource-spec-input-box" /></li>
-            <li>
-                <span>GPU</span>
-                <input type="text" className="resource-spec-input-box" /></li>
+            <InlineInputBox title="CPU" />
+            <InlineInputBox title="GPU" />
         </div>
 
     )

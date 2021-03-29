@@ -1,7 +1,5 @@
 import '../ProblemEditor.css';
-import {SubtitleLine} from "../../commons/TitleLine";
-// import TextareaMarkdown from 'textarea-markdown';
-
+import {SubtitleLine} from "../../commons/titles/TitleLine";
 
 function Description () {
     return (

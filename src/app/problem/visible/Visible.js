@@ -1,6 +1,6 @@
 import '../ProblemEditor.css';
-import '../../commons/TitleLine';
-import {SubtitleLine} from "../../commons/TitleLine";
+import {SubtitleLine} from "../../commons/titles/TitleLine";
+
 
 function Visible () {
     return (

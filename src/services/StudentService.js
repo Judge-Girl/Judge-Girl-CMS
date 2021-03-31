@@ -37,8 +37,7 @@ export default class StudentService {
     }
 
     async createStudentAccount({name, email, password}) {
-        // TODO: wait backend to be changed to '/api/students'
-        return this.axios.post('/api/students/signUp', {name, email, password, isAdmin: false})
+        return this.axios.post('/api/students', {name, email, password, isAdmin: false})
             .then(res => new Student(res.data));
     }
 

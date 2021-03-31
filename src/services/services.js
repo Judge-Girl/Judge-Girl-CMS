@@ -1,5 +1,5 @@
-import ExamService from "./ExamService";
 import StudentService from "./StudentService";
+import {ExamService} from "./ExamService";
 
 
 const examService = new ExamService();

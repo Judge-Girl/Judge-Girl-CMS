@@ -17,7 +17,7 @@ const AdminList = () => {
 
     useEffect(() => {
         if (!admins) {
-            studentService.getAdmins()
+            studentService.getAdmins({skip: 0, size: 100})
                 .then(admins => setAdmins(admins));
         }
     });
@@ -25,7 +25,7 @@ const AdminList = () => {
         <div style={{padding: "40px 100px 20px 100px"}}>
             <ItemListPage title="Admin List"
                           filterItems={["Filter", "Name", "Email"]}
-                          onCreateButtonClick={e => setShowCreateAdminAccountModal(true)}
+                          onCreateButtonClick={() => setShowCreateAdminAccountModal(true)}
                           tableHeaders={["Name", "Email", " "]}
                           tableRowGenerator={{
                               list: admins,

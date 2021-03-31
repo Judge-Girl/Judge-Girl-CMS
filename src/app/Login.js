@@ -11,10 +11,12 @@ const Login = withRouter(({history}) => {
 
         studentService.login(email, password)
             .then(student => {
-                if (student.isAdmin) {
+                if (student.admin) {
                     history.push('/dashboard');
+                } else {
+                    alert(`You are not an admin.`);
                 }
-            }).catch(error => alert(`Login failed.`));
+            }).catch(() => alert(`Login failed.`));
     };
     return (
         <div className="App">

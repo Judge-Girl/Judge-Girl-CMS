@@ -6,6 +6,7 @@ import * as moment from "moment";
 import {CreateExamModal} from "./CreateExamModal";
 import {ItemListPage} from "../commons/ItemListPage/ItemListPage";
 import FakeLink from "../commons/FakeLink";
+import {EXAM_STATUSES} from "../../services/ExamService";
 
 
 function formatDate(timestamp) {
@@ -28,7 +29,7 @@ const ExamList = function () {
 
     useEffect(() => {
         if (!exams || exams.length === 0) {
-            examService.getExams()
+            examService.getExams({status: EXAM_STATUSES.ALL})
                 .then(exams => setExams(exams));
         }
     });
@@ -38,7 +39,7 @@ const ExamList = function () {
 
             <ItemListPage title="Exam List"
                           filterItems={["Filter", "Id", "name"]}
-                          onCreateButtonClick={e => setShowCreateExamModal(true)}
+                          onCreateButtonClick={() => setShowCreateExamModal(true)}
                           tableHeaders={["#", "Exam Name", "Start Time", "End Time"]}
                           tableRowGenerator={{
                               list: exams,

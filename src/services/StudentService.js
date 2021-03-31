@@ -15,32 +15,14 @@ export default class StudentService {
             .then(res => new Student(res.data))
     }
 
-    async getStudents() {
-        return new Promise(resolve => {
-            resolve([{
-                id: 1,
-                name: "Johnny",
-                email: "johnny@gmail.com"
-            }, {
-                id: 2,
-                name: "Wally",
-                email: "wally@gmail.com"
-            }, {
-                id: 3,
-                name: "Tim",
-                email: "Tim@gmail.com"
-            }])
-        });
+    async getStudents({skip = 0, size = 50}) {
+        return this.axios.get(`/api/students?skip=${skip}&&size=${size}`)
+            .then(res => res.data.map(obj => new Student(obj)));
     }
 
-    async getAdmins() {
-        return new Promise(resolve => {
-            resolve([{
-                id: 333,
-                name: "admin",
-                email: "adin@gmail.com"
-            }]);
-        });
+    async getAdmins({skip = 0, size = 50}) {
+        return this.axios.get(`/api/admins?skip=${skip}&&size=${size}`)
+            .then(res => res.data.map(obj => new Student(obj)));
     }
 
 
@@ -55,12 +37,12 @@ export default class StudentService {
     }
 
     async createStudentAccount({name, email, password}) {
-        return this.axios.post('/api/students/signUp', {name, email, password, isAdmin: false})
+        return this.axios.post('/api/students', {name, email, password, isAdmin: false})
             .then(res => new Student(res.data));
     }
 
     async createAdminAccount({name, email, password}) {
-        return this.axios.post('/api/students/signUp', {name, email, password, isAdmin: true})
+        return this.axios.post('/api/admins', {name, email, password, isAdmin: true})
             .then(res => new Student(res.data));
     }
 }

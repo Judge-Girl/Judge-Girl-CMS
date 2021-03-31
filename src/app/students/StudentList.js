@@ -17,7 +17,7 @@ const StudentList = () => {
 
     useEffect(() => {
         if (!students) {
-            studentService.getStudents()
+            studentService.getStudents({skip: 0, size: 100})
                 .then(students => setStudents(students));
         }
     });

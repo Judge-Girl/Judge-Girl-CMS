@@ -1,0 +1,18 @@
+/* to hide original upload button */
+.problem-editor .original-upload-button {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    border: 0;
+}
+
+/* TODO: apply in the UploadFileButton */
+/*.problem-editor .provided-code-button:hover {*/
+/*    color: white;*/
+/*    font-weight: bold;*/
+/*    background: rgb(31, 152, 178);*/
+/*}*/

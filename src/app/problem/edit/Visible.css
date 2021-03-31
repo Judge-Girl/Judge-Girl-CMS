@@ -1,0 +1,5 @@
+.problem-editor input[type="radio"] {
+    margin-right: 10px;
+    /*height: 23px;*/
+    font-family: 'Nunito Sans', sans-serif;
+}

@@ -2,15 +2,16 @@ import React from 'react';
 import '../ProblemEditor.css';
 import {useTags} from "../../usecases/TagUseCase";
 import {SubtitleLine} from "../../commons/titles/TitleLine";
-import {InputForm, Items} from "../../commons/ProblemEditorPage/ProblemEditorPage";
+import {TextInputForm} from "../../commons/TextInputForm/TextInputForm";
+import {TextInputItems} from "./TextInputItems";
 
 function SubmittedCodeList() {
     const {tags, addTags, removeTag} = useTags();
     return (
         <div>
             <SubtitleLine title={"Submitted Code Spec"} />
-            <InputForm placeholder={"Add Submitted Code File Name"} onSubmit={addTags} />
-            <Items items={tags} removeItems={removeTag} />
+            <TextInputForm placeholder={"Add Submitted Code File Name"} onSubmit={addTags} />
+            <TextInputItems items={tags} removeItems={removeTag} />
         </div>
     )
 }

@@ -1,6 +1,6 @@
 import '../ProblemEditor.css';
 import {SubtitleLine} from "../../commons/titles/TitleLine";
-
+import './Visible.css';
 
 function Visible () {
     return (
@@ -12,7 +12,7 @@ function Visible () {
                         visible
                 </label>
                 <label className="radio">
-                    <input type="radio" name="invisible" />
+                    <input type="radio" name="visible" />
                         invisible (for exam)
                 </label>
             </div>

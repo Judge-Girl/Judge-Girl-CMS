@@ -1,15 +1,14 @@
 import {withRouter} from "react-router";
 import './ProblemEditor.css';
-import TagList from "./tags/TagList";
-import SubmittedCodeList from './submittedCode/SubmittedCodeList';
-import ProvidedCodeList from './providedCode/ProvidedCodeList';
-import ResourceSpec from "./resourceSpec/ResourceSpec";
-import CompilationScript from "./compilationScript/CompilationScript";
-import OutputMatchPolicyList from "./outputMatchPolicy/OutputMatchPolicyList";
-import Visible from "./visible/Visible";
-import SaveChangeButton from "./saveChangeButton/SaveChangeButton";
-import DeleteProblemButton from "./deleteProblemButton/DeleteProblemButton";
-import Description from "./description/Description";
+import TagList from "./edit/TagList";
+import SubmittedCodeList from './edit/SubmittedCodeList';
+import ProvidedCodeList from './edit/providedCode/ProvidedCodeList';
+import ResourceSpec from "./edit/ResourceSpec";
+import CompilationScript from "./edit/CompilationScript";
+import OutputMatchPolicyList from "./edit/OutputMatchPolicyList";
+import Visible from "./edit/Visible";
+import Description from "./edit/Description";
+import {EditorButton} from "./edit/EditorButton";
 
 
 const ProblemEditor = withRouter(({history}) =>  {
@@ -40,8 +39,8 @@ const ProblemEditor = withRouter(({history}) =>  {
                     <Visible />
                 </section>
                 <section>
-                    <SaveChangeButton />
-                    <DeleteProblemButton />
+                    <EditorButton text={"Save Change"} buttonColor={"#96D745"} fontColor={"#FFFFFF"} />
+                    <EditorButton text={"Delete Problem"} buttonColor={"#FFFFFF"} fontColor={"#A2A3B1"} />
                 </section>
             </div>
             <div className="column right">

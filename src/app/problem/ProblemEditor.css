@@ -25,98 +25,6 @@
     padding-bottom: 70px;
 }
 
-.problem-editor .provided-code-item {
-    color: #1273BA;
-    padding-left: 10px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    width: 284px;
-    height: 33px;
-    border: 1px solid #E4E1E1;
-    box-sizing: border-box;
-
-    font-family: Poppins, sans-serif;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 15px;
-    line-height: 22px;
-
-    display: flex;
-    align-items: center;
-}
-
-
-.problem-editor .provided-code-button {
-    width: 215px;
-    height: 33px;
-
-    /* Auto Layout */
-
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    padding: 5px 10px;
-
-    background: #3EBDD9;
-    border-radius: 10px;
-
-    /* Button */
-
-    font-family: Poppins, sans-serif;
-    font-style: normal;
-    font-weight: 600;
-    font-size: 15px;
-    line-height: 22px;
-    color: white;
-}
-
-.problem-editor .provided-code-button:hover {
-    color: white;
-    font-weight: bold;
-    background: rgb(31, 152, 178);
-}
-
-.problem-editor .compile-script-button {
-    /* Button */
-    position: static;
-    width: 89px;
-    height: 18px;
-    left: 6px;
-    top: 2px;
-
-    font-family: Poppins, sans-serif;
-    font-style: normal;
-    font-weight: 600;
-    font-size: 12px;
-    line-height: 18px;
-
-    display: flex;
-    align-items: center;
-
-    color: #3EBDD9;
-
-    /* Inside Auto Layout */
-    flex: none;
-    order: 0;
-    flex-grow: 0;
-    margin: 0px 5px;
-
-    background: #FFFFFF;
-    border: 1px solid #3EBDD9;
-    box-sizing: border-box;
-    border-radius: 10px;
-}
-
-.problem-editor .compile-script-text-area {
-    background: #F9F9F9;
-    border: 1px solid #C4C4C4;
-    box-sizing: border-box;
-    border-radius: 5px;
-}
-
 .problem-editor body {
     background: var(--background);
     height: 100vh;
@@ -144,12 +52,6 @@
 
 .problem-editor input {
     font-size: 1rem;
-}
-
-.problem-editor input[type="radio"] {
-    margin-right: 10px;
-    /*height: 23px;*/
-    font-family: 'Nunito Sans', sans-serif;
 }
 
 input:focus {

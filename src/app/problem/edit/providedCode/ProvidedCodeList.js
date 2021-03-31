@@ -1,9 +1,10 @@
 import React, {useState} from 'react';
-import '../ProblemEditor.css';
-import ProvidedCode from "./ProvidedCode";
-import {UploadFileButton} from "../../commons/ProblemEditorPage/ProblemEditorPage";
+import {SubtitleLine} from "../../../commons/titles/TitleLine";
+import ProvidedCodeItem from "./ProvidedCodeItem";
+import {UploadFileButton} from "../UploadFileButton";
+import './ProvidedCodeList.css';
 
-function ProvidedCodeForm () {
+function ProvidedCodeList () {
     const [files, setFiles] = useState([]);
 
     const addFile = (event) => {
@@ -20,7 +21,8 @@ function ProvidedCodeForm () {
 
     return (
         <div>
-            <ProvidedCode files={files} removeFile={removeFile} />
+            <SubtitleLine title={"Provided Code"} />
+            <ProvidedCodeItem files={files} removeFile={removeFile} />
             <UploadFileButton
                 title={"Upload Provided Code +"}
                 onChange={addFile}
@@ -34,7 +36,7 @@ function ProvidedCodeForm () {
                 display={"flex"}
             />
         </div>
-    );
+    )
 }
 
-export default ProvidedCodeForm;
+export default ProvidedCodeList;

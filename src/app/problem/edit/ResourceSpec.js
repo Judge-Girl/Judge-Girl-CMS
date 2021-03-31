@@ -1,7 +1,7 @@
 import React from 'react';
 import '../ProblemEditor.css';
 import {SubtitleLine} from "../../commons/titles/TitleLine";
-import {InlineInputBox} from "../../commons/ProblemEditorPage/ProblemEditorPage";
+import {InlineInputBox} from "./InlineInputBox";
 
 function ResourceSpec () {
     return (

@@ -1,11 +1,11 @@
-.problem-editor .tag-input {
+.text-input-form .tag-input {
     width: 250px;
     height: 33px;
     border: 1px solid #E4E1E1;
     padding: 5px 10px;
 }
 
-.problem-editor .tag-button {
+.text-input-form .tag-button {
     width: 33px;
     height: 33px;
 

@@ -1,12 +1,13 @@
 import React from 'react';
 import '../ProblemEditor.css';
+import {SubtitleLine} from "../../commons/titles/TitleLine";
+import './CompilationScript.css';
 
 function CompilationScript() {
     return (
         <div>
-            <h2>Compilation Script</h2>
+            <SubtitleLine title={"Compilation Script"} />
             <button className="button compile-script-button">Auto Generate</button>
-            <hr />
             <textarea className="compile-script-text-area" cols="40" rows="5" />
 
         </div>

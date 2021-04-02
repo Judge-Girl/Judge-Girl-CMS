@@ -1,8 +1,8 @@
 import React from 'react';
-import '../ProblemEditor.css';
+import '../../ProblemEditor.css';
 import {AiOutlineClose} from "react-icons/ai";
 
-function ProvidedCode({files, removeFile}) {
+function ProvidedCodeItem({files, removeFile}) {
     return files.map((file) => (
         <div className="provided-code-item">
             <div>
@@ -16,4 +16,4 @@ function ProvidedCode({files, removeFile}) {
     ));
 }
 
-export default ProvidedCode;
+export default ProvidedCodeItem;

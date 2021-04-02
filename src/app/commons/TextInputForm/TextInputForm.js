@@ -21,7 +21,7 @@ const TextInputForm = ({placeholder, onSubmit}) => {
     };
 
     return (
-        <div className={"text-input-form"}>
+        <div className="text-input-form">
             <form className="tag-form" onSubmit={handleSubmit}>
                 <div className="field has-addons">
                     <input

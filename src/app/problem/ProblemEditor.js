@@ -18,17 +18,13 @@ const ProblemEditor = withRouter(({history}) =>  {
         <div className="columns problem-editor">
             <div className="column left">
                 <section>
-                    <div className="text-input-form">
-                        <TagList />
-                    </div>
+                    <TagList />
                 </section>
                 <section>
                     <ProvidedCodeList />
                 </section>
                 <section>
-                    <div className="text-input-form">
-                        <SubmittedCodeList />
-                    </div>
+                    <SubmittedCodeList />
                 </section>
                 <section>
                     <ResourceSpec />

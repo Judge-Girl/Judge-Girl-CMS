@@ -21,19 +21,21 @@ const TextInputForm = ({placeholder, onSubmit}) => {
     };
 
     return (
-        <form className="tag-form" onSubmit={handleSubmit}>
-            <div className="field has-addons">
-                <input
-                    type='text'
-                    placeholder={placeholder}
-                    value={input}
-                    name="text"
-                    className="tag-input control"
-                    onChange={handleChange}
-                />
-                <AddButton title={"+"} />
-            </div>
-        </form>
+        <div className={"text-input-form"}>
+            <form className="tag-form" onSubmit={handleSubmit}>
+                <div className="field has-addons">
+                    <input
+                        type='text'
+                        placeholder={placeholder}
+                        value={input}
+                        name="text"
+                        className="tag-input control"
+                        onChange={handleChange}
+                    />
+                    <AddButton title={"+"} />
+                </div>
+            </form>
+        </div>
     );
 };
 

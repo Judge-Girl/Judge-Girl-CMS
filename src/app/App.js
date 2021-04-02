@@ -9,12 +9,14 @@ import {ExamList} from "./exam/ExamList";
 import {StudentList} from "./students/StudentList";
 import {GroupList} from "./students/GroupList";
 import {AdminList} from "./admins/AdminList";
+import {NavigationBar} from "./NavigationBar";
 
 
 function App(props) {
     return (
         <Router>
             <div className="App">
+                <NavigationBar/>
                 <Route exact={true} path="/" component={Login}/>
                 <Route path="/dashboard" component={Dashboard}/>
                 <Route path="/students" component={StudentList}/>

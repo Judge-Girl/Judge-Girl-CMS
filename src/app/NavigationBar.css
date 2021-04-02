@@ -1,0 +1,42 @@
+.navigation-bar {
+    background-color: #252730;
+}
+
+.navigation-bar header {
+    display: inline-block;
+    padding: 11px 11px 11px 25px;
+    color: #FFFEFE;
+    font-size: 25px;
+}
+
+.navigation-bar header span {
+    color: #3EBDD9;
+    font-size: 25px;
+}
+
+.navigation-bar a {
+    font-size: 20px;
+    color: #A2A3B1;
+    margin-left: 18px;
+}
+
+.navigation-bar .active-link {
+    font-size: 20px;
+    color: white;
+    margin-left: 18px;
+}
+
+.navigation-bar .logout {
+    position: absolute;
+    right: 20px;
+    line-height: 59px;
+    height: 59px;
+    font-size: 20px;
+    color: #A2A3B1;
+    cursor: pointer;
+}
+
+
+.navigation-bar .logout:hover {
+    color: white;
+}

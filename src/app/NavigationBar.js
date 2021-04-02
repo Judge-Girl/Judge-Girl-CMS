@@ -1,4 +1,4 @@
-import React, {createRef, useEffect} from "react";
+import React from "react";
 import './NavigationBar.css';
 import {NavLink} from "react-router-dom";
 import {withRouter} from "react-router";

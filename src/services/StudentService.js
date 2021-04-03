@@ -1,5 +1,5 @@
 import axios from "axios";
-import Admin from "../models/Student";
+import Student from "../models/Student";
 import {Group} from "../models/Group";
 
 export class YouAreNotAdminError extends Error {
@@ -41,7 +41,7 @@ export default class StudentService {
     async loginAsAdmin(email, password) {
         return this.axios.post('/api/admins/login', {email, password})
             .then(res => {
-                return updateCurrentAdmin(new Admin(res.data));
+                return updateCurrentAdmin(new Student(res.data));
             }).catch(err => {
                 if (err.status === 404) {
                     throw new AccountNotFoundError(err.message);
@@ -67,7 +67,7 @@ export default class StudentService {
                 }
             })
             .then(res => {
-                return updateCurrentAdmin(new Admin(res.data));
+                return updateCurrentAdmin(new Student(res.data));
             })
             .catch(err => {
                 throw new AuthenticationFailureError(err.message);
@@ -83,12 +83,12 @@ export default class StudentService {
 
     async getStudents({skip = 0, size = 50}) {
         return this.axios.get(`/api/students?skip=${skip}&&size=${size}`)
-            .then(res => res.data.map(obj => new Admin(obj)));
+            .then(res => res.data.map(obj => new Student(obj)));
     }
 
     async getAdmins({skip = 0, size = 50}) {
         return this.axios.get(`/api/admins?skip=${skip}&&size=${size}`)
-            .then(res => res.data.map(obj => new Admin(obj)));
+            .then(res => res.data.map(obj => new Student(obj)));
     }
 
 
@@ -104,12 +104,12 @@ export default class StudentService {
 
     async createStudentAccount({name, email, password}) {
         return this.axios.post('/api/students', {name, email, password, isAdmin: false})
-            .then(res => new Admin(res.data));
+            .then(res => new Student(res.data));
     }
 
     async createAdminAccount({name, email, password}) {
         return this.axios.post('/api/admins', {name, email, password, isAdmin: true})
-            .then(res => new Admin(res.data));
+            .then(res => new Student(res.data));
     }
 }
 

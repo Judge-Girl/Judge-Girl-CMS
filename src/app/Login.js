@@ -1,7 +1,25 @@
 import {withRouter} from "react-router";
 import {studentService} from "../services/services";
+import {useAuth} from "./commons/access-control/auth";
+import {useEffect, useState} from "react";
 
-const Login = withRouter(({history}) => {
+const Login = withRouter(({history, location}) => {
+    const [hasTriedAuth, setHasTriedAuth] = useState(false);
+    const {setAdmin} = useAuth();
+    const referer = location?.state?.referer || '/problems';
+
+    useEffect(() => {
+        if (!hasTriedAuth) {
+            setHasTriedAuth(true);
+
+            studentService.tryAuthWithLocalToken()
+                .then(admin => {
+                    setAdmin(admin);
+                    history.push(referer);
+                }).catch(err => console.log(`Auth failed: ${err}`));
+        }
+    }, [hasTriedAuth, history, setAdmin, referer]);
+
     const onSubmit = (e) => {
         e.preventDefault();  // don't submit the form
 
@@ -9,14 +27,11 @@ const Login = withRouter(({history}) => {
         const password = e.target[1].value;
         console.log(`Account: ${email}, Password: ${"*".repeat(password.length)}`);
 
-        studentService.login(email, password)
-            .then(student => {
-                if (student.admin) {
-                    history.push('/dashboard');
-                } else {
-                    alert(`You are not an admin.`);
-                }
-            }).catch(() => alert(`Login failed.`));
+        studentService.loginAsAdmin(email, password)
+            .then(admin => {
+                setAdmin(admin);
+                history.push(referer);
+            }).catch((err) => alert(`Login failed: ${err.message}`));
     };
     return (
         <div className="App">

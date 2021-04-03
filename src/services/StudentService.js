@@ -2,6 +2,34 @@ import axios from "axios";
 import Student from "../models/Student";
 import {Group} from "../models/Group";
 
+export class YouAreNotAdminError extends Error {
+}
+
+export class AccountNotFoundError extends Error {
+}
+
+export class IncorrectPasswordError extends Error {
+}
+
+export class AuthenticationFailureError extends Error {
+
+}
+
+let currentAdmin = undefined;
+
+const KEY_TOKEN = "token";
+
+function updateCurrentAdmin(admin) {
+    currentAdmin = admin;
+    localStorage.setItem(KEY_TOKEN, currentAdmin.token);
+    return currentAdmin;
+}
+
+function clearCurrentAdmin() {
+    currentAdmin = null;
+    localStorage.removeItem(KEY_TOKEN);
+}
+
 export default class StudentService {
     constructor() {
         this.axios = axios.create({
@@ -10,9 +38,47 @@ export default class StudentService {
         });
     }
 
-    async login(email, password) {
-        return this.axios.post('/api/students/login', {email, password})
-            .then(res => new Student(res.data))
+    async loginAsAdmin(email, password) {
+        return this.axios.post('/api/admins/login', {email, password})
+            .then(res => {
+                return updateCurrentAdmin(new Student(res.data));
+            }).catch(err => {
+                if (err.status === 404) {
+                    throw new AccountNotFoundError(err.message);
+                } else if (err.status === 400) {
+                    throw new IncorrectPasswordError(err.message);
+                } else if (err.status === 403) {
+                    throw new YouAreNotAdminError(err.message);
+                }
+            });
+    }
+
+    async tryAuthWithLocalToken() {
+        console.log("Try authenticating with local token...");
+        const token = localStorage.getItem(KEY_TOKEN);
+        return this.auth(token);
+    }
+
+    async auth(token) {
+        return this.axios.post('/api/students/auth', null,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            .then(res => {
+                return updateCurrentAdmin(new Student(res.data));
+            })
+            .catch(err => {
+                throw new AuthenticationFailureError(err.message);
+            });
+    }
+
+    async logout() {
+        return new Promise(resolve => {
+            clearCurrentAdmin();
+            resolve();
+        });
     }
 
     async getStudents({skip = 0, size = 50}) {
@@ -46,3 +112,4 @@ export default class StudentService {
             .then(res => new Student(res.data));
     }
 }
+

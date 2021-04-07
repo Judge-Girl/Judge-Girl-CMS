@@ -1,0 +1,50 @@
+.add-student-modal #modal {
+    padding: 30px 40px 27px 40px;
+}
+
+.add-student-modal .header {
+    margin-bottom: 0;
+}
+
+.add-student-modal textarea {
+    background-color: #F9F9F9;
+}
+
+.add-student-modal .description {
+    font-size: 18px;
+    font-weight: 600;
+    color: #6D6E7D;
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+.add-student-modal .modal-icon {
+    height: 1.2rem;
+    width: 1.2rem;
+    margin-right: 5px;
+}
+
+.add-student-modal .columns {
+    margin: 5px 0 0 0;
+    padding: 0 0 0 0;
+
+}
+
+.add-student-modal .column {
+    font-size: 15px;
+    padding: 0 0 0 0;
+    color: #6D6E7D;
+    display: flex;
+}
+
+.add-student-modal #add-btn {
+    margin-left: auto;
+    margin-right: 0;
+    padding: 8px 15px 8px 15px;
+
+    border-radius: 10px;
+    font-weight: 600;
+    background: #91CB46;
+    color: white;
+}
+

@@ -1,29 +1,14 @@
-import './AddStudentModal.css'
+import './AddStudentModal.scss'
 import React, {useState, createRef} from "react";
-import {studentService} from "../../services/services";
-import {renderModal} from "../commons/modals/modal";
-import {ModalHeader} from "../commons/modals/ModalHeader";
+import {renderModal} from "../../commons/modals/modal";
+import {ModalHeader} from "../../commons/modals/ModalHeader";
 import {AiOutlineMail} from "react-icons/ai"
 
 const AddStudentModal = ({show, onClose, onStudentCreated}) => {
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-
     const closeIconRef = createRef(), formRef = createRef();
 
     const handleSubmit = e => {
         e.preventDefault();
-        studentService.createStudentAccount({name, email, password})
-            .then(student => {
-                onStudentCreated(student);
-                closeIconRef.current.click();
-
-                setName("");  // reset form
-                setEmail("");
-                setPassword("");
-            });
-
     };
 
     return renderModal({

@@ -5,7 +5,7 @@ const ExamProblems =withRouter(({history}) => {
     const currentPathName = history.location.pathname;
     return (
         <div>
-            <ExamHome currentPathName={currentPathName}/>
+            <ExamHome currentPathName={currentPathName} examName={"2021 Sample-Exam"}/>
         </div>
     )
 });

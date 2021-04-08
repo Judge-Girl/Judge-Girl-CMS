@@ -2,6 +2,7 @@ import './ExamHome.scss'
 import {FaRegEdit, FaUserFriends} from "react-icons/fa";
 import {AiOutlineSetting} from "react-icons/ai";
 import {NavLink} from "react-router-dom";
+import FakeLink from "../commons/FakeLink";
 
 function link(currentPathName, to, name, Icon) {
     return (
@@ -10,11 +11,11 @@ function link(currentPathName, to, name, Icon) {
     );
 }
 
-const ExamHome = function ({currentPathName}) {
+const ExamHome = function ({currentPathName, examName}) {
     return (
         <div className="index-container">
             <p className="path">
-                <a> Exam </a><span> / </span><a> 2021 Sample-Exam </a>
+                <FakeLink content={"Exam"}/><span> / </span><FakeLink content={examName}/>
             </p>
             <div className="tabs">
                 {link(currentPathName, '/exams/1/problems', 'Problems', FaRegEdit)}

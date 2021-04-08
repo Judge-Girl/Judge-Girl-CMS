@@ -30,7 +30,7 @@ const Examinees = withRouter(({history}) => {
 
     return (
         <div>
-            <ExamHome currentPathName={currentPathName}/>
+            <ExamHome currentPathName={currentPathName} examName={"2021 Sample-Exam"}/>
 
             <div style={{padding: "40px 15rem 20px 15rem"}}>
                 <ExamineeListPage title="Participants"

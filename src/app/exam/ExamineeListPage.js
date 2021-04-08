@@ -20,8 +20,8 @@ const DropDownBtn = function ({onAddStudentBtnClick, onAddGroupBtnClick}) {
                 </div>
                 <div className="dropdown-menu" id="dropdown-menu" role="menu">
                     <div className="dropdown-content">
-                        <a className="dropdown-item" onMouseDown={onAddStudentBtnClick}>Student</a>
-                        <a className="dropdown-item" onMouseDown={onAddGroupBtnClick}>Group</a>
+                        <p className="dropdown-item" onMouseDown={onAddStudentBtnClick}>Student</p>
+                        <p className="dropdown-item" onMouseDown={onAddGroupBtnClick}>Group</p>
                     </div>
                 </div>
             </div>

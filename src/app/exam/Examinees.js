@@ -50,15 +50,16 @@ const Examinees = withRouter(({history}) => {
                                   a:"123"
                               }}
                               tableDataStyle={{textAlign: "left"}}/>
-
-                <AddStudentModal show={showAddStudentModal}
-                                 onClose={() => setShowAddStudentModal(false)}
-                                 onStudentCreated={student => addStudent(student)}/>
-
-                <AddGroupModal show={showAddGroupModal}
-                                 onClose={() => setShowAddGroupModal(false)}
-                                 onStudentCreated={student => addStudent(student)}/>
             </div>
+
+            <AddStudentModal show={showAddStudentModal}
+                             onClose={() => setShowAddStudentModal(false)}
+                             onStudentCreated={student => addStudent(student)}/>
+
+            <AddGroupModal show={showAddGroupModal}
+                           onClose={() => setShowAddGroupModal(false)}
+                           onStudentCreated={student => addStudent(student)}/>
+
         </div>
     );
 });

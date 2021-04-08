@@ -35,19 +35,19 @@
       margin-bottom: 3px;
       color: #414357;
       padding: 10px 10px;
-    }
 
-    a.is-active {
-      border-bottom-color: #F2B311;
-      border-bottom-width: 3px;
-      color: #414357;
-      margin-bottom: 0;
-    }
+      &.is-active {
+        border-bottom-color: #F2B311;
+        border-bottom-width: 3px;
+        color: #414357;
+        margin-bottom: 0;
+      }
 
-    a:hover {
-      border-bottom-color: #dbdbdb;
-      border-bottom-width: 3px;
-      margin-bottom: 0;
+      &:hover {
+        border-bottom-color: #dbdbdb;
+        border-bottom-width: 3px;
+        margin-bottom: 0;
+      }
     }
 
     .tab-icon {

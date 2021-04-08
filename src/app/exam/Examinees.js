@@ -5,21 +5,9 @@ import FakeLink from "../commons/FakeLink";
 import {studentService} from "../../services/services";
 import {ExamineeListPage} from "./ExamineeListPage";
 
-
-const useStudentList = () => {
-    const [students, setStudents] = useState(undefined);
-    const addStudent = (student) => students.push(student);
-    return {students, addStudent, setStudents};
-
-};
-
 const Examinees = withRouter(({history}) => {
     const currentPathName = history.location.pathname;
-
-    const [showAddStudentModal, setShowAddStudentModal] = useState(false);
-    const [showAddGroupModal, setShowAddGroupModal] = useState(false);
-
-    const {students, addStudent, setStudents} = useStudentList();
+    const [students, setStudents] = useState(undefined);
 
     useEffect(() => {
         if (!students) {
@@ -35,8 +23,9 @@ const Examinees = withRouter(({history}) => {
             <div style={{padding: "40px 15rem 20px 15rem"}}>
                 <ExamineeListPage title="Participants"
                                   filterItems={["Filter", "Name", "Email"]}
-                                  onAddStudentBtnClick={e => setShowAddStudentModal(true)}
-                                  onAddGroupBtnClick={e => setShowAddGroupModal(true)}
+                                  // TODO: connect to AddStudentModal / AddGroupModal
+                                  onAddStudentBtnClick={console.log('add student')}
+                                  onAddGroupBtnClick={console.log('add group')}
                                   tableHeaders={["Name", "Email", " "]}
                                   tableRowGenerator={{
                                       list: students,

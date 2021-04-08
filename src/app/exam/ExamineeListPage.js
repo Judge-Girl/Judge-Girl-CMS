@@ -11,10 +11,7 @@ const DropDownBtn = function ({onAddStudentBtnClick, onAddGroupBtnClick}) {
                 <div className="dropdown-trigger">
                     <button className="button" aria-haspopup="true" aria-controls="dropdown-menu"
                             onClick={() => setActive(open => !open)}
-                            onBlur={() => {
-                                setActive(open => !open);
-                                console.log("click")
-                            }}>
+                            onBlur={() => setActive(open => !open)}>
                         <span>+ People</span>
                     </button>
                 </div>
@@ -81,7 +78,6 @@ const ExamineeListPage = ({
                 </thead>
                 <tbody>
                 {
-
                     tableRowGenerator?.list
                         ?.map(item =>
                             <tr key={tableRowGenerator.key(item)}>

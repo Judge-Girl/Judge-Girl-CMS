@@ -2,11 +2,10 @@ import React, {useEffect, useState} from "react";
 import {withRouter} from "react-router";
 import {ExamHome} from "./ExamHome"
 import FakeLink from "../commons/FakeLink";
-import {ItemListPage} from "../commons/ItemListPage/ItemListPage";
 import {studentService} from "../../services/services";
 import {AddStudentModal} from "./modal/AddStudentModal";
 import {AddGroupModal} from "./modal/AddGroupModal";
-import {DropDownBtn} from "./DropDownBtn";
+import {ExamineeListPage} from "./ExamineeListPage";
 
 
 const useStudentList = () => {
@@ -34,26 +33,23 @@ const Examinees = withRouter(({history}) => {
     return (
         <div>
             <ExamHome currentPathName={currentPathName}/>
-            <DropDownBtn
-                selectStudent={e => setShowAddGroupModal(true)}
-                selectGroup={e => setShowAddStudentModal(true)}/>
-
 
             <div style={{padding: "40px 15rem 20px 15rem"}}>
-                <ItemListPage title="Participants"
-                              filterItems={["Filter", "Name", "Email"]}
-                              onCreateButtonClick={e => setShowAddGroupModal(true)}
-                              tableHeaders={["Name", "Email", " "]}
-                              tableRowGenerator={{
-                                  list: students,
-                                  key: (student) => student.id,
-                                  data: (student) => [
-                                      (<FakeLink content={student.name}/>),
-                                      student.email,
-                                      ""
-                                  ]
-                              }}
-                              tableDataStyle={{textAlign: "left"}}/>
+                <ExamineeListPage title="Participants"
+                                  filterItems={["Filter", "Name", "Email"]}
+                                  onAddStudentBtnClick={e => setShowAddGroupModal(true)}
+                                  onAddGroupBtnClick={e => setShowAddGroupModal(true)}
+                                  tableHeaders={["Name", "Email", " "]}
+                                  tableRowGenerator={{
+                                      list: students,
+                                      key: (student) => student.id,
+                                      data: (student) => [
+                                          (<FakeLink content={student.name}/>),
+                                          student.email,
+                                          ""
+                                      ]
+                                  }}
+                                  tableDataStyle={{textAlign: "left"}}/>
             </div>
 
             <AddStudentModal show={showAddStudentModal}

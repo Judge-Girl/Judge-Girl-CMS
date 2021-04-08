@@ -6,6 +6,7 @@ import {ItemListPage} from "../commons/ItemListPage/ItemListPage";
 import {studentService} from "../../services/services";
 import {AddStudentModal} from "./modal/AddStudentModal";
 import {AddGroupModal} from "./modal/AddGroupModal";
+import {DropDownBtn} from "./DropDownBtn";
 
 
 const useStudentList = () => {
@@ -33,6 +34,10 @@ const Examinees = withRouter(({history}) => {
     return (
         <div>
             <ExamHome currentPathName={currentPathName}/>
+            <DropDownBtn
+                selectStudent={e => setShowAddGroupModal(true)}
+                selectGroup={e => setShowAddStudentModal(true)}/>
+
 
             <div style={{padding: "40px 15rem 20px 15rem"}}>
                 <ItemListPage title="Participants"
@@ -46,8 +51,7 @@ const Examinees = withRouter(({history}) => {
                                       (<FakeLink content={student.name}/>),
                                       student.email,
                                       ""
-                                  ],
-                                  a:"123"
+                                  ]
                               }}
                               tableDataStyle={{textAlign: "left"}}/>
             </div>

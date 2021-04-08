@@ -3,8 +3,6 @@ import {withRouter} from "react-router";
 import {ExamHome} from "./ExamHome"
 import FakeLink from "../commons/FakeLink";
 import {studentService} from "../../services/services";
-import {AddStudentModal} from "./modal/AddStudentModal";
-import {AddGroupModal} from "./modal/AddGroupModal";
 import {ExamineeListPage} from "./ExamineeListPage";
 
 
@@ -37,7 +35,7 @@ const Examinees = withRouter(({history}) => {
             <div style={{padding: "40px 15rem 20px 15rem"}}>
                 <ExamineeListPage title="Participants"
                                   filterItems={["Filter", "Name", "Email"]}
-                                  onAddStudentBtnClick={e => setShowAddGroupModal(true)}
+                                  onAddStudentBtnClick={e => setShowAddStudentModal(true)}
                                   onAddGroupBtnClick={e => setShowAddGroupModal(true)}
                                   tableHeaders={["Name", "Email", " "]}
                                   tableRowGenerator={{
@@ -51,15 +49,6 @@ const Examinees = withRouter(({history}) => {
                                   }}
                                   tableDataStyle={{textAlign: "left"}}/>
             </div>
-
-            <AddStudentModal show={showAddStudentModal}
-                             onClose={() => setShowAddStudentModal(false)}
-                             onStudentCreated={student => addStudent(student)}/>
-
-            <AddGroupModal show={showAddGroupModal}
-                           onClose={() => setShowAddGroupModal(false)}
-                           onStudentCreated={student => addStudent(student)}/>
-
         </div>
     );
 });

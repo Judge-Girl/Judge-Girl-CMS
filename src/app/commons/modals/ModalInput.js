@@ -11,7 +11,8 @@ export function ModalInput({
                            }) {
     return (
         <div className="mt-3">
-            {labelText ? <label className="modal-input-label" style={{fontSize: labelFontSize}}>{labelText}</label> : ""}
+            {labelText ?
+                <label className="modal-input-label" style={{fontSize: labelFontSize}}>{labelText}</label> : ""}
             <input ref={inputRef} className={`modal-input placeholder-align-${placeholderTextAlign}`}
                    type={type} value={value} placeholder={placeholder}
                    style={{height, fontSize}}

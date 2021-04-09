@@ -7,6 +7,7 @@ import {CreateExamModal} from "./CreateExamModal";
 import {ItemListPage} from "../commons/ItemListPage/ItemListPage";
 import FakeLink from "../commons/FakeLink";
 import {EXAM_STATUSES} from "../../services/ExamService";
+import {CreateButton} from "../commons/ItemListPage/CreateButton";
 
 
 function formatDate(timestamp) {
@@ -39,7 +40,9 @@ const ExamList = function () {
 
             <ItemListPage title="Exam List"
                           filterItems={["Filter", "Id", "name"]}
-                          onCreateButtonClick={() => setShowCreateExamModal(true)}
+                          Button={() => new CreateButton({
+                              onCreateButtonClick: () => setShowCreateExamModal(true)
+                          })}
                           tableHeaders={["#", "Exam Name", "Start Time", "End Time"]}
                           tableRowGenerator={{
                               list: exams,

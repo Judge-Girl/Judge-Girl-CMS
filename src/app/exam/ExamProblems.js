@@ -1,7 +1,7 @@
 import {ExamHome} from "./ExamHome";
 import {withRouter} from "react-router";
 
-const ExamProblems =withRouter(({history}) => {
+const ExamProblems = withRouter(({history}) => {
     const currentPathName = history.location.pathname;
     return (
         <div>

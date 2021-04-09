@@ -3,6 +3,7 @@ import {ItemListPage} from "../commons/ItemListPage/ItemListPage";
 import {studentService} from "../../services/services";
 import FakeLink from "../commons/FakeLink";
 import {CreateStudentAccountModal} from "./CreateStudentAccountModal";
+import {CreateButton} from "../commons/ItemListPage/CreateButton";
 
 const useStudentList = () => {
     const [students, setStudents] = useState(undefined);
@@ -25,7 +26,9 @@ const StudentList = () => {
         <div style={{padding: "40px 100px 20px 100px"}}>
             <ItemListPage title="Student List"
                           filterItems={["Filter", "Name", "Email"]}
-                          onCreateButtonClick={e => setShowCreateStudentAccountModal(true)}
+                          Button={() => new CreateButton({
+                              onCreateButtonClick: () => setShowCreateStudentAccountModal(true)
+                          })}
                           tableHeaders={["Name", "Email", " "]}
                           tableRowGenerator={{
                               list: students,

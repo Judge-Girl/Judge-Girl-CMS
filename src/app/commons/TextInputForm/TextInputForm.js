@@ -32,14 +32,14 @@ const TextInputForm = ({placeholder, onSubmit}) => {
                         className="tag-input control"
                         onChange={handleChange}
                     />
-                    <AddButton title={"+"} />
+                    <AddButton title={"+"}/>
                 </div>
             </form>
         </div>
     );
 };
 
-const AddButton = ({title="+"}) => {
+const AddButton = ({title = "+"}) => {
     return (
         <button className="control tag-button">
             {title}

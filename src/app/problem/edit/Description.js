@@ -1,10 +1,10 @@
 import '../ProblemEditor.css';
 import {SubtitleLine} from "../../commons/titles/TitleLine";
 
-function Description () {
+function Description() {
     return (
         <div>
-            <SubtitleLine title={"Description"} />
+            <SubtitleLine title={"Description"}/>
             {/*TODO: Textarea Supporting Markdown */}
         </div>
     )

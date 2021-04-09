@@ -4,7 +4,7 @@ import ProvidedCodeItem from "./ProvidedCodeItem";
 import {UploadFileButton} from "../UploadFileButton";
 import './ProvidedCodeList.css';
 
-function ProvidedCodeList () {
+function ProvidedCodeList() {
     const [files, setFiles] = useState([]);
 
     const addFile = (event) => {
@@ -21,8 +21,8 @@ function ProvidedCodeList () {
 
     return (
         <div>
-            <SubtitleLine title={"Provided Code"} />
-            <ProvidedCodeItem files={files} removeFile={removeFile} />
+            <SubtitleLine title={"Provided Code"}/>
+            <ProvidedCodeItem files={files} removeFile={removeFile}/>
             <UploadFileButton
                 title={"Upload Provided Code +"}
                 onChange={addFile}
@@ -31,7 +31,7 @@ function ProvidedCodeList () {
                 borderRadius={10}
                 fontWeight={600}
                 fontSize={15}
-                lineHeight ={22}
+                lineHeight={22}
                 fontColor={"white"}
                 display={"flex"}
             />

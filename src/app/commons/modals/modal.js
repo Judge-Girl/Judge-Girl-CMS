@@ -1,8 +1,7 @@
 import * as React from "react";
 
 
-
-const renderModal = function({modalClassName, modalWidth, contentRendering, show, closeIconRef, onClose}) {
+const renderModal = function ({modalClassName, modalWidth, contentRendering, show, closeIconRef, onClose}) {
     return (
         <div className={`${modalClassName} modal ${show ? 'is-active' : ''}`}>
             <div className="modal-background"/>

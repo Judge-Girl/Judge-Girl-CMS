@@ -29,6 +29,7 @@
 .items-table tbody tr:nth-child(2n-1) {
     background: #F9F9F9;
 }
+
 .items-table td {
     text-align: left;
 }

@@ -3,7 +3,8 @@ import {withRouter} from "react-router";
 import {ExamHome} from "./ExamHome"
 import FakeLink from "../commons/FakeLink";
 import {studentService} from "../../services/services";
-import {ExamineeListPage} from "./ExamineeListPage";
+import {ItemListPage} from "../commons/ItemListPage/ItemListPage";
+import {DropDownBtn} from "../commons/ItemListPage/DropDownButton";
 
 const Examinees = withRouter(({history}) => {
     const currentPathName = history.location.pathname;
@@ -21,22 +22,24 @@ const Examinees = withRouter(({history}) => {
             <ExamHome currentPathName={currentPathName} examName={"2021 Sample-Exam"}/>
 
             <div style={{padding: "40px 15rem 20px 15rem"}}>
-                <ExamineeListPage title="Participants"
-                                  filterItems={["Filter", "Name", "Email"]}
-                                  // TODO: connect to AddStudentModal / AddGroupModal
-                                  onAddStudentBtnClick={console.log('add student')}
-                                  onAddGroupBtnClick={console.log('add group')}
-                                  tableHeaders={["Name", "Email", " "]}
-                                  tableRowGenerator={{
-                                      list: students,
-                                      key: (student) => student.id,
-                                      data: (student) => [
-                                          (<FakeLink content={student.name}/>),
-                                          student.email,
-                                          ""
-                                      ]
-                                  }}
-                                  tableDataStyle={{textAlign: "left"}}/>
+                <ItemListPage title="Participants"
+                              filterItems={["Filter", "Name", "Email"]}
+                    // TODO: connect to AddStudentModal / AddGroupModal
+                              Button={() => new DropDownBtn({
+                                  onAddStudentBtnClick: () => console.log('add student'),
+                                  onAddGroupBtnClick: () => console.log('add group')
+                              })}
+                              tableHeaders={["Name", "Email", " "]}
+                              tableRowGenerator={{
+                                  list: students,
+                                  key: (student) => student.id,
+                                  data: (student) => [
+                                      (<FakeLink content={student.name}/>),
+                                      student.email,
+                                      ""
+                                  ]
+                              }}
+                              tableDataStyle={{textAlign: "left"}}/>
             </div>
         </div>
     );

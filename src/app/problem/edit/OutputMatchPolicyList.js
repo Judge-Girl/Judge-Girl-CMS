@@ -2,10 +2,10 @@ import React from 'react';
 import '../ProblemEditor.css';
 import {SubtitleLine} from "../../commons/titles/TitleLine";
 
-function OutputMatchPolicyList () {
+function OutputMatchPolicyList() {
     return (
         <div>
-            <SubtitleLine title={"Output Match Policy"} />
+            <SubtitleLine title={"Output Match Policy"}/>
             <div>
                 <select>
                     <option value="" disabled selected hidden>Add Match Policy</option>

@@ -10,9 +10,9 @@ function TagList() {
 
     return (
         <div>
-            <SubtitleLine title={"Tags"} />
-            <TextInputForm placeholder={"Add New Tags"} onSubmit={addTags}  />
-            <TextInputItems items={tags} removeItems={removeTag} />
+            <SubtitleLine title={"Tags"}/>
+            <TextInputForm placeholder={"Add New Tags"} onSubmit={addTags}/>
+            <TextInputItems items={tags} removeItems={removeTag}/>
         </div>
     )
 }

@@ -3,6 +3,7 @@ import {ItemListPage} from "../commons/ItemListPage/ItemListPage";
 import {studentService} from "../../services/services";
 import FakeLink from "../commons/FakeLink";
 import {CreateAdminAccountModal} from "./CreateAdminAccountModal";
+import {CreateButton} from "../commons/buttons/CreateButton";
 
 const useAdminList = () => {
     const [admins, setAdmins] = useState(undefined);
@@ -25,7 +26,9 @@ const AdminList = () => {
         <div style={{padding: "40px 100px 20px 100px"}}>
             <ItemListPage title="Admin List"
                           filterItems={["Filter", "Name", "Email"]}
-                          onCreateButtonClick={() => setShowCreateAdminAccountModal(true)}
+                          Button={() => new CreateButton({
+                              onCreateButtonClick: () => setShowCreateAdminAccountModal(true)
+                          })}
                           tableHeaders={["Name", "Email", " "]}
                           tableRowGenerator={{
                               list: admins,

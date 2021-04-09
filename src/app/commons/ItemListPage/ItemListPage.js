@@ -3,7 +3,7 @@ import * as React from "react";
 import {TitleLine} from "../titles/TitleLine";
 
 
-const FilterSearchBar = ({filterItems, onCreateButtonClick}) => {
+const FilterSearchBar = ({filterItems, Button}) => {
     return (
         <div className="is-flex is-justify-content-center">
             <div>
@@ -16,9 +16,7 @@ const FilterSearchBar = ({filterItems, onCreateButtonClick}) => {
                 </div>
             </div>
             <input style={{flexGrow: "1"}} type="text" id="searchBar"/>
-            <button className="button ml-2 my-green-btn" id="create-exam-btn"
-                    style={{flexGrow: "1"}} onClick={onCreateButtonClick}>+Create
-            </button>
+            <Button/>
         </div>
     )
 };
@@ -35,14 +33,14 @@ const FilterSearchBar = ({filterItems, onCreateButtonClick}) => {
  * @param tableDataStyle the custom style of the <td> elements
  */
 const ItemListPage = ({
-                          title, filterItems, onCreateButtonClick,
+                          title, filterItems, Button,
                           tableHeaders, tableRowGenerator,
                           tableDataStyle
                       }) => {
     return (
         <div className="has-text-centered">
             <TitleLine title={title}/>
-            <FilterSearchBar filterItems={filterItems} onCreateButtonClick={onCreateButtonClick}/>
+            <FilterSearchBar filterItems={filterItems} Button={Button}/>
             <table className="table items-table mt-4">
                 <thead>
                 <tr>
@@ -53,7 +51,6 @@ const ItemListPage = ({
                 </thead>
                 <tbody>
                 {
-
                     tableRowGenerator?.list
                         ?.map(item =>
                             <tr key={tableRowGenerator.key(item)}>

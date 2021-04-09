@@ -1,6 +1,5 @@
 import * as React from "react";
-import {useState} from "react";
-import {createRef} from "react";
+import {createRef, useState} from "react";
 import {renderModal} from "../commons/modals/modal";
 import {ModalHeader} from "../commons/modals/ModalHeader";
 import {studentService} from "../../services/services";

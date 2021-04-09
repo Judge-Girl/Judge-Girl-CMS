@@ -9,9 +9,9 @@ function SubmittedCodeList() {
     const {tags, addTags, removeTag} = useTags();
     return (
         <div>
-            <SubtitleLine title={"Submitted Code Spec"} />
-            <TextInputForm placeholder={"Add Submitted Code File Name"} onSubmit={addTags} />
-            <TextInputItems items={tags} removeItems={removeTag} />
+            <SubtitleLine title={"Submitted Code Spec"}/>
+            <TextInputForm placeholder={"Add Submitted Code File Name"} onSubmit={addTags}/>
+            <TextInputItems items={tags} removeItems={removeTag}/>
         </div>
     )
 }

@@ -3,7 +3,7 @@ import './TextInputItems.css';
 
 const TextInputItems = ({items, removeItems}) => {
     return items.map((tag, index) => (
-        <div key={tag.id} className="tag-item" >
+        <div key={tag.id} className="tag-item">
             <div key={tag.id}>
                 {tag.text}
             </div>

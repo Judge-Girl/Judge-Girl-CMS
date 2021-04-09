@@ -11,41 +11,41 @@ import Description from "./edit/Description";
 import {EditorButton} from "./edit/EditorButton";
 
 
-const ProblemEditor = withRouter(({history}) =>  {
+const ProblemEditor = withRouter(({history}) => {
 
     return (
         // TODO: Navigation Bar
         <div className="columns problem-editor">
             <div className="column left">
                 <section>
-                    <TagList />
+                    <TagList/>
                 </section>
                 <section>
-                    <ProvidedCodeList />
+                    <ProvidedCodeList/>
                 </section>
                 <section>
-                    <SubmittedCodeList />
+                    <SubmittedCodeList/>
                 </section>
                 <section>
-                    <ResourceSpec />
+                    <ResourceSpec/>
                 </section>
                 <section>
-                    <CompilationScript />
+                    <CompilationScript/>
                 </section>
                 <section>
-                    <OutputMatchPolicyList />
+                    <OutputMatchPolicyList/>
                 </section>
                 <section>
-                    <Visible />
+                    <Visible/>
                 </section>
                 <section>
-                    <EditorButton text={"Save Change"} buttonColor={"#96D745"} fontColor={"#FFFFFF"} />
-                    <EditorButton text={"Delete Problem"} buttonColor={"#FFFFFF"} fontColor={"#A2A3B1"} />
+                    <EditorButton text={"Save Change"} buttonColor={"#96D745"} fontColor={"#FFFFFF"}/>
+                    <EditorButton text={"Delete Problem"} buttonColor={"#FFFFFF"} fontColor={"#A2A3B1"}/>
                 </section>
             </div>
             <div className="column right">
                 <section>
-                    <Description />
+                    <Description/>
 
                 </section>
             </div>

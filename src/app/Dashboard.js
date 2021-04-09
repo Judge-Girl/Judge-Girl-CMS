@@ -7,6 +7,4 @@ const Dashboard = withRouter(({history}) => {
 });
 
 
-
-
 export {Dashboard};

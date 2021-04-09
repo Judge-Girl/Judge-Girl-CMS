@@ -32,7 +32,6 @@
 }
 
 
-
-table tr > th:not(:first-child), table tr > td:not(:first-child)  {
+table tr > th:not(:first-child), table tr > td:not(:first-child) {
     text-align: left !important;
 }

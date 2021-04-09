@@ -7,6 +7,8 @@ import {Login} from "./Login";
 import {Dashboard} from "./Dashboard";
 import {ProblemEditor} from "./problem/ProblemEditor";
 import {ExamList} from "./exam/ExamList";
+import {Examinees} from "./exam/Examinees";
+import {ExamProblems} from "./exam/ExamProblems";
 import {StudentList} from "./students/StudentList";
 import {GroupList} from "./students/GroupList";
 import {AdminList} from "./admins/AdminList";
@@ -30,7 +32,10 @@ function App() {
                     <PrivateRoute path="/admins" component={AdminList}/>
                     <PrivateRoute path="/groups" component={GroupList}/>
                     <PrivateRoute path="/problems/:problemId/edit" component={ProblemEditor}/>
-                    <PrivateRoute path="/exams" component={ExamList}/>
+                    <PrivateRoute exact={true} path="/exams" component={ExamList}/>
+                    <PrivateRoute path="/exams/:examId/students" component={Examinees}/>
+                    <PrivateRoute path="/exams/:examId/problems" component={ExamProblems}/>
+
                 </div>
             </Router>
         </AuthContext.Provider>

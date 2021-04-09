@@ -1,8 +1,8 @@
 import * as React from "react";
 
 const EditorButton = ({
-                          text, buttonColor, width=356,
-                          height=46, borderRadius=10, fontColor
+                          text, buttonColor, width = 356,
+                          height = 46, borderRadius = 10, fontColor
                       }) => {
     return (
         <div>

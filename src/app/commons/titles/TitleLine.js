@@ -11,7 +11,7 @@ const SubtitleLine = function ({title}) {
 const TitleLine = function ({
                                 title, fontSize = '35px', alignment = 'left',
                                 color = '#374550', shadow = true, fontWeight = 'bold',
-                                lineColor = '#E4E1E1', hrHeight=2, hrMarginY = 4
+                                lineColor = '#E4E1E1', hrHeight = 2, hrMarginY = 4
                             }) {
     const textShadow = shadow ? '2px 2px 0 rgba(0, 0, 0, 0.25)' : '0';
     return (

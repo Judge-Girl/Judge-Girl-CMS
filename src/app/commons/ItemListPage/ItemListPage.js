@@ -51,7 +51,6 @@ const ItemListPage = ({
                 </thead>
                 <tbody>
                 {
-
                     tableRowGenerator?.list
                         ?.map(item =>
                             <tr key={tableRowGenerator.key(item)}>

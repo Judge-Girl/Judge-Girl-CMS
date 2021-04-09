@@ -1,7 +1,14 @@
 import './DropDownButton.scss'
 import React, {useState} from "react";
 
-const DropDownBtn = function ({buttonName, subButtons}) {
+/**
+ * @param buttonName the button's name (str) show on the main button
+ * @param dropDownItems the item in the dropdown. 2 fields.
+ *          (1) name: dropDownItem's name
+ *          (2) onClick: the event when you click the dropDownItem
+ */
+
+const DropDownBtn = function ({buttonName, dropDownItems}) {
     const [active, setActive] = useState(true);
 
     return (
@@ -17,8 +24,8 @@ const DropDownBtn = function ({buttonName, subButtons}) {
                 <div className="dropdown-menu" id="dropdown-menu" role="menu">
                     <div className="dropdown-content">
                         {
-                            subButtons?.map(item =>
-                                <p className="dropdown-item" onMouseDown={item[1]}>{item[0]}</p>)
+                            dropDownItems?.map(item =>
+                                <p className="dropdown-item" onMouseDown={item.onClick}>{item.name}</p>)
                         }
                     </div>
                 </div>

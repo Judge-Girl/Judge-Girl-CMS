@@ -28,8 +28,14 @@ const Examinees = withRouter(({history}) => {
                               Button={() => new DropDownBtn({
                                   buttonName: '+ People',
                                   subButtons: [
-                                      ["Student", () => console.log('add student')],
-                                      ["Group", () => console.log('add group')]
+                                      {
+                                          name: "Student",
+                                          onClick: () => console.log('add student')
+                                      },
+                                      {
+                                          name: "Group",
+                                          onClick: () => console.log('add group')
+                                      }
                                   ]
                               })}
                               tableHeaders={["Name", "Email", " "]}

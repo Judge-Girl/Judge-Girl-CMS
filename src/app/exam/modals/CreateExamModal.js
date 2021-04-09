@@ -1,14 +1,14 @@
 import * as React from "react";
 import {createRef, useState} from "react";
-import {SubtitleLine} from "../commons/titles/TitleLine";
+import {SubtitleLine} from "../../commons/titles/TitleLine";
 import "./CreateExamModel.css";
 import * as moment from "moment";
 import {now} from "moment";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCircle} from '@fortawesome/free-solid-svg-icons';
-import {examService} from "../../services/services";
-import {renderModal} from "../commons/modals/modal";
-import {ModalInput} from "../commons/modals/ModalInput";
+import {examService} from "../../../services/services";
+import {renderModal} from "../../commons/modals/modal";
+import {ModalInput} from "../../commons/modals/ModalInput";
 
 
 function formatDate(time) {

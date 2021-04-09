@@ -5,10 +5,14 @@ import FakeLink from "../commons/FakeLink";
 import {studentService} from "../../services/services";
 import {ItemListPage} from "../commons/ItemListPage/ItemListPage";
 import {DropDownBtn} from "../commons/buttons/DropDownButton";
+import {AddStudentModal} from "./modals/AddStudentModal";
+import {AddGroupModal} from "./modals/AddGroupModal";
 
 const Examinees = withRouter(({history}) => {
     const currentPathName = history.location.pathname;
     const [students, setStudents] = useState(undefined);
+    const [showAddStudentModal, setShowAddStudentModal] = useState(false);
+    const [showAddGroupModal, setShowAddGroupModal] = useState(false);
 
     useEffect(() => {
         if (!students) {
@@ -27,15 +31,16 @@ const Examinees = withRouter(({history}) => {
                     // TODO: connect to AddStudentModal / AddGroupModal
                               Button={() => new DropDownBtn({
                                   buttonName: '+ People',
-                                  subButtons: [
+                                  dropDownItems: [
                                       {
                                           name: "Student",
-                                          onClick: () => console.log('add student')
+                                          onClick: () => setShowAddStudentModal(true)
                                       },
                                       {
                                           name: "Group",
-                                          onClick: () => console.log('add group')
+                                          onClick: () => setShowAddGroupModal(true)
                                       }
+
                                   ]
                               })}
                               tableHeaders={["Name", "Email", " "]}
@@ -50,6 +55,12 @@ const Examinees = withRouter(({history}) => {
                               }}
                               tableDataStyle={{textAlign: "left"}}/>
             </div>
+
+            <AddStudentModal show={showAddStudentModal}
+                             onClose={() => setShowAddStudentModal(false)}/>
+
+            <AddGroupModal show={showAddGroupModal}
+                           onClose={() => setShowAddGroupModal(false)}/>
         </div>
     );
 });

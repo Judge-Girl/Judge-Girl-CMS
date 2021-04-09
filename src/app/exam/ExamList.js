@@ -3,7 +3,7 @@ import * as React from "react";
 import {useEffect, useState} from "react";
 import {examService} from "../../services/services";
 import * as moment from "moment";
-import {CreateExamModal} from "./CreateExamModal";
+import {CreateExamModal} from "./modals/CreateExamModal";
 import {ItemListPage} from "../commons/ItemListPage/ItemListPage";
 import FakeLink from "../commons/FakeLink";
 import {EXAM_STATUSES} from "../../services/ExamService";

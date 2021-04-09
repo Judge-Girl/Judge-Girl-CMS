@@ -3,7 +3,7 @@ import {ItemListPage} from "../commons/ItemListPage/ItemListPage";
 import {studentService} from "../../services/services";
 import FakeLink from "../commons/FakeLink";
 import {CreateAdminAccountModal} from "./CreateAdminAccountModal";
-import {CreateButton} from "../commons/ItemListPage/CreateButton";
+import {CreateButton} from "../commons/buttons/CreateButton";
 
 const useAdminList = () => {
     const [admins, setAdmins] = useState(undefined);

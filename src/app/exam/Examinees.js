@@ -4,7 +4,7 @@ import {ExamHome} from "./ExamHome"
 import FakeLink from "../commons/FakeLink";
 import {studentService} from "../../services/services";
 import {ItemListPage} from "../commons/ItemListPage/ItemListPage";
-import {DropDownBtn} from "../commons/ItemListPage/DropDownButton";
+import {DropDownBtn} from "../commons/buttons/DropDownButton";
 
 const Examinees = withRouter(({history}) => {
     const currentPathName = history.location.pathname;
@@ -26,8 +26,11 @@ const Examinees = withRouter(({history}) => {
                               filterItems={["Filter", "Name", "Email"]}
                     // TODO: connect to AddStudentModal / AddGroupModal
                               Button={() => new DropDownBtn({
-                                  onAddStudentBtnClick: () => console.log('add student'),
-                                  onAddGroupBtnClick: () => console.log('add group')
+                                  buttonName: '+ People',
+                                  subButtons: [
+                                      ["Student", () => console.log('add student')],
+                                      ["Group", () => console.log('add group')]
+                                  ]
                               })}
                               tableHeaders={["Name", "Email", " "]}
                               tableRowGenerator={{

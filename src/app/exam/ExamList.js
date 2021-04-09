@@ -7,7 +7,7 @@ import {CreateExamModal} from "./CreateExamModal";
 import {ItemListPage} from "../commons/ItemListPage/ItemListPage";
 import FakeLink from "../commons/FakeLink";
 import {EXAM_STATUSES} from "../../services/ExamService";
-import {CreateButton} from "../commons/ItemListPage/CreateButton";
+import {CreateButton} from "../commons/buttons/CreateButton";
 
 
 function formatDate(timestamp) {

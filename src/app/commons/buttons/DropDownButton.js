@@ -1,7 +1,7 @@
 import './DropDownButton.scss'
 import React, {useState} from "react";
 
-const DropDownBtn = function ({onAddStudentBtnClick, onAddGroupBtnClick}) {
+const DropDownBtn = function ({buttonName, subButtons}) {
     const [active, setActive] = useState(true);
 
     return (
@@ -11,13 +11,15 @@ const DropDownBtn = function ({onAddStudentBtnClick, onAddGroupBtnClick}) {
                     <button className="button" aria-haspopup="true" aria-controls="dropdown-menu"
                             onClick={() => setActive(open => !open)}
                             onBlur={() => setActive(open => !open)}>
-                        <span>+ People</span>
+                        <span>{buttonName}</span>
                     </button>
                 </div>
                 <div className="dropdown-menu" id="dropdown-menu" role="menu">
                     <div className="dropdown-content">
-                        <p className="dropdown-item" onMouseDown={onAddStudentBtnClick}>Student</p>
-                        <p className="dropdown-item" onMouseDown={onAddGroupBtnClick}>Group</p>
+                        {
+                            subButtons?.map(item =>
+                                <p className="dropdown-item" onMouseDown={item[1]}>{item[0]}</p>)
+                        }
                     </div>
                 </div>
             </div>

@@ -17,9 +17,6 @@ const FilterSearchBar = ({filterItems, Button}) => {
             </div>
             <input style={{flexGrow: "1"}} type="text" id="searchBar"/>
             <Button/>
-            {/*<button className="button ml-2 my-green-btn"*/}
-            {/*        style={{flexGrow: "1"}} onClick={onCreateButtonClick}>+Create*/}
-            {/*</button>*/}
         </div>
     )
 };

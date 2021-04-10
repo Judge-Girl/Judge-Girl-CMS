@@ -8,7 +8,7 @@ import React, {useState} from "react";
  *          (2) onClick: the event when you click the dropDownItem
  */
 
-const DropDownBtn = function ({buttonName, dropDownItems}) {
+const DropDownBtn = function ({buttonName, dropDownItems, Icon}) {
     const [active, setActive] = useState(true);
 
     return (
@@ -18,6 +18,7 @@ const DropDownBtn = function ({buttonName, dropDownItems}) {
                     <button className="button" aria-haspopup="true" aria-controls="dropdown-menu"
                             onClick={() => setActive(open => !open)}
                             onBlur={() => setActive(open => !open)}>
+                        {Icon !== undefined && <Icon/>}
                         <span>{buttonName}</span>
                     </button>
                 </div>

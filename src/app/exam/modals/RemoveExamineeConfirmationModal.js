@@ -1,9 +1,9 @@
-import './RemoveParticipantModal.scss'
+import './RemoveExamineeConfirmationModal.scss'
 import React, {createRef} from "react";
 import {renderModal} from "../../commons/modals/modal";
 import {ModalHeader} from "../../commons/modals/ModalHeader";
 
-const RemoveParticipantModal = ({title, content, show, onClose}) => {
+const RemoveExamineeConfirmationModal = ({title, content, show, onClose}) => {
     const closeIconRef = createRef(), formRef = createRef();
 
     const handleSubmit = e => {
@@ -11,7 +11,7 @@ const RemoveParticipantModal = ({title, content, show, onClose}) => {
     };
 
     return renderModal({
-        modalClassName: "remove-participant-modal",
+        modalClassName: "remove-examinee-confirmation-modal",
         modalWidth: "480px",
         show, onClose, closeIconRef,
         contentRendering: () => (
@@ -28,4 +28,4 @@ const RemoveParticipantModal = ({title, content, show, onClose}) => {
 };
 
 
-export {RemoveParticipantModal}
+export {RemoveExamineeConfirmationModal}

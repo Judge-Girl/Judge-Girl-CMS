@@ -7,8 +7,8 @@ import {ItemListPage} from "../commons/ItemListPage/ItemListPage";
 import {DropDownBtn} from "../commons/buttons/DropDownButton";
 import {AiOutlineMail, AiOutlineUsergroupAdd} from "react-icons/ai";
 import {AddParticipantModal} from "./modals/AddParticipantModal";
-import {ThreeDotButton} from "../commons/buttons/ThreeDotButton";
-import {RemoveParticipantModal} from "./modals/RemoveParticipantModal";
+import {ThreeDotsButton} from "../commons/buttons/ThreeDotsButton";
+import {RemoveExamineeConfirmationModal} from "./modals/RemoveExamineeConfirmationModal";
 
 const Examinees = withRouter(({history}) => {
         const currentPathName = history.location.pathname;
@@ -18,7 +18,7 @@ const Examinees = withRouter(({history}) => {
         const [showRemoveParticipantModal, setShowRemoveParticipantModal] = useState(false);
 
 
-        const optionButton = () => new ThreeDotButton({
+        const actionItemsButton = () => new ThreeDotsButton({
             dropDownItems: [
                 {
                     name: "Remove",
@@ -61,7 +61,7 @@ const Examinees = withRouter(({history}) => {
                                       data: (student) => [
                                           (<FakeLink content={student.name}/>),
                                           student.email,
-                                          optionButton()
+                                          actionItemsButton()
                                       ]
                                   }}
                                   tableDataStyle={{textAlign: "left"}}/>
@@ -89,13 +89,13 @@ const Examinees = withRouter(({history}) => {
                                      show={showAddGroupModal}
                                      onClose={() => setShowAddGroupModal(false)}/>
 
-                <RemoveParticipantModal title={"Remove the Student"}
-                                        content={{
-                                            name: "chaoyu",
-                                            email: "chaoyu@mail.com"
-                                        }}
-                                        show={showRemoveParticipantModal}
-                                        onClose={() => setShowRemoveParticipantModal(false)}/>
+                <RemoveExamineeConfirmationModal title={"Remove the Student"}
+                                                 content={{
+                                                     name: "chaoyu",
+                                                     email: "chaoyu@mail.com"
+                                                 }}
+                                                 show={showRemoveParticipantModal}
+                                                 onClose={() => setShowRemoveParticipantModal(false)}/>
             </div>
         );
     }

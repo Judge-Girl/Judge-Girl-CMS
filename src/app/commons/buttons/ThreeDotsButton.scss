@@ -1,3 +1,5 @@
+$dark-gray: #252730;
+
 .three-dot-button {
   margin-left: 5px;
 
@@ -13,25 +15,24 @@
     color: #6D6E7D;
 
     &:focus:not(:active) {
-      color: #252730;
+      color: $dark-gray;
       box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
     }
 
     &:hover {
-      color: #252730;
+      color: $dark-gray;
     }
   }
 
-
   .dropdown-content {
     text-align: center;
-    color: #6D6E7D;
     font-weight: 500;
     width: 6rem;
     cursor: pointer;
 
     .dropdown-item {
       padding: 3px 2px 3px 2px;
+      color: $dark-gray;
       font-size: 1rem;
     }
 
@@ -45,7 +46,7 @@
 
     p:hover {
       background: #E4E5E6;
-      color: #252730;
+      color: $dark-gray;
     }
   }
 }

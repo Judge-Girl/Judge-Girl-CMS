@@ -1,23 +1,26 @@
+$light-green: #96D745;
+$dark-green: #9DCC61;
+
 .dropdown-button {
   margin-left: 5px;
 
   .button {
     border-radius: 10px;
     font-weight: 600;
-    background: #96D745;
-    border-color: #96D745;
+    background: $light-green;
+    border-color: $light-green;
     color: white;
     align-content: center;
     justify-content: center;
 
     &:focus {
-      background: #9DCC61;
-      box-shadow: 0 0 0 0 #9DCC61;
-      border-color: #9DCC61;
+      background: $dark-green;
+      box-shadow: 0 0 0 0 $dark-green;
+      border-color: $dark-green;
     }
 
     &:hover {
-      background: #9DCC61;
+      background: $dark-green;
     }
   }
 

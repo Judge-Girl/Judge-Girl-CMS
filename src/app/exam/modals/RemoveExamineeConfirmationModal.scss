@@ -1,11 +1,13 @@
-.remove-participant-modal {
+$light-red: #E26C65;
+
+.remove-examinee-confirmation-modal {
   #modal {
     padding: 30px 40px 27px 40px;
     font-family: 'Poppins', sans-serif;
   }
 
   .modal-header {
-    color: #E26C65;
+    color: $light-red;
   }
 
   p {
@@ -19,7 +21,7 @@
     margin-top: 20px;
     border-radius: 10px;
     font-weight: 600;
-    background: #E26C65;
+    background: $light-red;
     color: white;
     border-color: rgba(0, 0, 0, 0);
 

@@ -1,16 +1,14 @@
-import './ThreeDotButton.scss'
+import './ThreeDotsButton.scss'
 import React, {useState} from "react";
 import {BsThreeDotsVertical} from "react-icons/bs"
 
 /**
- * @param buttonName the button's name (str) show on the main button
  * @param dropDownItems the item in the dropdown. 2 fields.
  *          (1) name: dropDownItem's name
  *          (2) onClick: the event when you click the dropDownItem
- * @param Icon the main button's Icon
  */
 
-const ThreeDotButton = function ({dropDownItems}) {
+const ThreeDotsButton = function ({dropDownItems}) {
     const [active, setActive] = useState(true);
 
     return (
@@ -36,4 +34,4 @@ const ThreeDotButton = function ({dropDownItems}) {
     );
 };
 
-export {ThreeDotButton};
+export {ThreeDotsButton};

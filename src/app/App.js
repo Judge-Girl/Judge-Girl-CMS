@@ -15,6 +15,7 @@ import {AdminList} from "./admins/AdminList";
 import {NavigationBar} from "./NavigationBar";
 import {AuthContext} from "./commons/access-control/auth";
 import PrivateRoute from "./commons/access-control/PrivateRoute";
+import {StudentListInGroup} from "./students/StudentListInGroup";
 
 
 function App() {
@@ -30,7 +31,8 @@ function App() {
                     <PrivateRoute path="/problems" component={Dashboard}/>
                     <PrivateRoute path="/students" component={StudentList}/>
                     <PrivateRoute path="/admins" component={AdminList}/>
-                    <PrivateRoute path="/groups" component={GroupList}/>
+                    <PrivateRoute exact={true} path="/groups" component={GroupList}/>
+                    <PrivateRoute path="/groups/:groupId/students" component={StudentListInGroup}/>
                     <PrivateRoute path="/problems/:problemId/edit" component={ProblemEditor}/>
                     <PrivateRoute exact={true} path="/exams" component={ExamList}/>
                     <PrivateRoute path="/exams/:examId/students" component={Examinees}/>

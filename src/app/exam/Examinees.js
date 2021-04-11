@@ -18,7 +18,7 @@ const Examinees = withRouter(({history}) => {
         const [showRemoveParticipantModal, setShowRemoveParticipantModal] = useState(false);
 
 
-    const optionButton = () => new ThreeDotButton({
+        const optionButton = () => new ThreeDotButton({
             dropDownItems: [
                 {
                     name: "Remove",
@@ -90,12 +90,12 @@ const Examinees = withRouter(({history}) => {
                                      onClose={() => setShowAddGroupModal(false)}/>
 
                 <RemoveParticipantModal title={"Remove the Student"}
-                                     content={{
-                                         name: "chaoyu",
-                                         email: "chaoyu@mail.com"
-                                     }}
-                                     show={showRemoveParticipantModal}
-                                     onClose={() => setShowRemoveParticipantModal(false)}/>
+                                        content={{
+                                            name: "chaoyu",
+                                            email: "chaoyu@mail.com"
+                                        }}
+                                        show={showRemoveParticipantModal}
+                                        onClose={() => setShowRemoveParticipantModal(false)}/>
             </div>
         );
     }

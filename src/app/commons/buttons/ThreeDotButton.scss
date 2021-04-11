@@ -1,0 +1,48 @@
+.three-dot-button {
+  margin-left: 5px;
+
+  .button {
+    border-radius: 10px;
+    font-weight: 600;
+    background: rgba(0, 0, 0, 0);
+    border-color: rgba(0, 0, 0, 0);
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+    padding: 0 0 0 0;
+    color: #6D6E7D;
+
+    &:focus:not(:active) {
+      color: #252730;
+      box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+    }
+
+    &:hover {
+      color: #252730;
+    }
+  }
+
+  .dropdown-content {
+    text-align: center;
+    color: #6D6E7D;
+    font-weight: 500;
+    width: 6rem;
+    cursor: pointer;
+
+    .dropdown-item {
+      padding: 3px 2px 3px 2px;
+      font-size: 1rem;
+    }
+
+    .is-dangerous {
+      color: #E26C65;
+
+      &:hover {
+        color: #E34137;
+      }
+    }
+
+    p:hover {
+      background: #E4E5E6;
+      color: #252730;
+    }
+  }
+}

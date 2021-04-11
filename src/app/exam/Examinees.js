@@ -7,12 +7,26 @@ import {ItemListPage} from "../commons/ItemListPage/ItemListPage";
 import {DropDownBtn} from "../commons/buttons/DropDownButton";
 import {AiOutlineMail, AiOutlineUsergroupAdd} from "react-icons/ai";
 import {AddParticipantModal} from "./modals/AddParticipantModal";
+import {ThreeDotButton} from "../commons/buttons/ThreeDotButton";
+import {RemoveParticipantModal} from "./modals/RemoveParticipantModal";
 
 const Examinees = withRouter(({history}) => {
         const currentPathName = history.location.pathname;
         const [students, setStudents] = useState(undefined);
         const [showAddStudentModal, setShowAddStudentModal] = useState(false);
         const [showAddGroupModal, setShowAddGroupModal] = useState(false);
+        const [showRemoveParticipantModal, setShowRemoveParticipantModal] = useState(false);
+
+
+    const optionButton = () => new ThreeDotButton({
+            dropDownItems: [
+                {
+                    name: "Remove",
+                    dangerous: true,
+                    onClick: () => setShowRemoveParticipantModal(true)
+                }
+            ]
+        })
 
         useEffect(() => {
             if (!students) {
@@ -24,7 +38,6 @@ const Examinees = withRouter(({history}) => {
         return (
             <div>
                 <ExamHome currentPathName={currentPathName} examName={"2021 Sample-Exam"}/>
-
                 <div style={{padding: "40px 15rem 20px 15rem"}}>
                     <ItemListPage title="Participants"
                                   filterItems={["Filter", "Name", "Email"]}
@@ -39,7 +52,6 @@ const Examinees = withRouter(({history}) => {
                                               name: "Group",
                                               onClick: () => setShowAddGroupModal(true)
                                           }
-
                                       ]
                                   })}
                                   tableHeaders={["Name", "Email", " "]}
@@ -49,7 +61,7 @@ const Examinees = withRouter(({history}) => {
                                       data: (student) => [
                                           (<FakeLink content={student.name}/>),
                                           student.email,
-                                          ""
+                                          optionButton()
                                       ]
                                   }}
                                   tableDataStyle={{textAlign: "left"}}/>
@@ -76,6 +88,14 @@ const Examinees = withRouter(({history}) => {
                                      }}
                                      show={showAddGroupModal}
                                      onClose={() => setShowAddGroupModal(false)}/>
+
+                <RemoveParticipantModal title={"Remove the Student"}
+                                     content={{
+                                         name: "chaoyu",
+                                         email: "chaoyu@mail.com"
+                                     }}
+                                     show={showRemoveParticipantModal}
+                                     onClose={() => setShowRemoveParticipantModal(false)}/>
             </div>
         );
     }

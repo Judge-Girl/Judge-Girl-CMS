@@ -1,4 +1,4 @@
-.dropdown {
+.dropdown-button {
   margin-left: 5px;
 
   .button {
@@ -24,9 +24,14 @@
   .dropdown-content {
     text-align: center;
     color: #3C4D27;
-    font-weight: 400;
+    font-weight: 500;
     width: 6rem;
     cursor: pointer;
+
+    .dropdown-item {
+      padding: 3px 2px 3px 2px;
+      font-size: 1rem;
+    }
 
     p:hover {
       background: #B4DA87;

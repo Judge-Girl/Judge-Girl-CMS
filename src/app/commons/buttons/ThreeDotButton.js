@@ -1,5 +1,6 @@
-import './DropDownButton.scss'
+import './ThreeDotButton.scss'
 import React, {useState} from "react";
+import {FaEllipsisV} from "react-icons/fa";
 
 /**
  * @param buttonName the button's name (str) show on the main button
@@ -9,25 +10,25 @@ import React, {useState} from "react";
  * @param Icon the main button's Icon
  */
 
-const DropDownBtn = function ({buttonName, dropDownItems, Icon}) {
+const ThreeDotButton = function ({dropDownItems}) {
     const [active, setActive] = useState(true);
 
     return (
         <div>
-            <div className={"dropdown dropdown-button" + (active ? "" : " is-active")}>
+            <div className={"dropdown three-dot-button" + (active ? "" : " is-active")}>
                 <div className="dropdown-trigger">
                     <button className="button" aria-haspopup="true" aria-controls="dropdown-menu"
                             onClick={() => setActive(open => !open)}
                             onBlur={() => setActive(open => !open)}>
-                        {Icon !== undefined && <Icon/>}
-                        <span>{buttonName}</span>
+                        <FaEllipsisV/>
                     </button>
                 </div>
                 <div className="dropdown-menu" id="dropdown-menu" role="menu">
                     <div className="dropdown-content">
                         {
                             dropDownItems?.map(item =>
-                                <p className="dropdown-item" onMouseDown={item.onClick}>{item.name}</p>)
+                                <p className={"dropdown-item " + (item.dangerous ? "is-dangerous" : "")}
+                                   onMouseDown={item.onClick}>{item.name}</p>)
                         }
                     </div>
                 </div>
@@ -37,4 +38,4 @@ const DropDownBtn = function ({buttonName, dropDownItems, Icon}) {
     );
 };
 
-export {DropDownBtn};
+export {ThreeDotButton};

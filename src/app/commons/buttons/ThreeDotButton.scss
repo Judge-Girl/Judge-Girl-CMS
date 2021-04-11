@@ -3,7 +3,9 @@
 
   .button {
     border-radius: 10px;
+    align-items: center;
     font-weight: 600;
+    height: 2rem;
     background: rgba(0, 0, 0, 0);
     border-color: rgba(0, 0, 0, 0);
     box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
@@ -19,6 +21,7 @@
       color: #252730;
     }
   }
+
 
   .dropdown-content {
     text-align: center;

@@ -1,4 +1,4 @@
-import './ItemListPage.css';
+import './ItemListPage.scss';
 import * as React from "react";
 import {TitleLine} from "../titles/TitleLine";
 

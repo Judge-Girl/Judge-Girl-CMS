@@ -18,7 +18,7 @@ const AddParticipantModal = ({title, content, show, onClose}) => {
         contentRendering: () => (
             <form onSubmit={handleSubmit} ref={formRef}>
                 <div id="modal" className="font-poppins has-text-centered">
-                    <ModalHeader className="header" title={title} textAlign="left"/>{content.icon}
+                    <ModalHeader className="header" title={title} textAlign="left"/>
                     <p className="description"><Icon className="modal-icon"/>{content.description}</p>
                     <textarea className="textarea" placeholder={content.placeholder}/>
                     <div className="columns">

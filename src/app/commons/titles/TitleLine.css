@@ -3,4 +3,5 @@
     font-weight: bold;
     color: #374550;
     display: inline-block;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.25) !important;
 }

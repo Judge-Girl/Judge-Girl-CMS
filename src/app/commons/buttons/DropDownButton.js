@@ -6,18 +6,20 @@ import React, {useState} from "react";
  * @param dropDownItems the item in the dropdown. 2 fields.
  *          (1) name: dropDownItem's name
  *          (2) onClick: the event when you click the dropDownItem
+ * @param Icon the main button's Icon
  */
 
-const DropDownBtn = function ({buttonName, dropDownItems}) {
+const DropDownBtn = function ({buttonName, dropDownItems, Icon}) {
     const [active, setActive] = useState(true);
 
     return (
         <div>
-            <div className={"dropdown" + (active ? "" : " is-active")}>
+            <div className={"dropdown dropdown-button" + (active ? "" : " is-active")}>
                 <div className="dropdown-trigger">
                     <button className="button" aria-haspopup="true" aria-controls="dropdown-menu"
                             onClick={() => setActive(open => !open)}
                             onBlur={() => setActive(open => !open)}>
+                        {Icon !== undefined && <Icon/>}
                         <span>{buttonName}</span>
                     </button>
                 </div>

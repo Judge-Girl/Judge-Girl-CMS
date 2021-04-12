@@ -7,7 +7,7 @@ import React, {useEffect, useState} from "react";
 import {ThreeDotsButton} from "../commons/buttons/ThreeDotsButton";
 import {studentService} from "../../services/services";
 
-const StudentListInGroup = withRouter(({history}) => {
+const GroupMembers = withRouter( ({history, location}) => {
     const currentPathName = history.location.pathname;
     const [students, setStudents] = useState(undefined);
 
@@ -23,20 +23,21 @@ const StudentListInGroup = withRouter(({history}) => {
 
     useEffect(() => {
         if (!students) {
-            studentService.getStudents({skip: 0, size: 100})
+            studentService.getStudentsByGroupId(location.state.id)
                 .then(students => setStudents(students));
         }
     });
 
     return (
         <div>
+            <p>{console.log(location)}</p>
             <GroupIndexBanner currentPathName={currentPathName}
-                              groupName={"2021 C Programming Group A"}
-                              groupId={1}
+                              groupName={location.state.name}
+                              groupId={location.state.id}
             />
 
             <div style={{padding: "40px 15rem 20px 15rem"}}>
-                <ItemListPage title="Students In Group"
+                <ItemListPage title="Group Members"
                               filterItems={["Filter", "Name", "Email"]}
                               Button={() => new CreateButton({
                                   onCreateButtonClick: () => console.log("onClick")
@@ -57,4 +58,4 @@ const StudentListInGroup = withRouter(({history}) => {
     )
 });
 
-export {StudentListInGroup};
+export {GroupMembers};

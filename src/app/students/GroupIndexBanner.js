@@ -10,12 +10,12 @@ const GroupIndexBanner = function ({currentPathName, groupName, groupId}) {
                      }}
                      tabContents={[
                          {
-                             to: '/groups/' + {groupId} + '/students',
+                             to: `/groups/${groupId}/students`,
                              name: 'Students',
                              icon: FaUserGraduate
                          },
                          {
-                             to: '/groups/' + {groupId} + '/options',
+                             to: `/groups/${groupId}/options`,
                              name: 'Options',
                              icon: AiOutlineSetting
                          }

@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from "react";
 import {ItemListPage} from "../commons/ItemListPage/ItemListPage";
 import {studentService} from "../../services/services";
-import FakeLink from "../commons/FakeLink";
 import {CreateGroupModal} from "./CreateGroupModal";
 import {CreateButton} from "../commons/buttons/CreateButton";
+import {useHistory} from "react-router";
+import TextLink from "../commons/TextLink";
 
 const useExamList = function () {
     const [groups, setGroups] = useState(undefined);
@@ -14,12 +15,23 @@ const useExamList = function () {
 const GroupList = () => {
     const [showCreateGroupModal, setShowCreateGroupModal] = useState(false);
     const {groups, addGroup, setGroups} = useExamList();
+
+    let history = useHistory();
+
+    function handleClick(group) {
+        history.push({
+            pathname: `/groups/${group.id}/students`,
+            state: group
+        });
+    }
+
     useEffect(() => {
         if (!groups) {
             studentService.getGroups()
                 .then(groups => setGroups(groups));
         }
     });
+
     return (
         <div style={{padding: "40px 100px 20px 100px"}}>
             <ItemListPage title="Group List"
@@ -32,7 +44,8 @@ const GroupList = () => {
                               list: groups,
                               key: (group) => group.name,
                               data: (group) => [
-                                  (<FakeLink content={group.name}/>)
+                                  <TextLink content={group.name}
+                                            onClick={() => handleClick(group)}/>
                               ]
                           }}
                           tableDataStyle={{textAlign: "left"}}/>
@@ -45,4 +58,7 @@ const GroupList = () => {
 };
 
 
-export {GroupList};
+export
+{
+    GroupList
+};

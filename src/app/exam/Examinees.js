@@ -8,14 +8,14 @@ import {DropDownBtn} from "../commons/buttons/DropDownButton";
 import {AiOutlineMail, AiOutlineUsergroupAdd} from "react-icons/ai";
 import {AddParticipantModal} from "./modals/AddParticipantModal";
 import {ThreeDotsButton} from "../commons/buttons/ThreeDotsButton";
-import {RemoveExamineeConfirmationModal} from "./modals/RemoveExamineeConfirmationModal";
+import {RemoveConfirmationModal} from "../commons/modals/RemoveConfirmationModal";
 
 const Examinees = withRouter(({history}) => {
         const currentPathName = history.location.pathname;
         const [students, setStudents] = useState(undefined);
         const [showAddStudentModal, setShowAddStudentModal] = useState(false);
         const [showAddGroupModal, setShowAddGroupModal] = useState(false);
-        const [showRemoveParticipantModal, setShowRemoveParticipantModal] = useState(false);
+        const [showRemoveExamineeConfirmationModal, setShowRemoveExamineeConfirmationModal] = useState(false);
 
 
         const actionItemsButton = () => new ThreeDotsButton({
@@ -23,7 +23,7 @@ const Examinees = withRouter(({history}) => {
                 {
                     name: "Remove",
                     dangerous: true,
-                    onClick: () => setShowRemoveParticipantModal(true)
+                    onClick: () => setShowRemoveExamineeConfirmationModal(true)
                 }
             ]
         })
@@ -89,13 +89,19 @@ const Examinees = withRouter(({history}) => {
                                      show={showAddGroupModal}
                                      onClose={() => setShowAddGroupModal(false)}/>
 
-                <RemoveExamineeConfirmationModal title={"Remove the Student"}
-                                                 content={{
-                                                     name: "chaoyu",
-                                                     email: "chaoyu@mail.com"
-                                                 }}
-                                                 show={showRemoveParticipantModal}
-                                                 onClose={() => setShowRemoveParticipantModal(false)}/>
+                <RemoveConfirmationModal title={"Remove the Student"}
+                                         content={[
+                                             {
+                                                 title: "Name",
+                                                 value: "chaoyu"
+                                             },
+                                             {
+                                                 title: "Email",
+                                                 value: "chaoyu@email.com"
+
+                                             }]}
+                                         show={showRemoveExamineeConfirmationModal}
+                                         onClose={() => setShowRemoveExamineeConfirmationModal(false)}/>
             </div>
         );
     }

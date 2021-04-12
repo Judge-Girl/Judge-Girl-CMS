@@ -90,7 +90,7 @@ const Examinees = withRouter(({history}) => {
                                      onClose={() => setShowAddGroupModal(false)}/>
 
                 <RemoveConfirmationModal title={"Remove the Student"}
-                                         content={[
+                                         data={[
                                              {
                                                  title: "Name",
                                                  value: "chaoyu"

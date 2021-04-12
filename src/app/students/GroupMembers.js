@@ -1,5 +1,5 @@
 import {withRouter} from "react-router";
-import {GroupIndexBanner} from "./GroupIndexBanner";
+import {GroupHome} from "./GroupHome";
 import {ItemListPage} from "../commons/ItemListPage/ItemListPage";
 import {CreateButton} from "../commons/buttons/CreateButton";
 import FakeLink from "../commons/FakeLink";
@@ -35,16 +35,16 @@ const GroupMembers = withRouter(({history, match}) => {
         }
 
         if (!students && group) {
-            studentService.getStudentsByGroupId(group.id)
+            studentService.getMembersInGroup(group.id)
                 .then(students => setStudents(students));
         }
     });
 
     return (
         <div>
-            {group === undefined ? <Spinner/> : <GroupIndexBanner currentPathName={currentPathName}
-                                                                  groupName={group.name}
-                                                                  groupId={group.id}/>}
+            {group === undefined ? <Spinner/> : <GroupHome currentPathName={currentPathName}
+                                                           groupName={group.name}
+                                                           groupId={group.id}/>}
 
             <div style={{padding: "40px 15rem 20px 15rem"}}>
                 <ItemListPage title="Group Members"
@@ -67,7 +67,7 @@ const GroupMembers = withRouter(({history, match}) => {
 
 
             <RemoveConfirmationModal title={"Remove the Student"}
-                                     content={[
+                                     data={[
                                          {
                                              title: "Name",
                                              value: member?.name

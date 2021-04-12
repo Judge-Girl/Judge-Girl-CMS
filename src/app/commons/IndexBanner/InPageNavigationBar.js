@@ -1,4 +1,4 @@
-import './IndexBanner.scss'
+import './InPageNavigationBar.scss'
 import {NavLink} from "react-router-dom";
 import FakeLink from "../FakeLink";
 
@@ -9,9 +9,20 @@ function link(currentPathName, to, name, Icon) {
     );
 }
 
-const IndexBanner = function ({currentPathName, path, tabContents}) {
+/**
+ * @param currentPathName
+ * @param path, the path show on the navigation bar. 2 fields
+ *              (1) head (str) (2) tail (str)
+ *              Example on the UI: Exam / Final test
+ * @param tabContents, the tabs' contents. 3 fields
+ *              (1) to, the path to the next page
+ *              (2) name, the name (str) of the tab
+ *              (3) Icon, the Icon on the tab
+ */
+
+const InPageNavigationBar = function ({currentPathName, path, tabContents}) {
     return (
-        <div className="index-container">
+        <div className="in-page-nav-bar">
             <p className="path">
                 <FakeLink content={path.head}/><span> / </span><FakeLink content={path.tail}/>
             </p>
@@ -23,4 +34,4 @@ const IndexBanner = function ({currentPathName, path, tabContents}) {
     )
 };
 
-export {IndexBanner};
+export {InPageNavigationBar};

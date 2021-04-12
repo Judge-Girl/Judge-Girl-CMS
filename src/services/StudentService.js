@@ -97,6 +97,11 @@ export default class StudentService {
             .then(res => res.data.map(obj => new Group(obj)));
     }
 
+    async getGroupById(groupId) {
+        return this.axios.get(`/api/groups/${groupId}`)
+            .then(res => new Group(res.data));
+    }
+
     async getStudentsByGroupId(groupId) {
         return this.axios.get(`/api/groups/${groupId}/students`)
             .then(res => res.data.map(obj => new Student(obj)));

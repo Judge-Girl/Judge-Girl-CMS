@@ -6,9 +6,12 @@ import FakeLink from "../commons/FakeLink";
 import React, {useEffect, useState} from "react";
 import {ThreeDotsButton} from "../commons/buttons/ThreeDotsButton";
 import {studentService} from "../../services/services";
+import {Spinner} from "../commons/Spinner";
 
-const GroupMembers = withRouter( ({history, location}) => {
+
+const GroupMembers = withRouter(({history, match}) => {
     const currentPathName = history.location.pathname;
+    const [group, setGroup] = useState(undefined);
     const [students, setStudents] = useState(undefined);
 
     const actionItemsButton = () => new ThreeDotsButton({
@@ -22,19 +25,22 @@ const GroupMembers = withRouter( ({history, location}) => {
     })
 
     useEffect(() => {
-        if (!students) {
-            studentService.getStudentsByGroupId(location.state.id)
+        if (!group) {
+            studentService.getGroupById(match.params.groupId)
+                .then(group => setGroup(group));
+        }
+
+        if (!students && group) {
+            studentService.getStudentsByGroupId(group.id)
                 .then(students => setStudents(students));
         }
     });
 
     return (
         <div>
-            <p>{console.log(location)}</p>
-            <GroupIndexBanner currentPathName={currentPathName}
-                              groupName={location.state.name}
-                              groupId={location.state.id}
-            />
+            {group === undefined ? <Spinner/> : <GroupIndexBanner currentPathName={currentPathName}
+                                                                  groupName={group.name}
+                                                                  groupId={group.id}/>}
 
             <div style={{padding: "40px 15rem 20px 15rem"}}>
                 <ItemListPage title="Group Members"

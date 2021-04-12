@@ -3,8 +3,7 @@ import {ItemListPage} from "../commons/ItemListPage/ItemListPage";
 import {studentService} from "../../services/services";
 import {CreateGroupModal} from "./CreateGroupModal";
 import {CreateButton} from "../commons/buttons/CreateButton";
-import {useHistory} from "react-router";
-import TextLink from "../commons/TextLink";
+import {Link} from "react-router-dom";
 
 const useExamList = function () {
     const [groups, setGroups] = useState(undefined);
@@ -15,15 +14,6 @@ const useExamList = function () {
 const GroupList = () => {
     const [showCreateGroupModal, setShowCreateGroupModal] = useState(false);
     const {groups, addGroup, setGroups} = useExamList();
-
-    let history = useHistory();
-
-    function handleClick(group) {
-        history.push({
-            pathname: `/groups/${group.id}/students`,
-            state: group
-        });
-    }
 
     useEffect(() => {
         if (!groups) {
@@ -44,8 +34,7 @@ const GroupList = () => {
                               list: groups,
                               key: (group) => group.name,
                               data: (group) => [
-                                  <TextLink content={group.name}
-                                            onClick={() => handleClick(group)}/>
+                                  <Link to={`/groups/${group.id}/students`}>{group.name}</Link>
                               ]
                           }}
                           tableDataStyle={{textAlign: "left"}}/>

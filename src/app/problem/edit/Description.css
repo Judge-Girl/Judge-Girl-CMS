@@ -1,0 +1,71 @@
+/* TODO: the tabs part (.tabs, .active-tabs, .description-button) */
+.problem-editor .tabs {
+    /*padding: 15px;*/
+    text-align: center;
+    /*width: 50%;*/
+    /*background: yellow;*/
+    /*cursor: pointer;*/
+    border-bottom: 1px solid rgba(0, 0, 0, 0.274);
+    box-sizing: content-box;
+    /*position: relative;*/
+    outline: none;
+}
+
+.problem-editor .active-tabs  {
+    background: white;
+    border-bottom: 1px solid transparent;
+}
+
+.problem-editor .description-button {
+    font-family: Poppins;
+    /*font-style: normal;*/
+    /*font-weight: 600;*/
+    /*font-size: 15px;*/
+    /*line-height: 22px;*/
+    /*display: flex;*/
+    align-items: center;
+    /*color: #6D6E7D;*/
+    /*border: none;*/
+    /*border-color: #6D6E7D;*/
+    /*width: 80px;*/
+    /*height: 40px;*/
+}
+
+.problem-editor .content-tabs {
+    background: #FFFFFF;
+    border: 4px solid #A2A3B1;
+    box-sizing: border-box;
+    border-radius: 5px;
+    width: 758px;
+    height: 397px;
+    display: block;
+}
+
+.problem-editor .content {
+    background: white;
+    padding: 20px;
+    width: 100%;
+    height: 100%;
+    display: none;
+}
+
+.problem-editor .active-textarea {
+    display: block;
+    padding: 15px;
+}
+
+.problem-editor .active-markdown {
+    display: block;
+    padding: 15px;
+    overflow: scroll;
+}
+
+.problem-editor .description-textarea {
+    background: #F9F9F9;
+    border: 1px solid #C4C4C4;
+    box-sizing: border-box;
+    padding: 10px;
+    border-radius: 5px;
+    width: 724px;
+    height: 365px;
+}

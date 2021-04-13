@@ -8,8 +8,8 @@ import CompilationScript from "./edit/CompilationScript";
 import OutputMatchPolicyList from "./edit/OutputMatchPolicyList";
 import Visible from "./edit/Visible";
 import Description from "./edit/Description";
+import TestCase from "./edit/testCase/TestCase";
 import {EditorButton} from "./edit/EditorButton";
-
 
 const ProblemEditor = withRouter(({history}) => {
 
@@ -46,7 +46,9 @@ const ProblemEditor = withRouter(({history}) => {
             <div className="column right">
                 <section>
                     <Description/>
-
+                </section>
+                <section>
+                    <TestCase />
                 </section>
             </div>
         </div>

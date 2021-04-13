@@ -1,5 +1,5 @@
 import {withRouter} from "react-router";
-import {GroupHome} from "./GroupHome";
+import {GroupInPageNavigationBar} from "./GroupInPageNavigationBar";
 import {ItemListPage} from "../commons/ItemListPage/ItemListPage";
 import {CreateButton} from "../commons/buttons/CreateButton";
 import FakeLink from "../commons/FakeLink";
@@ -42,9 +42,9 @@ const GroupMembers = withRouter(({history, match}) => {
 
     return (
         <div>
-            {group === undefined ? <Spinner/> : <GroupHome currentPathName={currentPathName}
-                                                           groupName={group.name}
-                                                           groupId={group.id}/>}
+            {group === undefined ? <Spinner/> : <GroupInPageNavigationBar currentPathName={currentPathName}
+                                                                          groupName={group.name}
+                                                                          groupId={group.id}/>}
 
             <div style={{padding: "40px 15rem 20px 15rem"}}>
                 <ItemListPage title="Group Members"

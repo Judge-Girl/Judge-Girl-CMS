@@ -1,7 +1,7 @@
 import {InPageNavigationBar} from "../commons/IndexBanner/InPageNavigationBar";
 import {AiOutlineSetting, FaUserGraduate} from "react-icons/all";
 
-const GroupHome = function ({currentPathName, groupName, groupId}) {
+const GroupInPageNavigationBar = function ({currentPathName, groupName, groupId}) {
     return (
         <InPageNavigationBar currentPathName={currentPathName}
                              path={{
@@ -24,4 +24,4 @@ const GroupHome = function ({currentPathName, groupName, groupId}) {
     )
 };
 
-export {GroupHome};
+export {GroupInPageNavigationBar};

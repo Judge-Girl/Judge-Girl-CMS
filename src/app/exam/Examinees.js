@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {withRouter} from "react-router";
-import {ExamHome} from "./ExamHome"
+import {ExamInPageNavigationBar} from "./ExamInPageNavigationBar"
 import FakeLink from "../commons/FakeLink";
 import {studentService} from "../../services/services";
 import {ItemListPage} from "../commons/ItemListPage/ItemListPage";
@@ -37,7 +37,7 @@ const Examinees = withRouter(({history}) => {
 
         return (
             <div>
-                <ExamHome currentPathName={currentPathName} examName={"2021 Sample-Exam"}/>
+                <ExamInPageNavigationBar currentPathName={currentPathName} examName={"2021 Sample-Exam"}/>
                 <div style={{padding: "40px 15rem 20px 15rem"}}>
                     <ItemListPage title="Participants"
                                   filterItems={["Filter", "Name", "Email"]}

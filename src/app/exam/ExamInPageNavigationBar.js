@@ -1,7 +1,7 @@
 import {InPageNavigationBar} from "../commons/IndexBanner/InPageNavigationBar";
 import {AiOutlineSetting, FaRegEdit, FaUserFriends} from "react-icons/all";
 
-const ExamHome = function ({currentPathName, examName}) {
+const ExamInPageNavigationBar = function ({currentPathName, examName}) {
     return (
         <InPageNavigationBar currentPathName={currentPathName}
                              path={{
@@ -29,4 +29,4 @@ const ExamHome = function ({currentPathName, examName}) {
     )
 };
 
-export {ExamHome};
+export {ExamInPageNavigationBar};

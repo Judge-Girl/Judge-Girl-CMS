@@ -6,10 +6,10 @@ const InputBox = ({type = "text", className = "input-box"}) => {
     );
 };
 
-const InlineInputBox = ({title = "title"}) => {
+const InlineInputBox = ({title = "title", fontSize = "fontSize"}) => {
     return (
         <li>
-            <span>{title}</span>
+            <span style={{fontSize: fontSize}}>{title}</span>
             <InputBox type="text" className="input-box"/>
         </li>
     )

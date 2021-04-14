@@ -3,21 +3,10 @@ import {SubtitleLine} from "../../../commons/titles/TitleLine";
 import ProvidedCodeItem from "./ProvidedCodeItem";
 import {UploadFileButton} from "../UploadFileButton";
 import './ProvidedCodeList.css';
+import {useUploads} from "../../../usecases/UploadFilesUseCase";
 
 function ProvidedCodeList() {
-    const [files, setFiles] = useState([]);
-
-    const addFile = (event) => {
-        // Cancel button makes event undefined.
-        if (!event.target.files[0]) return;
-        const newFiles = [event.target.files[0], ...files];
-        setFiles(newFiles);
-    };
-
-    const removeFile = fileName => {
-        const removeAttr = [...files].filter(file => file.name !== fileName);
-        setFiles(removeAttr);
-    };
+    const {files, addFile, removeFile} = useUploads();
 
     return (
         <div>

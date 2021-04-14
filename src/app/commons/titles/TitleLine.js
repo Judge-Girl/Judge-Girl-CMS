@@ -1,6 +1,13 @@
 import './TitleLine.css'
 import * as React from "react";
 
+const TestCaseSubtitleLine = function ({title, fontSize=15}) {
+    return TitleLine({
+        title, fontSize,
+        color: "#6D6E7D", shadow: false, lineColor: '#A2A3B1', hrMarginY: 1, hrHeight: 1
+    });
+};
+
 const SubtitleLine = function ({title}) {
     return TitleLine({
         title, fontSize: "17px",
@@ -24,4 +31,4 @@ const TitleLine = function ({
     )
 };
 
-export {TitleLine, SubtitleLine};
+export {TitleLine, SubtitleLine, TestCaseSubtitleLine};

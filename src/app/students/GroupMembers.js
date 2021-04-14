@@ -42,9 +42,9 @@ const GroupMembers = withRouter(({history, match}) => {
 
     return (
         <div>
-            {group === undefined ? <Spinner/> : <GroupInPageNavigationBar currentPathName={currentPathName}
-                                                                          groupName={group.name}
-                                                                          groupId={group.id}/>}
+            {group ? <GroupInPageNavigationBar currentPathName={currentPathName}
+                                               groupName={group.name}
+                                               groupId={group.id}/> : <Spinner/>}
 
             <div style={{padding: "40px 15rem 20px 15rem"}}>
                 <ItemListPage title="Group Members"

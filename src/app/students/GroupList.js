@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from "react";
 import {ItemListPage} from "../commons/ItemListPage/ItemListPage";
 import {studentService} from "../../services/services";
-import FakeLink from "../commons/FakeLink";
 import {CreateGroupModal} from "./CreateGroupModal";
 import {CreateButton} from "../commons/buttons/CreateButton";
+import {Link} from "react-router-dom";
 
 const useExamList = function () {
     const [groups, setGroups] = useState(undefined);
@@ -14,12 +14,14 @@ const useExamList = function () {
 const GroupList = () => {
     const [showCreateGroupModal, setShowCreateGroupModal] = useState(false);
     const {groups, addGroup, setGroups} = useExamList();
+
     useEffect(() => {
         if (!groups) {
             studentService.getGroups()
                 .then(groups => setGroups(groups));
         }
     });
+
     return (
         <div style={{padding: "40px 100px 20px 100px"}}>
             <ItemListPage title="Group List"
@@ -32,7 +34,7 @@ const GroupList = () => {
                               list: groups,
                               key: (group) => group.name,
                               data: (group) => [
-                                  (<FakeLink content={group.name}/>)
+                                  <Link to={`/groups/${group.id}/students`}>{group.name}</Link>
                               ]
                           }}
                           tableDataStyle={{textAlign: "left"}}/>
@@ -45,4 +47,7 @@ const GroupList = () => {
 };
 
 
-export {GroupList};
+export
+{
+    GroupList
+};

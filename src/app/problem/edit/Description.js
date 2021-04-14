@@ -2,7 +2,7 @@ import '../ProblemEditor.css';
 import {SubtitleLine} from "../../commons/titles/TitleLine";
 import React, {useState} from "react";
 import ReactMarkdown from "react-markdown";
-import './Description.css';
+import './Description.scss';
 
 function Tabs() {
     const [toggleState, setToggleState] = useState(1);
@@ -16,26 +16,25 @@ function Tabs() {
         setTextareaVal(e.target.value);
     };
 
+    const TAB_WRITE = 1, TAB_PREVIEW = 2;
+
     return (
         <div>
             <div className="tabs is-boxed">
                 <ul>
-                    <li className={toggleState === 1 ? "is-active" : ""}>
-                        <a>
+                    <li className={toggleState === TAB_WRITE ? "is-active" : ""}>
+                        <a href={() => false}>
                             <span
-                                /* TODO: the tabs part (.tabs, .active-tabs, .description-button) */
-                                // className={"description-button tabs " + (toggleState === 1 ? "active-tabs" : "")}
-                                onClick={() => toggleTab(1)}
+                                onClick={() => toggleTab(TAB_WRITE)}
                             >
                                 Write
                             </span>
                         </a>
                     </li>
-                    <li className={toggleState === 2 ? "is-active" : ""}>
-                        <a>
+                    <li className={toggleState === TAB_PREVIEW ? "is-active" : ""}>
+                        <a href={() => false}>
                             <span
-                                // className={"description-button tabs " + (toggleState === 1 ? "active-tabs" : "")}
-                                onClick={() => toggleTab(2)}
+                                onClick={() => toggleTab(TAB_PREVIEW)}
                             >
                                 Preview
                             </span>
@@ -47,7 +46,7 @@ function Tabs() {
 
             <div className="content-tabs">
                 <div
-                    className={toggleState === 1 ? "content  active-textarea" : "content"}
+                    className={toggleState === TAB_WRITE ? "content  active-textarea" : "content"}
                 >
                     <textarea
                         className="description-textarea"
@@ -57,7 +56,7 @@ function Tabs() {
                 </div>
 
                 <div
-                    className={toggleState === 2 ? "content  active-markdown" : "content"}
+                    className={toggleState === TAB_PREVIEW ? "content  active-markdown" : "content"}
                 >
                     <ReactMarkdown>
                         {textareaVal}

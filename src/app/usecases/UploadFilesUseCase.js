@@ -1,5 +1,4 @@
-import {useState} from "react";
-import {isLegalText} from "../../utils/utils";
+import {useState} from "react"
 
 const useUploads = function() {
     const [files, setFiles] = useState([]);

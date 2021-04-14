@@ -1,5 +1,5 @@
-import {SubtitleLine, TestCaseSubtitleLine} from "../../../commons/titles/TitleLine";
-import React, {useState} from "react";
+import {TestCaseSubtitleLine} from "../../../commons/titles/TitleLine";
+import React from "react";
 import './TestCase.css';
 import {InlineInputBox} from "../InlineInputBox";
 import {UploadFileButton} from "../UploadFileButton";

@@ -6,7 +6,6 @@ import {BrowserRouter as Router, Redirect, Route} from "react-router-dom";
 import {Login} from "./Login";
 import {Dashboard} from "./Dashboard";
 import {ProblemEditor} from "./problem/ProblemEditor";
-import {ExamList} from "./exam/ExamList";
 import {Examinees} from "./exam/Examinees";
 import {ExamProblems} from "./exam/ExamProblems";
 import {StudentList} from "./students/StudentList";
@@ -37,7 +36,7 @@ function App() {
                     <PrivateRoute exact={true} path="/exams" component={ExamList}/>
                     <PrivateRoute path="/exams/:examId/students" component={Examinees}/>
                     <PrivateRoute path="/exams/:examId/problems" component={ExamProblems}/>
-
+                    <PrivateRoute path="/exams/:examId/options" component={ExamOptions}/>
                 </div>
             </Router>
         </AuthContext.Provider>

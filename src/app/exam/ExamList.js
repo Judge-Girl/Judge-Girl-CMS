@@ -1,4 +1,3 @@
-import './ExamList.css';
 import * as React from "react";
 import {useEffect, useState} from "react";
 import {examService} from "../../services/services";
@@ -8,6 +7,7 @@ import {ItemListPage} from "../commons/ItemListPage/ItemListPage";
 import {Link} from "react-router-dom";
 import {EXAM_STATUSES} from "../../services/ExamService";
 import {CreateButton} from "../commons/buttons/CreateButton";
+import './ExamList.css';
 
 
 function formatDate(timestamp) {

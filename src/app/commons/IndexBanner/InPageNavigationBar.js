@@ -4,7 +4,7 @@ import FakeLink from "../FakeLink";
 
 function link(currentPathName, to, name, Icon) {
     return (
-        <NavLink to={to} activeClassName="is-active">
+        <NavLink to={to} activeClassName="is-active" key={to}>
             <Icon className="tab-icon"/>{name}</NavLink>
     );
 }

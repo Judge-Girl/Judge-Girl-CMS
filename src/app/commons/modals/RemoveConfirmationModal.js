@@ -11,11 +11,12 @@ import {ModalHeader} from "./ModalHeader";
  * @param onClose, the callback function when close the modal
  */
 
-const RemoveConfirmationModal = ({title, data, show, onClose}) => {
+const RemoveConfirmationModal = ({title, data, show, onClose, onRemove}) => {
     const closeIconRef = createRef(), formRef = createRef();
 
     const handleSubmit = e => {
         e.preventDefault();
+        onRemove(e);
     };
 
     return renderModal({

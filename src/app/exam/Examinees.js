@@ -2,34 +2,57 @@ import React, {useEffect, useState} from "react";
 import {withRouter} from "react-router";
 import {ExamInPageNavigationBar} from "./ExamInPageNavigationBar"
 import FakeLink from "../commons/FakeLink";
-import {studentService} from "../../services/services";
+import {examService, studentService} from "../../services/services";
 import {ItemListPage} from "../commons/ItemListPage/ItemListPage";
 import {DropDownBtn} from "../commons/buttons/DropDownButton";
 import {AiOutlineMail, AiOutlineUsergroupAdd} from "react-icons/ai";
 import {AddParticipantModal} from "./modals/AddParticipantModal";
 import {ThreeDotsButton} from "../commons/buttons/ThreeDotsButton";
 import {RemoveConfirmationModal} from "../commons/modals/RemoveConfirmationModal";
+import {Spinner} from "../commons/Spinner";
 
-const Examinees = withRouter(({history}) => {
+const Examinees = withRouter(({history, match}) => {
         const currentPathName = history.location.pathname;
         const [students, setStudents] = useState(undefined);
+        const [examinee, setExaminee] = useState(undefined);
+        const [exam, setExam] = useState(undefined);
         const [showAddStudentModal, setShowAddStudentModal] = useState(false);
         const [showAddGroupModal, setShowAddGroupModal] = useState(false);
         const [showRemoveExamineeConfirmationModal, setShowRemoveExamineeConfirmationModal] = useState(false);
 
 
-        const actionItemsButton = () => new ThreeDotsButton({
+        const actionItemsButton = ({examinee}) => new ThreeDotsButton({
             dropDownItems: [
                 {
                     name: "Remove",
                     dangerous: true,
-                    onClick: () => setShowRemoveExamineeConfirmationModal(true)
+                    onClick: () => {
+                        setShowRemoveExamineeConfirmationModal(true)
+                        setExaminee(examinee)
+                    }
                 }
             ]
         })
 
+        const addStudentsToExam = (emails) => {
+            console.log(`emails = ${emails}`)
+            examService.addExaminees(exam.id, emails)
+                .then(s => console.log(s))
+        }
+
+        const removeExaminee = (examinee) => {
+            console.log("remove")
+            console.log(examinee)
+            // examService.getExam(match.params.examId)
+            //     .then(exam => setExam(exam))
+        }
+
         useEffect(() => {
-            if (!students) {
+            if (!exam) {
+                examService.getExam(match.params.examId)
+                    .then(exam => setExam(exam))
+            }
+            if (!students && exam) {
                 studentService.getStudents({skip: 0, size: 100})
                     .then(students => setStudents(students));
             }
@@ -37,7 +60,8 @@ const Examinees = withRouter(({history}) => {
 
         return (
             <div>
-                <ExamInPageNavigationBar currentPathName={currentPathName} examName={"2021 Sample-Exam"}/>
+                {exam ?
+                    <ExamInPageNavigationBar currentPathName={currentPathName} examName={exam.name}/> : <Spinner/>}
                 <div style={{padding: "40px 15rem 20px 15rem"}}>
                     <ItemListPage title="Participants"
                                   filterItems={["Filter", "Name", "Email"]}
@@ -61,7 +85,7 @@ const Examinees = withRouter(({history}) => {
                                       data: (student) => [
                                           (<FakeLink content={student.name}/>),
                                           student.email,
-                                          actionItemsButton()
+                                          actionItemsButton({examinee: student})
                                       ]
                                   }}
                                   tableDataStyle={{textAlign: "left"}}/>
@@ -76,7 +100,11 @@ const Examinees = withRouter(({history}) => {
                                          buttonName: "Add"
                                      }}
                                      show={showAddStudentModal}
-                                     onClose={() => setShowAddStudentModal(false)}/>
+                                     onClose={() => setShowAddStudentModal(false)}
+                                     addParticipants={(studentEmails) => {
+                                         addStudentsToExam(studentEmails)
+                                         console.log(`student: ${studentEmails}`)
+                                     }}/>
 
                 <AddParticipantModal title={"Add Students By Groups"}
                                      content={{
@@ -93,15 +121,16 @@ const Examinees = withRouter(({history}) => {
                                          data={[
                                              {
                                                  title: "Name",
-                                                 value: "chaoyu"
+                                                 value: examinee?.name
                                              },
                                              {
                                                  title: "Email",
-                                                 value: "chaoyu@email.com"
-
-                                             }]}
+                                                 value: examinee?.email
+                                             }
+                                         ]}
                                          show={showRemoveExamineeConfirmationModal}
-                                         onClose={() => setShowRemoveExamineeConfirmationModal(false)}/>
+                                         onClose={() => setShowRemoveExamineeConfirmationModal(false)}
+                                         onRemove={(e) => removeExaminee(e)}/>
             </div>
         );
     }

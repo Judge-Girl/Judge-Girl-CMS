@@ -3,12 +3,14 @@ import React, {createRef} from "react";
 import {renderModal} from "../../commons/modals/modal";
 import {ModalHeader} from "../../commons/modals/ModalHeader";
 
-const AddParticipantModal = ({title, content, show, onClose}) => {
+const AddParticipantModal = ({title, content, show, onClose, addParticipants}) => {
     const closeIconRef = createRef(), formRef = createRef();
     const Icon = content.Icon;
 
     const handleSubmit = e => {
         e.preventDefault();
+        console.log(e)
+        addParticipants(e.target.value);
     };
 
     return renderModal({
@@ -16,7 +18,7 @@ const AddParticipantModal = ({title, content, show, onClose}) => {
         modalWidth: "660px",
         show, onClose, closeIconRef,
         contentRendering: () => (
-            <form onSubmit={handleSubmit} ref={formRef}>
+            <form onSubmit={e=>addParticipants(e.target.value)} ref={formRef}>
                 <div id="modal" className="font-poppins has-text-centered">
                     <ModalHeader className="header" title={title} textAlign="left"/>
                     <p className="description"><Icon className="modal-icon"/>{content.description}</p>

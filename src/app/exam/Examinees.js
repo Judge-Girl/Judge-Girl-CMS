@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {withRouter} from "react-router";
 import {ExamInPageNavigationBar} from "./ExamInPageNavigationBar"
 import FakeLink from "../commons/FakeLink";
-import {examService, studentService} from "../../services/services";
+import {examService} from "../../services/services";
 import {ItemListPage} from "../commons/ItemListPage/ItemListPage";
 import {DropDownBtn} from "../commons/buttons/DropDownButton";
 import {AiOutlineMail, AiOutlineUsergroupAdd} from "react-icons/ai";
@@ -20,6 +20,7 @@ const Examinees = withRouter(({history, match}) => {
         const [showAddGroupModal, setShowAddGroupModal] = useState(false);
         const [showRemoveExamineeConfirmationModal, setShowRemoveExamineeConfirmationModal] = useState(false);
 
+        const examId = match.params.examId;
 
         const actionItemsButton = ({examinee}) => new ThreeDotsButton({
             dropDownItems: [
@@ -34,34 +35,31 @@ const Examinees = withRouter(({history, match}) => {
             ]
         })
 
-        const addStudentsToExam = (emails) => {
-            console.log(`emails = ${emails}`)
+        const addExaminees = (emails) => {
             examService.addExaminees(exam.id, emails)
-                .then(s => console.log(s))
+                .then(errorList => console.log(`errorList=${errorList}`))
         }
 
-        const removeExaminee = (examinee) => {
-            console.log("remove")
-            console.log(examinee)
-            // examService.getExam(match.params.examId)
-            //     .then(exam => setExam(exam))
+        const removeExaminee = (emails) => {
+            examService.deleteExaminees(examId, emails).then()
         }
 
         useEffect(() => {
             if (!exam) {
-                examService.getExam(match.params.examId)
+                examService.getExam(examId)
                     .then(exam => setExam(exam))
             }
             if (!students && exam) {
-                studentService.getStudents({skip: 0, size: 100})
+                examService.getExaminee(examId)
                     .then(students => setStudents(students));
             }
         });
 
         return (
             <div>
-                {exam ?
-                    <ExamInPageNavigationBar currentPathName={currentPathName} examName={exam.name}/> : <Spinner/>}
+                {exam ? <ExamInPageNavigationBar currentPathName={currentPathName}
+                                             examName={exam.name}
+                                             examId={examId}/> : <Spinner/>}
                 <div style={{padding: "40px 15rem 20px 15rem"}}>
                     <ItemListPage title="Participants"
                                   filterItems={["Filter", "Name", "Email"]}
@@ -101,10 +99,7 @@ const Examinees = withRouter(({history, match}) => {
                                      }}
                                      show={showAddStudentModal}
                                      onClose={() => setShowAddStudentModal(false)}
-                                     addParticipants={(studentEmails) => {
-                                         addStudentsToExam(studentEmails)
-                                         console.log(`student: ${studentEmails}`)
-                                     }}/>
+                                     onSubmit={emails => addExaminees(emails)}/>
 
                 <AddParticipantModal title={"Add Students By Groups"}
                                      content={{
@@ -130,7 +125,7 @@ const Examinees = withRouter(({history, match}) => {
                                          ]}
                                          show={showRemoveExamineeConfirmationModal}
                                          onClose={() => setShowRemoveExamineeConfirmationModal(false)}
-                                         onRemove={(e) => removeExaminee(e)}/>
+                                         onSubmit={() => removeExaminee(examinee.email)}/>
             </div>
         );
     }

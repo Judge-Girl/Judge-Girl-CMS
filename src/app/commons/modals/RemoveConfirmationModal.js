@@ -11,20 +11,15 @@ import {ModalHeader} from "./ModalHeader";
  * @param onClose, the callback function when close the modal
  */
 
-const RemoveConfirmationModal = ({title, data, show, onClose, onRemove}) => {
+const RemoveConfirmationModal = ({title, data, show, onClose, onSubmit}) => {
     const closeIconRef = createRef(), formRef = createRef();
-
-    const handleSubmit = e => {
-        e.preventDefault();
-        onRemove(e);
-    };
 
     return renderModal({
         modalClassName: "remove-confirmation-modal",
         modalWidth: "480px",
         show, onClose, closeIconRef,
         contentRendering: () => (
-            <form onSubmit={handleSubmit} ref={formRef}>
+            <form onSubmit={e => onSubmit()} ref={formRef}>
                 <div id="modal" className="font-poppins has-text-centered">
                     <ModalHeader className="header" title={title} textAlign="center"/>
                     {

@@ -1,28 +1,25 @@
 import './AddParticipantModal.scss'
-import React, {createRef} from "react";
+import React, {createRef, useState} from "react";
 import {renderModal} from "../../commons/modals/modal";
 import {ModalHeader} from "../../commons/modals/ModalHeader";
 
-const AddParticipantModal = ({title, content, show, onClose, addParticipants}) => {
+const AddParticipantModal = ({title, content, show, onClose, onSubmit}) => {
     const closeIconRef = createRef(), formRef = createRef();
     const Icon = content.Icon;
-
-    const handleSubmit = e => {
-        e.preventDefault();
-        console.log(e)
-        addParticipants(e.target.value);
-    };
+    const [emails, setEmails] = useState();
 
     return renderModal({
         modalClassName: "add-participant-modal",
         modalWidth: "660px",
         show, onClose, closeIconRef,
         contentRendering: () => (
-            <form onSubmit={e=>addParticipants(e.target.value)} ref={formRef}>
+            <form onSubmit={e => onSubmit(emails)} ref={formRef}>
                 <div id="modal" className="font-poppins has-text-centered">
                     <ModalHeader className="header" title={title} textAlign="left"/>
                     <p className="description"><Icon className="modal-icon"/>{content.description}</p>
-                    <textarea className="textarea" placeholder={content.placeholder}/>
+                    <textarea className="textarea"
+                              onChange={e => setEmails(e.target.value)}
+                              placeholder={content.placeholder}/>
                     <div className="columns">
                         <div className="column">
                             <p className="remark">{content.remark}</p>

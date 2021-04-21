@@ -107,6 +107,18 @@ export default class StudentService {
             .then(res => res.data.map(obj => new Student(obj)));
     }
 
+    async addMembersInToGroupByEmails(groupId, emails) {
+        var emailList = emails.split("\n");
+        return this.axios.post(`/api/groups/${groupId}/students`, emailList)
+            .then(res => res.data);
+    }
+
+    async deleteMembersFromGroup(groupId, ids) {
+        console.log(ids);
+        return this.axios.delete(`/api/groups/${groupId}/students?ids=${ids}`)
+            .then();
+    }
+
     async createGroupWithName(name) {
         return this.axios.post('/api/groups', {name})
             .then(res => new Group(res.data));

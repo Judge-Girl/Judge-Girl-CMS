@@ -7,15 +7,21 @@ import React, {useEffect, useState} from "react";
 import {ThreeDotsButton} from "../commons/buttons/ThreeDotsButton";
 import {studentService} from "../../services/services";
 import {Spinner} from "../commons/Spinner";
-import {RemoveConfirmationModal} from "../commons/modals/RemoveConfirmationModal";
+import {AiOutlineMail} from "react-icons/ai";
+import {AddStudentToGroupModal} from "./AddStudentToGroupModal";
+import {RemoveMemberConfirmationModal} from "./RemoveMemberConfirmationModal";
 
 
 const GroupMembers = withRouter(({history, match}) => {
     const currentPathName = history.location.pathname;
     const [group, setGroup] = useState(undefined);
-    const [students, setStudents] = useState(undefined);
+    const [student, setStudent] = useState(undefined);
     const [member, setMember] = useState(undefined);
-    const [showRemoveMemberModal, setShowRemoveMemberModal] = useState(undefined);
+    const [showRemoveStudentModal, setShowRemoveStudentModal] = useState(undefined);
+    const [showAddStudentModal, setShowAddStudentModal] = useState(undefined);
+
+    var groupId = match.params.groupId;
+
 
     const actionItemsButton = (member) => new ThreeDotsButton({
         dropDownItems: [{
@@ -23,20 +29,32 @@ const GroupMembers = withRouter(({history, match}) => {
             dangerous: true,
             onClick: () => {
                 setMember(member.student);
-                setShowRemoveMemberModal(true);
+                setShowRemoveStudentModal(true);
             }
         }]
     })
 
+    const addStudentsByEmails = (emails) => {
+        console.log(emails)
+        studentService.addMembersInToGroupByEmails(groupId, emails)
+            .then(errorList => console.log(`errorList:${errorList}`))
+    }
+
+    const deleteMembersFormGroup = (student) => {
+        console.log(`groupId=${groupId}, studentId=${student.id}`);
+        studentService.deleteMembersFromGroup(groupId, student.id)
+            .then(res => console.log(res));
+    }
+
     useEffect(() => {
         if (!group) {
-            studentService.getGroupById(match.params.groupId)
+            studentService.getGroupById(groupId)
                 .then(group => setGroup(group));
         }
 
-        if (!students && group) {
-            studentService.getMembersInGroup(group.id)
-                .then(students => setStudents(students));
+        if (!student && group) {
+            studentService.getMembersInGroup(groupId)
+                .then(students => setStudent(students));
         }
     });
 
@@ -50,11 +68,11 @@ const GroupMembers = withRouter(({history, match}) => {
                 <ItemListPage title="Group Members"
                               filterItems={["Filter", "Name", "Email"]}
                               Button={() => new CreateButton({
-                                  onCreateButtonClick: () => console.log("onClick")
+                                  onCreateButtonClick: () => setShowAddStudentModal(true)
                               })}
                               tableHeaders={["Name", "Email", " "]}
                               tableRowGenerator={{
-                                  list: students,
+                                  list: student,
                                   key: (student) => student.id,
                                   data: (student) => [
                                       (<FakeLink content={student.name}/>),
@@ -65,21 +83,32 @@ const GroupMembers = withRouter(({history, match}) => {
                               tableDataStyle={{textAlign: "left"}}/>
             </div>
 
+            <AddStudentToGroupModal title={"Add Students"}
+                                    content={{
+                                        description: "Add students to the group by students' email.",
+                                        Icon: AiOutlineMail,
+                                        placeholder: "studentA@example.com\nstudentB@example.com",
+                                        remark: "＊One email per line.",
+                                        buttonName: "Add"
+                                    }}
+                                    show={showAddStudentModal}
+                                    onClose={() => setShowAddStudentModal(false)}
+                                    addStudent={(emails) => addStudentsByEmails(emails)}
+                                    groupId={groupId}/>
 
-            <RemoveConfirmationModal title={"Remove the Student"}
-                                     data={[
-                                         {
-                                             title: "Name",
-                                             value: member?.name
-                                         },
-                                         {
-                                             title: "Email",
-                                             value: member?.email
-
-                                         }]}
-                                     show={showRemoveMemberModal}
-                                     onClose={() => setShowRemoveMemberModal(false)}/>
-
+            <RemoveMemberConfirmationModal title={"Remove the Student"}
+                                           data={[
+                                               {
+                                                   title: "Name",
+                                                   value: member?.name
+                                               },
+                                               {
+                                                   title: "Email",
+                                                   value: member?.email
+                                               }]}
+                                           show={showRemoveStudentModal}
+                                           onClose={() => setShowRemoveStudentModal(false)}
+                                           onSubmit={() => deleteMembersFormGroup(member)}/>
         </div>
     )
 });

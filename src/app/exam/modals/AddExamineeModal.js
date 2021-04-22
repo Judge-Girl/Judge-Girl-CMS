@@ -3,7 +3,7 @@ import React, {createRef, useState} from "react";
 import {renderModal} from "../../commons/modals/modal";
 import {ModalHeader} from "../../commons/modals/ModalHeader";
 
-const AddParticipantModal = ({title, content, show, onClose, onSubmit}) => {
+const AddExamineeModal = ({title, content, show, onClose, onSubmit}) => {
     const closeIconRef = createRef(), formRef = createRef();
     const Icon = content.Icon;
     const [emails, setEmails] = useState();
@@ -35,4 +35,4 @@ const AddParticipantModal = ({title, content, show, onClose, onSubmit}) => {
 };
 
 
-export {AddParticipantModal}
+export {AddExamineeModal}

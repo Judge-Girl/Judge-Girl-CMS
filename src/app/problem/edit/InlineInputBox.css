@@ -23,7 +23,7 @@
     margin: 0px 7px;
 }
 
-.problem-editor li {
+.problem-editor .inline-input-box {
     color: #1273BA;
     /* Inside Auto Layout */
 

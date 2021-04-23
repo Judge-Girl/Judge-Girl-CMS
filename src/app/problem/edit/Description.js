@@ -16,25 +16,21 @@ function Tabs() {
 
     return (
         <div>
-            <div className="tabs is-boxed is-small">
+            <div className="tabs is-boxed">
                 <ul>
-                    <li className={toggleState === TAB_WRITE ? "is-active" : ""}>
-                        <a href={() => false}>
-                            <span
-                                onClick={() => setToggleState(TAB_WRITE)}
-                            >
-                                Write
-                            </span>
-                        </a>
+                    <li className={toggleState === TAB_WRITE ? "is-active active-tabs" : ""}>
+                        <p className="tab-write"
+                            onClick={() => setToggleState(TAB_WRITE)}
+                        >
+                            Write
+                        </p>
                     </li>
-                    <li className={toggleState === TAB_PREVIEW ? "is-active" : ""}>
-                        <a href={() => false}>
-                            <span
-                                onClick={() => setToggleState(TAB_PREVIEW)}
-                            >
-                                Preview
-                            </span>
-                        </a>
+                    <li className={toggleState === TAB_PREVIEW ? "is-active active-tabs" : ""}>
+                        <p className="tab-preview"
+                            onClick={() => setToggleState(TAB_PREVIEW)}
+                        >
+                            Preview
+                        </p>
                     </li>
                 </ul>
             </div>

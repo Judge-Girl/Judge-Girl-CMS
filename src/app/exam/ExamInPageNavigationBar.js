@@ -1,7 +1,7 @@
 import {InPageNavigationBar} from "../commons/IndexBanner/InPageNavigationBar";
 import {AiOutlineSetting, FaRegEdit, FaUserFriends} from "react-icons/all";
 
-const ExamInPageNavigationBar = function ({currentPathName, examName}) {
+const ExamInPageNavigationBar = function ({currentPathName, examName, examId}) {
     return (
         <InPageNavigationBar currentPathName={currentPathName}
                              path={{
@@ -10,17 +10,17 @@ const ExamInPageNavigationBar = function ({currentPathName, examName}) {
                              }}
                              tabContents={[
                                  {
-                                     to: '/exams/1/problems',
+                                     to: `/exams/${examId}/problems`,
                                      name: 'Problems',
                                      icon: FaRegEdit
                                  },
                                  {
-                                     to: '/exams/1/students',
+                                     to: `/exams/${examId}/students`,
                                      name: 'Participants',
                                      icon: FaUserFriends
                                  },
                                  {
-                                     to: '/exams/1/options',
+                                     to: `/exams/${examId}/options`,
                                      name: 'Options',
                                      icon: AiOutlineSetting
                                  }

@@ -1,5 +1,6 @@
 import Exam from "../models/Exam";
 import axios from "axios";
+import Student from "../models/Student";
 
 export const EXAM_STATUSES = {
     ALL: 'all', UPCOMING: 'upcoming', PAST: 'past', CURRENT: 'current'
@@ -14,6 +15,11 @@ export class ExamService {
         });
     }
 
+    async getExam(examId) {
+        return this.axios.get(`/api/exams/${examId}`)
+            .then(res => new Exam(res.data));
+    }
+
     async getExams({status, skip = 0, size = 50}) {
         return this.axios.get(`/api/exams?status=${status}&&skip=${skip}&&size=${size}`)
             .then(res => res.data.map(obj => new Exam(obj)));
@@ -23,5 +29,22 @@ export class ExamService {
         description = description ? description : `# ${name}`;
         return this.axios.post('/api/exams', {name, description, startTime, endTime})
             .then(res => new Exam(res.data));
+    }
+
+    async getExaminee(examId) {
+        return this.axios.get(`/api/exams/${examId}/students`)
+            .then(res => res.data.map(obj => new Student(obj)));
+    }
+
+    async addExaminees(examId, emails) {
+        const emailList = emails.split("\n");
+        return this.axios.post(`/api/exams/${examId}/students`, emailList)
+            .then(res => res.data);
+    }
+
+    async deleteExaminees(examId, emails) {
+        const emailList = emails.split("\n");
+        return this.axios.delete(`/api/exams/${examId}/students`, {data: emailList})
+            .then(res => res.data);
     }
 }

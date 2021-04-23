@@ -5,7 +5,7 @@ import {examService} from "../../services/services";
 import * as moment from "moment";
 import {CreateExamModal} from "./modals/CreateExamModal";
 import {ItemListPage} from "../commons/ItemListPage/ItemListPage";
-import FakeLink from "../commons/FakeLink";
+import {Link} from "react-router-dom";
 import {EXAM_STATUSES} from "../../services/ExamService";
 import {CreateButton} from "../commons/buttons/CreateButton";
 
@@ -49,7 +49,7 @@ const ExamList = function () {
                               key: (exam) => exam.id,
                               data: (exam) => [
                                   exam?.id,
-                                  (<FakeLink content={exam.name}/>),
+                                  <Link to={`/exams/${exam.id}/students`}>{exam.name}</Link>,
                                   formatDate(exam?.startTime),
                                   formatDate(exam?.endTime),
                               ]

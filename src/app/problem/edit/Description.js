@@ -6,11 +6,7 @@ import './Description.scss';
 
 function Tabs() {
     const [toggleState, setToggleState] = useState(1);
-    const [textareaVal, setTextareaVal] = useState('');
-
-    const toggleTab = (index) => {
-        setToggleState(index);
-    }
+    const [textareaVal, setTextareaVal] = useState('Press Edit Description to start writing the description. :smile: Styling with Markdown is supported. :+1:\n');
 
     const handleTextareaChange = e => {
         setTextareaVal(e.target.value);
@@ -20,12 +16,12 @@ function Tabs() {
 
     return (
         <div>
-            <div className="tabs is-boxed">
+            <div className="tabs is-boxed is-small">
                 <ul>
                     <li className={toggleState === TAB_WRITE ? "is-active" : ""}>
                         <a href={() => false}>
                             <span
-                                onClick={() => toggleTab(TAB_WRITE)}
+                                onClick={() => setToggleState(TAB_WRITE)}
                             >
                                 Write
                             </span>
@@ -34,7 +30,7 @@ function Tabs() {
                     <li className={toggleState === TAB_PREVIEW ? "is-active" : ""}>
                         <a href={() => false}>
                             <span
-                                onClick={() => toggleTab(TAB_PREVIEW)}
+                                onClick={() => setToggleState(TAB_PREVIEW)}
                             >
                                 Preview
                             </span>
@@ -42,7 +38,6 @@ function Tabs() {
                     </li>
                 </ul>
             </div>
-
 
             <div className="content-tabs">
                 <div

@@ -26,26 +26,14 @@ function TestCases({testCasesItems, removeTestCase}) {
                     <TestCaseSubtitleLine title="Standard In"/>
                     <UploadFileButton
                         title={"Standard In +"}
-                        width={110} height={28}
+                        className={"test-case-upload-button"}
                         buttonColor={"#F2B311"}
-                        borderRadius={10}
-                        fontWeight={600}
-                        fontSize={12}
-                        lineHeight={18}
-                        fontColor={"white"}
-                        display={"flex"}
                     />
                     <TestCaseSubtitleLine title="Standard Out"/>
                     <UploadFileButton
-                        title={"Standard Out +"}
-                        width={110} height={28}
+                        title={"Standard In +"}
+                        className={"test-case-upload-button"}
                         buttonColor={"#F2B311"}
-                        borderRadius={10}
-                        fontWeight={600}
-                        fontSize={12}
-                        lineHeight={18}
-                        fontColor={"white"}
-                        display={"flex"}
                     />
 
                 </div>
@@ -53,24 +41,14 @@ function TestCases({testCasesItems, removeTestCase}) {
                     <TestCaseSubtitleLine title="Input Files"/>
                     <UploadFileButton
                         title={"Input Files +"}
-                        width={110} height={28}
-                        borderRadius={10}
-                        fontWeight={600}
-                        fontSize={12}
-                        lineHeight={18}
-                        fontColor={"white"}
-                        display={"flex"}
+                        className={"test-case-upload-button"}
+                        buttonColor={"#3EBDD9"}
                     />
                     <TestCaseSubtitleLine title="Output Files"/>
                     <UploadFileButton
                         title={"Output Files +"}
-                        width={110} height={28}
-                        borderRadius={10}
-                        fontWeight={600}
-                        fontSize={12}
-                        lineHeight={18}
-                        fontColor={"white"}
-                        display={"flex"}
+                        className={"test-case-upload-button"}
+                        buttonColor={"#3EBDD9"}
                     />
                 </div>
             </div>

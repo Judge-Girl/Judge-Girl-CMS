@@ -4,9 +4,9 @@ import * as React from "react";
 const UploadFileButton = ({
                               title = "title", onChange = "onChange",
                               width, height, buttonColor = "buttonColor",
-                              borderRadius = 10, fontWeight = 600,
-                              fontSize = 15, lineHeight = 22,
-                              fontColor = "white"
+                              borderRadius, fontWeight,
+                              fontSize, lineHeight,
+                              fontColor = "white", className
                           }) => {
     return (
         <label
@@ -16,7 +16,7 @@ const UploadFileButton = ({
                 display: "flex", flexDirection: "row", justifyContent: "center",
                 alignItems: "center", padding: "5 10",
             }}
-            className="provided-code-button"
+            className={className}
         >
             <i>{title}</i>
             <input

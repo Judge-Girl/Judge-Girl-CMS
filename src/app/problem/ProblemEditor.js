@@ -8,13 +8,12 @@ import CompilationScript from "./edit/CompilationScript";
 import OutputMatchPolicyList from "./edit/OutputMatchPolicyList";
 import Visible from "./edit/Visible";
 import Description from "./edit/Description";
+import TestCase from "./edit/testCase/TestCasesList";
 import {EditorButton} from "./edit/EditorButton";
-
 
 const ProblemEditor = withRouter(({history}) => {
 
     return (
-        // TODO: Navigation Bar
         <div className="columns problem-editor">
             <div className="column left">
                 <section>
@@ -46,7 +45,9 @@ const ProblemEditor = withRouter(({history}) => {
             <div className="column right">
                 <section>
                     <Description/>
-
+                </section>
+                <section>
+                    <TestCase />
                 </section>
             </div>
         </div>

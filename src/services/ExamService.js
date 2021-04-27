@@ -31,7 +31,7 @@ export class ExamService {
             .then(res => new Exam(res.data));
     }
 
-    async getExaminee(examId) {
+    async getExaminees(examId) {
         return this.axios.get(`/api/exams/${examId}/students`)
             .then(res => res.data.map(obj => new Student(obj)));
     }

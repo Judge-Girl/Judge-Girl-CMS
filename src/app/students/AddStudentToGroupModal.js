@@ -2,8 +2,6 @@ import './AddStudentToGroupModal.scss'
 import React, {createRef, useState} from "react";
 import {renderModal} from "../commons/modals/modal";
 import {ModalHeader} from "../commons/modals/ModalHeader";
-import {studentService} from "../../services/services";
-
 
 const AddStudentToGroupModal = ({title, content, show, onClose, onSubmit}) => {
     const closeIconRef = createRef(), formRef = createRef();

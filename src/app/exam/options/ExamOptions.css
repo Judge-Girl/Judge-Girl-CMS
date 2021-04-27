@@ -1,0 +1,42 @@
+.exam-options section {
+    margin-bottom: 45px;
+}
+
+.exam-options .tag-form {
+    /*margin-bottom: 20px;*/
+}
+
+.danger-zone {
+    border: 2px solid #E34137;
+    padding: 10px 0 10px 15px;
+    border-radius: 10px;
+}
+
+.exam-options .tag-item {
+    color: #1273BA;
+    padding-left: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 282px;
+    height: 33px;
+    border: 1px solid #E4E1E1;
+    box-sizing: border-box;
+
+    font-family: Poppins, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 15px;
+    line-height: 22px;
+
+    display: flex;
+    align-items: center;
+}
+.exam-options .delete-icon {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    float: right;
+    left: 360px;
+}

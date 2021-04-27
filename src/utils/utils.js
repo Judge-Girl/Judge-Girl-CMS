@@ -13,7 +13,7 @@ function formatDate(timestamp) {
 
 function scheduleItem(inputRef, label, inputName, timeValue, setTime, minTime) {
     return (
-      <div key={inputName} className="is-flex is-justify-content-center py-3 mr-2 schedule-item">
+      <div key={inputName} className="is-flex is-justify-content-left py-3 mr-2 schedule-item">
           <FontAwesomeIcon className="dot" icon={faCircle}/>
           <label className="ml-2 is-vcentered">{label}</label>
           <input className="ml-4" type="datetime-local"

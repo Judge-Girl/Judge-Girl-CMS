@@ -16,7 +16,7 @@ import {AuthContext} from "./commons/access-control/auth";
 import PrivateRoute from "./commons/access-control/PrivateRoute";
 import {GroupMembers} from "./students/GroupMembers";
 import {ExamList} from "./exam/ExamList";
-import {ExamOptions} from "./exam/ExamOptions";
+import {ExamOptions} from "./exam/options/ExamOptions";
 
 
 function App() {

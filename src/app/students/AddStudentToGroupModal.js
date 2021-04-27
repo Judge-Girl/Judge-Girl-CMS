@@ -5,25 +5,17 @@ import {ModalHeader} from "../commons/modals/ModalHeader";
 import {studentService} from "../../services/services";
 
 
-const AddStudentToGroupModal = ({title, content, show, onClose, addStudent, groupId}) => {
+const AddStudentToGroupModal = ({title, content, show, onClose, onSubmit}) => {
     const closeIconRef = createRef(), formRef = createRef();
     const Icon = content.Icon;
     const [emails, setEmails] = useState();
-
-    const handleSubmit = e => {
-        e.preventDefault();
-        if (emails !== "") {
-            studentService.addMembersInToGroupByEmails(groupId, emails)
-                .then(errorList => console.log(`errorList:${errorList}`))
-        }
-    };
 
     return renderModal({
         modalClassName: "add-student-to-group-modal",
         modalWidth: "660px",
         show, onClose, closeIconRef,
         contentRendering: () => (
-            <form onSubmit={handleSubmit} ref={formRef}>
+            <form onSubmit={e => onSubmit(emails)} ref={formRef}>
                 <div id="modal" className="font-poppins has-text-centered">
                     <ModalHeader className="header" title={title} textAlign="left"/>
                     <p className="description"><Icon className="modal-icon"/>{content.description}</p>

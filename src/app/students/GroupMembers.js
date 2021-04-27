@@ -9,7 +9,7 @@ import {studentService} from "../../services/services";
 import {Spinner} from "../commons/Spinner";
 import {AiOutlineMail} from "react-icons/ai";
 import {AddStudentToGroupModal} from "./AddStudentToGroupModal";
-import {RemoveMemberConfirmationModal} from "./RemoveMemberConfirmationModal";
+import {RemoveConfirmationModal} from "../commons/modals/RemoveConfirmationModal";
 
 
 const GroupMembers = withRouter(({history, match}) => {
@@ -21,7 +21,6 @@ const GroupMembers = withRouter(({history, match}) => {
     const [showAddStudentModal, setShowAddStudentModal] = useState(undefined);
 
     var groupId = match.params.groupId;
-
 
     const actionItemsButton = (member) => new ThreeDotsButton({
         dropDownItems: [{
@@ -93,22 +92,21 @@ const GroupMembers = withRouter(({history, match}) => {
                                     }}
                                     show={showAddStudentModal}
                                     onClose={() => setShowAddStudentModal(false)}
-                                    addStudent={(emails) => addStudentsByEmails(emails)}
-                                    groupId={groupId}/>
+                                    onSubmit={(emails) => addStudentsByEmails(emails)}/>
 
-            <RemoveMemberConfirmationModal title={"Remove the Student"}
-                                           data={[
-                                               {
-                                                   title: "Name",
-                                                   value: member?.name
-                                               },
-                                               {
-                                                   title: "Email",
-                                                   value: member?.email
-                                               }]}
-                                           show={showRemoveStudentModal}
-                                           onClose={() => setShowRemoveStudentModal(false)}
-                                           onSubmit={() => deleteMembersFormGroup(member)}/>
+            <RemoveConfirmationModal title={"Remove the Student"}
+                                     data={[
+                                         {
+                                             title: "Name",
+                                             value: member?.name
+                                         },
+                                         {
+                                             title: "Email",
+                                             value: member?.email
+                                         }]}
+                                     show={showRemoveStudentModal}
+                                     onClose={() => setShowRemoveStudentModal(false)}
+                                     onSubmit={() => deleteMembersFormGroup(member)}/>
         </div>
     )
 });

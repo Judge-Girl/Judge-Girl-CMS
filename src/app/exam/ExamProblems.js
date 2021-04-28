@@ -49,30 +49,26 @@ const ExamProblems = withRouter(({ history, match }) => {
 
     const addProblem = (problemId, scorePercentage, submissionQuota) => {
         examService.addExamQuestion({
-            examId, problemId, 
-            score: scorePercentage, 
+            examId, problemId,
+            score: scorePercentage,
             quota: submissionQuota,
             questionOrder: problems.length,
         }).then(refetchExam);
     };
 
     const dropDownItems = [{
-            name: "Edit",
-            dangerous: false,
-            onClick: () => { }
-        }, {
-            name: "Rejudge",
-            dangerous: false,
-            onClick: () => { }
-        }, {
-            name: "Delete",
-            dangerous: true,
-            onClick: () => { }
-        }]
-
-
-    // const actionItemsButton = ({ problem }) => new ThreeDotsButton({
-    //     dropDownItems:     })
+        name: "Edit",
+        dangerous: false,
+        onClick: () => { }
+    }, {
+        name: "Rejudge",
+        dangerous: false,
+        onClick: () => { }
+    }, {
+        name: "Delete",
+        dangerous: true,
+        onClick: () => { }
+    }];
 
 
     useEffect(() => {
@@ -111,9 +107,9 @@ const ExamProblems = withRouter(({ history, match }) => {
             </div>
 
             <AddProblemModal title={"Create Question"}
-                             show={showAddProblemModal}
-                             onClose={() => setShowAddProblemModal(false)}
-                             onSubmit={addProblem}/>
+                show={showAddProblemModal}
+                onClose={() => setShowAddProblemModal(false)}
+                onSubmit={addProblem} />
         </div>
     )
 });

@@ -38,7 +38,7 @@ const InputField = ({ id, type, labelText, value, placeholder, onChange }) => (
 );
 
 const AddProblemModal = ({ title, show, onClose, onSubmit }) => {
-    const closeIconRef = createRef(), formRef = createRef();
+    const closeIconRef = createRef();
     const [problemId, setProblemId] = useState('');
     const [scorePercentage, setScorePercentage] = useState('');
     const [submissionQuota, setSubmissionQuota] = useState('');

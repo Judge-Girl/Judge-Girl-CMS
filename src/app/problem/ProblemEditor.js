@@ -10,7 +10,7 @@ import Visible from "./edit/Visible";
 import Description from "./edit/Description";
 import TestCase from "./edit/testCase/TestCasesList";
 import {EditorButton} from "./edit/EditorButton";
-import ProblemEditorTitle from "./edit/problemEditorTitle/ProblemEditorTitle";
+import ProblemEditorTitle from "./edit/ProblemEditorTitle";
 
 const ProblemEditor = withRouter(({history, match}) => {
     const currentPathName = history.location.pathname;
@@ -49,7 +49,7 @@ const ProblemEditor = withRouter(({history, match}) => {
                 </div>
                 <div className="column right">
                     <section>
-                        <Description/>
+                        <Description problemId={problemId}/>
                     </section>
                     <section>
                         <TestCase />

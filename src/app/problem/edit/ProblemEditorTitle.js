@@ -1,11 +1,12 @@
 import React, {useState} from 'react';
-import '../../ProblemEditor.css';
+import '../ProblemEditor.css';
 import './ProblemEditorTitle.css';
 import {FaEdit} from "react-icons/all";
-import {EditorButton} from "../EditorButton";
-import {problemEditorService} from "../../../../services/services";
+import {EditorButton} from "./EditorButton";
+import {problemEditorService} from "../../../services/services";
 
 function ProblemEditorTitle ({problemId}) {
+    // TODO: problemEditorService.getProblemTitle
     const [problemNameInput, setProblemNameInput] = useState('Negative and Positive');
     const [lastProblemNameInput, setLastProblemNameInput] = useState(problemNameInput);
     const [editingState, setEditingState] = useState(false);
@@ -40,7 +41,7 @@ function ProblemEditorTitle ({problemId}) {
                         width={75} height={33}
                         fontSize={15}
                         borderRadius={20}
-                        margin={7}
+                        marginLeft={7}
                         onClickFunc={e => handleSaveProblemName(e)}
                     />
                     <EditorButton
@@ -51,7 +52,7 @@ function ProblemEditorTitle ({problemId}) {
                         fontSize={15}
                         borderRadius={20}
                         borderColor={"#A2A3B1"}
-                        margin={7}
+                        marginLeft={7}
                         onClickFunc={() => {
                             setEditingState(false);
                             // Restore last saved problem name

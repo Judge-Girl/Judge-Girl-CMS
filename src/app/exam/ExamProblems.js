@@ -101,10 +101,6 @@ const ExamProblems = withRouter(({ history, match }) => {
             </div>
 
             <AddProblemModal title={"Create Question"}
-                             content={{
-                                 description: "Add students to the exam with the students’ email.",
-                                 buttonName: "Add"
-                             }}
                              show={showAddProblemModal}
                              onClose={() => setShowAddProblemModal(false)}
                              onSubmit={() => {}}/>

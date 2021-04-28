@@ -43,25 +43,37 @@ const AddProblemModal = ({ title, show, onClose, onSubmit }) => {
     const [scorePercentage, setScorePercentage] = useState('');
     const [submissionQuota, setSubmissionQuota] = useState('');
 
-    const submit = () => onSubmit(problemId, scorePercentage, submissionQuota);
+    const submit = () => {
+        if (!problemId || !scorePercentage || !submissionQuota) return;
+
+        onSubmit(problemId, scorePercentage, submissionQuota);
+
+        setProblemId('');
+        setScorePercentage('');
+        setSubmissionQuota('');
+    };
+
+    const enterSubmit = e => {
+        if (e.keyCode === 13) submit();
+    };
 
     return renderModal({
         modalClassName: "add-problem-modal",
         modalWidth: "660px",
         show, onClose, closeIconRef,
         contentRendering: () => (
-            <div style={outsideDivStyle}>
-                    <div id="modal" className="font-poppins has-text-centered">
-                        <ModalHeader className="header" title={title} textAlign="left" />
-                        <InputField id="input-problem-id" type="number" labelText="Problem ID" value={problemId} placeholder="" onChange={e => setProblemId(e.target.value)} />
-                        <InputField id="input-score-percentage" type="number" labelText="Score Percentage" value={scorePercentage} placeholder="" onChange={e => setScorePercentage(e.target.value)} />
-                        <InputField id="input-submission-quota" type="number" labelText="Submission Quota" value={submissionQuota} placeholder="" onChange={e => setSubmissionQuota(e.target.value)} />
-                        <div className="columns">
-                            <div className="column">
-                                <button className="button mt-5" id="add-btn" onClick={submit}>Create Question</button>
-                            </div>
+            <div style={outsideDivStyle} onKeyUp={enterSubmit}>
+                <div id="modal" className="font-poppins has-text-centered">
+                    <ModalHeader className="header" title={title} textAlign="left" />
+                    <InputField id="input-problem-id" type="number" labelText="Problem ID" value={problemId} placeholder="" onChange={e => setProblemId(e.target.value)} />
+                    <InputField id="input-score-percentage" type="number" labelText="Score Percentage" value={scorePercentage} placeholder="" onChange={e => setScorePercentage(e.target.value)} />
+                    <InputField id="input-submission-quota" type="number" labelText="Submission Quota" value={submissionQuota} placeholder="" onChange={e => setSubmissionQuota(e.target.value)} />
+                    <div className="columns">
+                        <div className="column">
+                            <button className="button mt-5" id="add-btn" onClick={submit}>Create Question</button>
                         </div>
                     </div>
+                </div>
             </div>
         )
     })

@@ -50,6 +50,6 @@ export class ExamService {
 
     async addExamQuestion(data) {
         const { examId, problemId } = data;
-        return this.axios.post(`/api/exams/${examId}/problems/${problemId}`, { data }).then(res => res.data);
+        return this.axios.post(`/api/exams/${examId}/problems/${problemId}`, data).then(res => res.data);
     }
 }

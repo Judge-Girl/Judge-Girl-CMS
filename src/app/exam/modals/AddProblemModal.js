@@ -30,6 +30,16 @@ const inputStyle = {
     borderRadius: "10px",
 };
 
+const btnStyle = {
+    background: "#91CB46",
+    color: "#FFF",
+    borderRadius: "10px",
+    padding: "7px 10px",
+
+    fontSize: "18px",
+    lineHeight: "27px",
+};
+
 const InputField = ({ id, type, labelText, value, placeholder, onChange }) => (
     <div style={inputGroupStyle}>
         <label htmlFor={id} style={labelStyle}>{labelText}</label>
@@ -68,10 +78,8 @@ const AddProblemModal = ({ title, show, onClose, onSubmit }) => {
                     <InputField id="input-problem-id" type="number" labelText="Problem ID" value={problemId} placeholder="" onChange={e => setProblemId(e.target.value)} />
                     <InputField id="input-score-percentage" type="number" labelText="Score Percentage" value={scorePercentage} placeholder="" onChange={e => setScorePercentage(e.target.value)} />
                     <InputField id="input-submission-quota" type="number" labelText="Submission Quota" value={submissionQuota} placeholder="" onChange={e => setSubmissionQuota(e.target.value)} />
-                    <div className="columns">
-                        <div className="column">
-                            <button className="button mt-5" id="add-btn" onClick={submit}>Create Question</button>
-                        </div>
+                    <div className="my-3 px-2" style={{ display: "flex", flexDirection: "row-reverse" }}>
+                        <button className="button" id="add-btn" onClick={submit} style={btnStyle}>Create Question</button>
                     </div>
                 </div>
             </div>

@@ -8,12 +8,18 @@ const AddStudentToGroupModal = ({title, content, show, onClose, onSubmit}) => {
     const Icon = content.Icon;
     const [emails, setEmails] = useState();
 
+    const handleSubmit = e => {
+        onSubmit(emails)
+        closeIconRef.current.click();
+        e.preventDefault();
+    };
+
     return renderModal({
         modalClassName: "add-student-to-group-modal",
         modalWidth: "660px",
         show, onClose, closeIconRef,
         contentRendering: () => (
-            <form onSubmit={e => onSubmit(emails)} ref={formRef}>
+            <form onSubmit={e => handleSubmit(e)} ref={formRef}>
                 <div id="modal" className="font-poppins has-text-centered">
                     <ModalHeader className="header" title={title} textAlign="left"/>
                     <p className="description"><Icon className="modal-icon"/>{content.description}</p>

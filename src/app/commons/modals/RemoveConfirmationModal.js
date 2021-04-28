@@ -15,7 +15,7 @@ const RemoveConfirmationModal = ({title, data, show, onClose, onSubmit}) => {
     const closeIconRef = createRef(), formRef = createRef();
 
     const handleSubmit = e => {
-        onSubmit(e)
+        onSubmit()
         closeIconRef.current.click();
         e.preventDefault();
     };

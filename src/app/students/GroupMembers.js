@@ -15,34 +15,43 @@ import {RemoveConfirmationModal} from "../commons/modals/RemoveConfirmationModal
 const GroupMembers = withRouter(({history, match}) => {
     const currentPathName = history.location.pathname;
     const [group, setGroup] = useState(undefined);
-    const [student, setStudent] = useState(undefined);
-    const [member, setMember] = useState(undefined);
-    const [showRemoveStudentModal, setShowRemoveStudentModal] = useState(undefined);
-    const [showAddStudentModal, setShowAddStudentModal] = useState(undefined);
+    const [members, setMembers] = useState(undefined);
+    const [selectedMember, setSelectedMember] = useState(undefined);
+    const [showRemoveMemberModal, setShowRemoveMemberModal] = useState(undefined);
+    const [showAddMemberModal, setShowAddMemberModal] = useState(undefined);
 
-    var groupId = match.params.groupId;
+    const groupId = match.params.groupId;
 
-    const actionItemsButton = (member) => new ThreeDotsButton({
+    const actionItemsButton = (selectedMember) => new ThreeDotsButton({
         dropDownItems: [{
             name: "Remove",
             dangerous: true,
             onClick: () => {
-                setMember(member.student);
-                setShowRemoveStudentModal(true);
+                setSelectedMember(selectedMember.member);
+                setShowRemoveMemberModal(true);
             }
         }]
     })
 
     const addStudentsByEmails = (emails) => {
-        console.log(emails)
         studentService.addMembersInToGroupByEmails(groupId, emails)
-            .then(errorList => console.log(`errorList:${errorList}`))
+            .then(errorList => console.log(errorList))
+        setMembers(undefined)
     }
 
-    const deleteMembersFormGroup = (student) => {
-        console.log(`groupId=${groupId}, studentId=${student.id}`);
-        studentService.deleteMembersFromGroup(groupId, student.id)
-            .then(res => console.log(res));
+    const deleteMembersFormGroup = (selectedMember) => {
+        console.log(`groupId=${groupId}, studentId=${selectedMember.id}`);
+        studentService.deleteMembersFromGroup(groupId, selectedMember.id)
+            .then(res => {
+                const removed = members.filter(member => member.id === selectedMember.id)
+                const index = members.indexOf(removed)
+                if (index > -1) {
+                    members.splice(index, 1)
+                }
+                setMembers([])
+                setMembers(members)
+            });
+
     }
 
     useEffect(() => {
@@ -51,9 +60,9 @@ const GroupMembers = withRouter(({history, match}) => {
                 .then(group => setGroup(group));
         }
 
-        if (!student && group) {
+        if (!members && group) {
             studentService.getMembersInGroup(groupId)
-                .then(students => setStudent(students));
+                .then(members => setMembers(members));
         }
     });
 
@@ -67,16 +76,17 @@ const GroupMembers = withRouter(({history, match}) => {
                 <ItemListPage title="Group Members"
                               filterItems={["Filter", "Name", "Email"]}
                               Button={() => new CreateButton({
-                                  onCreateButtonClick: () => setShowAddStudentModal(true)
+                                  onCreateButtonClick: () => setShowAddMemberModal(true)
                               })}
                               tableHeaders={["Name", "Email", " "]}
+                              members = {members}
                               tableRowGenerator={{
-                                  list: student,
-                                  key: (student) => student.id,
-                                  data: (student) => [
-                                      (<FakeLink content={student.name}/>),
-                                      student.email,
-                                      actionItemsButton({student})
+                                  list: members,
+                                  key: (member) => member.id,
+                                  data: (member) => [
+                                      (<FakeLink content={member.name}/>),
+                                      member.email,
+                                      actionItemsButton({member})
                                   ]
                               }}
                               tableDataStyle={{textAlign: "left"}}/>
@@ -90,23 +100,23 @@ const GroupMembers = withRouter(({history, match}) => {
                                         remark: "＊One email per line.",
                                         buttonName: "Add"
                                     }}
-                                    show={showAddStudentModal}
-                                    onClose={() => setShowAddStudentModal(false)}
+                                    show={showAddMemberModal}
+                                    onClose={() => setShowAddMemberModal(false)}
                                     onSubmit={(emails) => addStudentsByEmails(emails)}/>
 
             <RemoveConfirmationModal title={"Remove the Student"}
                                      data={[
                                          {
                                              title: "Name",
-                                             value: member?.name
+                                             value: selectedMember?.name
                                          },
                                          {
                                              title: "Email",
-                                             value: member?.email
+                                             value: selectedMember?.email
                                          }]}
-                                     show={showRemoveStudentModal}
-                                     onClose={() => setShowRemoveStudentModal(false)}
-                                     onSubmit={() => deleteMembersFormGroup(member)}/>
+                                     show={showRemoveMemberModal}
+                                     onClose={() => setShowRemoveMemberModal(false)}
+                                     onSubmit={() => deleteMembersFormGroup(selectedMember)}/>
         </div>
     )
 });

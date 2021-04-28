@@ -1,15 +1,42 @@
-import { ExamInPageNavigationBar } from "./ExamInPageNavigationBar";
-import { withRouter } from "react-router";
-import { ItemListPage } from "../commons/ItemListPage/ItemListPage.js";
-import { examService } from "../../services/services.js";
-import { useState, useEffect } from "react";
-import FakeLink from "../commons/FakeLink.js";
-import { ThreeDotsButton } from "../commons/buttons/ThreeDotsButton.js";
 
+import { useState, useEffect } from "react";
+import { AiOutlineMail } from "react-icons/ai";
+import { withRouter } from "react-router";
+
+import { examService } from "../../services/services.js";
+import { ThreeDotsButton } from "../commons/buttons/ThreeDotsButton.js";
+import FakeLink from "../commons/FakeLink.js";
+import { ItemListPage } from "../commons/ItemListPage/ItemListPage.js";
+import { ExamInPageNavigationBar } from "./ExamInPageNavigationBar";
+import { AddProblemModal } from "./modals/AddProblemModal.js";
+
+const toCharactorIndex = i => {
+    return String.fromCharCode(i + 65);
+}
+
+const addProblemBtnStyle = {
+    backgroundColor: "#7ECA1D",
+    boxShadow: "1px 3px 4px rgba(0, 0, 0, 0.25)",
+    borderRadius: "50px",
+    float: "right",
+    display: "inline",
+    margin: "1rem 0",
+    padding: "5px 20px",
+    cursor: "pointer",
+};
+
+const addProblemTextStyle = {
+    color: "#FFF",
+    fontWeight: "bold",
+    fontSize: "20px",
+    lineHeight: "30px",
+};
 
 const ExamProblems = withRouter(({ history, match }) => {
     const currentPathName = history.location.pathname;
     const [problems, setProblems] = useState(null);
+
+    const [showAddProblemModal, setShowAddProblemModal] = useState(false);
 
     const examId = match.params.examId;
 
@@ -21,38 +48,28 @@ const ExamProblems = withRouter(({ history, match }) => {
         });
     }
 
-    const toCharactorIndex = i => {
-        return String.fromCharCode(i + 65);
-    }
+    const actionItemsButton = ({ problem }) => new ThreeDotsButton({
+        dropDownItems: [{
+            name: "Edit",
+            dangerous: false,
+            onClick: () => { }
+        }, {
+            name: "Rejudge",
+            dangerous: false,
+            onClick: () => { }
+        }, {
+            name: "Delete",
+            dangerous: true,
+            onClick: () => { }
+        }]
+    })
+
 
     useEffect(() => {
         if (!problems) {
             refetchExam();
         }
     });
-
-    const actionItemsButton = ({ problem }) => new ThreeDotsButton({
-        dropDownItems: [
-            {
-                name: "Edit",
-                dangerous: false,
-                onClick: () => {
-                }
-            },
-            {
-                name: "Rejudge",
-                dangerous: false,
-                onClick: () => {
-                }
-            },
-            {
-                name: "Delete",
-                dangerous: true,
-                onClick: () => {
-                }
-            }
-        ]
-    })
 
     return (
         <div>
@@ -67,7 +84,7 @@ const ExamProblems = withRouter(({ history, match }) => {
                         key: problem => problem.id,
                         data: problem => [
                             toCharactorIndex(problem.questionOrder),
-                            (<FakeLink content={problem.problemId}/>),
+                            (<FakeLink content={problem.problemId} />),
                             (<div style={{ textAlign: "center" }}>{problem.score}</div>),
                             (<div style={{ textAlign: "center" }}>{problem.quota}</div>),
                             actionItemsButton({ problem }),
@@ -75,7 +92,22 @@ const ExamProblems = withRouter(({ history, match }) => {
                     }}
                     showFilterSearchBar={false}
                     tableDataStyle={{ textAlign: "left" }} />
+
+                <div style={addProblemBtnStyle} onClick={() => setShowAddProblemModal(true)}>
+                    <span style={addProblemTextStyle}>
+                        Add New Problem
+                    </span>
+                </div>
             </div>
+
+            <AddProblemModal title={"Create Question"}
+                             content={{
+                                 description: "Add students to the exam with the students’ email.",
+                                 buttonName: "Add"
+                             }}
+                             show={showAddProblemModal}
+                             onClose={() => setShowAddProblemModal(false)}
+                             onSubmit={() => {}}/>
         </div>
     )
 });

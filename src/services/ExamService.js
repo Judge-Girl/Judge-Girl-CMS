@@ -47,4 +47,9 @@ export class ExamService {
         return this.axios.delete(`/api/exams/${examId}/students`, {data: emailList})
             .then(res => res.data);
     }
+
+    async addExamQuestion(data) {
+        const { examId, problemId } = data;
+        return this.axios.post(`/api/exams/${examId}/problems/${problemId}`, { data }).then(res => res.data);
+    }
 }

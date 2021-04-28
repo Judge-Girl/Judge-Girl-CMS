@@ -51,7 +51,6 @@ const AddProblemModal = ({ title, show, onClose, onSubmit }) => {
         show, onClose, closeIconRef,
         contentRendering: () => (
             <div style={outsideDivStyle}>
-                <form onSubmit={e => submit()} ref={formRef}>
                     <div id="modal" className="font-poppins has-text-centered">
                         <ModalHeader className="header" title={title} textAlign="left" />
                         <InputField id="input-problem-id" type="number" labelText="Problem ID" value={problemId} placeholder="" onChange={e => setProblemId(e.target.value)} />
@@ -59,11 +58,10 @@ const AddProblemModal = ({ title, show, onClose, onSubmit }) => {
                         <InputField id="input-submission-quota" type="number" labelText="Submission Quota" value={submissionQuota} placeholder="" onChange={e => setSubmissionQuota(e.target.value)} />
                         <div className="columns">
                             <div className="column">
-                                <button className="button mt-5" id="add-btn">Create Question</button>
+                                <button className="button mt-5" id="add-btn" onClick={submit}>Create Question</button>
                             </div>
                         </div>
                     </div>
-                </form>
             </div>
         )
     })

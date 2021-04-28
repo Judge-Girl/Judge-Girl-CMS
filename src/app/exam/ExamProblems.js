@@ -1,6 +1,5 @@
 
 import { useState, useEffect } from "react";
-import { AiOutlineMail } from "react-icons/ai";
 import { withRouter } from "react-router";
 
 import { examService } from "../../services/services.js";
@@ -46,10 +45,18 @@ const ExamProblems = withRouter(({ history, match }) => {
 
             setProblems(exam.questions);
         });
-    }
+    };
 
-    const actionItemsButton = ({ problem }) => new ThreeDotsButton({
-        dropDownItems: [{
+    const addProblem = (problemId, scorePercentage, submissionQuota) => {
+        examService.addExamQuestion({
+            examId, problemId, 
+            score: scorePercentage, 
+            quota: submissionQuota,
+            questionOrder: problems.length,
+        }).then(refetchExam);
+    };
+
+    const dropDownItems = [{
             name: "Edit",
             dangerous: false,
             onClick: () => { }
@@ -62,7 +69,10 @@ const ExamProblems = withRouter(({ history, match }) => {
             dangerous: true,
             onClick: () => { }
         }]
-    })
+
+
+    // const actionItemsButton = ({ problem }) => new ThreeDotsButton({
+    //     dropDownItems:     })
 
 
     useEffect(() => {
@@ -81,13 +91,13 @@ const ExamProblems = withRouter(({ history, match }) => {
                     tableHeaders={["#", "Problem Title", "Score Percentage", "Submission Quota", " "]}
                     tableRowGenerator={{
                         list: problems,
-                        key: problem => problem.id,
+                        key: problem => problem.problemId,
                         data: problem => [
                             toCharactorIndex(problem.questionOrder),
                             (<FakeLink content={problem.problemId} />),
                             (<div style={{ textAlign: "center" }}>{problem.score}</div>),
                             (<div style={{ textAlign: "center" }}>{problem.quota}</div>),
-                            actionItemsButton({ problem }),
+                            (<ThreeDotsButton dropDownItems={dropDownItems} />),
                         ],
                     }}
                     showFilterSearchBar={false}
@@ -103,7 +113,7 @@ const ExamProblems = withRouter(({ history, match }) => {
             <AddProblemModal title={"Create Question"}
                              show={showAddProblemModal}
                              onClose={() => setShowAddProblemModal(false)}
-                             onSubmit={() => {}}/>
+                             onSubmit={addProblem}/>
         </div>
     )
 });

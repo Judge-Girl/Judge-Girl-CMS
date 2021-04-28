@@ -12,11 +12,13 @@ import TestCase from "./edit/testCase/TestCasesList";
 import {EditorButton} from "./edit/EditorButton";
 import ProblemEditorTitle from "./edit/problemEditorTitle/ProblemEditorTitle";
 
-const ProblemEditor = withRouter(({history}) => {
+const ProblemEditor = withRouter(({history, match}) => {
+    const currentPathName = history.location.pathname;
+    const problemId = match.params.problemId;
 
     return (
         <div className="problem-editor">
-            <ProblemEditorTitle/>
+            <ProblemEditorTitle problemId={problemId}/>
             <div className="columns">
                 <div className="column left">
                     <section>

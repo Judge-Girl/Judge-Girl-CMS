@@ -1,5 +1,5 @@
-export function removeItemFromArray(array, item) {
-    const removed = array.find(examinee => examinee.email === item);
+export function removeIf(array, predicate) {
+    const removed = array.find(predicate);
     const index = array.indexOf(removed);
     if (index > -1) {
         array.splice(index, 1);

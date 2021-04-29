@@ -10,6 +10,7 @@ import {AddExamineesModal} from "./modals/AddExamineesModal";
 import {ThreeDotsButton} from "../commons/buttons/ThreeDotsButton";
 import {RemoveConfirmationModal} from "../commons/modals/RemoveConfirmationModal";
 import {Spinner} from "../commons/Spinner";
+import {removeIf} from "../../utils/array";
 
 const Examinees = withRouter(({history, match}) => {
         const currentPathName = history.location.pathname;
@@ -28,7 +29,6 @@ const Examinees = withRouter(({history, match}) => {
                     .then(exam => setExam(exam))
             }
             if (!examinees && exam) {
-                console.log("in effect")
                 examService.getExaminees(examId)
                     .then(students => setExaminees(students));
             }
@@ -48,11 +48,14 @@ const Examinees = withRouter(({history, match}) => {
         const addExaminees = async (emails) => {
             await examService.addExaminees(exam.id, emails)
                 .then(errorList => {
+                    // TODO: the error should be handled in the future
                     console.log(`errorList=${errorList}`);
                 })
             examService.getExaminees(examId)
                 .then(students => {
-                    // TODO: remove setting empty array and fixed "render more hooks than expected problems"
+                    // TODO: TODO: currently, to avoid "render more hooks than expected" error thrown from React,
+                    //  setting an empty array is a effective trick, but we need to know the root cause
+                    //  and use the more proper way instead.
                     setExaminees([])
                     setExaminees(students)
                 });
@@ -64,14 +67,12 @@ const Examinees = withRouter(({history, match}) => {
         }
 
         function removeExamineeByEmail(email) {
-            const removed = examinees.find(examinee => examinee.email === email);
-            const index = examinees.indexOf(removed);
-            if (index > -1) {
-                examinees.splice(index, 1);
-            }
-            // TODO: remove setting empty array and fixed "render less hooks than expected problems"
+            const examineesArray = removeIf(examinees, examinee => examinee.email === email)
+            // TODO: TODO: currently, to avoid "render fewer hooks than expected" error thrown from React,
+            //  setting an empty array is a effective trick, but we need to know the root cause
+            //  and use the more proper way instead.
             setExaminees([])
-            setExaminees(examinees)
+            setExaminees(examineesArray)
         }
 
         return (

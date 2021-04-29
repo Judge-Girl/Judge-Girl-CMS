@@ -1,10 +1,10 @@
 import StudentService from "./StudentService";
 import {ExamService} from "./ExamService";
-import {ProblemEditorService} from "./ProblemEditorService";
+import {ProblemService} from "./ProblemService";
 
 
 const examService = new ExamService();
 const studentService = new StudentService();
-const problemEditorService = new ProblemEditorService();
+const problemService = new ProblemService();
 
-export {examService, studentService, problemEditorService};
+export {examService, studentService, problemService};

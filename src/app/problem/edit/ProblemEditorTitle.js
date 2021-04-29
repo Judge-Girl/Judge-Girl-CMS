@@ -1,26 +1,26 @@
 import React, {useState} from 'react';
 import '../ProblemEditor.css';
-import './ProblemEditorTitle.css';
+import './ProblemEditorTitle.scss';
 import {FaEdit} from "react-icons/all";
 import {EditorButton} from "./EditorButton";
-import {problemEditorService} from "../../../services/services";
+import {problemService} from "../../../services/services";
 
 function ProblemEditorTitle ({problemId}) {
-    // TODO: problemEditorService.getProblemTitle
+    // TODO: problemService.getProblemTitle
     const [problemNameInput, setProblemNameInput] = useState('Negative and Positive');
     const [lastProblemNameInput, setLastProblemNameInput] = useState(problemNameInput);
     const [editingState, setEditingState] = useState(false);
 
     const handleSaveProblemName = (e) => {
         e.preventDefault();
-        // prevent empty problem name
+        // TODO: empty problem name notification
         if (problemNameInput === '') {
             return;
         }
 
         setEditingState(false);
 
-        problemEditorService.modifyProblemTitle(problemId, problemNameInput)
+        problemService.modifyProblemTitle(problemId, problemNameInput)
             .then();
     };
 
@@ -57,7 +57,6 @@ function ProblemEditorTitle ({problemId}) {
                         marginBottom={20}
                         onClickFunc={() => {
                             setEditingState(false);
-                            // Restore last saved problem name
                             setProblemNameInput(lastProblemNameInput);
                         }}
                     />

@@ -7,13 +7,14 @@ import ResourceSpec from "./edit/ResourceSpec";
 import CompilationScript from "./edit/CompilationScript";
 import OutputMatchPolicyList from "./edit/OutputMatchPolicyList";
 import Visible from "./edit/Visible";
-import Description from "./edit/description/Description";
 import TestCase from "./edit/testCase/TestCasesList";
 import {EditorButton} from "./edit/EditorButton";
 import ProblemEditorTitle from "./edit/ProblemEditorTitle";
+import {SubtitleLine} from "../commons/titles/TitleLine";
+import React from "react";
+import MarkdownEditor from "../commons/MarkdownEditor";
 
 const ProblemEditor = withRouter(({history, match}) => {
-    const currentPathName = history.location.pathname;
     const problemId = match.params.problemId;
 
     return (
@@ -49,7 +50,8 @@ const ProblemEditor = withRouter(({history, match}) => {
                 </div>
                 <div className="column right">
                     <section>
-                        <Description problemId={problemId}/>
+                        <SubtitleLine title={"Description"}/>
+                        <MarkdownEditor problemId={problemId}/>
                     </section>
                     <section>
                         <TestCase />

@@ -1,9 +1,8 @@
-import '../../ProblemEditor.css';
 import React, {useState} from "react";
 import ReactMarkdown from "react-markdown";
 import './MarkdwonEditor.scss';
-import {EditorButton} from "../EditorButton";
-import {problemEditorService} from "../../../../services/services";
+import {EditorButton} from "../problem/edit/EditorButton";
+import {problemService} from "../../services/services";
 
 function Tabs({textareaVal, setTextareaVal}) {
     const [toggleState, setToggleState] = useState(1);
@@ -15,7 +14,7 @@ function Tabs({textareaVal, setTextareaVal}) {
     const TAB_WRITE = 1, TAB_PREVIEW = 2;
 
     return (
-        <div className="MarkdownEditor">
+        <div>
             <div className="tabs is-boxed">
                 <ul>
                     <li className={toggleState === TAB_WRITE ? "is-active active-tabs" : ""}>
@@ -60,30 +59,29 @@ function Tabs({textareaVal, setTextareaVal}) {
 }
 
 function MarkdownEditor({problemId}) {
-    // TODO: problemEditorService.getProblemDescription
+    // TODO: problemService.getProblemDescription
     const [editingState, setEditingState] = useState(false);
-    const [textareaVal, setTextareaVal] = useState('Press Edit Description to start writing the description. :smile: Styling with Markdown is supported. :+1:\n');
+    const [textareaVal, setTextareaVal] = useState('Press Edit Description to start writing the description. Styling with Markdown is supported.\n');
     const [lastTextareaVal, setLastTextareaVal] = useState(textareaVal);
 
     const handleDescription = e => {
         e.preventDefault();
+        // TODO: empty description notification
         if (textareaVal === '') {
             return;
         }
 
         setEditingState(false);
 
-        problemEditorService.modifyProblemDescription(problemId, textareaVal)
+        problemService.modifyProblemDescription(problemId, textareaVal)
             .then();
     };
 
     if (!editingState) {
         return (
-            <div>
+            <div className="MarkdownEditor">
                 <div className="content-tabs">
-                    <div
-                        className={"content  active-markdown"}
-                    >
+                    <div className={"content active-markdown"}>
                         <ReactMarkdown>
                             {textareaVal}
                         </ReactMarkdown>
@@ -111,7 +109,7 @@ function MarkdownEditor({problemId}) {
 
 
     return (
-        <div>
+        <div className="MarkdownEditor">
             <Tabs textareaVal={textareaVal} setTextareaVal={setTextareaVal}/>
             <div className="field is-grouped is-align-items-center is-pulled-right is-paddingless">
                 <EditorButton

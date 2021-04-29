@@ -31,12 +31,14 @@ const ExamProblems = withRouter(({ history, match }) => {
     };
 
     const addProblem = (problemId, scorePercentage, submissionQuota) => {
-        examService.addExamQuestion({
+        const addExamPromise = examService.addExamQuestion({
             examId, problemId,
             score: scorePercentage,
             quota: submissionQuota,
             questionOrder: problems.length,
-        }).then(refetchExam);
+        });
+        addExamPromise.then(refetchExam);
+        return addExamPromise;
     };
 
     const dropDownItems = [{

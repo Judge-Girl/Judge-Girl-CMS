@@ -8,9 +8,9 @@ import {ThreeDotsButton} from "../commons/buttons/ThreeDotsButton";
 import {studentService} from "../../services/services";
 import {Spinner} from "../commons/Spinner";
 import {AiOutlineMail} from "react-icons/ai";
-import {AddStudentToGroupModal} from "./AddStudentToGroupModal";
 import {RemoveConfirmationModal} from "../commons/modals/RemoveConfirmationModal";
 import {removeIf} from "../../utils/array";
+import {TextareaModal} from "../commons/modals/TextareaModal";
 
 const GroupMembers = withRouter(({history, match}) => {
     const currentPathName = history.location.pathname;
@@ -33,12 +33,12 @@ const GroupMembers = withRouter(({history, match}) => {
         }]
     })
 
-    const addStudentsByEmails = (emails) => {
+    const addMembersByEmails = (emails) => {
         studentService.addMembersInToGroupByEmails(groupId, emails)
             // TODO: the error should be handled in the future
             .then(errorList => {
                 console.log(errorList)
-                // TODO: TODO: currently, to avoid "render more hooks than expected" error thrown from React,
+                // TODO: currently, to avoid "render more hooks than expected" error thrown from React,
                 //  setting an empty array is a effective trick, but we need to know the root cause
                 //  and use the more proper way instead.
                 setMembers([])
@@ -50,7 +50,7 @@ const GroupMembers = withRouter(({history, match}) => {
         studentService.deleteMembersFromGroup(groupId, selectedMember.id)
             .then(() => {
                 removeIf(members, member => member.id === selectedMember.id)
-                // TODO: TODO: currently, to avoid "render fewer hooks than expected" error thrown from React,
+                // TODO: currently, to avoid "render fewer hooks than expected" error thrown from React,
                 //  setting an empty array is a effective trick, but we need to know the root cause
                 //  and use the more proper way instead.
                 setMembers([])
@@ -86,7 +86,7 @@ const GroupMembers = withRouter(({history, match}) => {
                                   onCreateButtonClick: () => setShowAddMemberModal(true)
                               })}
                               tableHeaders={["Name", "Email", " "]}
-                              members = {members}
+                              members={members}
                               tableRowGenerator={{
                                   list: members,
                                   key: (member) => member.id,
@@ -99,17 +99,17 @@ const GroupMembers = withRouter(({history, match}) => {
                               tableDataStyle={{textAlign: "left"}}/>
             </div>
 
-            <AddStudentToGroupModal title={"Add Students"}
-                                    content={{
-                                        description: "Add students to the group by students' email.",
-                                        Icon: AiOutlineMail,
-                                        placeholder: "studentA@example.com\nstudentB@example.com",
-                                        remark: "＊One email per line.",
-                                        buttonName: "Add"
-                                    }}
-                                    show={showAddMemberModal}
-                                    onClose={() => setShowAddMemberModal(false)}
-                                    onSubmit={(emails) => addStudentsByEmails(emails)}/>
+            <TextareaModal title={"Add Students"}
+                           content={{
+                                   description: "Add students to the group by students' email.",
+                                   Icon: AiOutlineMail,
+                                   placeholder: "studentA@example.com\nstudentB@example.com",
+                                   remark: "＊One email per line.",
+                                   buttonName: "Add"
+                               }}
+                           show={showAddMemberModal}
+                           onClose={() => setShowAddMemberModal(false)}
+                           onSubmit={(emails) => addMembersByEmails(emails)}/>
 
             <RemoveConfirmationModal title={"Remove the Student"}
                                      data={[

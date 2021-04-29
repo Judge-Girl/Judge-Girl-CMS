@@ -6,7 +6,7 @@ import {examService} from "../../services/services";
 import {ItemListPage} from "../commons/ItemListPage/ItemListPage";
 import {DropDownBtn} from "../commons/buttons/DropDownButton";
 import {AiOutlineMail, AiOutlineUsergroupAdd} from "react-icons/ai";
-import {AddExamineesModal} from "./modals/AddExamineesModal";
+import {TextareaModal} from "../commons/modals/TextareaModal";
 import {ThreeDotsButton} from "../commons/buttons/ThreeDotsButton";
 import {RemoveConfirmationModal} from "../commons/modals/RemoveConfirmationModal";
 import {Spinner} from "../commons/Spinner";
@@ -52,12 +52,12 @@ const Examinees = withRouter(({history, match}) => {
                     console.log(`errorList=${errorList}`);
                 })
             examService.getExaminees(examId)
-                .then(students => {
-                    // TODO: TODO: currently, to avoid "render more hooks than expected" error thrown from React,
+                .then(examinees => {
+                    // TODO: currently, to avoid "render more hooks than expected" error thrown from React,
                     //  setting an empty array is a effective trick, but we need to know the root cause
                     //  and use the more proper way instead.
                     setExaminees([])
-                    setExaminees(students)
+                    setExaminees(examinees)
                 });
         }
 
@@ -68,7 +68,7 @@ const Examinees = withRouter(({history, match}) => {
 
         function removeExamineeByEmail(email) {
             removeIf(examinees, examinee => examinee.email === email)
-            // TODO: TODO: currently, to avoid "render fewer hooks than expected" error thrown from React,
+            // TODO: currently, to avoid "render fewer hooks than expected" error thrown from React,
             //  setting an empty array is a effective trick, but we need to know the root cause
             //  and use the more proper way instead.
             setExaminees([])
@@ -109,28 +109,28 @@ const Examinees = withRouter(({history, match}) => {
                                   tableDataStyle={{textAlign: "left"}}/>
                 </div>
 
-                <AddExamineesModal title={"Add Students"}
-                                   content={{
+                <TextareaModal title={"Add Students"}
+                               content={{
                                        description: "Add examinees to the exam with the examinees’ email.",
                                        Icon: AiOutlineMail,
                                        placeholder: "studentA@example.com\nstudentB@example.com",
                                        remark: "＊One email per line.",
                                        buttonName: "Add"
                                    }}
-                                   show={showAddStudentModal}
-                                   onClose={() => setShowAddStudentModal(false)}
-                                   onSubmit={emails => addExaminees(emails)}/>
+                               show={showAddStudentModal}
+                               onClose={() => setShowAddStudentModal(false)}
+                               onSubmit={emails => addExaminees(emails)}/>
 
-                <AddExamineesModal title={"Add Students By Groups"}
-                                   content={{
+                <TextareaModal title={"Add Students By Groups"}
+                               content={{
                                        description: "Add groups to the exam with the groups’ name.",
                                        Icon: AiOutlineUsergroupAdd,
                                        placeholder: "group-name-A\ngroup-name-B",
                                        remark: "＊One group name per line.",
                                        buttonName: "Add"
                                    }}
-                                   show={showAddGroupModal}
-                                   onClose={() => setShowAddGroupModal(false)}/>
+                               show={showAddGroupModal}
+                               onClose={() => setShowAddGroupModal(false)}/>
 
                 <RemoveConfirmationModal title={"Remove the Student"}
                                          data={[

@@ -1,21 +1,22 @@
-import './AddStudentToGroupModal.scss'
+import './TextareaModal.scss'
 import React, {createRef, useState} from "react";
-import {renderModal} from "../commons/modals/modal";
-import {ModalHeader} from "../commons/modals/ModalHeader";
+import {renderModal} from "./modal";
+import {ModalHeader} from "./ModalHeader";
 
-const AddStudentToGroupModal = ({title, content, show, onClose, onSubmit}) => {
+const TextareaModal = ({title, content, show, onClose, onSubmit}) => {
     const closeIconRef = createRef(), formRef = createRef();
     const Icon = content.Icon;
-    const [emails, setEmails] = useState();
+    const [input, setInput] = useState();
 
     const handleSubmit = e => {
-        onSubmit(emails)
-        closeIconRef.current.click();
-        e.preventDefault();
+        onSubmit(input)
+        closeIconRef.current.click()
+        setInput('');
+        e.preventDefault()
     };
 
     return renderModal({
-        modalClassName: "add-student-to-group-modal",
+        modalClassName: "textarea-modal",
         modalWidth: "660px",
         show, onClose, closeIconRef,
         contentRendering: () => (
@@ -24,7 +25,8 @@ const AddStudentToGroupModal = ({title, content, show, onClose, onSubmit}) => {
                     <ModalHeader className="header" title={title} textAlign="left"/>
                     <p className="description"><Icon className="modal-icon"/>{content.description}</p>
                     <textarea className="textarea"
-                              onChange={e => setEmails(e.target.value)}
+                              value={input}
+                              onChange={e => setInput(e.target.value)}
                               placeholder={content.placeholder}/>
                     <div className="columns">
                         <div className="column">
@@ -40,5 +42,4 @@ const AddStudentToGroupModal = ({title, content, show, onClose, onSubmit}) => {
     })
 };
 
-
-export {AddStudentToGroupModal}
+export {TextareaModal}

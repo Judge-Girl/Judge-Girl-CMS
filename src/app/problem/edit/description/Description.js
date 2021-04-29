@@ -62,7 +62,7 @@ function Tabs({textareaVal, setTextareaVal}) {
 
 function Description({problemId}) {
     // TODO: problemEditorService.getProblemDescription
-    const [editingState, setEditingState] = useState(true);
+    const [editingState, setEditingState] = useState(false);
     const [textareaVal, setTextareaVal] = useState('Press Edit Description to start writing the description. :smile: Styling with Markdown is supported. :+1:\n');
     const [lastTextareaVal, setLastTextareaVal] = useState(textareaVal);
 

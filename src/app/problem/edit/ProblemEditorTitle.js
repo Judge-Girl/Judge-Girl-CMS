@@ -42,6 +42,7 @@ function ProblemEditorTitle ({problemId}) {
                         fontSize={15}
                         borderRadius={20}
                         marginLeft={7}
+                        marginBottom={20}
                         onClickFunc={e => handleSaveProblemName(e)}
                     />
                     <EditorButton
@@ -53,6 +54,7 @@ function ProblemEditorTitle ({problemId}) {
                         borderRadius={20}
                         borderColor={"#A2A3B1"}
                         marginLeft={7}
+                        marginBottom={20}
                         onClickFunc={() => {
                             setEditingState(false);
                             // Restore last saved problem name

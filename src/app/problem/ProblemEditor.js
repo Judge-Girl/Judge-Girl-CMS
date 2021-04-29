@@ -7,7 +7,7 @@ import ResourceSpec from "./edit/ResourceSpec";
 import CompilationScript from "./edit/CompilationScript";
 import OutputMatchPolicyList from "./edit/OutputMatchPolicyList";
 import Visible from "./edit/Visible";
-import Description from "./edit/Description";
+import Description from "./edit/description/Description";
 import TestCase from "./edit/testCase/TestCasesList";
 import {EditorButton} from "./edit/EditorButton";
 import ProblemEditorTitle from "./edit/ProblemEditorTitle";

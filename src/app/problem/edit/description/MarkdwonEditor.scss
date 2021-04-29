@@ -1,4 +1,4 @@
-.problem-editor .tabs {
+.MarkdownEditor .tabs {
   text-align: center;
   box-sizing: content-box;
   outline: none;
@@ -31,7 +31,6 @@
 
     display: flex;
     align-items: center;
-
     color: #6D6E7D;
 
 
@@ -76,11 +75,8 @@
 
 .content-tabs {
   background: #FFFFFF;
-  //border: 1px solid #A2A3B1;
   box-sizing: border-box;
   border-radius: 5px;
-  //width: 758px;
-  //height: 397px;
   display: block;
 
   .content {

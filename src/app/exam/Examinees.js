@@ -67,12 +67,12 @@ const Examinees = withRouter(({history, match}) => {
         }
 
         function removeExamineeByEmail(email) {
-            const examineeArray = removeIf(examinees, examinee => examinee.email === email)
+            removeIf(examinees, examinee => examinee.email === email)
             // TODO: TODO: currently, to avoid "render fewer hooks than expected" error thrown from React,
             //  setting an empty array is a effective trick, but we need to know the root cause
             //  and use the more proper way instead.
             setExaminees([])
-            setExaminees(examineeArray)
+            setExaminees(examinees)
         }
 
         return (

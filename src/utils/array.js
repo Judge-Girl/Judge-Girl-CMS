@@ -4,5 +4,4 @@ export function removeIf(array, predicate) {
             array.splice(i, 1)
         }
     }
-    return array
 }

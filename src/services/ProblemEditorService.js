@@ -11,7 +11,7 @@ export class ProblemEditorService {
 
     async modifyProblemTitle(problemId, title) {
         return this.axios.patch(`/api/problems/${problemId}`, {problemId, title})
-            .then();
+            .then()
     }
 
     async modifyProblemDescription(problemId, description) {

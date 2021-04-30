@@ -30,15 +30,13 @@ const ExamProblems = withRouter(({ history, match }) => {
         });
     };
 
-    const addProblem = (problemId, scorePercentage, submissionQuota) => {
-        const addExamPromise = examService.addExamQuestion({
-            examId, problemId,
-            score: scorePercentage,
-            quota: submissionQuota,
-            questionOrder: problems.length,
-        });
-        addExamPromise.then(refetchExam);
-        return addExamPromise;
+    const addProblem = (question) => {
+        question.examId = examId;
+        question.questionOrder = problems.length; 
+
+        const addQuestionPromise = examService.addExamQuestion(question);
+        addQuestionPromise.then(refetchExam);
+        return addQuestionPromise;
     };
 
     const dropDownItems = [{
@@ -94,7 +92,7 @@ const ExamProblems = withRouter(({ history, match }) => {
             <AddProblemModal title={"Create Question"}
                 show={showAddProblemModal}
                 onClose={() => setShowAddProblemModal(false)}
-                onSubmit={addProblem} />
+                onSubmitQuestion={addProblem} />
         </div>
     )
 });

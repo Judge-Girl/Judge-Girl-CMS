@@ -2,6 +2,7 @@ import './AddProblemModal.scss'
 import React, { createRef, useState } from "react";
 import { renderModal } from "../../commons/modals/modal";
 import { ModalHeader } from "../../commons/modals/ModalHeader";
+import Question from "../../../models/Question";
 
 const InputField = ({ id, type, labelText, value, placeholder, onChange }) => (
     <div className="input-field">
@@ -10,7 +11,7 @@ const InputField = ({ id, type, labelText, value, placeholder, onChange }) => (
     </div>
 );
 
-const AddProblemModal = ({ title, show, onClose, onSubmit }) => {
+const AddProblemModal = ({ title, show, onClose, onSubmitQuestion }) => {
     const closeIconRef = createRef(), formRef = createRef();
     const [problemId, setProblemId] = useState('');
     const [scorePercentage, setScorePercentage] = useState('');
@@ -27,7 +28,8 @@ const AddProblemModal = ({ title, show, onClose, onSubmit }) => {
         const form = formRef.current;
 
         if (form.checkValidity()) {
-            onSubmit(problemId, scorePercentage, submissionQuota).then(clearFields);
+            const question = new Question({ problemId, score: scorePercentage, quota: submissionQuota });
+            onSubmitQuestion(question).then(clearFields);
         } else {
             form.reportValidity();
         }

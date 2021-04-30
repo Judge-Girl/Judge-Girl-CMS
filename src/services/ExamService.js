@@ -1,6 +1,7 @@
 import Exam from "../models/Exam";
 import axios from "axios";
 import Student from "../models/Student";
+import Question from "../models/Question";
 
 export const EXAM_STATUSES = {
     ALL: 'all', UPCOMING: 'upcoming', PAST: 'past', CURRENT: 'current'
@@ -50,6 +51,6 @@ export class ExamService {
 
     async addExamQuestion(question) {
         const { examId, problemId } = question;
-        return this.axios.post(`/api/exams/${examId}/problems/${problemId}`, question).then(res => res.data);
+        return this.axios.post(`/api/exams/${examId}/problems/${problemId}`, question).then(res => new Question(res.data));
     }
 }

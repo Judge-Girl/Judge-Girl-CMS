@@ -61,7 +61,7 @@ const ExamProblems = withRouter(({ history, match }) => {
     });
 
     return (
-        <div>
+        <div class="exam-problems">
             <ExamInPageNavigationBar currentPathName={currentPathName} examName={"2021 Sample-Exam"} />
 
             <div className="container">

@@ -114,8 +114,7 @@ export default class StudentService {
     }
 
     async deleteMembersFromGroup(groupId, ids) {
-        return this.axios.delete(`/api/groups/${groupId}/students?ids=${ids}`)
-            .then();
+        return this.axios.delete(`/api/groups/${groupId}/students?ids=${ids}`);
     }
 
     async createGroupWithName(name) {

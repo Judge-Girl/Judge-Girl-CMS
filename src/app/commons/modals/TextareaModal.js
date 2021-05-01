@@ -3,15 +3,15 @@ import React, {createRef, useState} from "react";
 import {renderModal} from "./modal";
 import {ModalHeader} from "./ModalHeader";
 
-const TextareaModal = ({title, content, show, onClose, onSubmit}) => {
+const TextareaModal = ({title, body, show, onClose, onSubmit}) => {
     const closeIconRef = createRef(), formRef = createRef();
-    const Icon = content.Icon;
-    const [input, setInput] = useState();
+    const Icon = body.Icon;
+    const [content, setContent] = useState();
 
     const handleSubmit = e => {
-        onSubmit(input)
+        onSubmit(content)
         closeIconRef.current.click()
-        setInput('');
+        setContent('');
         e.preventDefault()
     };
 
@@ -23,17 +23,17 @@ const TextareaModal = ({title, content, show, onClose, onSubmit}) => {
             <form onSubmit={e => handleSubmit(e)} ref={formRef}>
                 <div id="modal" className="font-poppins has-text-centered">
                     <ModalHeader className="header" title={title} textAlign="left"/>
-                    <p className="description"><Icon className="modal-icon"/>{content.description}</p>
+                    <p className="description"><Icon className="modal-icon"/>{body.description}</p>
                     <textarea className="textarea"
-                              value={input}
-                              onChange={e => setInput(e.target.value)}
-                              placeholder={content.placeholder}/>
+                              value={content}
+                              onChange={e => setContent(e.target.value)}
+                              placeholder={body.placeholder}/>
                     <div className="columns">
                         <div className="column">
-                            <p className="remark">{content.remark}</p>
+                            <p className="remark">{body.remark}</p>
                         </div>
                         <div className="column">
-                            <button className="button mt-5" id="add-btn">Add</button>
+                            <button className="button mt-5" id="add-btn">{body.buttonName}</button>
                         </div>
                     </div>
                 </div>

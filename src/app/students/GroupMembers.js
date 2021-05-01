@@ -100,7 +100,7 @@ const GroupMembers = withRouter(({history, match}) => {
             </div>
 
             <TextareaModal title={"Add Students"}
-                           content={{
+                           body={{
                                    description: "Add students to the group by students' email.",
                                    Icon: AiOutlineMail,
                                    placeholder: "studentA@example.com\nstudentB@example.com",

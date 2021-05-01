@@ -110,7 +110,7 @@ const Examinees = withRouter(({history, match}) => {
                 </div>
 
                 <TextareaModal title={"Add Students"}
-                               content={{
+                               body={{
                                        description: "Add examinees to the exam with the examinees’ email.",
                                        Icon: AiOutlineMail,
                                        placeholder: "studentA@example.com\nstudentB@example.com",
@@ -122,7 +122,7 @@ const Examinees = withRouter(({history, match}) => {
                                onSubmit={emails => addExaminees(emails)}/>
 
                 <TextareaModal title={"Add Students By Groups"}
-                               content={{
+                               body={{
                                        description: "Add groups to the exam with the groups’ name.",
                                        Icon: AiOutlineUsergroupAdd,
                                        placeholder: "group-name-A\ngroup-name-B",

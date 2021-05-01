@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import '../ProblemEditor.css';
 import './ProblemEditorTitle.scss';
 import {FaEdit} from "react-icons/all";
 import {EditorButton} from "./EditorButton";
@@ -26,10 +25,10 @@ function ProblemEditorTitle ({problemId}) {
 
     if (editingState) {
         return (
-            <div>
+            <div className="problem-editor-title">
                 <form className="field is-grouped is-align-items-center">
                     <input
-                        className="save-problem-name-btn "
+                        className="save-problem-name-btn"
                         type="text"
                         value={problemNameInput}
                         onInput={e => setProblemNameInput(e.target.value)}
@@ -67,17 +66,19 @@ function ProblemEditorTitle ({problemId}) {
     }
 
     return (
-        <div className={"title problem-editor-title"}>
-            <div>
-                {problemNameInput}
+        <div className={"problem-editor-title"}>
+            <div className={"problem-name-title"}>
+                <div>
+                    {problemNameInput}
+                </div>
+                <FaEdit
+                    onClick={() => {
+                        setEditingState(true);
+                        setLastProblemNameInput(problemNameInput);
+                    }}
+                    className="problem-name-editor-btn"
+                />
             </div>
-            <FaEdit
-                onClick={() => {
-                    setEditingState(true);
-                    setLastProblemNameInput(problemNameInput);
-                }}
-                className="problem-name-editor-btn"
-            />
         </div>
     )
 }

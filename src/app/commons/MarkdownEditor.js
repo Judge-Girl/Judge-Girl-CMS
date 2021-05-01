@@ -35,20 +35,15 @@ function Tabs({textareaVal, setTextareaVal}) {
             </div>
 
             <div className="content-tabs">
-                <div
-                    className={toggleState === TAB_WRITE ? "content  active-textarea" : "content"}
-                >
+                <div className={"content " + (toggleState === TAB_WRITE ? "active-textarea" : "hide")}>
                     <textarea
                         className="description-textarea"
                         value={textareaVal}
-
                         onChange={handleTextareaChange}
                     />
                 </div>
 
-                <div
-                    className={toggleState === TAB_PREVIEW ? "content  active-markdown" : "content"}
-                >
+                <div className={"content " + (toggleState === TAB_PREVIEW ? "active-markdown" : "hide")}>
                     <ReactMarkdown>
                         {textareaVal}
                     </ReactMarkdown>

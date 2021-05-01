@@ -5,7 +5,6 @@ export class ProblemService {
     constructor() {
         this.axios = axios.create({
             baseURL: process.env.REACT_APP_PROBLEM_SVC_BASE_URL,
-            // baseURL: process.env.REACT_APP_EXAM_SVC_BASE_URL,
             timeout: 10000
         });
     }

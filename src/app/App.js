@@ -6,8 +6,6 @@ import {BrowserRouter as Router, Redirect, Route} from "react-router-dom";
 import {Login} from "./Login";
 import {Dashboard} from "./Dashboard";
 import {ProblemEditor} from "./problem/ProblemEditor";
-import {Examinees} from "./exam/Examinees";
-import {ExamProblems} from "./exam/ExamProblems";
 import {StudentList} from "./students/StudentList";
 import {GroupList} from "./students/GroupList";
 import {AdminList} from "./admins/AdminList";
@@ -16,7 +14,6 @@ import {AuthContext} from "./commons/access-control/auth";
 import PrivateRoute from "./commons/access-control/PrivateRoute";
 import {GroupMembers} from "./students/GroupMembers";
 import {ExamList} from "./exam/ExamList";
-import {ExamOptions} from "./exam/options/ExamOptions";
 
 
 function App() {
@@ -35,10 +32,7 @@ function App() {
                     <PrivateRoute exact path="/groups" component={GroupList}/>
                     <PrivateRoute path="/groups/:groupId/students" component={GroupMembers}/>
                     <PrivateRoute path="/problems/:problemId/edit" component={ProblemEditor}/>
-                    <PrivateRoute exact path="/exams" component={ExamList}/>
-                    <PrivateRoute path="/exams/:examId/students" component={Examinees}/>
-                    <PrivateRoute path="/exams/:examId/problems" component={ExamProblems}/>
-                    <PrivateRoute path="/exams/:examId/options" component={ExamOptions}/>
+                    <PrivateRoute path="/exams" component={ExamList}/>
                 </div>
             </Router>
         </AuthContext.Provider>

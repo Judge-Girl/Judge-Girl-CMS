@@ -4,17 +4,11 @@ import {useAuth} from "./auth";
 
 function PrivateRoute({component: Component, ...rest}) {
     const {admin} = useAuth();
-
     return (
-        <Route
-            {...rest}
-            render={props =>
-                admin ? (
-                    <Component {...props} />
-                ) : (
-                    <Redirect to={{pathname: '/', state: {referer: props.location}}}/>
-                )
-            }
+        <Route {...rest}
+               render={props =>
+                   admin ? (<Component {...props} />)
+                   : (<Redirect to={{pathname: '/', state: {referer: props.location}}}/>)}
         />
     );
 }

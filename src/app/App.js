@@ -28,14 +28,14 @@ function App() {
                 <div className="App">
                     <NavigationBar/>
                     <Redirect path="*" to="/"/>
-                    <Route exact={true} path="/" component={Login}/>
+                    <Route exact path="/" component={Login}/>
                     <PrivateRoute path="/problems" component={Dashboard}/>
                     <PrivateRoute path="/students" component={StudentList}/>
                     <PrivateRoute path="/admins" component={AdminList}/>
-                    <PrivateRoute exact={true} path="/groups" component={GroupList}/>
+                    <PrivateRoute exact path="/groups" component={GroupList}/>
                     <PrivateRoute path="/groups/:groupId/students" component={GroupMembers}/>
                     <PrivateRoute path="/problems/:problemId/edit" component={ProblemEditor}/>
-                    <PrivateRoute exact={true} path="/exams" component={ExamList}/>
+                    <PrivateRoute exact path="/exams" component={ExamList}/>
                     <PrivateRoute path="/exams/:examId/students" component={Examinees}/>
                     <PrivateRoute path="/exams/:examId/problems" component={ExamProblems}/>
                     <PrivateRoute path="/exams/:examId/options" component={ExamOptions}/>

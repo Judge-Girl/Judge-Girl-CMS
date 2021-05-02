@@ -21,7 +21,8 @@ $markdown-background-color: #FFFFFF;
     color: #6D6E7D;
 
     .active-tabs {
-      background: white;
+      // to hide border-button line
+      background: $markdown-background-color;
       border: 1px solid #C6C4C4;
       border-bottom: transparent;
       border-radius: 10px 10px 0px 0px;

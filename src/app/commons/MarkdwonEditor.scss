@@ -1,5 +1,7 @@
+$markdown-background-color: #FFFFFF;
+
 .MarkdownEditor {
-  background: #FFFFFF;
+  background: $markdown-background-color;
   display: block;
   box-sizing: border-box;
 
@@ -29,7 +31,6 @@
     }
 
     .tab-write {
-      /* Write */
       cursor: pointer;
       position: static;
       width: 44px;
@@ -40,7 +41,6 @@
     }
 
     .tab-preview {
-      /* Preview */
       cursor: pointer;
       position: static;
       width: 65px;

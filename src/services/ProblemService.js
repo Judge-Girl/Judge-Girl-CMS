@@ -11,12 +11,10 @@ export class ProblemService {
 
     async modifyProblemTitle(problemId, title) {
         return this.axios.patch(`/api/problems/${problemId}`, {problemId, title})
-            .then()
     }
 
     async modifyProblemDescription(problemId, description) {
         return this.axios.patch(`/api/problems/${problemId}`, {problemId, description})
-            .then();
     }
 
 }

@@ -109,12 +109,12 @@ export default class StudentService {
 
     async addMembersInToGroupByEmails(groupId, emails) {
         var emailList = emails.split("\n");
-        return this.axios.post(`/api/groups/${groupId}/students`, emailList)
+        return this.axios.post(`/api/groups/${groupId}/members`, emailList)
             .then(res => res.data);
     }
 
     async deleteMembersFromGroup(groupId, ids) {
-        return this.axios.delete(`/api/groups/${groupId}/students?ids=${ids}`);
+        return this.axios.delete(`/api/groups/${groupId}/members?ids=${ids}`);
     }
 
     async createGroupWithName(name) {

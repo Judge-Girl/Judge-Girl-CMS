@@ -3,6 +3,15 @@ import React, {createRef, useState} from "react";
 import {renderModal} from "./modal";
 import {ModalHeader} from "./ModalHeader";
 
+/**
+ * @param title, the title (str) of the modal
+ * @param body, the content of the modal. 5 fields
+ *         (1) description (str) (2) Icon (Icon Component) (3) placeholder (str) (4) remark (str) (5) buttonName (str)
+ * @param show, show the modal or not (boolean)
+ * @param onClose, the callback function when close the modal
+ * @param onSubmit, the callback function when submit the form
+ */
+
 const TextareaModal = ({title, body, show, onClose, onSubmit}) => {
     const closeIconRef = createRef(), formRef = createRef();
     const Icon = body.Icon;

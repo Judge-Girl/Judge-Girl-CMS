@@ -9,6 +9,7 @@ import {ModalHeader} from "./ModalHeader";
  *         (1) title (str) (2) value (str)
  * @param show, show the modal or not (boolean)
  * @param onClose, the callback function when close the modal
+ * @param onSubmit, the callback function when submit the form
  */
 
 const RemoveConfirmationModal = ({title, data, show, onClose, onSubmit}) => {

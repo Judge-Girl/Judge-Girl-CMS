@@ -4,10 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="55d91b8e-76aa-4f6d-9d07-1f865a19c1a8" name="Default Changelist" comment="Refactor.">
-      <change beforePath="$PROJECT_DIR$/src/app/NavigationBar.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/NavigationBar.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/NavigationBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/NavigationBar.js" afterDir="false" />
+    <list default="true" id="55d91b8e-76aa-4f6d-9d07-1f865a19c1a8" name="Default Changelist" comment="Beautify.">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/commons/ScheduleItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/commons/ScheduleItem.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/exam/ExamList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/exam/ExamList.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/exam/ExamProblems.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/exam/ExamProblems.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/exam/modals/CreateExamModal.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/exam/modals/CreateExamModal.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/exam/options/ExamName.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/exam/options/ExamName.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/exam/options/ExamOptions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/exam/options/ExamOptions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/exam/options/ExamSchedule.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/exam/options/ExamSchedule.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/ExamService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/ExamService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/utils.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/utils.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,7 +78,7 @@
       <workItem from="1620121964529" duration="491000" />
       <workItem from="1620125132185" duration="196000" />
       <workItem from="1620125411102" duration="26638000" />
-      <workItem from="1620190609151" duration="3023000" />
+      <workItem from="1620190609151" duration="3896000" />
     </task>
     <task id="LOCAL-00001" summary="Looks better now.">
       <created>1619529583285</created>
@@ -185,7 +192,14 @@
       <option name="project" value="LOCAL" />
       <updated>1620156901242</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="Beautify.">
+      <created>1620194956377</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1620194956377</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -220,6 +234,7 @@
     <MESSAGE value="Examinees and ExamList work correctly; InPageNavigationBar has real link." />
     <MESSAGE value="Now it works." />
     <MESSAGE value="Refactor." />
-    <option name="LAST_COMMIT_MESSAGE" value="Refactor." />
+    <MESSAGE value="Beautify." />
+    <option name="LAST_COMMIT_MESSAGE" value="Beautify." />
   </component>
 </project>

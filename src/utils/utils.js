@@ -5,7 +5,11 @@ function isLegalText(text, textList) {
 }
 
 function formatDate(timestamp) {
-    return moment(timestamp).format('YYYY/MM/DD  h:mm A');
+    return moment(timestamp).format('YYYY-MM-DDTHH:mm');
 }
 
-export {isLegalText, formatDate}
+function displayDate(timestamp) {
+    return moment(timestamp).format('YYYY/MM/DD  hh:mm A')
+}
+
+export {isLegalText, formatDate, displayDate}

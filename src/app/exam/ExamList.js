@@ -4,7 +4,7 @@ import {examService} from "../../services/services";
 import {EXAM_STATUSES} from "../../services/ExamService";
 import {ItemListPage} from "../commons/ItemListPage/ItemListPage";
 import {CreateButton} from "../commons/buttons/CreateButton";
-import {formatDate} from "../../utils/utils";
+import {displayDate} from "../../utils/utils";
 import {CreateExamModal} from "./modals/CreateExamModal";
 import {Examinees} from "./Examinees";
 import ExamProblems from "./ExamProblems";
@@ -56,8 +56,8 @@ const ExamList = () => {
                                       data: (exam) => [
                                           exam?.id,
                                           <Link to={`/exams/${exam.id}/students`}>{exam.name}</Link>,
-                                          formatDate(exam?.startTime),
-                                          formatDate(exam?.endTime),
+                                          displayDate(exam?.startTime),
+                                          displayDate(exam?.endTime),
                                       ]
                                   }}/>
 

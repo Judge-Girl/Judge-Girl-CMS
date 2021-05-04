@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { useParams, useRouteMatch } from 'react-router-dom'
 import {ExamInPageNavigationBar} from "../ExamInPageNavigationBar";
 import {TitleLine} from "../../commons/titles/TitleLine";
@@ -8,13 +8,29 @@ import ExamWhiteList from "./ExamWhiteList";
 import {UpdateChangeButton} from "./UpdateChangeButton";
 import './ExamOptions.scss';
 import './../../problem/ProblemEditor.css';
+import {examService} from "../../../services/services";
+import {now} from "moment";
 
 const ExamOptions = ({exams}) => {
+    const oneHour = 60 * 60 * 1000;
     const { url: currentURL } = useRouteMatch()
     const { examId } = useParams()
     const currentExamName = exams.find(exam => exam.id === parseInt(examId)).name
+    const [examName, setExamName] = useState(currentExamName)
+    const [startTime, setStartTime] = useState(now() + oneHour)
+    const [endTime, setEndTime] = useState(now() + oneHour*2)
 
     const onButtonUpdateChangeClicked = () => {
+        examService.updateExam(examId,{
+            examId: examId,
+            name: examName,
+            startTime: startTime,
+            endTime: endTime,
+            description: "",
+        }).then(() => console.log("Exam Updated."))
+    }
+
+    const onButtonDeleteExamClicked = () => {
 
     }
 
@@ -29,17 +45,21 @@ const ExamOptions = ({exams}) => {
                 <div className="columns exam-options">
                     <div className="column is-narrow" style={{width: "450px"}}>
                         <section>
-                            <ExamName examName={currentExamName}/>
+                            <ExamName examName={examName} setter={setExamName}/>
                         </section>
                         <section>
-                            <ExamSchedule/>
+                            <ExamSchedule
+                                startTime={startTime}
+                                endTime={endTime}
+                                setStartTime={setStartTime}
+                                setEndTime={setEndTime}/>
                         </section>
                         <section>
                             <ExamWhiteList/>
                         </section>
                         <section>
                             <UpdateChangeButton
-                                onUpdateChangeButtonClick={() => alert("Change Updated!")}/>
+                                onUpdateChangeButtonClick={onButtonUpdateChangeClicked}/>
                         </section>
                     </div>
                     <div className="column right">
@@ -56,7 +76,7 @@ const ExamOptions = ({exams}) => {
                             <div className="column is-narrow mt-1 mr-5">
                                 <button
                                     className="button is-danger"
-                                    onClick={onButtonUpdateChangeClicked}
+                                    onClick={onButtonDeleteExamClicked}
                                 >Delete Exam
                                 </button>
                             </div>

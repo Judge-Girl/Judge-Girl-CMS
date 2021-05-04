@@ -1,5 +1,5 @@
 import React from "react";
-import {useParams, withRouter} from "react-router";
+import { useParams, useRouteMatch } from 'react-router-dom'
 import {ExamInPageNavigationBar} from "../ExamInPageNavigationBar";
 import {TitleLine} from "../../commons/titles/TitleLine";
 import ExamName from "./ExamName";
@@ -9,19 +9,23 @@ import {UpdateChangeButton} from "./UpdateChangeButton";
 import './ExamOptions.scss';
 import './../../problem/ProblemEditor.css';
 
-const ExamOptions = withRouter(({history, exams}) => {
-    const currentPathName = history.location.pathname;
-    const {examId} = useParams()
-    const currentExam = exams.find(exam => exam.id === parseInt(examId))
+const ExamOptions = ({exams}) => {
+    const { url: currentURL } = useRouteMatch()
+    const { examId } = useParams()
+    const currentExamName = exams.find(exam => exam.id === parseInt(examId)).name
+
     return (
         <>
-            <ExamInPageNavigationBar currentPathName={currentPathName} examName={currentExam.name}/>
+            <ExamInPageNavigationBar
+                currentURL={currentURL}
+                examName={currentExamName}
+                examId={examId}/>
             <div style={{padding: "40px 100px 20px 100px"}}>
                 <TitleLine title={"Options"}/>
                 <div className="columns exam-options">
                     <div className="column is-narrow" style={{width: "450px"}}>
                         <section>
-                            <ExamName examName={currentExam.name}/>
+                            <ExamName examName={currentExamName}/>
                         </section>
                         <section>
                             <ExamSchedule/>
@@ -58,7 +62,7 @@ const ExamOptions = withRouter(({history, exams}) => {
             </div>
         </>
     )
-})
+}
 
 
 export {ExamOptions}

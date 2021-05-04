@@ -2,7 +2,7 @@ import { useState } from "react";
 import {
     BrowserRouter as Router,
     Redirect,
-    Route
+    Route, Switch
 } from "react-router-dom";
 import PrivateRoute from "./commons/access-control/PrivateRoute";
 import {AuthContext} from "./commons/access-control/auth";
@@ -27,15 +27,19 @@ function App() {
             <Router>
                 <div className="App">
                     <NavigationBar/>
-                    <Route exact path="/" component={Login}/>
-                    <PrivateRoute path="/problems" component={Dashboard}/>
-                    <PrivateRoute path="/students" component={StudentList}/>
-                    <PrivateRoute path="/admins" component={AdminList}/>
-                    <PrivateRoute path="/groups" exact component={GroupList}/>
-                    <PrivateRoute path="/groups/:groupId/students" component={GroupMembers}/>
-                    <PrivateRoute path="/problems/:problemId/edit" component={ProblemEditor}/>
-                    <PrivateRoute path="/exams" component={ExamList}/>
-                    <Redirect path="*" to="/"/>
+                    <Switch>
+                        <Route exact path="/" component={Login}/>
+                        <PrivateRoute path="/problems" component={Dashboard}/>
+                        <PrivateRoute path="/students" component={StudentList}/>
+                        <PrivateRoute path="/admins" component={AdminList}/>
+                        <PrivateRoute path="/groups" exact component={GroupList}/>
+                        <PrivateRoute path="/groups/:groupId/students" component={GroupMembers}/>
+                        <PrivateRoute path="/problems/:problemId/edit" component={ProblemEditor}/>
+                        <PrivateRoute path="/exams" component={ExamList}/>
+                        <Route path="*">
+                            <Redirect to="/"/>
+                        </Route>
+                    </Switch>
                 </div>
             </Router>
         </AuthContext.Provider>

@@ -7,7 +7,7 @@ import {CreateButton} from "../commons/buttons/CreateButton";
 import {formatDate} from "../../utils/utils";
 import {CreateExamModal} from "./modals/CreateExamModal";
 import {Examinees} from "./Examinees";
-import {ExamProblems} from "./ExamProblems";
+import ExamProblems from "./ExamProblems";
 import {ExamOptions} from "./options/ExamOptions";
 import './ExamList.css';
 
@@ -59,11 +59,11 @@ const ExamList = () => {
                                      onExamCreated={exam => addExam(exam)}/>
                 </div>
             </Route>
+            <Route path="/exams/:examId/problems">
+                <ExamProblems exams={exams}/>
+            </Route>
             <Route path="/exams/:examId/students">
                 <Examinees />
-            </Route>
-            <Route path="/exams/:examId/problems">
-                <ExamProblems />
             </Route>
             <Route path="/exams/:examId/options">{exams?
                 <ExamOptions exams={exams}/>

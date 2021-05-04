@@ -1,11 +1,7 @@
-import * as moment from "moment";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCircle} from "@fortawesome/free-solid-svg-icons";
 import * as React from "react";
-
-function formatDate(timestamp) {
-  return moment(timestamp).format('YYYY/MM/DD  h:mm A');
-}
+import {formatDate} from "../../utils/utils";
 
 const ScheduleItem = ({inputRef, label, inputName, timeValue, setTime, minTime}) => {
   return (

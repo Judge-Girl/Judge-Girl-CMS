@@ -1,5 +1,4 @@
 import * as moment from "moment";
-import * as React from "react";
 
 function isLegalText(text, textList) {
     return !text || /^\s*$/.test(text) || textList.some(e => e.text === text);

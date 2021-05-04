@@ -1,23 +1,18 @@
-import * as React from "react";
 import {useEffect, useState} from "react";
-import {examService} from "../../services/services";
-import * as moment from "moment";
-import {CreateExamModal} from "./modals/CreateExamModal";
-import {ItemListPage} from "../commons/ItemListPage/ItemListPage";
 import {Link, Route} from "react-router-dom";
+import {examService} from "../../services/services";
 import {EXAM_STATUSES} from "../../services/ExamService";
+import {ItemListPage} from "../commons/ItemListPage/ItemListPage";
 import {CreateButton} from "../commons/buttons/CreateButton";
-import './ExamList.css';
+import {formatDate} from "../../utils/utils";
+import {CreateExamModal} from "./modals/CreateExamModal";
 import {Examinees} from "./Examinees";
 import {ExamProblems} from "./ExamProblems";
 import {ExamOptions} from "./options/ExamOptions";
+import './ExamList.css';
 
 
-function formatDate(timestamp) {
-    return moment(timestamp).format('YYYY/MM/DD  h:mm A');
-}
-
-export const useExamList = function () {
+export const useExamList = () => {
     const [exams, setExams] = useState(undefined);
     const addExam = (exam) => {
         exams.push(exam);
@@ -30,6 +25,7 @@ export const useExamList = function () {
 const ExamList = () => {
     const [showCreateExamModal, setShowCreateExamModal] = useState(false);
     const {exams, setExams, addExam} = useExamList();
+
     useEffect(() => {
         if (!exams || exams.length === 0) {
             examService.getExams({status: EXAM_STATUSES.ALL})
@@ -39,7 +35,7 @@ const ExamList = () => {
 
     return (
         <>
-            <Route exact path="/exams">
+            <Route path="/exams" exact>
                 <div className="container font-poppins">
                     <ItemListPage title="Exam List"
                                   filterItems={["Filter", "Id", "name"]}
@@ -69,10 +65,9 @@ const ExamList = () => {
             <Route path="/exams/:examId/problems">
                 <ExamProblems />
             </Route>
-            <Route path="/exams/:examId/options">
-                {
-                    exams? <ExamOptions exams={exams}/>: <ExamOptions exams={exams}/>
-                }
+            <Route path="/exams/:examId/options">{exams?
+                <ExamOptions exams={exams}/>
+                    : <ExamOptions exams={exams}/>}
             </Route>
         </>
     )

@@ -4,10 +4,10 @@ import {NavLink, Redirect, useRouteMatch} from "react-router-dom";
 import {studentService} from "../services/services";
 import {useAuth} from "./commons/access-control/auth";
 
-function link(currentPathName, to, name, className) {
+function link(currentURL, to, name, className) {
     return (
         <NavLink to={to} activeClassName={`active-link ${className}`} className={className}
-                 isActive={() => currentPathName.startsWith(to)}>{name}</NavLink>
+                 isActive={() => currentURL.startsWith(to)}>{name}</NavLink>
     );
 }
 

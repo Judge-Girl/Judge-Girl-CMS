@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Link, Route} from "react-router-dom";
 import {examService} from "../../services/services";
 import {EXAM_STATUSES} from "../../services/ExamService";
@@ -10,6 +10,7 @@ import {Examinees} from "./Examinees";
 import ExamProblems from "./ExamProblems";
 import {ExamOptions} from "./options/ExamOptions";
 import './ExamList.css';
+import {Spinner} from "../commons/Spinner";
 
 
 export const useExamList = () => {
@@ -32,6 +33,12 @@ const ExamList = () => {
                 .then(exams => setExams(exams));
         }
     });
+
+    if (!exams) {
+        return (
+            <Spinner/>
+        )
+    }
 
     return (
         <>
@@ -65,9 +72,8 @@ const ExamList = () => {
             <Route path="/exams/:examId/students">
                 <Examinees />
             </Route>
-            <Route path="/exams/:examId/options">{exams?
+            <Route path="/exams/:examId/options">
                 <ExamOptions exams={exams}/>
-                    : <ExamOptions exams={exams}/>}
             </Route>
         </>
     )

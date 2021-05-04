@@ -75,11 +75,15 @@ const Examinees = () => {
         setExaminees(examinees)
     }
 
+    if (!exam) {
+        return <Spinner/>
+    }
+
     return (
         <div>
-            {exam ? <ExamInPageNavigationBar currentURL={currentURL}
-                                             examName={exam.name}
-                                             examId={examId}/> : <Spinner/>}
+            <ExamInPageNavigationBar currentURL={currentURL}
+                                     examName={exam.name}
+                                     examId={examId}/>
             <div style={{padding: "40px 15rem 20px 15rem"}}>
                 <ItemListPage title="Examinees"
                               filterItems={["Filter", "Name", "Email"]}

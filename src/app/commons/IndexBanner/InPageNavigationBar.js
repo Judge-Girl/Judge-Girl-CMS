@@ -1,6 +1,5 @@
 import './InPageNavigationBar.scss'
-import {NavLink} from "react-router-dom";
-import FakeLink from "../FakeLink";
+import {Link, NavLink} from "react-router-dom";
 
 function link(currentPathName, to, name, Icon) {
     return (
@@ -20,15 +19,15 @@ function link(currentPathName, to, name, Icon) {
  *              (3) Icon, the Icon on the tab
  */
 
-const InPageNavigationBar = function ({currentPathName, path, tabContents}) {
+const InPageNavigationBar = function ({currentURL, path, tabContents}) {
     return (
         <div className="in-page-nav-bar">
             <p className="path">
-                <FakeLink content={path.head}/><span> / </span><FakeLink content={path.tail}/>
+                <Link to="/exams">{path.head}</Link><span> / </span>{path.tail}
             </p>
             <div className="tabs">
                 {tabContents?.map(content =>
-                    link(currentPathName, content.to, content.name, content.icon))}
+                    link(currentURL, content.to, content.name, content.icon))}
             </div>
         </div>
     )

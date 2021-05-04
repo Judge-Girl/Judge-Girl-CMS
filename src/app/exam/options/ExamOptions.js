@@ -14,6 +14,10 @@ const ExamOptions = ({exams}) => {
     const { examId } = useParams()
     const currentExamName = exams.find(exam => exam.id === parseInt(examId)).name
 
+    const onButtonUpdateChangeClicked = () => {
+
+    }
+
     return (
         <>
             <ExamInPageNavigationBar
@@ -52,7 +56,7 @@ const ExamOptions = ({exams}) => {
                             <div className="column is-narrow mt-1 mr-5">
                                 <button
                                     className="button is-danger"
-                                    onClick={() => alert("Exam Deleted!")}
+                                    onClick={onButtonUpdateChangeClicked}
                                 >Delete Exam
                                 </button>
                             </div>

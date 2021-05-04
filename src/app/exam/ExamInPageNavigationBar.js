@@ -3,9 +3,9 @@ import {AiOutlineSetting, FaRegEdit, FaUserFriends} from "react-icons/all";
 
 const ExamInPageNavigationBar = function ({currentURL, examName, examId}) {
     return (
-        <InPageNavigationBar currentPathName={currentURL}
+        <InPageNavigationBar currentURL={currentURL}
                              path={{
-                                 head: "Exam",
+                                 head: "Exams",
                                  tail: examName
                              }}
                              tabContents={[

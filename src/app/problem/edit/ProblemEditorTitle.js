@@ -13,14 +13,14 @@ function ProblemEditorTitle ({problemId}) {
     const handleSaveProblemName = (e) => {
         e.preventDefault();
         // TODO: empty problem name notification
-        if (problemNameInput === '') {
+        if (problemNameInput.length === 0) {
             return;
         }
 
         setEditingState(false);
 
         problemService.modifyProblemTitle(problemId, problemNameInput)
-            .then();
+            .then(() => console.log("The problem's title has been modified"));
     };
 
     if (editingState) {

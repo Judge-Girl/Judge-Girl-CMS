@@ -62,19 +62,19 @@ function MarkdownEditor({problemId}) {
     const handleDescription = e => {
         e.preventDefault();
         // TODO: empty description notification
-        if (textareaVal === '') {
+        if (textareaVal.length === 0) {
             return;
         }
 
         setEditingState(false);
 
         problemService.modifyProblemDescription(problemId, textareaVal)
-            .then();
+            .then(() => console.log("The problem's description has been modified"));
     };
 
     if (!editingState) {
         return (
-            <div className="MarkdownEditor">
+            <div className="markdown-editor">
                 <div className="content-tabs">
                     <div className={"content active-markdown"}>
                         <ReactMarkdown>
@@ -104,7 +104,7 @@ function MarkdownEditor({problemId}) {
 
 
     return (
-        <div className="MarkdownEditor">
+        <div className="markdown-editor">
             <Tabs textareaVal={textareaVal} setTextareaVal={setTextareaVal}/>
             <div className="field is-grouped is-align-items-center is-pulled-right is-paddingless">
                 <EditorButton

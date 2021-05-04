@@ -1,19 +1,22 @@
-import 'bulma';
-import './App.css';
-import * as React from "react";
-import {useState} from "react";
-import {BrowserRouter as Router, Redirect, Route} from "react-router-dom";
+import { useState } from "react";
+import {
+    BrowserRouter as Router,
+    Redirect,
+    Route
+} from "react-router-dom";
+import PrivateRoute from "./commons/access-control/PrivateRoute";
+import {AuthContext} from "./commons/access-control/auth";
+import NavigationBar from "./NavigationBar";
 import {Login} from "./Login";
 import {Dashboard} from "./Dashboard";
-import {ProblemEditor} from "./problem/ProblemEditor";
 import {StudentList} from "./students/StudentList";
-import {GroupList} from "./students/GroupList";
 import {AdminList} from "./admins/AdminList";
-import {NavigationBar} from "./NavigationBar";
-import {AuthContext} from "./commons/access-control/auth";
-import PrivateRoute from "./commons/access-control/PrivateRoute";
+import {GroupList} from "./students/GroupList";
 import {GroupMembers} from "./students/GroupMembers";
+import {ProblemEditor} from "./problem/ProblemEditor";
 import {ExamList} from "./exam/ExamList";
+import 'bulma';
+import './App.css';
 
 
 function App() {
@@ -24,7 +27,6 @@ function App() {
             <Router>
                 <div className="App">
                     <NavigationBar/>
-                    <Redirect path="*" to="/"/>
                     <Route exact path="/" component={Login}/>
                     <PrivateRoute path="/problems" component={Dashboard}/>
                     <PrivateRoute path="/students" component={StudentList}/>
@@ -33,6 +35,7 @@ function App() {
                     <PrivateRoute path="/groups/:groupId/students" component={GroupMembers}/>
                     <PrivateRoute path="/problems/:problemId/edit" component={ProblemEditor}/>
                     <PrivateRoute path="/exams" component={ExamList}/>
+                    <Redirect path="*" to="/"/>
                 </div>
             </Router>
         </AuthContext.Provider>

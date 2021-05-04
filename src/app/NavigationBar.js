@@ -1,7 +1,6 @@
 import React from "react";
 import './NavigationBar.css';
-import {NavLink} from "react-router-dom";
-import {withRouter} from "react-router";
+import {NavLink, Redirect, useRouteMatch} from "react-router-dom";
 import {studentService} from "../services/services";
 import {useAuth} from "./commons/access-control/auth";
 
@@ -12,32 +11,28 @@ function link(currentPathName, to, name, className) {
     );
 }
 
-const NavigationBar = withRouter(({history}) => {
+const NavigationBar = () => {
     const {admin, setAdmin} = useAuth();
-    const currentPathName = history.location.pathname;
+    const { url: currentURL } = useRouteMatch();
 
     const onLogout = () => {
         studentService.logout()
             .then(() => {
                 console.log(`Logout.`);
                 setAdmin(null);
-                history.replace("/");
             });
     };
 
     return (
         <div className="navigation-bar">
             <header>Judge Girl <span>CMS</span></header>
-
-            {admin ? link(currentPathName, '/problems', 'Problems') : ""}
-            {admin ? link(currentPathName, '/exams', 'Exam') : ""}
-            {admin ? link(currentPathName, '/students', 'Students') : ""}
-            {admin ? link(currentPathName, '/admins', 'Admin') : ""}
-
-            {admin ? <span className="logout" onClick={onLogout}>Logout</span> : ""}
-
+            {admin ? link(currentURL, '/problems', 'Problems') : ""}
+            {admin ? link(currentURL, '/exams', 'Exams') : ""}
+            {admin ? link(currentURL, '/students', 'Students') : ""}
+            {admin ? link(currentURL, '/admin', 'Admin') : ""}
+            {admin ? <span className="logout" onClick={onLogout}>Logout</span> : <Redirect to="/"/>}
         </div>
     );
-});
+}
 
-export {NavigationBar};
+export default NavigationBar

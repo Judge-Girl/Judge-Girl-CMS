@@ -31,7 +31,7 @@ function App() {
                     <PrivateRoute path="/problems" component={Dashboard}/>
                     <PrivateRoute path="/students" component={StudentList}/>
                     <PrivateRoute path="/admins" component={AdminList}/>
-                    <PrivateRoute exact path="/groups" component={GroupList}/>
+                    <PrivateRoute path="/groups" exact component={GroupList}/>
                     <PrivateRoute path="/groups/:groupId/students" component={GroupMembers}/>
                     <PrivateRoute path="/problems/:problemId/edit" component={ProblemEditor}/>
                     <PrivateRoute path="/exams" component={ExamList}/>

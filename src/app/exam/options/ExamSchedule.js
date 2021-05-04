@@ -1,5 +1,5 @@
 import {SubtitleLine} from "../../commons/titles/TitleLine";
-import React, {createRef, useState} from "react";
+import React, {createRef} from "react";
 import {now} from "moment";
 import ScheduleItem from "../../commons/ScheduleItem";
 

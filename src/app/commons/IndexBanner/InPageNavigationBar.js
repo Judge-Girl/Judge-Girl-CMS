@@ -1,5 +1,5 @@
 import './InPageNavigationBar.scss'
-import {Link, NavLink, useRouteMatch} from "react-router-dom";
+import {Link, NavLink} from "react-router-dom";
 
 function link(currentPathName, to, name, Icon) {
     return (

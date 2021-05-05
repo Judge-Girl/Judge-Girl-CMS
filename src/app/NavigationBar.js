@@ -4,13 +4,6 @@ import {NavLink, Redirect, useRouteMatch} from "react-router-dom";
 import {studentService} from "../services/services";
 import {useAuth} from "./commons/access-control/auth";
 
-function link(currentURL, to, name, className) {
-    return (
-        <NavLink to={to} activeClassName={`active-link ${className}`} className={className}
-                 isActive={() => currentURL.startsWith(to)}>{name}</NavLink>
-    );
-}
-
 const NavigationBar = () => {
     const {admin, setAdmin} = useAuth();
     const { url: currentURL } = useRouteMatch();
@@ -23,14 +16,23 @@ const NavigationBar = () => {
             });
     };
 
+    if (!admin) {
+        return <>
+            <div className="navigation-bar">
+                <header>Judge Girl <span>CMS</span></header>
+            </div>
+            <Redirect to="/"/>
+        </>
+    }
+
     return (
         <div className="navigation-bar">
             <header>Judge Girl <span>CMS</span></header>
-            {admin ? link(currentURL, '/problems', 'Problems') : ""}
-            {admin ? link(currentURL, '/exams', 'Exams') : ""}
-            {admin ? link(currentURL, '/students', 'Students') : ""}
-            {admin ? link(currentURL, '/admin', 'Admin') : ""}
-            {admin ? <span className="logout" onClick={onLogout}>Logout</span> : <Redirect to="/"/>}
+            <NavLink to="/problems" activeClassName="active-link">Problem</NavLink>
+            <NavLink to="/exams" activeClassName="active-link">Exam</NavLink>
+            <NavLink to="students" activeClassName="active-link">Student</NavLink>
+            <NavLink to="/admins" activeClassName="active-link">Admin</NavLink>
+            <span className="logout" onClick={onLogout}>Logout</span>
         </div>
     );
 }

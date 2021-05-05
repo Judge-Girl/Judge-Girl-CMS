@@ -21,11 +21,11 @@
 }
 
 .navigation-bar a:hover {
-    color: #3EBDD9
+    color: ghostwhite;
 }
 
 .navigation-bar .logout:hover {
-    color: #3EBDD9
+    color: ghostwhite;
 }
 
 .navigation-bar .active-link {

@@ -23,7 +23,8 @@ const AdminList = () => {
         }
     });
     return (
-        <div style={{padding: "40px 100px 20px 100px"}}>
+        <div style={{padding: "20px 100px 20px 100px"}}>
+            <div className="container font-poppins">
             <ItemListPage title="Admin List"
                           filterItems={["Filter", "Name", "Email"]}
                           Button={() => new CreateButton({
@@ -40,6 +41,7 @@ const AdminList = () => {
                               ]
                           }}
                           tableDataStyle={{textAlign: "left"}}/>
+            </div>
 
             <CreateAdminAccountModal show={showCreateAdminAccountModal}
                                      onClose={() => setShowCreateAdminAccountModal(false)}

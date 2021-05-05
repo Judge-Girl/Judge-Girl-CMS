@@ -23,7 +23,8 @@ const StudentList = () => {
         }
     });
     return (
-        <div style={{padding: "40px 100px 20px 100px"}}>
+        <div style={{padding: "20px 100px 20px 100px"}}>
+            <div className="container font-poppins">
             <ItemListPage title="Student List"
                           filterItems={["Filter", "Name", "Email"]}
                           Button={() => new CreateButton({
@@ -40,6 +41,7 @@ const StudentList = () => {
                               ]
                           }}
                           tableDataStyle={{textAlign: "left"}}/>
+            </div>
 
             <CreateStudentAccountModal show={showCreateStudentAccountModal}
                                        onClose={() => setShowCreateStudentAccountModal(false)}

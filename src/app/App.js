@@ -1,21 +1,22 @@
-import 'bulma';
-import './App.css';
-import * as React from "react";
-import {useState} from "react";
-import {BrowserRouter as Router, Redirect, Route} from "react-router-dom";
+import { useState } from "react";
+import {
+    BrowserRouter as Router,
+    Redirect,
+    Route, Switch
+} from "react-router-dom";
+import PrivateRoute from "./commons/access-control/PrivateRoute";
+import {AuthContext} from "./commons/access-control/auth";
+import NavigationBar from "./NavigationBar";
 import {Login} from "./Login";
 import {Dashboard} from "./Dashboard";
+import {StudentList} from "./students/StudentList";
+import {AdminList} from "./admins/AdminList";
+import {GroupList} from "./students/GroupList";
+import {GroupMembers} from "./students/GroupMembers";
 import {ProblemEditor} from "./problem/ProblemEditor";
 import {ExamList} from "./exam/ExamList";
-import {Examinees} from "./exam/Examinees";
-import {ExamProblems} from "./exam/ExamProblems";
-import {StudentList} from "./students/StudentList";
-import {GroupList} from "./students/GroupList";
-import {AdminList} from "./admins/AdminList";
-import {NavigationBar} from "./NavigationBar";
-import {AuthContext} from "./commons/access-control/auth";
-import PrivateRoute from "./commons/access-control/PrivateRoute";
-import {GroupMembers} from "./students/GroupMembers";
+import 'bulma';
+import './App.css';
 
 
 function App() {
@@ -26,18 +27,19 @@ function App() {
             <Router>
                 <div className="App">
                     <NavigationBar/>
-                    <Redirect path="*" to="/"/>
-                    <Route exact={true} path="/" component={Login}/>
-                    <PrivateRoute path="/problems" component={Dashboard}/>
-                    <PrivateRoute path="/students" component={StudentList}/>
-                    <PrivateRoute path="/admins" component={AdminList}/>
-                    <PrivateRoute exact={true} path="/groups" component={GroupList}/>
-                    <PrivateRoute path="/groups/:groupId/students" component={GroupMembers}/>
-                    <PrivateRoute path="/problems/:problemId/edit" component={ProblemEditor}/>
-                    <PrivateRoute exact={true} path="/exams" component={ExamList}/>
-                    <PrivateRoute path="/exams/:examId/students" component={Examinees}/>
-                    <PrivateRoute path="/exams/:examId/problems" component={ExamProblems}/>
-
+                    <Switch>
+                        <Route exact path="/" component={Login}/>
+                        <PrivateRoute path="/problems" component={Dashboard}/>
+                        <PrivateRoute path="/students" component={StudentList}/>
+                        <PrivateRoute path="/admins" component={AdminList}/>
+                        <PrivateRoute path="/groups" exact component={GroupList}/>
+                        <PrivateRoute path="/groups/:groupId/students" component={GroupMembers}/>
+                        <PrivateRoute path="/problems/:problemId/edit" component={ProblemEditor}/>
+                        <PrivateRoute path="/exams" component={ExamList}/>
+                        <Route path="*">
+                            <Redirect to="/"/>
+                        </Route>
+                    </Switch>
                 </div>
             </Router>
         </AuthContext.Provider>

@@ -20,6 +20,14 @@
     margin-left: 18px;
 }
 
+.navigation-bar a:hover {
+    color: ghostwhite;
+}
+
+.navigation-bar .logout:hover {
+    color: ghostwhite;
+}
+
 .navigation-bar .active-link {
     font-size: 20px;
     color: white;
@@ -34,9 +42,4 @@
     font-size: 20px;
     color: #A2A3B1;
     cursor: pointer;
-}
-
-
-.navigation-bar .logout:hover {
-    color: white;
 }

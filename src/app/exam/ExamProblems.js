@@ -1,6 +1,5 @@
-
 import { useState, useEffect } from "react";
-import { withRouter } from "react-router";
+import {useParams, useRouteMatch} from "react-router-dom";
 
 import "./ExamProblems.scss";
 import { examService } from "../../services/services.js";
@@ -10,17 +9,17 @@ import { ItemListPage } from "../commons/ItemListPage/ItemListPage.js";
 import { ExamInPageNavigationBar } from "./ExamInPageNavigationBar";
 import { AddProblemModal } from "./modals/AddProblemModal.js";
 
-const toCharactorIndex = i => {
+const toCharacterIndex = i => {
     return String.fromCharCode(i + 65);
 }
 
-const ExamProblems = withRouter(({ history, match }) => {
-    const currentPathName = history.location.pathname;
+const ExamProblems = ({ exams }) => {
+    const { url: currentURL } = useRouteMatch()
+    const { examId } = useParams()
+    const currentExamName = exams.find(exam => exam.id === parseInt(examId))?.name
     const [problems, setProblems] = useState(null);
 
     const [showAddProblemModal, setShowAddProblemModal] = useState(false);
-
-    const examId = match.params.examId;
 
     const refetchExam = () => {
         examService.getExam(examId).then(exam => {
@@ -32,7 +31,7 @@ const ExamProblems = withRouter(({ history, match }) => {
 
     const addProblem = (question) => {
         question.examId = examId;
-        question.questionOrder = problems.length; 
+        question.questionOrder = problems.length;
 
         const addQuestionPromise = examService.addExamQuestion(question);
         addQuestionPromise.then(refetchExam);
@@ -62,7 +61,10 @@ const ExamProblems = withRouter(({ history, match }) => {
 
     return (
         <div class="exam-problems">
-            <ExamInPageNavigationBar currentPathName={currentPathName} examName={"2021 Sample-Exam"} />
+            <ExamInPageNavigationBar
+                currentURL={currentURL}
+                examName={currentExamName}
+                examId={examId} />
 
             <div className="container">
                 <ItemListPage
@@ -72,7 +74,7 @@ const ExamProblems = withRouter(({ history, match }) => {
                         list: problems,
                         key: problem => problem.problemId,
                         data: problem => [
-                            toCharactorIndex(problem.questionOrder),
+                            toCharacterIndex(problem.questionOrder),
                             (<FakeLink content={problem.problemId} />),
                             (<div className="text-center">{problem.score}</div>),
                             (<div className="text-center">{problem.quota}</div>),
@@ -95,6 +97,7 @@ const ExamProblems = withRouter(({ history, match }) => {
                 onSubmitQuestion={addProblem} />
         </div>
     )
-});
+}
 
-export { ExamProblems };
+
+export default ExamProblems;

@@ -1,4 +1,4 @@
-import React, {createRef, useEffect, useState} from "react";
+import React, {useState} from "react";
 import { useParams, useRouteMatch } from 'react-router-dom'
 import {ExamInPageNavigationBar} from "../ExamInPageNavigationBar";
 import {TitleLine} from "../../commons/titles/TitleLine";
@@ -6,10 +6,9 @@ import ExamName from "./ExamName";
 import ExamSchedule from "./ExamSchedule";
 import ExamWhiteList from "./ExamWhiteList";
 import {UpdateChangeButton} from "./UpdateChangeButton";
-import './ExamOptions.scss';
-import './../../problem/ProblemEditor.css';
 import {examService} from "../../../services/services";
 import {formatDate} from "../../../utils/utils";
+import './ExamOptions.scss';
 
 
 const ExamOptions = ({exams}) => {

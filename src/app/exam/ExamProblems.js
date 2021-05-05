@@ -16,7 +16,7 @@ const toCharacterIndex = i => {
 const ExamProblems = ({ exams }) => {
     const { url: currentURL } = useRouteMatch()
     const { examId } = useParams()
-    const currentExamName = exams.find(exam => exam.id === parseInt(examId)).name
+    const currentExamName = exams.find(exam => exam.id === parseInt(examId))?.name
     const [problems, setProblems] = useState(null);
 
     const [showAddProblemModal, setShowAddProblemModal] = useState(false);
@@ -62,7 +62,7 @@ const ExamProblems = ({ exams }) => {
     return (
         <div class="exam-problems">
             <ExamInPageNavigationBar
-                currentPathName={currentURL}
+                currentURL={currentURL}
                 examName={currentExamName}
                 examId={examId} />
 

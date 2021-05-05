@@ -1,12 +1,11 @@
 import React from "react";
 import './NavigationBar.css';
-import {NavLink, Redirect, useRouteMatch} from "react-router-dom";
+import {NavLink, Redirect} from "react-router-dom";
 import {studentService} from "../services/services";
 import {useAuth} from "./commons/access-control/auth";
 
 const NavigationBar = () => {
     const {admin, setAdmin} = useAuth();
-    const { url: currentURL } = useRouteMatch();
 
     const onLogout = () => {
         studentService.logout()

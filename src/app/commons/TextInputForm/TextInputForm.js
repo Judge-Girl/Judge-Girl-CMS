@@ -23,7 +23,7 @@ const TextInputForm = ({placeholder, onSubmit}) => {
     return (
         <div className="text-input-form">
             <form className="tag-form" onSubmit={handleSubmit}>
-                <div className="field has-addons" style={{ paddingLeft: "0rem" }}>
+                <div className="field has-addons pl-0">
                     <input
                         type='text'
                         placeholder={placeholder}

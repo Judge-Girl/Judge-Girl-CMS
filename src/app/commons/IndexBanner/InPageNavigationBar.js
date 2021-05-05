@@ -1,5 +1,5 @@
 import './InPageNavigationBar.scss'
-import {Link, NavLink} from "react-router-dom";
+import {Link, NavLink, useRouteMatch} from "react-router-dom";
 
 function link(currentPathName, to, name, Icon) {
     return (
@@ -20,10 +20,15 @@ function link(currentPathName, to, name, Icon) {
  */
 
 const InPageNavigationBar = function ({currentURL, path, tabContents}) {
+    const secondSlashPos = currentURL.substr(1).indexOf('/')
+    const to = currentURL.substr(0, secondSlashPos)
+    console.log(to)
     return (
         <div className="in-page-nav-bar">
             <p className="path">
-                <Link to="/exams">{path.head}</Link><span> / </span>{path.tail}
+                <Link to={to}>{path.head}</Link>
+                <span> / </span>
+                <Link to={to}>{path.tail}</Link>
             </p>
             <div className="tabs">
                 {tabContents?.map(content =>

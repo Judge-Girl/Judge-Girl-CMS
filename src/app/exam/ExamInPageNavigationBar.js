@@ -5,7 +5,7 @@ const ExamInPageNavigationBar = function ({currentURL, examName, examId}) {
     return (
         <InPageNavigationBar currentURL={currentURL}
                              path={{
-                                 head: "Exams",
+                                 head: "Exam",
                                  tail: examName
                              }}
                              tabContents={[

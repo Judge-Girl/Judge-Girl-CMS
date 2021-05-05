@@ -5,16 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="55d91b8e-76aa-4f6d-9d07-1f865a19c1a8" name="Default Changelist" comment="Beautify.">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/commons/ScheduleItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/commons/ScheduleItem.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/exam/ExamList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/exam/ExamList.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/exam/ExamProblems.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/exam/ExamProblems.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/exam/modals/CreateExamModal.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/exam/modals/CreateExamModal.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/exam/options/ExamName.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/exam/options/ExamName.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/exam/options/ExamOptions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/exam/options/ExamOptions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/exam/options/ExamSchedule.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/exam/options/ExamSchedule.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/ExamService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/ExamService.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/utils.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/utils.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/exam/options/ExamOptions.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/exam/options/ExamOptions.scss" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

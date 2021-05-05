@@ -35,12 +35,13 @@ const FilterSearchBar = ({filterItems, Button}) => {
 const ItemListPage = ({
                           title, filterItems, Button,
                           tableHeaders, tableRowGenerator,
-                          tableDataStyle
+                          tableDataStyle, 
+                          showFilterSearchBar = true,
                       }) => {
     return (
         <div className="has-text-centered">
             <TitleLine title={title}/>
-            <FilterSearchBar filterItems={filterItems} Button={Button}/>
+            {showFilterSearchBar ? (<FilterSearchBar filterItems={filterItems} Button={Button} />) : ''}
             <table className="table items-table mt-4">
                 <thead>
                 <tr>

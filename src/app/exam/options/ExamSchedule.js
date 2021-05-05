@@ -4,8 +4,8 @@ import {now} from "moment";
 import ScheduleItem from "../../commons/ScheduleItem";
 
 const ExamSchedule = ({startTime, endTime, setStartTime, setEndTime}) => {
-    const startTimeInputRef = createRef();
-    const endTimeInputRef = createRef();
+    const startTimeInputRef = createRef()
+    const endTimeInputRef = createRef()
 
     const setStartTimeHandler = (startTime) => {
         setStartTime(startTimeInputRef.current.value);

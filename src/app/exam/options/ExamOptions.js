@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {createRef, useEffect, useState} from "react";
 import { useParams, useRouteMatch } from 'react-router-dom'
 import {ExamInPageNavigationBar} from "../ExamInPageNavigationBar";
 import {TitleLine} from "../../commons/titles/TitleLine";
@@ -9,18 +9,25 @@ import {UpdateChangeButton} from "./UpdateChangeButton";
 import './ExamOptions.scss';
 import './../../problem/ProblemEditor.css';
 import {examService} from "../../../services/services";
-import {now} from "moment";
+import {formatDate} from "../../../utils/utils";
+
 
 const ExamOptions = ({exams}) => {
-    const oneHour = 60 * 60 * 1000;
     const { url: currentURL } = useRouteMatch()
     const { examId } = useParams()
-    const currentExamName = exams.find(exam => exam.id === parseInt(examId)).name
-    const [examName, setExamName] = useState(currentExamName)
-    const [startTime, setStartTime] = useState(now() + oneHour)
-    const [endTime, setEndTime] = useState(now() + oneHour*2)
+    const currentExam = exams.find(exam => exam.id === parseInt(examId))
+    const [examName, setExamName] = useState(currentExam.name)
+    const [startTime, setStartTime] = useState(formatDate(currentExam.startTime))
+    const [endTime, setEndTime] = useState(formatDate(currentExam.endTime))
 
     const onButtonUpdateChangeClicked = () => {
+        console.log({
+            examId: examId,
+            name: examName,
+            startTime: startTime,
+            endTime: endTime,
+            description: "",
+        })
         examService.updateExam(examId,{
             examId: examId,
             name: examName,
@@ -38,7 +45,7 @@ const ExamOptions = ({exams}) => {
         <>
             <ExamInPageNavigationBar
                 currentURL={currentURL}
-                examName={currentExamName}
+                examName={currentExam.name}
                 examId={examId}/>
             <div style={{padding: "40px 100px 20px 100px"}}>
                 <TitleLine title={"Options"}/>

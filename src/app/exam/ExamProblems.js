@@ -65,7 +65,6 @@ const ExamProblems = ({ exams }) => {
                 currentPathName={currentURL}
                 examName={currentExamName}
                 examId={examId} />
-            <ExamInPageNavigationBar currentURL={currentURL} examName={"2021 Sample-Exam"} />
 
             <div className="container">
                 <ItemListPage

@@ -17,6 +17,11 @@ export class ProblemService {
         return this.axios.patch(`/api/problems/${problemId}`, {problemId, description})
     }
 
+    async getProblemById(problemId) {
+        return this.axios.get(`/api/problems/${problemId}`)
+            .then(res => res.data)
+    }
+
     async createProblem(problemTitle) {
         return this.axios.post(`/api/problems`, problemTitle,
             {

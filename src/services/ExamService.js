@@ -64,6 +64,11 @@ export class ExamService {
         return this.axios.put(`/api/exams/${examId}/problems/${problemId}`, question).then(res => new Question(res.data));
     }
 
+    async deleteExamProblem(problem) {
+        const {examId, problemId} = problem
+        return this.axios.delete(`/api/exams/${examId}/problems/${problemId}`)
+    }
+
     async updateExam(examId, data) {
         return this.axios.put(`/api/exams/${examId}`, data)
             .then(res => res.data)

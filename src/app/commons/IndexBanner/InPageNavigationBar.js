@@ -23,7 +23,6 @@ function link(currentPathName, to, name, Icon) {
 const InPageNavigationBar = function ({currentURL, path, tabContents}) {
     const secondSlashPos = currentURL.substr(1).indexOf('/')
     const to = currentURL.substr(0, 1+secondSlashPos)
-    console.log(to)
     return (
         <div className="in-page-nav-bar">
             <p className="path">

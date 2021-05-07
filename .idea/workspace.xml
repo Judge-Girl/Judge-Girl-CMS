@@ -8,6 +8,7 @@
     <list default="true" id="55d91b8e-76aa-4f6d-9d07-1f865a19c1a8" name="Default Changelist" comment="Refactor2.">
 =======
     <list default="true" id="55d91b8e-76aa-4f6d-9d07-1f865a19c1a8" name="Default Changelist" comment="">
+<<<<<<< HEAD
       <change afterPath="$PROJECT_DIR$/src/app/problem/Modal/CreateProblemModal.js" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/app/problem/list/ProblemList.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
@@ -18,6 +19,9 @@
       <change beforePath="$PROJECT_DIR$/src/app/problem/ProblemEditor.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/problem/ProblemEditor.js" afterDir="false" />
 >>>>>>> 4032ad3 (PRPRPR.)
       <change beforePath="$PROJECT_DIR$/src/services/ProblemService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/ProblemService.js" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/src/app/problem/Modal/CreateProblemModal.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/problem/Modal/CreateProblemModal.js" afterDir="false" />
+>>>>>>> bc2482f (Refactor1.)
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -234,6 +238,7 @@
       <option name="project" value="LOCAL" />
       <updated>1620355214524</updated>
     </task>
+<<<<<<< HEAD
     <task id="LOCAL-00019" summary="Refactor1.">
       <created>1620355521509</created>
       <option name="number" value="00019" />
@@ -249,6 +254,9 @@
       <updated>1620371623280</updated>
     </task>
     <option name="localTasksCounter" value="21" />
+=======
+    <option name="localTasksCounter" value="19" />
+>>>>>>> bc2482f (Refactor1.)
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -284,8 +292,12 @@
     <MESSAGE value="Refactor." />
     <MESSAGE value="Beautify." />
     <MESSAGE value="PRPRPR." />
+<<<<<<< HEAD
     <MESSAGE value="Refactor1." />
     <MESSAGE value="Refactor2." />
     <option name="LAST_COMMIT_MESSAGE" value="Refactor2." />
+=======
+    <option name="LAST_COMMIT_MESSAGE" value="PRPRPR." />
+>>>>>>> bc2482f (Refactor1.)
   </component>
 </project>

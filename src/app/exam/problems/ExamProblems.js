@@ -40,6 +40,13 @@ const ExamProblems = ({ exams }) => {
         });
     };
 
+    const buildProblemTitleMap = () => {
+        examProblems.forEach(problem => {
+            problemService.getProblemById(problem.problemId)
+                .then(res => setProblemId2Title(prev => prev.set(problem.problemId, res.title)))
+        })
+    }
+
     useEffect(() => {
         setRedirectURL(null)
         if (!examProblems) {
@@ -47,14 +54,7 @@ const ExamProblems = ({ exams }) => {
         } else {
             buildProblemTitleMap()
         }
-    });
-
-    const buildProblemTitleMap = () => {
-        examProblems.forEach(problem => {
-            problemService.getProblemById(problem.problemId)
-                .then(res => setProblemId2Title(prev => prev.set(problem.problemId, res.title)))
-        })
-    }
+    }, [examProblems, fetchExam, buildProblemTitleMap]);
 
     const editProblem = (problemId) => {
         const editQuestionPromise = examService.editExamQuestion({examId, problemId});

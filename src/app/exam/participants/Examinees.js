@@ -1,16 +1,16 @@
 import React, {useEffect, useState} from "react";
 import {useParams, useRouteMatch} from "react-router-dom";
-import {ExamInPageNavigationBar} from "./ExamInPageNavigationBar"
-import FakeLink from "../commons/FakeLink";
-import {examService} from "../../services/services";
-import {ItemListPage} from "../commons/ItemListPage/ItemListPage";
-import {DropDownBtn} from "../commons/buttons/DropDownButton";
+import {ExamInPageNavigationBar} from "../ExamInPageNavigationBar"
+import FakeLink from "../../commons/FakeLink";
+import {examService} from "../../../services/services";
+import {ItemListPage} from "../../commons/ItemListPage/ItemListPage";
+import {DropDownBtn} from "../../commons/buttons/DropDownButton";
 import {AiOutlineMail, AiOutlineUsergroupAdd} from "react-icons/ai";
-import {TextareaModal} from "../commons/modals/TextareaModal";
-import {ThreeDotsButton} from "../commons/buttons/ThreeDotsButton";
-import {RemoveConfirmationModal} from "../commons/modals/RemoveConfirmationModal";
-import {Spinner} from "../commons/Spinner";
-import {removeIf} from "../../utils/array";
+import {TextareaModal} from "../../commons/modals/TextareaModal";
+import {ThreeDotsButton} from "../../commons/buttons/ThreeDotsButton";
+import {RemoveConfirmationModal} from "../../commons/modals/RemoveConfirmationModal";
+import {Spinner} from "../../commons/Spinner";
+import {removeIf} from "../../../utils/array";
 
 const Examinees = () => {
     const { url: currentURL } = useRouteMatch();

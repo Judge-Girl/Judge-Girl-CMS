@@ -2,13 +2,13 @@ import { useState, useEffect } from "react";
 import { useParams, useRouteMatch } from "react-router-dom";
 
 import "./ExamProblems.scss";
-import { examService } from "../../services/services.js";
-import { ThreeDotsButton } from "../commons/buttons/ThreeDotsButton.js";
-import FakeLink from "../commons/FakeLink.js";
-import { ItemListPage } from "../commons/ItemListPage/ItemListPage.js";
-import { ExamInPageNavigationBar } from "./ExamInPageNavigationBar";
-import { AddProblemModal } from "./modals/AddProblemModal.js";
-import { EditProblemModal } from "./modals/EditProblemModal.js";
+import { examService } from "../../../services/services.js";
+import { ThreeDotsButton } from "../../commons/buttons/ThreeDotsButton.js";
+import FakeLink from "../../commons/FakeLink.js";
+import { ItemListPage } from "../../commons/ItemListPage/ItemListPage.js";
+import { ExamInPageNavigationBar } from "../ExamInPageNavigationBar";
+import { AddProblemModal } from "../modals/AddProblemModal.js";
+import { EditProblemModal } from "../modals/EditProblemModal.js";
 
 const toCharacterIndex = i => {
     return String.fromCharCode(i + 65);

@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     <list default="true" id="55d91b8e-76aa-4f6d-9d07-1f865a19c1a8" name="Default Changelist" comment="Refactor2.">
 =======
     <list default="true" id="55d91b8e-76aa-4f6d-9d07-1f865a19c1a8" name="Default Changelist" comment="">
@@ -27,6 +28,10 @@
 >>>>>>> 986681a (Refactor2.)
       <change beforePath="$PROJECT_DIR$/src/app/problem/Modal/CreateProblemModal.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/problem/Modal/CreateProblemModal.js" afterDir="false" />
 >>>>>>> bc2482f (Refactor1.)
+=======
+    <list default="true" id="55d91b8e-76aa-4f6d-9d07-1f865a19c1a8" name="Default Changelist" comment="Refactor2.">
+      <change beforePath="$PROJECT_DIR$/src/services/ProblemService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/ProblemService.js" afterDir="false" />
+>>>>>>> ba9d062 (Refactor3.)
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -255,6 +260,9 @@
       <updated>1620355521509</updated>
     </task>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> ba9d062 (Refactor3.)
     <task id="LOCAL-00020" summary="Refactor2.">
       <created>1620371623280</created>
       <option name="number" value="00020" />
@@ -263,12 +271,15 @@
       <updated>1620371623280</updated>
     </task>
     <option name="localTasksCounter" value="21" />
+<<<<<<< HEAD
 =======
     <option name="localTasksCounter" value="19" />
 >>>>>>> bc2482f (Refactor1.)
 =======
     <option name="localTasksCounter" value="20" />
 >>>>>>> 986681a (Refactor2.)
+=======
+>>>>>>> ba9d062 (Refactor3.)
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -314,7 +325,12 @@
 >>>>>>> bc2482f (Refactor1.)
 =======
     <MESSAGE value="Refactor1." />
+<<<<<<< HEAD
     <option name="LAST_COMMIT_MESSAGE" value="Refactor1." />
 >>>>>>> 986681a (Refactor2.)
+=======
+    <MESSAGE value="Refactor2." />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactor2." />
+>>>>>>> ba9d062 (Refactor3.)
   </component>
 </project>

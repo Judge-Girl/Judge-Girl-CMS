@@ -5,19 +5,9 @@ import {ModalInput} from "../../commons/modals/ModalInput";
 import * as React from "react";
 import {ModalHeader} from "../../commons/modals/ModalHeader";
 
-export const useProblemList = () => {
-    const [tags, setTags] = useState(undefined);
-    const addTag = (tag) => {
-        tags.push(tag);
-        setTags(tags);
-    };
-
-    return {tags, setTags, addTag}
-};
 
 const CreateProblemModal = ({ show, onClose, onProblemCreated }) => {
     const [problemName, setName] = useState('');
-    const {tags} = useProblemList([])
     const closeIconRef = createRef(), formRef = createRef(), nameInputRef = createRef()
 
     useEffect(() => {
@@ -29,8 +19,9 @@ const CreateProblemModal = ({ show, onClose, onProblemCreated }) => {
         const form = formRef.current;
 
         if (form.checkValidity()) {
-            problemService.createProblem(problemName, tags)
+            problemService.createProblem(problemName)
                 .then(problem => {
+                    console.log("DEBUG----", problem)
                     onProblemCreated(problem);
                     closeIconRef.current.click();
                     setName('');

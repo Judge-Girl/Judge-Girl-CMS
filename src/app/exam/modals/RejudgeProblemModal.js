@@ -1,4 +1,4 @@
-import React, {createRef, useEffect, useState} from "react";
+import React, {createRef} from "react";
 import {renderModal} from "../../commons/modals/modal";
 import {ModalHeader} from "../../commons/modals/ModalHeader";
 import "./RejudgeProblemModal.scss"

@@ -45,9 +45,9 @@ const ItemListPage = ({
             <table className="table items-table mt-4">
                 <thead>
                 <tr>
-                    {
-                        tableHeaders?.map(header => <th key={header} scope="col">{header}</th>)
-                    }
+                {
+                    tableHeaders?.map(header => <th key={header} scope="col">{header}</th>)
+                }
                 </tr>
                 </thead>
                 <tbody>

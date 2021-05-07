@@ -4,8 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="55d91b8e-76aa-4f6d-9d07-1f865a19c1a8" name="Default Changelist" comment="Beautify.">
-      <change beforePath="$PROJECT_DIR$/src/app/exam/options/ExamOptions.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/exam/options/ExamOptions.scss" afterDir="false" />
+    <list default="true" id="55d91b8e-76aa-4f6d-9d07-1f865a19c1a8" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/app/problem/Modal/CreateProblemModal.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/problem/list/ProblemList.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/NavigationBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/NavigationBar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/commons/ItemListPage/ItemListPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/commons/ItemListPage/ItemListPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/exam/modals/CreateExamModal.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/exam/modals/CreateExamModal.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/problem/ProblemEditor.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/problem/ProblemEditor.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/ProblemService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/ProblemService.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,6 +24,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="CSS File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -53,6 +62,30 @@
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/app/exam/options" />
     </key>
+  </component>
+  <component name="RunManager" selected="npm.start">
+    <configuration name="Debug" type="JavascriptDebugType" uri="http://localhost:3000">
+      <method v="2" />
+    </configuration>
+    <configuration name="start" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="start" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="JavaScript Debug.Debug" />
+      <item itemvalue="npm.start" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="npm.start" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">

@@ -18,7 +18,7 @@ export class ProblemService {
     }
 
     async createProblem(problemTitle) {
-        return this.axios.post(`/api/problems`, {problemTitle})
+        return this.axios.post(`/api/problems`, {problemTitle}).then(res => res.data)
     }
 
     async getAllProblems() {

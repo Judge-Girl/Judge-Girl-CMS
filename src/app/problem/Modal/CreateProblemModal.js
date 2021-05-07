@@ -38,7 +38,8 @@ const CreateProblemModal = ({ show, onClose, onProblemCreated }) => {
         contentRendering: () => (
             <form onSubmit={handleSubmit} ref={formRef}>
                 <div className="p-5 has-text-centered">
-                    <ModalHeader title="Create New Problem" textAlign="center"/>
+                    <ModalHeader title="Create New Problem"
+                                 style={{ textAlign: "center"}}/>
                     <ModalInput ref={nameInputRef} value={problemName} required={true} fontSize="20px" height="41px"
                                 placeholder="New Problem Title"
                                 onChange={e => setName(e.target.value)}/>

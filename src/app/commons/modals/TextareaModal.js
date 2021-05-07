@@ -31,7 +31,8 @@ const TextareaModal = ({title, body, show, onClose, onSubmit}) => {
         contentRendering: () => (
             <form onSubmit={e => handleSubmit(e)} ref={formRef}>
                 <div id="modal" className="font-poppins has-text-centered">
-                    <ModalHeader className="header" title={title} textAlign="left"/>
+                    <ModalHeader className="header" title={title}
+                                 style={{ textAlign: "left"}}/>
                     <p className="description"><Icon className="modal-icon"/>{body.description}</p>
                     <textarea className="textarea"
                               value={content}

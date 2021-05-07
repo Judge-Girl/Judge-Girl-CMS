@@ -21,7 +21,6 @@ const CreateProblemModal = ({ show, onClose, onProblemCreated }) => {
         if (form.checkValidity()) {
             problemService.createProblem(problemName)
                 .then(problem => {
-                    console.log("DEBUG----", problem)
                     onProblemCreated(problem);
                     closeIconRef.current.click();
                     setName('');

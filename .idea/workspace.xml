@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bf8cb018-72d4-4d32-bc11-a6b2858be79c" name="Default Changelist" comment="Refactor3." />
+    <list default="true" id="bf8cb018-72d4-4d32-bc11-a6b2858be79c" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/app/exam/problems/ExamProblems.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/exam/problems/ExamProblems.scss" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

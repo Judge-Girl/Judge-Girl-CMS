@@ -3,27 +3,10 @@ import {createRef, useState} from "react";
 import {SubtitleLine} from "../../commons/titles/TitleLine";
 import "./CreateExamModel.css";
 import {now} from "moment";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faCircle} from '@fortawesome/free-solid-svg-icons';
 import {examService} from "../../../services/services";
 import {renderModal} from "../../commons/modals/modal";
 import {ModalInput} from "../../commons/modals/ModalInput";
-import {formatDate} from "../../../utils/utils";
-
-
-function scheduleItem(inputRef, label, inputName, timeValue, setTime, minTime) {
-    return (
-        <div key={inputName} className="is-flex is-justify-content-center py-3 mr-2 schedule-item">
-            <FontAwesomeIcon className="dot" icon={faCircle}/>
-            <label className="ml-2 is-vcentered">{label}</label>
-            <input className="ml-4" type="datetime-local"
-                   name={inputName} value={formatDate(timeValue)}
-                   onChange={e => setTime(new Date(e.target.value))}
-                   min={formatDate(minTime)} ref={inputRef}
-            />
-        </div>
-    )
-}
+import ScheduleItem from "../../commons/ScheduleItem";
 
 
 const CreateExamModal = ({show, onClose, onExamCreated}) => {
@@ -90,9 +73,10 @@ const CreateExamModal = ({show, onClose, onExamCreated}) => {
 
                     <SubtitleLine title="Schedule"/>
 
-                    {scheduleItem(startTimeInputRef, 'Start Time', 'startTime', startTime, setStartTimeHandler, new Date())}
-                    {scheduleItem(endTimeInputRef, 'End Time', 'endTime', endTime, setEndTimeHandler, new Date(startTime))}
-
+                    <ScheduleItem inputRef={startTimeInputRef} label='Start Time' inputName='startTime'
+                                  timeValue={startTime} setTime={setStartTimeHandler} minTime={new Date()} />
+                    <ScheduleItem inputRef={endTimeInputRef} label='End Time' inputName='endTime'
+                                  timeValue={endTime} setTime={setEndTimeHandler} minTime={new Date(startTime)} />
                     {/* TODO: white-list */}
 
                     <button className="button ml-2 mt-3 my-green-btn" id="create-btn">Create Exam</button>

@@ -8,7 +8,7 @@ import PrivateRoute from "./commons/access-control/PrivateRoute";
 import {AuthContext} from "./commons/access-control/auth";
 import NavigationBar from "./NavigationBar";
 import {Login} from "./Login";
-import {Dashboard} from "./Dashboard";
+import {ProblemList} from "./problem/list/ProblemList";
 import {StudentList} from "./students/StudentList";
 import {AdminList} from "./admins/AdminList";
 import {GroupList} from "./students/GroupList";
@@ -28,14 +28,14 @@ function App() {
                 <div className="App">
                     <NavigationBar/>
                     <Switch>
-                        <Route exact path="/" component={Login}/>
-                        <PrivateRoute path="/problems" component={Dashboard}/>
-                        <PrivateRoute path="/students" component={StudentList}/>
-                        <PrivateRoute path="/admins" component={AdminList}/>
-                        <PrivateRoute path="/groups" exact component={GroupList}/>
-                        <PrivateRoute path="/groups/:groupId/students" component={GroupMembers}/>
+                        <Route path="/" exact component={Login}/>
+                        <PrivateRoute path="/problems" exact component={ProblemList}/>
                         <PrivateRoute path="/problems/:problemId/edit" component={ProblemEditor}/>
                         <PrivateRoute path="/exams" component={ExamList}/>
+                        <PrivateRoute path="/students" component={StudentList}/>
+                        <PrivateRoute path="/groups" exact component={GroupList}/>
+                        <PrivateRoute path="/groups/:groupId/students" component={GroupMembers}/>
+                        <PrivateRoute path="/admins" component={AdminList}/>
                         <Route path="*">
                             <Redirect to="/"/>
                         </Route>

@@ -1,21 +1,21 @@
-import {withRouter} from "react-router";
-import './ProblemEditor.css';
+import {useParams} from "react-router-dom";
+import ProblemEditorTitle from "./edit/ProblemEditorTitle";
 import TagList from "./edit/TagList";
-import SubmittedCodeList from './edit/SubmittedCodeList';
 import ProvidedCodeList from './edit/providedCode/ProvidedCodeList';
+import SubmittedCodeList from './edit/SubmittedCodeList';
 import ResourceSpec from "./edit/ResourceSpec";
 import CompilationScript from "./edit/CompilationScript";
 import OutputMatchPolicyList from "./edit/OutputMatchPolicyList";
 import Visible from "./edit/Visible";
-import TestCase from "./edit/testCase/TestCasesList";
 import {EditorButton} from "./edit/EditorButton";
-import ProblemEditorTitle from "./edit/ProblemEditorTitle";
 import {SubtitleLine} from "../commons/titles/TitleLine";
-import React from "react";
 import MarkdownEditor from "../commons/MarkdownEditor";
+import TestCase from "./edit/testCase/TestCasesList";
+import React from "react";
+import './ProblemEditor.css';
 
-const ProblemEditor = withRouter(({history, match}) => {
-    const problemId = match.params.problemId;
+const ProblemEditor = () => {
+    const problemId = useParams()
 
     return (
         <div className="problem-editor">
@@ -60,6 +60,6 @@ const ProblemEditor = withRouter(({history, match}) => {
             </div>
         </div>
     );
-});
+}
 
 export {ProblemEditor};

@@ -54,7 +54,7 @@ const ExamProblems = ({ exams }) => {
         } else {
             buildProblemTitleMap()
         }
-    }, [examProblems, fetchExam, buildProblemTitleMap]);
+    }, [examProblems]);
 
     const editProblem = (problemId) => {
         const editQuestionPromise = examService.editExamQuestion({examId, problemId});

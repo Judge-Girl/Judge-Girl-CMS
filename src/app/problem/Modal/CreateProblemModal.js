@@ -17,7 +17,7 @@ export const useProblemList = () => {
 
 const CreateProblemModal = ({ show, onClose, onProblemCreated }) => {
     const [problemName, setName] = useState('');
-    const {tags, setTags, addTag} = useProblemList([])
+    const {tags} = useProblemList([])
     const closeIconRef = createRef(), formRef = createRef(), nameInputRef = createRef()
 
     useEffect(() => {

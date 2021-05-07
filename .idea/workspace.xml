@@ -5,15 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="55d91b8e-76aa-4f6d-9d07-1f865a19c1a8" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/app/problem/Modal/CreateProblemModal.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/problem/list/ProblemList.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/NavigationBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/NavigationBar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/commons/ItemListPage/ItemListPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/commons/ItemListPage/ItemListPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/exam/modals/CreateExamModal.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/exam/modals/CreateExamModal.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/problem/ProblemEditor.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/problem/ProblemEditor.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/ProblemService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/ProblemService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/problem/Modal/CreateProblemModal.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/problem/Modal/CreateProblemModal.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -223,7 +215,14 @@
       <option name="project" value="LOCAL" />
       <updated>1620194956377</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="PRPRPR.">
+      <created>1620355214524</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1620355214524</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -259,6 +258,7 @@
     <MESSAGE value="Now it works." />
     <MESSAGE value="Refactor." />
     <MESSAGE value="Beautify." />
-    <option name="LAST_COMMIT_MESSAGE" value="Beautify." />
+    <MESSAGE value="PRPRPR." />
+    <option name="LAST_COMMIT_MESSAGE" value="PRPRPR." />
   </component>
 </project>

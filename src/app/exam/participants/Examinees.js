@@ -34,16 +34,17 @@ const Examinees = () => {
         }
     }, [exam, examId, examinees]);
 
-    const actionItemsButton = ({examinee}) => new ThreeDotsButton({
-        dropDownItems: [{
-            name: "Remove",
-            dangerous: true,
-            onClick: () => {
-                setShowRemoveExamineeConfirmationModal(true)
-                setSelectedExaminee(examinee)
-            }
-        }]
-    })
+    const actionItemsButton = ({examinee}) =>
+        <ThreeDotsButton dropDownItems={[
+            {
+                name: "Remove",
+                dangerous: true,
+                onClick: () => {
+                    setShowRemoveExamineeConfirmationModal(true)
+                    setSelectedExaminee(examinee)
+                }
+            },
+        ]}/>
 
     const addExaminees = async (emails) => {
         await examService.addExaminees(exam.id, emails)
@@ -84,7 +85,7 @@ const Examinees = () => {
             <ExamInPageNavigationBar currentURL={currentURL}
                                      examName={exam.name}
                                      examId={examId}/>
-            <div style={{padding: "40px 15rem 20px 15rem"}}>
+            <div style={{padding: "40px 25% 20px 25%"}}>
                 <ItemListPage title="Examinees"
                               filterItems={["Filter", "Name", "Email"]}
                               Button={() => new DropDownBtn({

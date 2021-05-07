@@ -46,7 +46,7 @@ const ExamOptions = ({exams}) => {
                 currentURL={currentURL}
                 examName={currentExam.name}
                 examId={examId}/>
-            <div style={{padding: "40px 100px 20px 100px"}}>
+            <div style={{padding: "40px 10% 20px 10%"}}>
                 <TitleLine title={"Options"}/>
                 <div className="columns exam-options">
                     <div className="column is-narrow" style={{width: "450px"}}>

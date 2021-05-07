@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
 <<<<<<< HEAD
+<<<<<<< HEAD
     <list default="true" id="55d91b8e-76aa-4f6d-9d07-1f865a19c1a8" name="Default Changelist" comment="Refactor2.">
 =======
     <list default="true" id="55d91b8e-76aa-4f6d-9d07-1f865a19c1a8" name="Default Changelist" comment="">
@@ -20,6 +21,10 @@
 >>>>>>> 4032ad3 (PRPRPR.)
       <change beforePath="$PROJECT_DIR$/src/services/ProblemService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/ProblemService.js" afterDir="false" />
 =======
+=======
+    <list default="true" id="55d91b8e-76aa-4f6d-9d07-1f865a19c1a8" name="Default Changelist" comment="Refactor1.">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+>>>>>>> 986681a (Refactor2.)
       <change beforePath="$PROJECT_DIR$/src/app/problem/Modal/CreateProblemModal.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/problem/Modal/CreateProblemModal.js" afterDir="false" />
 >>>>>>> bc2482f (Refactor1.)
     </list>
@@ -239,6 +244,9 @@
       <updated>1620355214524</updated>
     </task>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 986681a (Refactor2.)
     <task id="LOCAL-00019" summary="Refactor1.">
       <created>1620355521509</created>
       <option name="number" value="00019" />
@@ -246,6 +254,7 @@
       <option name="project" value="LOCAL" />
       <updated>1620355521509</updated>
     </task>
+<<<<<<< HEAD
     <task id="LOCAL-00020" summary="Refactor2.">
       <created>1620371623280</created>
       <option name="number" value="00020" />
@@ -257,6 +266,9 @@
 =======
     <option name="localTasksCounter" value="19" />
 >>>>>>> bc2482f (Refactor1.)
+=======
+    <option name="localTasksCounter" value="20" />
+>>>>>>> 986681a (Refactor2.)
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -293,11 +305,16 @@
     <MESSAGE value="Beautify." />
     <MESSAGE value="PRPRPR." />
 <<<<<<< HEAD
+<<<<<<< HEAD
     <MESSAGE value="Refactor1." />
     <MESSAGE value="Refactor2." />
     <option name="LAST_COMMIT_MESSAGE" value="Refactor2." />
 =======
     <option name="LAST_COMMIT_MESSAGE" value="PRPRPR." />
 >>>>>>> bc2482f (Refactor1.)
+=======
+    <MESSAGE value="Refactor1." />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactor1." />
+>>>>>>> 986681a (Refactor2.)
   </component>
 </project>

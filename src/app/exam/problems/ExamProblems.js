@@ -52,7 +52,7 @@ const ExamProblems = ({ exams }) => {
                     .then(res => setProblemId2Title(prev => prev.set(problem.problemId, res.title)))
             })
         }
-    }, [examProblems, redirectURL]);
+    }, [examId, examProblems, redirectURL]);
 
     const dropDownItems = (problemId) => [{
         name: "Edit",

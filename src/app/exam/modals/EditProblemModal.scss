@@ -1,0 +1,46 @@
+
+.edit-problem-modal {
+  padding: 20px 40px;
+
+  .modal-header {
+    color: #2C76AC;
+  }
+
+  .submit-btn {
+    display: flex;
+    flex-direction: row-reverse;
+
+    button {
+      background: #3EBDD9;
+      color: #FFF;
+      border-radius: 10px;
+      padding: 7px 10px;
+
+      font-size: 18px;
+      line-height: 27px;
+    }
+  }
+
+  .input-field {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    label {
+      margin: 5px 10px;
+      font-size: 20px;
+      font-weight: 500;
+      line-height: 30px;
+    }
+
+    input {
+      margin: 5px 10px;
+      flex-grow: 1;
+      background-color: #F3F3F3;
+      border: 1px solid #A2A3B1;
+      box-sizing: border-box;
+      border-radius: 10px;
+    }
+  }
+}
+

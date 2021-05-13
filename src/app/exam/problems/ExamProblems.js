@@ -147,7 +147,7 @@ const ExamProblems = ({ exams }) => {
                                             <ThreeDotsButton dropDownItems={dropDownItems(examProblem.problemId)}/>
                                         </div>
                                         :
-                                        <span className="tag is-warning">Rejudging
+                                        <span className="tag" style={{ backgroundColor: "#FFBB00", color:"white" }}>Rejudging
                                             <span className="waitingForConnection">.</span>
                                             <span className="waitingForConnection2">.</span>
                                             <span className="waitingForConnection3">.</span>

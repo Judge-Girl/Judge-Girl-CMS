@@ -21,7 +21,7 @@ const AddProblemModal = ({ title, show, onClose, onSubmitQuestion }) => {
         setProblemId('');
         setScorePercentage('');
         setSubmissionQuota('');
-    }
+    };
 
     const handleFormSubmit = e => {
         e.preventDefault();

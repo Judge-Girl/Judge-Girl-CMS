@@ -16,18 +16,25 @@ const NoInputField = ({ text }) => (
     </div>
 );
 
+
 const EditProblemModal = ({ title, show, onClose, onSubmitQuestion, question }) => {
     const closeIconRef = createRef(), formRef = createRef();
     const [scorePercentage, setScorePercentage] = useState(question?.maxScore);
     const [submissionQuota, setSubmissionQuota] = useState(question?.quota);
+
+    const clearFields = () => {
+        setScorePercentage('');
+        setSubmissionQuota('');
+    };
 
     const handleFormSubmit = e => {
         e.preventDefault();
         const form = formRef.current;
 
         if (form.checkValidity()) {
-            // const question = new Question({ problemId, score: scorePercentage, quota: submissionQuota });
-            // onSubmitQuestion(question).then(clearFields);
+            question.score = scorePercentage;
+            question.quota = submissionQuota;
+            onSubmitQuestion(question).then(closeIconRef.current.click()).then(clearFields);
         } else {
             form.reportValidity();
         }

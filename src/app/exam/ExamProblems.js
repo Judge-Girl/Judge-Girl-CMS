@@ -14,6 +14,7 @@ const toCharacterIndex = i => {
     return String.fromCharCode(i + 65);
 }
 
+
 const ExamProblems = ({ exams }) => {
     const { url: currentURL } = useRouteMatch()
     const { examId } = useParams()
@@ -24,6 +25,22 @@ const ExamProblems = ({ exams }) => {
     const [showEditProblemModal, setShowEditProblemModal] = useState(false);
 
     const [editingProblem, setEditingProblem] = useState(null);
+
+    const createThreeDotButton = (problem) => {
+        return (<ThreeDotsButton dropDownItems={[{
+            name: "Edit",
+            dangerous: false,
+            onClick: () => { setEditingProblem(problem); setShowEditProblemModal(true); },
+        }, {
+            name: "Rejudge",
+            dangerous: false,
+            onClick: () => { },
+        }, {
+            name: "Delete",
+            dangerous: true,
+            onClick: () => { },
+        }]} />)
+    }
 
     const refetchExam = () => {
         examService.getExamOverview(examId).then(exam => {
@@ -43,7 +60,9 @@ const ExamProblems = ({ exams }) => {
     };
 
     const editProblem = (question) => {
-        question.examId = examId;
+        const editQuestionPromise = examService.editExamQuestion(question);
+        editQuestionPromise.then(refetchExam);
+        return editQuestionPromise;
     };
 
     useEffect(() => {
@@ -53,7 +72,7 @@ const ExamProblems = ({ exams }) => {
     });
 
     return (
-        <div class="exam-problems">
+        <div className="exam-problems">
             <ExamInPageNavigationBar
                 currentURL={currentURL}
                 examName={currentExamName}
@@ -68,22 +87,10 @@ const ExamProblems = ({ exams }) => {
                         key: problem => problem.problemId,
                         data: problem => [
                             toCharacterIndex(problem.questionOrder),
-                            (<FakeLink content={problem.problemId + " " + problem.problemTitle} />),
+                            (<FakeLink content={`${problem.problemId} ${problem.problemTitle}`} />),
                             (<div className="text-center">{problem.maxScore}</div>),
                             (<div className="text-center">{problem.quota}</div>),
-                            (<ThreeDotsButton dropDownItems={[{
-                                name: "Edit",
-                                dangerous: false,
-                                onClick: () => { setEditingProblem(problem); setShowEditProblemModal(true); },
-                            }, {
-                                name: "Rejudge",
-                                dangerous: false,
-                                onClick: () => { },
-                            }, {
-                                name: "Delete",
-                                dangerous: true,
-                                onClick: () => { },
-                            }]} />),
+                            createThreeDotButton(problem),
                         ],
                     }}
                     showFilterSearchBar={false}

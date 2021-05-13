@@ -59,6 +59,11 @@ export class ExamService {
         return this.axios.post(`/api/exams/${examId}/problems/${problemId}`, question).then(res => new Question(res.data));
     }
 
+    async editExamQuestion(question) {
+        const {examId, problemId} = question;
+        return this.axios.put(`/api/exams/${examId}/problems/${problemId}`, question).then(res => new Question(res.data));
+    }
+
     async updateExam(examId, data) {
         return this.axios.put(`/api/exams/${examId}`, data)
             .then(res => res.data)

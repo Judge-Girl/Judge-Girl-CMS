@@ -34,7 +34,9 @@ const EditProblemModal = ({ title, show, onClose, onSubmitQuestion, question }) 
         if (form.checkValidity()) {
             question.score = scorePercentage;
             question.quota = submissionQuota;
-            onSubmitQuestion(question).then(closeIconRef.current.click()).then(clearFields);
+            onSubmitQuestion(question)
+                .then(closeIconRef.current.click())
+                .then(clearFields);
         } else {
             form.reportValidity();
         }

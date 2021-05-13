@@ -9,8 +9,12 @@ export class SubmissionService {
         });
     }
 
-    async submit(problem) {
-        const {problemId, langEnvName, studentId} = problem
-        return this.axios.post(`/api/problems/${problemId}/${langEnvName}/students/${studentId}/submissions`)
+    async rejudge({examId, problemId}) {
+        return new Promise((res) => {
+            setTimeout(() => {
+                console.log("rejudge success.")
+                res("SUCCESS")
+            }, 2000);
+        })
     }
 }

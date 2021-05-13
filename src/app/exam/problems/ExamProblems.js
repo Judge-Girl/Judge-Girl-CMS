@@ -25,7 +25,7 @@ const ExamProblems = ({ exams }) => {
 
     const [showAddProblemModal, setShowAddProblemModal] = useState(false);
     const [showRejudgeProblemModal, setShowRejudgeProblemModal] = useState(0);
-    const [problemId2Title, setProblemId2Title] = useState(new Map())
+    const [problemIdToTitle, setProblemIdToTitle] = useState(new Map())
     const [redirectURL, setRedirectURL] = useState()
     const [rejudgeProblemId, setRejudgeProblemId] = useState(0)
     const [showEditProblemModal, setShowEditProblemModal] = useState(false);
@@ -43,7 +43,7 @@ const ExamProblems = ({ exams }) => {
     const buildProblemTitleMap = () => {
         examProblems.forEach(problem => {
             problemService.getProblemById(problem.problemId)
-                .then(res => setProblemId2Title(prev => prev.set(problem.problemId, res.title)))
+                .then(res => setProblemIdToTitle(prev => prev.set(problem.problemId, res.title)))
         })
     }
 
@@ -52,13 +52,14 @@ const ExamProblems = ({ exams }) => {
         if (!examProblems) {
             examService.getExam(examId)
                 .then(exam => {
+                    console.log("DE8G--------------", exam)
                     exam.questions.sort((questionA, questionB) => questionA.questionOrder - questionB.questionOrder);
                     setExamProblems(exam.questions);
                 });
         } else {
             examProblems.forEach(problem => {
                 problemService.getProblemById(problem.problemId)
-                    .then(res => setProblemId2Title(prev => prev.set(problem.problemId, res.title)))
+                    .then(res => setProblemIdToTitle(prev => prev.set(problem.problemId, res.title)))
             })
         }
     }, [examId, examProblems, redirectURL]);
@@ -70,18 +71,18 @@ const ExamProblems = ({ exams }) => {
         return editQuestionPromise;
     };
 
-    const dropDownItems = (problemId) => [{
+    const dropDownItems = (examProblem) => [{
         name: "Edit",
         dangerous: false,
         onClick: () => {
-            setEditingProblem(problemId)
+            setEditingProblem(examProblem)
             setShowEditProblemModal(true)
         }
     }, {
         name: "Rejudge",
         dangerous: false,
         onClick: () => {
-            setShowRejudgeProblemModal(problemId)
+            setShowRejudgeProblemModal(examProblem.problemId)
         }
     }, {
         name: "Delete",
@@ -89,7 +90,7 @@ const ExamProblems = ({ exams }) => {
         onClick: () => {
             examService.deleteExamProblem({
                 examId: examId,
-                problemId: problemId
+                problemId: examProblem
             }).then(res => console.log("deleted", res))
         }
     }];
@@ -97,12 +98,11 @@ const ExamProblems = ({ exams }) => {
     const rejudgeProblem = (problemId) => {
         setShowRejudgeProblemModal(0)
         setRejudgeProblemId(problemId)
-        submissionService.submit({
-            problemId: problemId,
-            langEnvName: "C",
-            studentId: "r09900000"
+        submissionService.rejudge({
+            examId: examId,
+            problemId: problemId
         }).then(res => {
-            console.log(res.data)
+            console.log(res)
         })
         setTimeout(() =>
         {
@@ -138,13 +138,13 @@ const ExamProblems = ({ exams }) => {
                             return [
                                 toCharacterIndex(examProblem.questionOrder),
                                 <FakeLink content={examProblem.problemId} />,
-                                <FakeLink content={problemId2Title.get(examProblem.problemId)} />,
-                                <div className="text-center">{examProblem.maxScore}</div>,
+                                <FakeLink content={problemIdToTitle.get(examProblem.problemId)} />,
+                                <div className="text-center">{examProblem.score}</div>,
                                 <div className="text-center">{examProblem.quota}</div>,
                                 <div style={{width: "80px", height: "28px"}}>
                                     {rejudgeProblemId!==examProblem.problemId?
                                         <div className="text-center">
-                                            <ThreeDotsButton dropDownItems={dropDownItems(examProblem.problemId)}/>
+                                            <ThreeDotsButton dropDownItems={dropDownItems(examProblem)}/>
                                         </div>
                                         :
                                         <span className="tag" style={{ backgroundColor: "#FFBB00", color:"white" }}>Rejudging
@@ -156,7 +156,8 @@ const ExamProblems = ({ exams }) => {
                                     <RejudgeProblemModal
                                         title="Rejudge The Problem?"
                                         problemId={examProblem.problemId}
-                                        problemTitle={problemId2Title.get(examProblem.problemId)}
+                                        problemTitle={problemIdToTitle.get(examProblem.problemId)}
+                                        problem={examProblem}
                                         show={showRejudgeProblemModal}
                                         onClose={() => setShowRejudgeProblemModal(0)}
                                         rejudgeProblemId={rejudgeProblemId}

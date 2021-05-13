@@ -11,7 +11,8 @@ const ExamScore = ({ exams }) => {
     const { url: currentURL } = useRouteMatch()
     const { examId } = useParams()
     const currentExamName = exams.find(exam => exam.id === parseInt(examId))?.name
-    const [examinees, setExaminees] = useState()
+    const [examinees, setExaminees] = useState([])
+    const [averageScore, setAverageScore] = useState(0.0)
 
     useEffect(() => {
         examService.getExam(examId)
@@ -23,34 +24,30 @@ const ExamScore = ({ exams }) => {
         setExaminees([
             {
                 studentId: "R09922111",
-                A: "20", B: "20", C: "20", D: "20", E: "20", totalScore: "100",
+                A: "20", B: "20", C: "20", D: "20", E: "20", totalScore: "80",
             },
             {
                 studentId: "R09922111",
-                A: "20", B: "20", C: "20", D: "20", E: "20", totalScore: "100",
+                A: "20", B: "20", C: "20", D: "20", E: "20", totalScore: "70",
             },
             {
                 studentId: "R09922111",
-                A: "20", B: "20", C: "20", D: "20", E: "20", totalScore: "100",
+                A: "20", B: "20", C: "20", D: "20", E: "20", totalScore: "60",
             },
             {
                 studentId: "R09922111",
-                A: "20", B: "20", C: "20", D: "20", E: "20", totalScore: "100",
+                A: "20", B: "20", C: "20", D: "20", E: "20", totalScore: "87",
             },
         ])
-    }, [examId]);
+        let total = 0.0
+        examinees.forEach((examinee) => {
+            total += parseFloat(examinee.totalScore)
+        })
+        console.log("DEBUG---", total)
+        setAverageScore(total/examinees.length)
+    }, [examId, examinees]);
 
     const dropDownItems = (studentId) => [{
-        name: "Edit",
-        dangerous: false,
-        onClick: () => {
-        }
-    }, {
-        name: "Rejudge",
-        dangerous: false,
-        onClick: () => {
-        }
-    }, {
         name: "Delete",
         dangerous: true,
         onClick: () => {
@@ -65,30 +62,30 @@ const ExamScore = ({ exams }) => {
                 examId={examId} />
             <div style={{ padding: "20px 10% 20px 10%" }}>
                 <div className="columns mt-2">
-                    <div className="mt-4" style={{ width: "15%", textAlign: "center" }}>
-                        <div className="card" style={{ width: "200px" }}>
+                    <div className="mt-4 mr-3" style={{ width: "17%", textAlign: "center" }}>
+                        <div className="card" style={{ width: "auto" }}>
                             <div className="card-content">
                                 <div className="content" style={{ color: "#0B5286" }}>
                                     <span style={{ fontSize: "20px" }}>Average Score</span>
                                     <br/>
-                                    <span style={{ fontSize: "50px" }}>75.5</span>/100
+                                    <span style={{ fontSize: "50px" }}>{averageScore}</span>/100
                                 </div>
                             </div>
                         </div>
                         <br/>
-                        <div className="card" style={{ width: "200px" }}>
+                        <div className="card" style={{ width: "auto" }}>
                             <div className="card-content">
                                 <div className="content" style={{ color: "#0B5286" }}>
                                     <span style={{ fontSize: "20px" }}># of Examinees</span>
                                     <br/>
-                                    <span style={{ fontSize: "50px" }}>65</span>
+                                    <span style={{ fontSize: "50px" }}>{examinees.length}</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div style={{ width: "70%" }}>
                         <ItemListPage
-                            tableHeaders={["Name", "A", "B", "C", "D", "E", "Total score"]}
+                            tableHeaders={["Name", "A", "B", "C", "D", "E", "Total score", ""]}
                             tableRowGenerator={{
                                 list: examinees,
                                 key: examinee => examinee.studentId,
@@ -100,6 +97,7 @@ const ExamScore = ({ exams }) => {
                                         <FakeLink content={examinee.C} />,
                                         <FakeLink content={examinee.D} />,
                                         <FakeLink content={examinee.E} />,
+                                        <FakeLink content={examinee.totalScore} />,
                                         // <div style={{width: "20px", height: "28px"}}>
                                         <div style={{ textAlign: "middle" }}>
                                             <ThreeDotsButton dropDownItems={dropDownItems(examinee.studentId)}/>

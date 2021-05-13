@@ -44,12 +44,6 @@ const ExamProblems = ({ exams }) => {
 
     const editProblem = (question) => {
         question.examId = examId;
-        console.log('ja,', question);
-        // question.questionOrder = problems.length;
-
-        // const addQuestionPromise = examService.addExamQuestion(question);
-        // addQuestionPromise.then(refetchExam);
-        // return addQuestionPromise;
     };
 
     useEffect(() => {

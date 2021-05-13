@@ -30,35 +30,18 @@ const ExamProblems = ({ exams }) => {
     const [showEditProblemModal, setShowEditProblemModal] = useState(false);
 
     const [editingProblem, setEditingProblem] = useState(null);
+    console.log("DEBUG-------------", examProblems)
 
     const fetchExam = () => {
         examService.getExamOverview(examId).then(exam => {
             exam.questions.sort((questionA, questionB) => questionA.questionOrder - questionB.questionOrder);
-
             setExamProblems(exam.questions);
         });
     };
 
-    const buildProblemTitleMap = () => {
-        examProblems.forEach(problem => {
-            problemService.getProblemById(problem.problemId)
-                .then(res => setProblemIdToTitle(prev => prev.set(problem.problemId, res.title)))
-        })
-    }
-
     useEffect(() => {
         if (!examProblems) {
-            examService.getExam(examId)
-                .then(exam => {
-                    console.log("DE8G--------------", exam)
-                    exam.questions.sort((questionA, questionB) => questionA.questionOrder - questionB.questionOrder);
-                    setExamProblems(exam.questions);
-                });
-        } else {
-            examProblems.forEach(problem => {
-                problemService.getProblemById(problem.problemId)
-                    .then(res => setProblemIdToTitle(prev => prev.set(problem.problemId, res.title)))
-            })
+            fetchExam()
         }
     }, [examId, examProblems]);
 
@@ -130,7 +113,7 @@ const ExamProblems = ({ exams }) => {
                             return [
                                 toCharacterIndex(examProblem.questionOrder),
                                 <FakeLink content={examProblem.problemId} />,
-                                <FakeLink content={problemIdToTitle.get(examProblem.problemId)} />,
+                                <FakeLink content={examProblem.problemTitle} />,
                                 <div className="text-center">{examProblem.score}</div>,
                                 <div className="text-center">{examProblem.quota}</div>,
                                 <div style={{width: "80px", height: "28px"}}>

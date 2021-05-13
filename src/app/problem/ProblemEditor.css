@@ -6,21 +6,6 @@
     --textLight: rgb(62, 189, 217);
 }
 
-.problem-editor .column {
-    float: left;
-}
-
-.problem-editor .left {
-    padding-left: 150px;
-    padding-right: 50px;
-    flex-grow: 1;
-}
-
-.problem-editor .right {
-    flex-grow: 2;
-    padding-right: 120px;
-}
-
 .problem-editor section {
     padding-bottom: 70px;
 }

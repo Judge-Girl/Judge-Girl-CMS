@@ -19,43 +19,48 @@ const ProblemEditor = () => {
 
     return (
         <div className="problem-editor">
-            <ProblemEditorTitle problemId={problemId}/>
-            <div className="columns">
-                <div className="column left">
-                    <section>
-                        <TagList/>
-                    </section>
-                    <section>
-                        <ProvidedCodeList/>
-                    </section>
-                    <section>
-                        <SubmittedCodeList/>
-                    </section>
-                    <section>
-                        <ResourceSpec/>
-                    </section>
-                    <section>
-                        <CompilationScript/>
-                    </section>
-                    <section>
-                        <OutputMatchPolicyList/>
-                    </section>
-                    <section>
-                        <Visible/>
-                    </section>
-                    <section>
-                        <EditorButton text={"Save Change"} buttonColor={"#96D745"} fontColor={"#FFFFFF"}/>
-                        <EditorButton text={"Delete Problem"} buttonColor={"#FFFFFF"} fontColor={"#A2A3B1"}/>
-                    </section>
+            <div style={{ padding: "20px 10% 200px 10%", backgroundColor: "#FFFFFF" }}>
+                <div className="pt-2">
+                    <ProblemEditorTitle problemId={problemId}/>
                 </div>
-                <div className="column right">
-                    <section>
-                        <SubtitleLine title={"Description"}/>
-                        <MarkdownEditor problemId={problemId}/>
-                    </section>
-                    <section>
-                        <TestCase />
-                    </section>
+                <div className="columns">
+                    <div style={{ paddingLeft: "2%",  width: "25%" }}>
+                        <section>
+                            <TagList/>
+                        </section>
+                        <section>
+                            <ProvidedCodeList/>
+                        </section>
+                        <section>
+                            <SubmittedCodeList/>
+                        </section>
+                        <section>
+                            <ResourceSpec/>
+                        </section>
+                        <section>
+                            <CompilationScript/>
+                        </section>
+                        <section>
+                            <OutputMatchPolicyList/>
+                        </section>
+                        <section>
+                            <Visible/>
+                        </section>
+                        <section>
+                            <EditorButton text={"Save Change"} buttonColor={"#96D745"} fontColor={"#FFFFFF"}/>
+                            <EditorButton text={"Delete Problem"} buttonColor={"#FFFFFF"} fontColor={"#A2A3B1"}/>
+                        </section>
+                    </div>
+                    <div style={{ width: "10%" }}/>
+                    <div style={{ width: "55%" }}>
+                        <section>
+                            <SubtitleLine title={"Description"}/>
+                            <MarkdownEditor problemId={problemId}/>
+                        </section>
+                        <section>
+                            <TestCase />
+                        </section>
+                    </div>
                 </div>
             </div>
         </div>

@@ -5,6 +5,8 @@ import CreateProblemModal from "../Modal/CreateProblemModal";
 import {problemService} from "../../../services/services";
 import {Spinner} from "../../commons/Spinner";
 import FakeLink from "../../commons/FakeLink";
+import {ProblemEditor} from "../ProblemEditor";
+import {Route} from "react-router-dom";
 
 export const useProblemList = () => {
     const [problems, setProblems] = useState(undefined);
@@ -41,29 +43,37 @@ const ProblemList = () => {
     }
 
     return (
-        <div style={{padding: "20px 100px 20px 100px"}}>
-            <div className="container font-poppins">
-                <ItemListPage title="Problem List"
-                              filterItems={["Filter", "Id", "tags"]}
-                              Button={() => new CreateButton({
-                                  onCreateButtonClick: () => setShowCreateProblemModal(true)
-                              })}
-                              tableHeaders={["#", "Problem Title", "Tags"]}
-                              tableRowGenerator={{
-                                  list: problems,
-                                  key: (problem) => problem.id,
-                                  data: (problem) => [
-                                      problem.id,
-                                      <FakeLink content={problem.title}/>,
-                                      <span className="tag is-link">Functions</span>
-                                  ]
-                              }}
-                              tableDataStyle={{ textAlign: "left" }}/>
-                <CreateProblemModal show={showCreateProblemModal}
-                                    onClose={() => setShowCreateProblemModal(false)}
-                                    onProblemCreated={onProblemCreated}/>
-            </div>
-        </div>
+        <>
+            <Route path="/problems" exact>
+                <div style={{padding: "20px 100px 20px 100px"}}>
+                    <div className="container font-poppins">
+                        <ItemListPage title="Problem List"
+                                      filterItems={["Filter", "Id", "tags"]}
+                                      Button={() => new CreateButton({
+                                          onCreateButtonClick: () => setShowCreateProblemModal(true)
+                                      })}
+                                      tableHeaders={["#", "Problem Title", "Tags"]}
+                                      tableRowGenerator={{
+                                          list: problems,
+                                          key: (problem) => problem.id,
+                                          data: (problem) => [
+                                              problem.id,
+                                              <FakeLink content={problem.title}/>,
+                                              <span className="tag is-link">Functions</span>
+                                          ]
+                                      }}
+                                      tableDataStyle={{ textAlign: "left" }}/>
+                        <CreateProblemModal show={showCreateProblemModal}
+                                            onClose={() => setShowCreateProblemModal(false)}
+                                            onProblemCreated={onProblemCreated}/>
+                    </div>
+                </div>
+            </Route>
+            <Route path="/problems/:problemId/edit">
+                <ProblemEditor/>
+            </Route>
+        </>
+
     )
 }
 

@@ -17,7 +17,6 @@ import {ExamList} from "./exam/ExamList";
 import 'bulma';
 import './App.css';
 
-
 function App() {
     const [admin, setAdmin] = useState(null);
 
@@ -28,7 +27,7 @@ function App() {
                     <NavigationBar/>
                     <Switch>
                         <Route path="/" exact component={Login}/>
-                        <PrivateRoute path="/problems" exact component={ProblemList}/>
+                        <PrivateRoute path="/problems" component={ProblemList}/>
                         <PrivateRoute path="/exams" component={ExamList}/>
                         <PrivateRoute path="/students" component={StudentList}/>
                         <PrivateRoute path="/groups" exact component={GroupList}/>

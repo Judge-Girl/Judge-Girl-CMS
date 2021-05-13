@@ -13,7 +13,6 @@
 .problem-editor .problem-editor-title {
     .problem-name-title {
         @extend %problem-editor-title-style-shared;
-        margin-left: 150px;
         color: #1273BA;
         .problem-name-editor-btn {
             cursor: pointer;

@@ -1,8 +1,7 @@
-import { useState, useEffect } from "react";
-import {Redirect, useParams, useRouteMatch} from "react-router-dom";
-import { Map } from "immutable"
+import {useState, useEffect, useCallback} from "react";
+import { useParams, useRouteMatch } from "react-router-dom";
 
-import { examService, problemService, submissionService } from "../../../services/services.js";
+import { examService, submissionService } from "../../../services/services.js";
 import { ThreeDotsButton } from "../../commons/buttons/ThreeDotsButton.js";
 import FakeLink from "../../commons/FakeLink.js";
 import { ItemListPage } from "../../commons/ItemListPage/ItemListPage.js";
@@ -25,25 +24,23 @@ const ExamProblems = ({ exams }) => {
 
     const [showAddProblemModal, setShowAddProblemModal] = useState(false);
     const [showRejudgeProblemModal, setShowRejudgeProblemModal] = useState(0);
-    const [problemIdToTitle, setProblemIdToTitle] = useState(new Map())
     const [rejudgeProblemId, setRejudgeProblemId] = useState(0)
     const [showEditProblemModal, setShowEditProblemModal] = useState(false);
 
     const [editingProblem, setEditingProblem] = useState(null);
-    console.log("DEBUG-------------", examProblems)
 
-    const fetchExam = () => {
+    const fetchExam = useCallback(() => {
         examService.getExamOverview(examId).then(exam => {
             exam.questions.sort((questionA, questionB) => questionA.questionOrder - questionB.questionOrder);
             setExamProblems(exam.questions);
         });
-    };
+    }, [examId])
 
     useEffect(() => {
         if (!examProblems) {
             fetchExam()
         }
-    }, [examId, examProblems]);
+    }, [examProblems, fetchExam]);
 
     const editProblem = (problemId) => {
         const editQuestionPromise = examService.editExamQuestion({examId, problemId});
@@ -131,7 +128,7 @@ const ExamProblems = ({ exams }) => {
                                     <RejudgeProblemModal
                                         title="Rejudge The Problem?"
                                         problemId={examProblem.problemId}
-                                        problemTitle={problemIdToTitle.get(examProblem.problemId)}
+                                        problemTitle={examProblem.problemTitle}
                                         problem={examProblem}
                                         show={showRejudgeProblemModal}
                                         onClose={() => setShowRejudgeProblemModal(0)}

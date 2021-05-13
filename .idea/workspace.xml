@@ -4,8 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bf8cb018-72d4-4d32-bc11-a6b2858be79c" name="Default Changelist" comment="Resolve PR problem 1.">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="bf8cb018-72d4-4d32-bc11-a6b2858be79c" name="Default Changelist" comment="Refactor.">
       <change beforePath="$PROJECT_DIR$/src/app/exam/problems/ExamProblems.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/exam/problems/ExamProblems.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -244,7 +243,14 @@
       <option name="project" value="LOCAL" />
       <updated>1620925073030</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="完美的英文叫做 Perfect.">
+      <created>1620926043295</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1620926043295</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -277,12 +283,13 @@
     <MESSAGE value="Fixed all bugs mentioned in PR. TODO: API connection." />
     <MESSAGE value="Examinees and ExamList work correctly; InPageNavigationBar has real link." />
     <MESSAGE value="Now it works." />
-    <MESSAGE value="Refactor." />
     <MESSAGE value="Beautify." />
     <MESSAGE value="PRPRPR." />
     <MESSAGE value="Refactor1." />
     <MESSAGE value="Refactor2." />
     <MESSAGE value="Resolve PR problem 1." />
-    <option name="LAST_COMMIT_MESSAGE" value="Resolve PR problem 1." />
+    <MESSAGE value="完美的英文叫做 Perfect." />
+    <MESSAGE value="Refactor." />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactor." />
   </component>
 </project>

@@ -5,9 +5,9 @@
     --textLight: rgb(62, 189, 217);
 }
 
-body {
+html, body {
     background: var(--background);
-    height: 100vh;
+    height: 100%;
 }
 
 .field:not(:last-child) {

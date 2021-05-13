@@ -111,7 +111,7 @@ const ExamProblems = ({ exams }) => {
                 currentURL={currentURL}
                 examName={currentExamName}
                 examId={examId} />
-            <div style={{padding: "20px 10% 20px 10%", whiteSpace: "nowrap"}}>
+            <div style={{padding: "20px 10% 200px 10%", whiteSpace: "nowrap"}}>
                 <ItemListPage
                     title="Problems"
                     tableHeaders={["#", "Problem ID", "Problem Title", "Score %", "Sub. Quota", " "]}

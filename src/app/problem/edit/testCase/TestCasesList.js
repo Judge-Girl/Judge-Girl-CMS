@@ -22,14 +22,16 @@ function TestCasesList() {
         <div>
             <SubtitleLine title="Test Cases"/>
             <TestCases testCasesItems={testCasesList} removeTestCase={deleteTestCase}/>
-            <EditorButton
-                text={"Add New Test Case"}
-                buttonColor={"#1273BA"}
-                fontColor={"#FFFFFF"}
-                width={702}
-                height={46}
-                onClickFunc={addNewTestCase}
-            />
+            <div style={{ margin: "2% 3%" }}>
+                <EditorButton
+                    text={"Add New Test Case"}
+                    buttonColor={"#1273BA"}
+                    fontColor={"#FFFFFF"}
+                    width={"100%"}
+                    height={46}
+                    onClickFunc={addNewTestCase}
+                />
+            </div>
         </div>
     );
 }

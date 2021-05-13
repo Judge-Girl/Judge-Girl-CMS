@@ -35,7 +35,7 @@ function Tabs({textareaVal, setTextareaVal}) {
             </div>
 
             <div className="content-tabs">
-                <div className={"content " + (toggleState === TAB_WRITE ? "active-textarea" : "hide")}>
+                <div className={(toggleState === TAB_WRITE ? "active-textarea" : "hide")}>
                     <textarea
                         className="description-textarea"
                         value={textareaVal}
@@ -43,7 +43,7 @@ function Tabs({textareaVal, setTextareaVal}) {
                     />
                 </div>
 
-                <div className={"content " + (toggleState === TAB_PREVIEW ? "active-markdown" : "hide")}>
+                <div className={(toggleState === TAB_PREVIEW ? "active-markdown" : "hide")}>
                     <ReactMarkdown>
                         {textareaVal}
                     </ReactMarkdown>
@@ -76,7 +76,7 @@ const MarkdownEditor = () => {
         return (
             <div className="markdown-editor">
                 <div className="content-tabs">
-                    <div className={"content active-markdown"}>
+                    <div className="active-markdown">
                         <ReactMarkdown>
                             {textareaVal}
                         </ReactMarkdown>

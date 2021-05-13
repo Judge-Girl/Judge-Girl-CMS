@@ -50,11 +50,18 @@ const ExamProblems = ({ exams }) => {
     useEffect(() => {
         setRedirectURL(null)
         if (!examProblems) {
-            fetchExam();
+            examService.getExam(examId)
+                .then(exam => {
+                    exam.questions.sort((questionA, questionB) => questionA.questionOrder - questionB.questionOrder);
+                    setExamProblems(exam.questions);
+                });
         } else {
-            buildProblemTitleMap()
+            examProblems.forEach(problem => {
+                problemService.getProblemById(problem.problemId)
+                    .then(res => setProblemId2Title(prev => prev.set(problem.problemId, res.title)))
+            })
         }
-    }, [examProblems]);
+    }, [examProblems, redirectURL]);
 
     const editProblem = (problemId) => {
         const editQuestionPromise = examService.editExamQuestion({examId, problemId});

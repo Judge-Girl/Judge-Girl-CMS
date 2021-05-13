@@ -1,9 +1,9 @@
 import MarkdownEditor from "../../commons/MarkdownEditor";
 
 
-const ExamDescriptionEditor = () => {
+const ExamDescriptionEditor = ({problemId}) => {
     return <>
-        <MarkdownEditor/>
+        <MarkdownEditor problemId={problemId}/>
     </>
 }
 

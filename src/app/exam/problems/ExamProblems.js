@@ -11,7 +11,7 @@ import { AddProblemModal } from "../modals/AddProblemModal.js";
 import {RejudgeProblemModal} from "../modals/RejudgeProblemModal";
 import "./ExamProblems.scss";
 import {TitleLine} from "../../commons/titles/TitleLine";
-import MarkdownEditor from "../../commons/MarkdownEditor";
+import ExamDescriptionEditor from "./ExamDescriptionEditor";
 
 
 const toCharacterIndex = i => {
@@ -166,7 +166,7 @@ const ExamProblems = ({ exams }) => {
 
                 <TitleLine title="Description"/>
 
-                <MarkdownEditor/>
+                <ExamDescriptionEditor problemId={rejudgeProblemId}/>
             </div>
 
             <AddProblemModal

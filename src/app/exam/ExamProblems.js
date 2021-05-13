@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import {useParams, useRouteMatch} from "react-router-dom";
+import { useParams, useRouteMatch } from "react-router-dom";
 
 import "./ExamProblems.scss";
 import { examService } from "../../services/services.js";
@@ -8,10 +8,12 @@ import FakeLink from "../commons/FakeLink.js";
 import { ItemListPage } from "../commons/ItemListPage/ItemListPage.js";
 import { ExamInPageNavigationBar } from "./ExamInPageNavigationBar";
 import { AddProblemModal } from "./modals/AddProblemModal.js";
+import { EditProblemModal } from "./modals/EditProblemModal.js";
 
 const toCharacterIndex = i => {
     return String.fromCharCode(i + 65);
 }
+
 
 const ExamProblems = ({ exams }) => {
     const { url: currentURL } = useRouteMatch()
@@ -20,9 +22,28 @@ const ExamProblems = ({ exams }) => {
     const [problems, setProblems] = useState(null);
 
     const [showAddProblemModal, setShowAddProblemModal] = useState(false);
+    const [showEditProblemModal, setShowEditProblemModal] = useState(false);
+
+    const [editingProblem, setEditingProblem] = useState(null);
+
+    const createThreeDotButton = (problem) => {
+        return (<ThreeDotsButton dropDownItems={[{
+            name: "Edit",
+            dangerous: false,
+            onClick: () => { setEditingProblem(problem); setShowEditProblemModal(true); },
+        }, {
+            name: "Rejudge",
+            dangerous: false,
+            onClick: () => { },
+        }, {
+            name: "Delete",
+            dangerous: true,
+            onClick: () => { },
+        }]} />)
+    }
 
     const refetchExam = () => {
-        examService.getExam(examId).then(exam => {
+        examService.getExamOverview(examId).then(exam => {
             exam.questions.sort((questionA, questionB) => questionA.questionOrder - questionB.questionOrder);
 
             setProblems(exam.questions);
@@ -38,20 +59,11 @@ const ExamProblems = ({ exams }) => {
         return addQuestionPromise;
     };
 
-    const dropDownItems = [{
-        name: "Edit",
-        dangerous: false,
-        onClick: () => { }
-    }, {
-        name: "Rejudge",
-        dangerous: false,
-        onClick: () => { }
-    }, {
-        name: "Delete",
-        dangerous: true,
-        onClick: () => { }
-    }];
-
+    const editProblem = (question) => {
+        const editQuestionPromise = examService.editExamQuestion(question);
+        editQuestionPromise.then(refetchExam);
+        return editQuestionPromise;
+    };
 
     useEffect(() => {
         if (!problems) {
@@ -60,7 +72,7 @@ const ExamProblems = ({ exams }) => {
     });
 
     return (
-        <div class="exam-problems">
+        <div className="exam-problems">
             <ExamInPageNavigationBar
                 currentURL={currentURL}
                 examName={currentExamName}
@@ -75,10 +87,10 @@ const ExamProblems = ({ exams }) => {
                         key: problem => problem.problemId,
                         data: problem => [
                             toCharacterIndex(problem.questionOrder),
-                            (<FakeLink content={problem.problemId} />),
-                            (<div className="text-center">{problem.score}</div>),
+                            (<FakeLink content={`${problem.problemId} ${problem.problemTitle}`} />),
+                            (<div className="text-center">{problem.maxScore}</div>),
                             (<div className="text-center">{problem.quota}</div>),
-                            (<ThreeDotsButton dropDownItems={dropDownItems} />),
+                            createThreeDotButton(problem),
                         ],
                     }}
                     showFilterSearchBar={false}
@@ -95,6 +107,12 @@ const ExamProblems = ({ exams }) => {
                 show={showAddProblemModal}
                 onClose={() => setShowAddProblemModal(false)}
                 onSubmitQuestion={addProblem} />
+
+            <EditProblemModal title={"Edit Question"}
+                show={showEditProblemModal}
+                question={editingProblem}
+                onClose={() => setShowEditProblemModal(false)}
+                onSubmitQuestion={editProblem} />
         </div>
     )
 }

@@ -21,6 +21,11 @@ export class ExamService {
             .then(res => new Exam(res.data));
     }
 
+    async getExamOverview(examId) {
+        return this.axios.get(`/api/exams/${examId}/overview`)
+            .then(res => new Exam(res.data));
+    }
+
     async getExams({status, skip = 0, size = 50}) {
         return this.axios.get(`/api/exams?status=${status}&&skip=${skip}&&size=${size}`)
             .then(res => res.data.map(obj => new Exam(obj)));
@@ -52,6 +57,11 @@ export class ExamService {
     async addExamQuestion(question) {
         const {examId, problemId} = question;
         return this.axios.post(`/api/exams/${examId}/problems/${problemId}`, question).then(res => new Question(res.data));
+    }
+
+    async editExamQuestion(question) {
+        const {examId, problemId} = question;
+        return this.axios.put(`/api/exams/${examId}/problems/${problemId}`, question).then(res => new Question(res.data));
     }
 
     async updateExam(examId, data) {

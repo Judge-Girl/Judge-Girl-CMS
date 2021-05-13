@@ -1,7 +1,7 @@
 
 .exam-problems {
   .container {
-    padding: 40px 15rem 20px 15rem;
+    padding: 40px 10% 20px 10%;
   }
 
   .text-center {
@@ -22,8 +22,23 @@
       color: #FFF;
       font-weight: bold;
       font-size: 20px;
-      line-height: 30px;
+      //line-height: 30px;
 
     }
   }
 }
+
+.waitingForConnection {
+  animation: blinker 2.1s cubic-bezier(.5, 0, 1, 1) infinite alternate;
+}
+@keyframes blinker { to { opacity: 0; } }
+
+.waitingForConnection2 {
+  animation: blinker2 1.7s cubic-bezier(1, 0, 0, 1) infinite alternate;
+}
+@keyframes blinker2 { to { opacity: 0; } }
+
+.waitingForConnection3 {
+  animation: blinker3 1.3s ease-in-out infinite alternate;
+}
+@keyframes blinker3 { to { opacity: 0; } }

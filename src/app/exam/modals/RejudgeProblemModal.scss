@@ -1,0 +1,21 @@
+.rejudge-problem-modal {
+  padding: 20px 0px;
+
+
+
+  .submit-btn {
+    display: flex;
+    flex-direction: row-reverse;
+
+    button {
+      background: #FF8C00;
+      color: #FFFFFF;
+      border-radius: 10px;
+      padding: 7px 10px;
+
+      font-size: 18px;
+      line-height: 27px;
+    }
+  }
+}
+

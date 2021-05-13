@@ -26,7 +26,6 @@ const ExamProblems = ({ exams }) => {
     const [showAddProblemModal, setShowAddProblemModal] = useState(false);
     const [showRejudgeProblemModal, setShowRejudgeProblemModal] = useState(0);
     const [problemIdToTitle, setProblemIdToTitle] = useState(new Map())
-    const [redirectURL, setRedirectURL] = useState()
     const [rejudgeProblemId, setRejudgeProblemId] = useState(0)
     const [showEditProblemModal, setShowEditProblemModal] = useState(false);
 
@@ -48,7 +47,6 @@ const ExamProblems = ({ exams }) => {
     }
 
     useEffect(() => {
-        setRedirectURL(null)
         if (!examProblems) {
             examService.getExam(examId)
                 .then(exam => {
@@ -62,12 +60,11 @@ const ExamProblems = ({ exams }) => {
                     .then(res => setProblemIdToTitle(prev => prev.set(problem.problemId, res.title)))
             })
         }
-    }, [examId, examProblems, redirectURL]);
+    }, [examId, examProblems]);
 
     const editProblem = (problemId) => {
         const editQuestionPromise = examService.editExamQuestion({examId, problemId});
         editQuestionPromise.then(fetchExam);
-        setRedirectURL(`/problems/${problemId}/edit`)
         return editQuestionPromise;
     };
 
@@ -115,11 +112,6 @@ const ExamProblems = ({ exams }) => {
         question.questionOrder = examProblems.length;
         return examService.addExamQuestion(question).then(res => fetchExam(res));
     };
-
-
-    if (redirectURL) {
-        return <Redirect to={redirectURL}/>
-    }
 
     return (
         <div className="exam-problems">

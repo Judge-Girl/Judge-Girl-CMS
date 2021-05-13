@@ -55,7 +55,8 @@ const EditProblemModal = ({ title, show, onClose, onSubmitQuestion, question }) 
             <div className="edit-problem-modal">
                 <form onSubmit={handleFormSubmit} ref={formRef}>
                     <div id="modal" className="font-poppins has-text-centered">
-                        <ModalHeader className="header" title={title} textAlign="left" />
+                        <ModalHeader className="header" title={title}
+                                     style={{ textAlign: "left" }}/>
                         <NoInputField text={"Problem: " + question.problemId + " " + question.problemTitle} />
                         <InputField id="input-score-percentage" type="number" labelText="Score Percentage" value={scorePercentage} placeholder="" onChange={e => setScorePercentage(e.target.value)} />
                         <InputField id="input-submission-quota" type="number" labelText="Submission Quota" value={submissionQuota} placeholder="" onChange={e => setSubmissionQuota(e.target.value)} />

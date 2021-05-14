@@ -11,7 +11,7 @@ const InputField = ({ id, type, labelText, value, placeholder, onChange }) => (
     </div>
 );
 
-const AddProblemModal = ({ title, show, onClose, onSubmitQuestion }) => {
+const AddQuestionModal = ({ title, show, onClose, onSubmitQuestion }) => {
     const closeIconRef = createRef(), formRef = createRef();
     const [problemId, setProblemId] = useState('');
     const [scorePercentage, setScorePercentage] = useState('');
@@ -68,4 +68,4 @@ const AddProblemModal = ({ title, show, onClose, onSubmitQuestion }) => {
 };
 
 
-export { AddProblemModal };
+export { AddQuestionModal };

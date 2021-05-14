@@ -20,13 +20,16 @@ function link(currentPathName, to, name, Icon) {
  *              (3) Icon, the Icon on the tab
  */
 
-const InPageNavigationBar = function ({currentURL, path, tabContents}) {
+const InPageNavigationBar = function ({currentURL, path, tabContents, events}) {
     const secondSlashPos = currentURL.substr(1).indexOf('/')
     const to = currentURL.substr(0, 1+secondSlashPos)
+    const { firstParamResetState } = events
+
     return (
         <div className="in-page-nav-bar">
             <p className="path">
-                <Link to={to}>{path.head}</Link><span> / </span><FakeLink content={path.tail}/>
+                <Link to={to} onClick={() => { firstParamResetState(null) }}>{path.head}</Link>
+                <span> / </span><FakeLink content={path.tail}/>
             </p>
             <div className="tabs">
                 {tabContents?.map(content =>

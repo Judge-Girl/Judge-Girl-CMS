@@ -4,7 +4,7 @@ import {ModalHeader} from "../../commons/modals/ModalHeader";
 import "./RejudgeProblemModal.scss"
 
 
-const RejudgeProblemModal = ({title, show, problemId, problemTitle, onClose, rejudgeProblemId, onConfirmRejudge }) => {
+const RejudgeQuestionModal = ({ show, title, question, onClose, onConfirmRejudge }) => {
     const closeIconRef = createRef(),
           formRef = createRef();
 
@@ -13,7 +13,8 @@ const RejudgeProblemModal = ({title, show, problemId, problemTitle, onClose, rej
         const form = formRef.current;
 
         if (form.checkValidity()) {
-            onConfirmRejudge(problemId)
+            onConfirmRejudge(question.problemId)
+            onClose()
         } else {
             form.reportValidity();
         }
@@ -22,7 +23,7 @@ const RejudgeProblemModal = ({title, show, problemId, problemTitle, onClose, rej
     return renderModal({
         modalClassName: "rejudge-problem-modal",
         modalWidth: "620px",
-        show: show === problemId,
+        show: show,
         onClose, closeIconRef,
         contentRendering: () => (
             <div className="rejudge-problem-modal">
@@ -35,7 +36,7 @@ const RejudgeProblemModal = ({title, show, problemId, problemTitle, onClose, rej
                             All the submissions under this problem will be rejudged.
                         </div>
                         <div className="placeholder mx-6 my-3">
-                            <h1>Problem Title: <span className="data my-1">{problemId} {problemTitle}</span></h1>
+                            <h1>Problem Title: <span className="data my-1">{question.problemId} {question.problemTitle}</span></h1>
                         </div>
                         <div className="submit-btn mx-5">
                             <button className="button" id="add-btn" type="submit">
@@ -50,4 +51,4 @@ const RejudgeProblemModal = ({title, show, problemId, problemTitle, onClose, rej
 };
 
 
-export { RejudgeProblemModal };
+export { RejudgeQuestionModal };

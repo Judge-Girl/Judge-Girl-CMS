@@ -17,7 +17,7 @@ const NoInputField = ({ text }) => (
 );
 
 
-const EditProblemModal = ({ title, show, onClose, onSubmitQuestion, question }) => {
+const EditQuestionModal = ({ title, show, onClose, onSubmitQuestion, question }) => {
     const closeIconRef = createRef(), formRef = createRef();
     const [scorePercentage, setScorePercentage] = useState(question?.maxScore);
     const [submissionQuota, setSubmissionQuota] = useState(question?.quota);
@@ -71,4 +71,4 @@ const EditProblemModal = ({ title, show, onClose, onSubmitQuestion, question }) 
 };
 
 
-export { EditProblemModal };
+export { EditQuestionModal };

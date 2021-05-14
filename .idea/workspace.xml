@@ -4,9 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bf8cb018-72d4-4d32-bc11-a6b2858be79c" name="Default Changelist" comment="Refactor2.">
+    <list default="true" id="bf8cb018-72d4-4d32-bc11-a6b2858be79c" name="Default Changelist" comment="Good.">
+      <change afterPath="$PROJECT_DIR$/src/app/exam/problems/ExamContext.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/commons/IndexBanner/InPageNavigationBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/commons/IndexBanner/InPageNavigationBar.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/exam/ExamInPageNavigationBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/exam/ExamInPageNavigationBar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/problem/list/ProblemList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/problem/list/ProblemList.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/exam/ExamList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/exam/ExamList.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/exam/modals/AddProblemModal.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/exam/modals/AddQuestionModal.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/exam/modals/EditProblemModal.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/exam/modals/EditQuestionModal.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/exam/modals/RejudgeProblemModal.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/exam/modals/RejudgeQuestionModal.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/exam/options/ExamOptions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/exam/options/ExamOptions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/exam/participants/Examinees.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/exam/participants/Examinees.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/exam/problems/ExamProblems.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/exam/problems/ExamQuestions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/exam/problems/ExamProblems.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/exam/problems/ExamQuestions.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/ExamService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/ExamService.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,11 +54,13 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Console Colors" />
     <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
@@ -83,7 +96,7 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="55d91b8e-76aa-4f6d-9d07-1f865a19c1a8" name="Default Changelist" comment="" />
+      <changelist id="bf8cb018-72d4-4d32-bc11-a6b2858be79c" name="Default Changelist" comment="Good." />
       <created>1619523656991</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -96,6 +109,7 @@
       <workItem from="1620125132185" duration="196000" />
       <workItem from="1620125411102" duration="26638000" />
       <workItem from="1620190609151" duration="3896000" />
+      <workItem from="1620991510975" duration="10000" />
     </task>
     <task id="LOCAL-00001" summary="Looks better now.">
       <created>1619529583285</created>
@@ -258,7 +272,14 @@
       <option name="project" value="LOCAL" />
       <updated>1620926536470</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="Good.">
+      <created>1620969920817</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1620969920817</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -299,6 +320,7 @@
     <MESSAGE value="完美的英文叫做 Perfect." />
     <MESSAGE value="Refactor." />
     <MESSAGE value="Refactor: Perfect." />
-    <option name="LAST_COMMIT_MESSAGE" value="Refactor: Perfect." />
+    <MESSAGE value="Good." />
+    <option name="LAST_COMMIT_MESSAGE" value="Good." />
   </component>
 </project>

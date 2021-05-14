@@ -11,9 +11,11 @@ import {ThreeDotsButton} from "../../commons/buttons/ThreeDotsButton";
 import {RemoveConfirmationModal} from "../../commons/modals/RemoveConfirmationModal";
 import {Spinner} from "../../commons/Spinner";
 import {removeIf} from "../../../utils/array";
+import {useExamContext} from "../problems/ExamContext";
 
 const Examinees = () => {
     const { url: currentURL } = useRouteMatch();
+    const { setCurrentExam } = useExamContext()
     const { examId } = useParams();
     const [examinees, setExaminees] = useState(undefined);
     const [selectedExaminee, setSelectedExaminee] = useState(undefined);

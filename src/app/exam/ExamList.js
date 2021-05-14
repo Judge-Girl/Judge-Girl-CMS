@@ -42,8 +42,8 @@ const ExamList = () => {
         )
     }
 
-    if (!currentExam) {
-        return (
+    return (
+        <>
             <Route path="/exams" exact>
                 <div className="container font-poppins">
                     <ItemListPage title="Exam List"
@@ -59,7 +59,7 @@ const ExamList = () => {
                                           exam?.id,
                                           <Link to={`/exams/${exam.id}/students`}
                                                 onClick={() => {
-                                                  setCurrentExam(exams.find(_exam => _exam.id === exam.id))
+                                                    setCurrentExam(exams.find(_exam => _exam.id === exam.id))
                                                 }}>
                                               {exam.name}
                                           </Link>,
@@ -73,12 +73,7 @@ const ExamList = () => {
                                      onExamCreated={exam => addExam(exam)}/>
                 </div>
             </Route>
-        )
-    }
-
-    return (
-        <div>
-            <ExamContext.Provider value={{ currentExam, setCurrentExam }}>
+            <ExamContext.Provider value={{currentExam, setCurrentExam}}>
                 <Route path="/exams/:examId/problems">
                     <ExamQuestions/>
                 </Route>
@@ -89,7 +84,7 @@ const ExamList = () => {
                     <ExamOptions/>
                 </Route>
             </ExamContext.Provider>
-        </div>
+        </>
     )
 };
 

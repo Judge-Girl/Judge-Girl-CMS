@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bf8cb018-72d4-4d32-bc11-a6b2858be79c" name="Default Changelist" comment="Refactor.">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="bf8cb018-72d4-4d32-bc11-a6b2858be79c" name="Default Changelist" comment="Refactor3." />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -98,6 +96,7 @@
       <workItem from="1620125411102" duration="26638000" />
       <workItem from="1620190609151" duration="3896000" />
       <workItem from="1620991510975" duration="10000" />
+      <workItem from="1620994968840" duration="273000" />
     </task>
     <task id="LOCAL-00001" summary="Looks better now.">
       <created>1619529583285</created>
@@ -267,7 +266,21 @@
       <option name="project" value="LOCAL" />
       <updated>1620969920817</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="Refactor2.">
+      <created>1620995088738</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1620995088738</updated>
+    </task>
+    <task id="LOCAL-00026" summary="Refactor3.">
+      <created>1620995206808</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1620995206808</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -295,7 +308,6 @@
     <MESSAGE value="Remove redundant." />
     <MESSAGE value="Save before pull." />
     <MESSAGE value="Resolved problems in PR review." />
-    <MESSAGE value="Refactor3." />
     <MESSAGE value="Refactor4." />
     <MESSAGE value="Fixed all bugs mentioned in PR. TODO: API connection." />
     <MESSAGE value="Examinees and ExamList work correctly; InPageNavigationBar has real link." />
@@ -303,12 +315,13 @@
     <MESSAGE value="Beautify." />
     <MESSAGE value="PRPRPR." />
     <MESSAGE value="Refactor1." />
-    <MESSAGE value="Refactor2." />
     <MESSAGE value="Resolve PR problem 1." />
     <MESSAGE value="完美的英文叫做 Perfect." />
     <MESSAGE value="Refactor." />
     <MESSAGE value="Refactor: Perfect." />
     <MESSAGE value="Good." />
-    <option name="LAST_COMMIT_MESSAGE" value="Good." />
+    <MESSAGE value="Refactor2." />
+    <MESSAGE value="Refactor3." />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactor3." />
   </component>
 </project>

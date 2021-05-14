@@ -1,5 +1,5 @@
 import {InPageNavigationBar} from "../commons/IndexBanner/InPageNavigationBar";
-import {AiOutlineSetting, FaRegEdit, FaUserFriends} from "react-icons/all";
+import {AiOutlineSetting, FaRegCircle, FaRegEdit, FaUserFriends} from "react-icons/all";
 import {useExamContext} from "./problems/ExamContext";
 
 const ExamInPageNavigationBar = function ({currentURL, examName, examId}) {
@@ -22,6 +22,11 @@ const ExamInPageNavigationBar = function ({currentURL, examName, examId}) {
                                      to: `/exams/${examId}/students`,
                                      name: 'Examinees',
                                      icon: FaUserFriends
+                                 },
+                                 {
+                                     to: `/exams/${examId}/score`,
+                                     name: 'Score',
+                                     icon: FaRegCircle
                                  },
                                  {
                                      to: `/exams/${examId}/options`,

@@ -12,6 +12,7 @@ import {ExamOptions} from "./options/ExamOptions";
 import './ExamList.css';
 import {Spinner} from "../commons/Spinner";
 import {ExamContext} from "./problems/ExamContext";
+import ExamScore from "./score/ExamScore";
 
 
 export const useExamList = () => {
@@ -76,6 +77,9 @@ const ExamList = () => {
             <ExamContext.Provider value={{currentExam, setCurrentExam}}>
                 <Route path="/exams/:examId/problems">
                     <ExamQuestions/>
+                </Route>
+                <Route path="/exams/:examId/score">
+                    <ExamScore/>
                 </Route>
                 <Route path="/exams/:examId/students">
                     <Examinees/>

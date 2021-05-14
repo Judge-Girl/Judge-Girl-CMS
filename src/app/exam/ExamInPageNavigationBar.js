@@ -1,13 +1,17 @@
 import {InPageNavigationBar} from "../commons/IndexBanner/InPageNavigationBar";
 import {AiOutlineSetting, FaRegEdit, FaUserFriends} from "react-icons/all";
+import {useExamContext} from "./problems/ExamContext";
 
 const ExamInPageNavigationBar = function ({currentURL, examName, examId}) {
+    const { setCurrentExam: firstParamResetState } = useExamContext()
+
     return (
         <InPageNavigationBar currentURL={currentURL}
                              path={{
                                  head: "Exam",
                                  tail: examName
                              }}
+                             events={{ firstParamResetState }}
                              tabContents={[
                                  {
                                      to: `/exams/${examId}/problems`,
@@ -16,7 +20,7 @@ const ExamInPageNavigationBar = function ({currentURL, examName, examId}) {
                                  },
                                  {
                                      to: `/exams/${examId}/students`,
-                                     name: 'Participants',
+                                     name: 'Examinees',
                                      icon: FaUserFriends
                                  },
                                  {

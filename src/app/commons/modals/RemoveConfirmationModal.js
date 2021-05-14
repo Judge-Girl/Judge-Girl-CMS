@@ -28,7 +28,7 @@ const RemoveConfirmationModal = ({title, data, show, onClose, onSubmit}) => {
         contentRendering: () => (
             <form onSubmit={e => handleSubmit(e)} ref={formRef}>
                 <div id="modal" className="font-poppins has-text-centered">
-                    <ModalHeader className="header" title={title} textAlign="center"/>
+                    <ModalHeader className="header" title={title} style={{textAlign: "center"}}/>
                     {
                         data?.map(item =>
                             <p key={item.title}>{item.title}: {item.value}</p>

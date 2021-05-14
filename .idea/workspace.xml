@@ -4,8 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="55d91b8e-76aa-4f6d-9d07-1f865a19c1a8" name="Default Changelist" comment="Refactor2.">
-      <change beforePath="$PROJECT_DIR$/src/services/ProblemService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/ProblemService.js" afterDir="false" />
+    <list default="true" id="bf8cb018-72d4-4d32-bc11-a6b2858be79c" name="Default Changelist" comment="Refactor3.">
+      <change beforePath="$PROJECT_DIR$/src/app/commons/IndexBanner/InPageNavigationBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/commons/IndexBanner/InPageNavigationBar.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,11 +42,13 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Console Colors" />
     <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
@@ -82,7 +84,7 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="55d91b8e-76aa-4f6d-9d07-1f865a19c1a8" name="Default Changelist" comment="" />
+      <changelist id="bf8cb018-72d4-4d32-bc11-a6b2858be79c" name="Default Changelist" comment="Good." />
       <created>1619523656991</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -95,6 +97,8 @@
       <workItem from="1620125132185" duration="196000" />
       <workItem from="1620125411102" duration="26638000" />
       <workItem from="1620190609151" duration="3896000" />
+      <workItem from="1620991510975" duration="10000" />
+      <workItem from="1620994968840" duration="273000" />
     </task>
     <task id="LOCAL-00001" summary="Looks better now.">
       <created>1619529583285</created>
@@ -236,7 +240,49 @@
       <option name="project" value="LOCAL" />
       <updated>1620371623280</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="Resolve PR problem 1.">
+      <created>1620925073030</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1620925073030</updated>
+    </task>
+    <task id="LOCAL-00022" summary="完美的英文叫做 Perfect.">
+      <created>1620926043295</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1620926043295</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Refactor: Perfect.">
+      <created>1620926536470</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1620926536470</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Good.">
+      <created>1620969920817</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1620969920817</updated>
+    </task>
+    <task id="LOCAL-00025" summary="Refactor2.">
+      <created>1620995088738</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1620995088738</updated>
+    </task>
+    <task id="LOCAL-00026" summary="Refactor3.">
+      <created>1620995206808</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1620995206808</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -264,16 +310,20 @@
     <MESSAGE value="Remove redundant." />
     <MESSAGE value="Save before pull." />
     <MESSAGE value="Resolved problems in PR review." />
-    <MESSAGE value="Refactor3." />
     <MESSAGE value="Refactor4." />
     <MESSAGE value="Fixed all bugs mentioned in PR. TODO: API connection." />
     <MESSAGE value="Examinees and ExamList work correctly; InPageNavigationBar has real link." />
     <MESSAGE value="Now it works." />
-    <MESSAGE value="Refactor." />
     <MESSAGE value="Beautify." />
     <MESSAGE value="PRPRPR." />
     <MESSAGE value="Refactor1." />
+    <MESSAGE value="Resolve PR problem 1." />
+    <MESSAGE value="完美的英文叫做 Perfect." />
+    <MESSAGE value="Refactor." />
+    <MESSAGE value="Refactor: Perfect." />
+    <MESSAGE value="Good." />
     <MESSAGE value="Refactor2." />
-    <option name="LAST_COMMIT_MESSAGE" value="Refactor2." />
+    <MESSAGE value="Refactor3." />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactor3." />
   </component>
 </project>

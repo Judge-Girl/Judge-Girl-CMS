@@ -29,7 +29,10 @@ const CreateGroupModal = ({show, onClose, onGroupCreated}) => {
         contentRendering: () => (
             <form onSubmit={handleSubmit} ref={formRef}>
                 <div id="modal" className="p-5 has-text-centered">
-                    <ModalHeader title="Create New Group" textAlign="center"/>
+                    <ModalHeader title="Create New Group"
+                                 style={{
+                                     textAlign: "center"
+                                 }}/>
                     <ModalInput type="text" value={name}
                                 placeholder="Group Name" placeholderTextAlign="center"
                                 height="54px" fontSize="25px"

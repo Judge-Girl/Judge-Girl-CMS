@@ -6,11 +6,12 @@ import {ItemListPage} from "../commons/ItemListPage/ItemListPage";
 import {CreateButton} from "../commons/buttons/CreateButton";
 import {displayDate} from "../../utils/utils";
 import {CreateExamModal} from "./modals/CreateExamModal";
-import {Examinees} from "./Examinees";
-import ExamProblems from "./ExamProblems";
+import {Examinees} from "./participants/Examinees";
+import ExamQuestions from "./problems/ExamQuestions";
 import {ExamOptions} from "./options/ExamOptions";
 import './ExamList.css';
 import {Spinner} from "../commons/Spinner";
+import {ExamContext} from "./problems/ExamContext";
 
 
 export const useExamList = () => {
@@ -26,6 +27,7 @@ export const useExamList = () => {
 const ExamList = () => {
     const [showCreateExamModal, setShowCreateExamModal] = useState(false);
     const {exams, setExams, addExam} = useExamList();
+    const [currentExam, setCurrentExam] = useState(null);
 
     useEffect(() => {
         if (!exams || exams.length === 0) {
@@ -41,7 +43,7 @@ const ExamList = () => {
     }
 
     return (
-        <div style={{padding: "20px 100px 20px 100px"}}>
+        <>
             <Route path="/exams" exact>
                 <div className="container font-poppins">
                     <ItemListPage title="Exam List"
@@ -55,7 +57,12 @@ const ExamList = () => {
                                       key: (exam) => exam.id,
                                       data: (exam) => [
                                           exam?.id,
-                                          <Link to={`/exams/${exam.id}/students`}>{exam.name}</Link>,
+                                          <Link to={`/exams/${exam.id}/students`}
+                                                onClick={() => {
+                                                    setCurrentExam(exams.find(_exam => _exam.id === exam.id))
+                                                }}>
+                                              {exam.name}
+                                          </Link>,
                                           displayDate(exam?.startTime),
                                           displayDate(exam?.endTime),
                                       ]
@@ -66,16 +73,18 @@ const ExamList = () => {
                                      onExamCreated={exam => addExam(exam)}/>
                 </div>
             </Route>
-            <Route path="/exams/:examId/problems">
-                <ExamProblems exams={exams}/>
-            </Route>
-            <Route path="/exams/:examId/students">
-                <Examinees />
-            </Route>
-            <Route path="/exams/:examId/options">
-                <ExamOptions exams={exams}/>
-            </Route>
-        </div>
+            <ExamContext.Provider value={{currentExam, setCurrentExam}}>
+                <Route path="/exams/:examId/problems">
+                    <ExamQuestions/>
+                </Route>
+                <Route path="/exams/:examId/students">
+                    <Examinees/>
+                </Route>
+                <Route path="/exams/:examId/options">
+                    <ExamOptions/>
+                </Route>
+            </ExamContext.Provider>
+        </>
     )
 };
 

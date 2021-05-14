@@ -9,12 +9,13 @@ import {UpdateChangeButton} from "./UpdateChangeButton";
 import {examService} from "../../../services/services";
 import {formatDate} from "../../../utils/utils";
 import './ExamOptions.scss';
+import {useExamContext} from "../problems/ExamContext";
 
 
-const ExamOptions = ({exams}) => {
+const ExamOptions = () => {
     const { url: currentURL } = useRouteMatch()
+    const { currentExam } = useExamContext()
     const { examId } = useParams()
-    const currentExam = exams.find(exam => exam.id === parseInt(examId))
     const [examName, setExamName] = useState(currentExam.name)
     const [startTime, setStartTime] = useState(formatDate(currentExam.startTime))
     const [endTime, setEndTime] = useState(formatDate(currentExam.endTime))
@@ -46,7 +47,7 @@ const ExamOptions = ({exams}) => {
                 currentURL={currentURL}
                 examName={currentExam.name}
                 examId={examId}/>
-            <div style={{padding: "40px 100px 20px 100px"}}>
+            <div style={{padding: "40px 10% 20px 10%"}}>
                 <TitleLine title={"Options"}/>
                 <div className="columns exam-options">
                     <div className="column is-narrow" style={{width: "450px"}}>

@@ -1,0 +1,42 @@
+
+.exam-questions {
+  .container {
+    padding: 40px 10% 20px 10%;
+  }
+
+  .text-center {
+    text-align: center;
+  }
+
+  .add-question-btn {
+    background-color: #7ECA1D;
+    box-shadow: 1px 3px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 50px;
+    float: right;
+    display: inline;
+    margin: 1rem 0;
+    padding: 5px 20px;
+    cursor: pointer;
+
+    span {
+      color: #FFF;
+      font-weight: bold;
+      font-size: 20px;
+    }
+  }
+}
+
+.waitingForConnection {
+  animation: blinker 2.1s cubic-bezier(.5, 0, 1, 1) infinite alternate;
+}
+@keyframes blinker { to { opacity: 0; } }
+
+.waitingForConnection2 {
+  animation: blinker2 1.7s cubic-bezier(1, 0, 0, 1) infinite alternate;
+}
+@keyframes blinker2 { to { opacity: 0; } }
+
+.waitingForConnection3 {
+  animation: blinker3 1.3s ease-in-out infinite alternate;
+}
+@keyframes blinker3 { to { opacity: 0; } }

@@ -1,16 +1,17 @@
 import React, {useEffect, useState} from "react";
 import {useParams, useRouteMatch} from "react-router-dom";
-import {ExamInPageNavigationBar} from "./ExamInPageNavigationBar"
-import FakeLink from "../commons/FakeLink";
-import {examService} from "../../services/services";
-import {ItemListPage} from "../commons/ItemListPage/ItemListPage";
-import {DropDownBtn} from "../commons/buttons/DropDownButton";
+import {ExamInPageNavigationBar} from "../ExamInPageNavigationBar"
+import FakeLink from "../../commons/FakeLink";
+import {examService} from "../../../services/services";
+import {ItemListPage} from "../../commons/ItemListPage/ItemListPage";
+import {DropDownBtn} from "../../commons/buttons/DropDownButton";
 import {AiOutlineMail, AiOutlineUsergroupAdd} from "react-icons/ai";
-import {TextareaModal} from "../commons/modals/TextareaModal";
-import {ThreeDotsButton} from "../commons/buttons/ThreeDotsButton";
-import {RemoveConfirmationModal} from "../commons/modals/RemoveConfirmationModal";
-import {Spinner} from "../commons/Spinner";
-import {removeIf} from "../../utils/array";
+import {TextareaModal} from "../../commons/modals/TextareaModal";
+import {ThreeDotsButton} from "../../commons/buttons/ThreeDotsButton";
+import {RemoveConfirmationModal} from "../../commons/modals/RemoveConfirmationModal";
+import {Spinner} from "../../commons/Spinner";
+import {removeIf} from "../../../utils/array";
+
 
 const Examinees = () => {
     const { url: currentURL } = useRouteMatch();
@@ -34,16 +35,17 @@ const Examinees = () => {
         }
     }, [exam, examId, examinees]);
 
-    const actionItemsButton = ({examinee}) => new ThreeDotsButton({
-        dropDownItems: [{
-            name: "Remove",
-            dangerous: true,
-            onClick: () => {
-                setShowRemoveExamineeConfirmationModal(true)
-                setSelectedExaminee(examinee)
-            }
-        }]
-    })
+    const actionItemsButton = ({examinee}) =>
+        <ThreeDotsButton dropDownItems={[
+            {
+                name: "Remove",
+                dangerous: true,
+                onClick: () => {
+                    setShowRemoveExamineeConfirmationModal(true)
+                    setSelectedExaminee(examinee)
+                }
+            },
+        ]}/>
 
     const addExaminees = async (emails) => {
         await examService.addExaminees(exam.id, emails)
@@ -84,7 +86,7 @@ const Examinees = () => {
             <ExamInPageNavigationBar currentURL={currentURL}
                                      examName={exam.name}
                                      examId={examId}/>
-            <div style={{padding: "40px 15rem 20px 15rem"}}>
+            <div style={{padding: "40px 25% 20px 25%"}}>
                 <ItemListPage title="Examinees"
                               filterItems={["Filter", "Name", "Email"]}
                               Button={() => new DropDownBtn({

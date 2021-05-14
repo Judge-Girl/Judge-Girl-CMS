@@ -14,7 +14,7 @@ import {useExamContext} from "../problems/ExamContext";
 
 const ExamOptions = () => {
     const { url: currentURL } = useRouteMatch()
-    const { currentExam, setCurrentExam } = useExamContext()
+    const { currentExam } = useExamContext()
     const { examId } = useParams()
     const [examName, setExamName] = useState(currentExam.name)
     const [startTime, setStartTime] = useState(formatDate(currentExam.startTime))

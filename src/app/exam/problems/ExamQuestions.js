@@ -19,7 +19,7 @@ const toCharacterIndex = i => {
 
 const ExamQuestions = () => {
     const { url: currentURL } = useRouteMatch()
-    const { currentExam, setCurrentExam } = useExamContext()
+    const { currentExam } = useExamContext()
     const examId = currentExam.id
     const [examQuestions, setExamQuestions] = useState(null);
 

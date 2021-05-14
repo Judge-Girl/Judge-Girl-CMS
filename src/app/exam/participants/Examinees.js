@@ -15,7 +15,6 @@ import {useExamContext} from "../problems/ExamContext";
 
 const Examinees = () => {
     const { url: currentURL } = useRouteMatch();
-    const { setCurrentExam } = useExamContext()
     const { examId } = useParams();
     const [examinees, setExaminees] = useState(undefined);
     const [selectedExaminee, setSelectedExaminee] = useState(undefined);

@@ -4,11 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bf8cb018-72d4-4d32-bc11-a6b2858be79c" name="Default Changelist" comment="Refactor: Perfect.">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/commons/modals/ModalHeader.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/commons/modals/ModalHeader.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/exam/modals/RejudgeProblemModal.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/exam/modals/RejudgeProblemModal.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/exam/modals/RejudgeProblemModal.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/exam/modals/RejudgeProblemModal.scss" afterDir="false" />
+    <list default="true" id="bf8cb018-72d4-4d32-bc11-a6b2858be79c" name="Default Changelist" comment="Refactor2.">
+      <change beforePath="$PROJECT_DIR$/src/app/exam/ExamInPageNavigationBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/exam/ExamInPageNavigationBar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/problem/list/ProblemList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/problem/list/ProblemList.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

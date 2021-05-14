@@ -57,7 +57,8 @@ const ProblemList = () => {
                                       <FakeLink content={problem.title}/>,
                                       <span className="tag is-link">Functions</span>
                                   ]
-                              }}/>
+                              }}
+                              tableDataStyle={{ textAlign: "left" }}/>
                 <CreateProblemModal show={showCreateProblemModal}
                                     onClose={() => setShowCreateProblemModal(false)}
                                     onProblemCreated={onProblemCreated}/>

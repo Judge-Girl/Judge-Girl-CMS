@@ -16,7 +16,7 @@ const ExamInPageNavigationBar = function ({currentURL, examName, examId}) {
                                  },
                                  {
                                      to: `/exams/${examId}/students`,
-                                     name: 'Participants',
+                                     name: 'Examinees',
                                      icon: FaUserFriends
                                  },
                                  {

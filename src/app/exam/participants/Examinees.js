@@ -82,11 +82,11 @@ const Examinees = () => {
     }
 
     return (
-        <div>
+        <div className="examinees">
             <ExamInPageNavigationBar currentURL={currentURL}
                                      examName={exam.name}
                                      examId={examId}/>
-            <div style={{padding: "40px 25% 20px 25%"}}>
+            <div style={{padding: "20px 10% 20px 10%"}}>
                 <ItemListPage title="Examinees"
                               filterItems={["Filter", "Name", "Email"]}
                               Button={() => new DropDownBtn({

@@ -1,6 +1,4 @@
-<<<<<<< HEAD
-=======
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {Redirect, useParams, useRouteMatch} from "react-router-dom";
 import { Map } from "immutable"
 
@@ -12,6 +10,8 @@ import { ExamInPageNavigationBar } from "../ExamInPageNavigationBar";
 import { AddProblemModal } from "../modals/AddProblemModal.js";
 import {RejudgeProblemModal} from "../modals/RejudgeProblemModal";
 import "./ExamProblems.scss";
+import {TitleLine} from "../../commons/titles/TitleLine";
+import MarkdownEditor from "../../commons/MarkdownEditor";
 
 
 const toCharacterIndex = i => {
@@ -111,7 +111,7 @@ const ExamProblems = ({ exams }) => {
                 currentURL={currentURL}
                 examName={currentExamName}
                 examId={examId} />
-            <div className="container" style={{whiteSpace: "nowrap"}}>
+            <div style={{padding: "20px 10% 20px 10%", whiteSpace: "nowrap"}}>
                 <ItemListPage
                     title="Problems"
                     tableHeaders={["#", "Problem ID", "Problem Title", "Score %", "Sub. Quota", " "]}
@@ -161,6 +161,12 @@ const ExamProblems = ({ exams }) => {
                 <div className="add-problem-btn" onClick={() => setShowAddProblemModal(true)}>
                     <span>Add New Problem</span>
                 </div>
+
+                <br/><br/><br/>
+
+                <TitleLine title="Description"/>
+
+                <MarkdownEditor/>
             </div>
 
             <AddProblemModal
@@ -174,4 +180,3 @@ const ExamProblems = ({ exams }) => {
 
 
 export default ExamProblems;
->>>>>>> f6a0b4e (Refactor4.)

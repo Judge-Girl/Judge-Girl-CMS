@@ -1,8 +1,8 @@
 import React, {useState} from "react";
 import ReactMarkdown from "react-markdown";
-import './MarkdwonEditor.scss';
 import {EditorButton} from "../problem/edit/EditorButton";
 import {problemService} from "../../services/services";
+import './MarkdwonEditor.scss';
 
 function Tabs({textareaVal, setTextareaVal}) {
     const [toggleState, setToggleState] = useState(1);
@@ -53,7 +53,7 @@ function Tabs({textareaVal, setTextareaVal}) {
     );
 }
 
-function MarkdownEditor({problemId}) {
+const MarkdownEditor = () => {
     // TODO: problemService.getProblemDescription
     const [editingState, setEditingState] = useState(false);
     const [textareaVal, setTextareaVal] = useState('Press Edit Description to start writing the description. Styling with Markdown is supported.\n');
@@ -68,7 +68,7 @@ function MarkdownEditor({problemId}) {
 
         setEditingState(false);
 
-        problemService.modifyProblemDescription(problemId, textareaVal)
+        problemService.modifyProblemDescription(0, textareaVal)
             .then(() => console.log("The problem's description has been modified"));
     };
 

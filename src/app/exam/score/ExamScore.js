@@ -3,7 +3,7 @@ import {ItemListPage} from "../../commons/ItemListPage/ItemListPage";
 import FakeLink from "../../commons/FakeLink";
 import {ThreeDotsButton} from "../../commons/buttons/ThreeDotsButton";
 import {useParams, useRouteMatch} from "react-router-dom";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {examService} from "../../../services/services";
 
 
@@ -63,7 +63,7 @@ const ExamScore = ({ exams }) => {
                 currentURL={currentURL}
                 examName={currentExamName}
                 examId={examId} />
-            <div className="container">
+            <div style={{ padding: "20px 10% 20px 10%" }}>
                 <div className="columns">
                     <div className="column is-one-fifth mt-6">
                         <div className="card" style={{ width: "200px" }}>

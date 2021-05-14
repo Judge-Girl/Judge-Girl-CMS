@@ -64,31 +64,30 @@ const ExamScore = ({ exams }) => {
                 examName={currentExamName}
                 examId={examId} />
             <div style={{ padding: "20px 10% 20px 10%" }}>
-                <div className="columns">
-                    <div className="column is-one-fifth mt-6">
+                <div className="columns mt-2">
+                    <div className="mt-4" style={{ width: "15%", textAlign: "center" }}>
                         <div className="card" style={{ width: "200px" }}>
                             <div className="card-content">
-                                <div className="content">
-                                    Average Score: <span>75.5/100</span>
+                                <div className="content" style={{ color: "#0B5286" }}>
+                                    <span style={{ fontSize: "20px" }}>Average Score</span>
                                     <br/>
-
+                                    <span style={{ fontSize: "50px" }}>75.5</span>/100
                                 </div>
                             </div>
                         </div>
                         <br/>
                         <div className="card" style={{ width: "200px" }}>
                             <div className="card-content">
-                                <div className="content">
-                                    Average Score: <span>75.5/100</span>
+                                <div className="content" style={{ color: "#0B5286" }}>
+                                    <span style={{ fontSize: "20px" }}># of Examinees</span>
                                     <br/>
-
+                                    <span style={{ fontSize: "50px" }}>65</span>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div className="column is-three-fifths">
+                    <div style={{ width: "70%" }}>
                         <ItemListPage
-                            title="Participants"
                             tableHeaders={["Name", "A", "B", "C", "D", "E", "Total score"]}
                             tableRowGenerator={{
                                 list: examinees,

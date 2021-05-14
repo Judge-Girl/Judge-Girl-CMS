@@ -33,9 +33,9 @@ const ExamList = () => {
     useEffect(() => {
         if (!exams || exams.length === 0) {
             examService.getExams({status: EXAM_STATUSES.ALL})
-                .then(exams => setExams(exams));
+                .then(exams => setExams(exams))
         }
-    });
+    }, [exams, setExams]);
 
     if (!exams) {
         return (
@@ -46,32 +46,34 @@ const ExamList = () => {
     return (
         <>
             <Route path="/exams" exact>
-                <div className="container font-poppins">
-                    <ItemListPage title="Exam List"
-                                  filterItems={["Filter", "Id", "name"]}
-                                  Button={() => new CreateButton({
-                                      onCreateButtonClick: () => setShowCreateExamModal(true)
-                                  })}
-                                  tableHeaders={["#", "Exam Name", "Start Time", "End Time"]}
-                                  tableRowGenerator={{
-                                      list: exams,
-                                      key: (exam) => exam.id,
-                                      data: (exam) => [
-                                          exam?.id,
-                                          <Link to={`/exams/${exam.id}/students`}
-                                                onClick={() => {
-                                                    setCurrentExam(exams.find(_exam => _exam.id === exam.id))
-                                                }}>
-                                              {exam.name}
-                                          </Link>,
-                                          displayDate(exam?.startTime),
-                                          displayDate(exam?.endTime),
-                                      ]
-                                  }}/>
+                <div style={{padding: "20px 100px"}}>
+                    <div className="container font-poppins">
+                        <ItemListPage title="Exam List"
+                                      filterItems={["Filter", "Id", "name"]}
+                                      Button={() => new CreateButton({
+                                          onCreateButtonClick: () => setShowCreateExamModal(true)
+                                      })}
+                                      tableHeaders={["#", "Exam Name", "Start Time", "End Time"]}
+                                      tableRowGenerator={{
+                                          list: exams,
+                                          key: (exam) => exam.id,
+                                          data: (exam) => [
+                                              exam?.id,
+                                              <Link to={`/exams/${exam.id}/students`}
+                                                    onClick={() => {
+                                                        setCurrentExam(exams.find(_exam => _exam.id === exam.id))
+                                                    }}>
+                                                  {exam.name}
+                                              </Link>,
+                                              displayDate(exam?.startTime),
+                                              displayDate(exam?.endTime),
+                                          ]
+                                      }}/>
 
-                    <CreateExamModal show={showCreateExamModal}
-                                     onClose={() => setShowCreateExamModal(false)}
-                                     onExamCreated={exam => addExam(exam)}/>
+                        <CreateExamModal show={showCreateExamModal}
+                                         onClose={() => setShowCreateExamModal(false)}
+                                         onExamCreated={exam => addExam(exam)}/>
+                    </div>
                 </div>
             </Route>
             <ExamContext.Provider value={{currentExam, setCurrentExam}}>

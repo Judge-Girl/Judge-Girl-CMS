@@ -2,25 +2,19 @@ import {ExamInPageNavigationBar} from "../ExamInPageNavigationBar";
 import {ItemListPage} from "../../commons/ItemListPage/ItemListPage";
 import FakeLink from "../../commons/FakeLink";
 import {ThreeDotsButton} from "../../commons/buttons/ThreeDotsButton";
-import {useParams, useRouteMatch} from "react-router-dom";
+import {Redirect, useParams, useRouteMatch} from "react-router-dom";
 import React, {useEffect, useState} from "react";
-import {examService} from "../../../services/services";
+import {useExamContext} from "../problems/ExamContext";
 
 
-const ExamScore = ({ exams }) => {
+const ExamScore = () => {
     const { url: currentURL } = useRouteMatch()
     const { examId } = useParams()
-    const currentExamName = exams.find(exam => exam.id === parseInt(examId))?.name
+    const { currentExam } = useExamContext()
     const [examinees, setExaminees] = useState([])
     const [averageScore, setAverageScore] = useState(0.0)
 
     useEffect(() => {
-        examService.getExam(examId)
-            .then(exam => {
-                console.log(exam)
-            });
-        // problemService.getProblemById(problem.problemId)
-        //     .then(res => setProblemId2Title(prev => prev.set(problem.problemId, res.title)))
         setExaminees([
             {
                 studentId: "R09922111",
@@ -54,11 +48,16 @@ const ExamScore = ({ exams }) => {
         }
     }];
 
+    if (!currentExam) {
+        console.log("DEBUG------0515", currentURL)
+        return <Redirect to={currentURL}/>
+    }
+
     return (
         <div className="exam-score">
             <ExamInPageNavigationBar
                 currentURL={currentURL}
-                examName={currentExamName}
+                examName={currentExam.name}
                 examId={examId} />
             <div style={{ padding: "20px 10% 20px 10%" }}>
                 <div className="columns mt-2">
@@ -85,7 +84,7 @@ const ExamScore = ({ exams }) => {
                     </div>
                     <div style={{ width: "70%" }}>
                         <ItemListPage
-                            tableHeaders={["Name", "A", "B", "C", "D", "E", "Total score", ""]}
+                            tableHeaders={["Name", "A", "B", "C", "D", "E", "Total score"]}
                             tableRowGenerator={{
                                 list: examinees,
                                 key: examinee => examinee.studentId,
@@ -98,11 +97,11 @@ const ExamScore = ({ exams }) => {
                                         <FakeLink content={examinee.D} />,
                                         <FakeLink content={examinee.E} />,
                                         <FakeLink content={examinee.totalScore} />,
-                                        // <div style={{width: "20px", height: "28px"}}>
+
                                         <div style={{ textAlign: "middle" }}>
                                             <ThreeDotsButton dropDownItems={dropDownItems(examinee.studentId)}/>
                                         </div>
-                                        // </div>
+
                                     ]
                                 },
                             }}
@@ -111,7 +110,6 @@ const ExamScore = ({ exams }) => {
                                 textAlign: "left",
                                 verticalAlign: "middle",
                                 height: "50px",
-                                // tableLayout: "fixed"
                             }}
                         />
                     </div>

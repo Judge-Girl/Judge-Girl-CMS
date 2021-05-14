@@ -11,29 +11,29 @@ import {ThreeDotsButton} from "../../commons/buttons/ThreeDotsButton";
 import {RemoveConfirmationModal} from "../../commons/modals/RemoveConfirmationModal";
 import {Spinner} from "../../commons/Spinner";
 import {removeIf} from "../../../utils/array";
+import {useExamContext} from "../problems/ExamContext";
 
 
 const Examinees = () => {
     const { url: currentURL } = useRouteMatch();
     const { examId } = useParams();
+    const { currentExam: currentExam, refetchExam } = useExamContext()
     const [examinees, setExaminees] = useState(undefined);
     const [selectedExaminee, setSelectedExaminee] = useState(undefined);
-    const [exam, setExam] = useState(undefined);
     const [showAddStudentModal, setShowAddStudentModal] = useState(false);
     const [showAddGroupModal, setShowAddGroupModal] = useState(false);
 
     const [showRemoveExamineeConfirmationModal, setShowRemoveExamineeConfirmationModal] = useState(false);
 
     useEffect(() => {
-        if (!exam) {
-            examService.getExam(examId)
-                .then(exam => setExam(exam))
+        if (!currentExam) {
+            refetchExam(examId)
         }
-        if (!examinees && exam) {
+        if (!examinees && currentExam) {
             examService.getExaminees(examId)
                 .then(students => setExaminees(students));
         }
-    }, [exam, examId, examinees]);
+    }, [currentExam, examId, examinees]);
 
     const actionItemsButton = ({examinee}) =>
         <ThreeDotsButton dropDownItems={[
@@ -48,7 +48,7 @@ const Examinees = () => {
         ]}/>
 
     const addExaminees = async (emails) => {
-        await examService.addExaminees(exam.id, emails)
+        await examService.addExaminees(currentExam.id, emails)
             .then(errorList => {
                 // TODO: the error should be handled in the future
                 console.log(`errorList=${errorList}`);
@@ -77,14 +77,14 @@ const Examinees = () => {
         setExaminees(examinees)
     }
 
-    if (!exam) {
+    if (!currentExam) {
         return <Spinner/>
     }
 
     return (
         <div className="examinees">
             <ExamInPageNavigationBar currentURL={currentURL}
-                                     examName={exam.name}
+                                     examName={currentExam.name}
                                      examId={examId}/>
             <div style={{padding: "20px 10% 20px 10%"}}>
                 <ItemListPage title="Examinees"

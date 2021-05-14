@@ -5,41 +5,43 @@ import {ThreeDotsButton} from "../../commons/buttons/ThreeDotsButton";
 import {Redirect, useParams, useRouteMatch} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import {useExamContext} from "../problems/ExamContext";
+import {Spinner} from "../../commons/Spinner";
 
 
 const ExamScore = () => {
     const { url: currentURL } = useRouteMatch()
     const { examId } = useParams()
-    const { currentExam } = useExamContext()
-    const [examinees, setExaminees] = useState([])
+    const { currentExam, refetchExam } = useExamContext()
     const [averageScore, setAverageScore] = useState(0.0)
+    const [examinees, setExaminees] = useState([
+        {
+            studentId: "R09922111",
+            A: "20", B: "20", C: "20", D: "20", E: "20", totalScore: "80",
+        },
+        {
+            studentId: "R09922112",
+            A: "20", B: "20", C: "20", D: "20", E: "20", totalScore: "70",
+        },
+        {
+            studentId: "R09922113",
+            A: "20", B: "20", C: "20", D: "20", E: "20", totalScore: "60",
+        },
+        {
+            studentId: "R09922114",
+            A: "20", B: "20", C: "20", D: "20", E: "20", totalScore: "87",
+        },
+    ])
 
     useEffect(() => {
-        setExaminees([
-            {
-                studentId: "R09922111",
-                A: "20", B: "20", C: "20", D: "20", E: "20", totalScore: "80",
-            },
-            {
-                studentId: "R09922111",
-                A: "20", B: "20", C: "20", D: "20", E: "20", totalScore: "70",
-            },
-            {
-                studentId: "R09922111",
-                A: "20", B: "20", C: "20", D: "20", E: "20", totalScore: "60",
-            },
-            {
-                studentId: "R09922111",
-                A: "20", B: "20", C: "20", D: "20", E: "20", totalScore: "87",
-            },
-        ])
+        if (!currentExam) {
+            refetchExam(examId)
+        }
         let total = 0.0
         examinees.forEach((examinee) => {
             total += parseFloat(examinee.totalScore)
         })
-        console.log("DEBUG---", total)
         setAverageScore(total/examinees.length)
-    }, [examId, examinees]);
+    }, [examinees, averageScore]);
 
     const dropDownItems = (studentId) => [{
         name: "Delete",
@@ -49,8 +51,7 @@ const ExamScore = () => {
     }];
 
     if (!currentExam) {
-        console.log("DEBUG------0515", currentURL)
-        return <Redirect to={currentURL}/>
+        return <Spinner/>
     }
 
     return (

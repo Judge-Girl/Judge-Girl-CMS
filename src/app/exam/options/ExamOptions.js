@@ -1,5 +1,5 @@
-import React, {useState} from "react";
-import { useParams, useRouteMatch } from 'react-router-dom'
+import React, {useEffect, useState} from "react";
+import {Redirect, useParams, useRouteMatch} from 'react-router-dom'
 import {ExamInPageNavigationBar} from "../ExamInPageNavigationBar";
 import {TitleLine} from "../../commons/titles/TitleLine";
 import ExamName from "./ExamName";
@@ -10,27 +10,33 @@ import {examService} from "../../../services/services";
 import {formatDate} from "../../../utils/utils";
 import './ExamOptions.scss';
 import {useExamContext} from "../problems/ExamContext";
+import {Spinner} from "../../commons/Spinner";
 
 
 const ExamOptions = () => {
     const { url: currentURL } = useRouteMatch()
-    const { currentExam } = useExamContext()
+    const { currentExam, refetchExam } = useExamContext()
     const { examId } = useParams()
-    const [examName, setExamName] = useState(currentExam.name)
-    const [startTime, setStartTime] = useState(formatDate(currentExam.startTime))
-    const [endTime, setEndTime] = useState(formatDate(currentExam.endTime))
+    const [startTime, setStartTime] = useState(formatDate(currentExam?.startTime))
+    const [endTime, setEndTime] = useState(formatDate(currentExam?.endTime))
+
+    useEffect(() => {
+        if (!currentExam) {
+            refetchExam(examId)
+        }
+    })
 
     const onButtonUpdateChangeClicked = () => {
         console.log({
             examId: examId,
-            name: examName,
+            name: currentExam?.name,
             startTime: startTime,
             endTime: endTime,
             description: "",
         })
         examService.updateExam(examId,{
             examId: examId,
-            name: examName,
+            name: currentExam?.name,
             startTime: startTime,
             endTime: endTime,
             description: "",
@@ -39,6 +45,10 @@ const ExamOptions = () => {
 
     const onButtonDeleteExamClicked = () => {
 
+    }
+
+    if (!currentExam) {
+        return <Spinner />
     }
 
     return (
@@ -52,7 +62,7 @@ const ExamOptions = () => {
                 <div className="columns exam-options">
                     <div className="column is-narrow" style={{width: "450px"}}>
                         <section>
-                            <ExamName examName={examName} setter={setExamName}/>
+                            <ExamName examName={currentExam.Name} setter={refetchExam}/>
                         </section>
                         <section>
                             <ExamSchedule

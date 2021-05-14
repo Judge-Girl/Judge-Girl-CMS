@@ -1,5 +1,5 @@
-import {useState, useEffect, useCallback} from "react";
-import { useRouteMatch } from "react-router-dom";
+import React, {useState, useEffect, useCallback} from "react";
+import {Redirect, useParams, useRouteMatch} from "react-router-dom";
 
 import { examService, submissionService } from "../../../services/services.js";
 import { ThreeDotsButton } from "../../commons/buttons/ThreeDotsButton.js";
@@ -11,6 +11,7 @@ import { EditQuestionModal } from "../modals/EditQuestionModal.js";
 import { RejudgeQuestionModal } from "../modals/RejudgeQuestionModal";
 import "./ExamQuestions.scss";
 import {useExamContext} from "./ExamContext";
+import {Spinner} from "../../commons/Spinner";
 
 const toCharacterIndex = i => {
     return String.fromCharCode(i + 65);
@@ -19,8 +20,8 @@ const toCharacterIndex = i => {
 
 const ExamQuestions = () => {
     const { url: currentURL } = useRouteMatch()
-    const { currentExam } = useExamContext()
-    const examId = currentExam.id
+    const { currentExam, refetchExam } = useExamContext()
+    const { examId } = useParams()
     const [examQuestions, setExamQuestions] = useState(null);
 
     const NOT_SET = -1
@@ -39,6 +40,9 @@ const ExamQuestions = () => {
     }, [examId])
 
     useEffect(() => {
+        if (!currentExam) {
+            refetchExam(examId)
+        }
         if (!examQuestions) {
             fetchExam()
         }
@@ -89,6 +93,10 @@ const ExamQuestions = () => {
         question.questionOrder = examQuestions.length;
         return examService.addExamQuestion(question).then(fetchExam);
     };
+
+    if (!currentExam) {
+        return <Spinner/>
+    }
 
     return (
         <div className="exam-questions">

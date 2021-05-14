@@ -37,10 +37,12 @@ const ExamList = () => {
         }
     }, [exams, setExams]);
 
+    const refetchExam = (examId) => {
+        setCurrentExam(exams.find(_exam => _exam.id === parseInt(examId)))
+    }
+
     if (!exams) {
-        return (
-            <Spinner/>
-        )
+        return <Spinner/>
     }
 
     return (
@@ -59,9 +61,9 @@ const ExamList = () => {
                                           key: (exam) => exam.id,
                                           data: (exam) => [
                                               exam?.id,
-                                              <Link to={`/exams/${exam.id}/students`}
+                                              <Link to={`/exams/${exam.id}/problems`}
                                                     onClick={() => {
-                                                        setCurrentExam(exams.find(_exam => _exam.id === exam.id))
+                                                        refetchExam(exam.id)
                                                     }}>
                                                   {exam.name}
                                               </Link>,
@@ -76,7 +78,7 @@ const ExamList = () => {
                     </div>
                 </div>
             </Route>
-            <ExamContext.Provider value={{currentExam, setCurrentExam}}>
+            <ExamContext.Provider value={{currentExam, setCurrentExam, refetchExam}}>
                 <Route path="/exams/:examId/problems">
                     <ExamQuestions/>
                 </Route>

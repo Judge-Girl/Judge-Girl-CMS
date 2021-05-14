@@ -15,7 +15,7 @@ const ExamInPageNavigationBar = function ({currentURL, examName, examId}) {
                              tabContents={[
                                  {
                                      to: `/exams/${examId}/problems`,
-                                     name: 'Problems',
+                                     name: 'Questions',
                                      icon: FaRegEdit
                                  },
                                  {

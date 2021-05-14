@@ -1,18 +1,44 @@
 .rejudge-problem-modal {
-  padding: 20px 0px;
+  padding: 20px 0;
 
+  .modal-header {
+    padding-left: 20px;
+    text-align: left;
+    color: rgba(242, 179, 17, 1);
+    font-weight: 700;
+  }
 
+  .rejudge-message {
+    color: rgba(109, 84, 18, 1);
+    background-color: rgba(255, 231, 171, 0.53);
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 30px;
+  }
+
+  .placeholder {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 27px;
+    text-align: left;
+  }
+
+  .data {
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 30px;
+    display: flex;
+  }
 
   .submit-btn {
     display: flex;
     flex-direction: row-reverse;
 
     button {
-      background: #FF8C00;
+      background: rgba(242, 179, 17, 1);
       color: #FFFFFF;
       border-radius: 10px;
-      padding: 7px 10px;
-
+      padding: 0 10px;
       font-size: 18px;
       line-height: 27px;
     }

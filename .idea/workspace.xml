@@ -4,8 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bf8cb018-72d4-4d32-bc11-a6b2858be79c" name="Default Changelist" comment="Refactor.">
-      <change beforePath="$PROJECT_DIR$/src/app/exam/problems/ExamProblems.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/exam/problems/ExamProblems.js" afterDir="false" />
+    <list default="true" id="bf8cb018-72d4-4d32-bc11-a6b2858be79c" name="Default Changelist" comment="Refactor: Perfect.">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/commons/modals/ModalHeader.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/commons/modals/ModalHeader.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/exam/modals/RejudgeProblemModal.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/exam/modals/RejudgeProblemModal.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/exam/modals/RejudgeProblemModal.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/exam/modals/RejudgeProblemModal.scss" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -250,7 +253,14 @@
       <option name="project" value="LOCAL" />
       <updated>1620926043295</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="Refactor: Perfect.">
+      <created>1620926536470</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1620926536470</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -290,6 +300,7 @@
     <MESSAGE value="Resolve PR problem 1." />
     <MESSAGE value="完美的英文叫做 Perfect." />
     <MESSAGE value="Refactor." />
-    <option name="LAST_COMMIT_MESSAGE" value="Refactor." />
+    <MESSAGE value="Refactor: Perfect." />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactor: Perfect." />
   </component>
 </project>

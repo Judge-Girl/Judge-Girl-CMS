@@ -23,6 +23,7 @@ function link(currentPathName, to, name, Icon) {
 const InPageNavigationBar = function ({currentURL, path, tabContents, events}) {
     const secondSlashPos = currentURL.substr(1).indexOf('/')
     const to = currentURL.substr(0, 1+secondSlashPos)
+    // TODO: firstParamResetState is not a good design and should be fixed on issue #85.
     const { firstParamResetState } = events
 
     return (

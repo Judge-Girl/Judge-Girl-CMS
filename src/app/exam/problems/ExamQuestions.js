@@ -26,7 +26,7 @@ const ExamQuestions = () => {
     const NOT_SET = -1
     const [showAddQuestionModal, setShowAddQuestionModal] = useState(false);
     const [showRejudgeQuestionModal, setShowRejudgeQuestionModal] = useState(NOT_SET);
-    const [rejudgeQuestionId, setRejudgeQuestionId] = useState(NOT_SET)
+    const [rejudgeProblemId, setRejudgeProblemId] = useState(NOT_SET)
     const [showEditQuestionModal, setShowEditQuestionModal] = useState(false);
     const [editingQuestion, setEditingQuestion] = useState(null);
 
@@ -75,12 +75,12 @@ const ExamQuestions = () => {
         }
     }];
 
-    const rejudgeQuestion = (questionId) => {
-        setRejudgeQuestionId(questionId)
-        submissionService.rejudge({examId, questionId})
+    const rejudgeQuestion = (problemId) => {
+        setRejudgeProblemId(problemId)
+        submissionService.rejudge({examId, problemId})
             .then(res => {
                 console.log("Calling Rejudge API: and get result:", res)
-                setRejudgeQuestionId(NOT_SET)
+                setRejudgeProblemId(NOT_SET)
             })
     }
 
@@ -111,7 +111,7 @@ const ExamQuestions = () => {
                                 <div className="text-center">{examQuestion.score}</div>,
                                 <div className="text-center">{examQuestion.quota}</div>,
                                 <div style={{width: "80px", height: "28px"}}>
-                                    {rejudgeQuestionId === examQuestion.problemId?
+                                    {rejudgeProblemId === examQuestion.problemId?
                                         <span className="tag" style={{ backgroundColor: "#FFBB00", color:"white" }}>
                                             Rejudging
                                                 <span className="waitingForConnection">.</span>

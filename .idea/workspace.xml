@@ -4,20 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bf8cb018-72d4-4d32-bc11-a6b2858be79c" name="Default Changelist" comment="Good.">
-      <change afterPath="$PROJECT_DIR$/src/app/exam/problems/ExamContext.js" afterDir="false" />
+    <list default="true" id="bf8cb018-72d4-4d32-bc11-a6b2858be79c" name="Default Changelist" comment="Refactor.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/commons/IndexBanner/InPageNavigationBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/commons/IndexBanner/InPageNavigationBar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/exam/ExamInPageNavigationBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/exam/ExamInPageNavigationBar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/exam/ExamList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/exam/ExamList.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/exam/modals/AddProblemModal.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/exam/modals/AddQuestionModal.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/exam/modals/EditProblemModal.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/exam/modals/EditQuestionModal.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/exam/modals/RejudgeProblemModal.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/exam/modals/RejudgeQuestionModal.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/exam/options/ExamOptions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/exam/options/ExamOptions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/exam/participants/Examinees.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/exam/participants/Examinees.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/exam/problems/ExamProblems.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/exam/problems/ExamQuestions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/exam/problems/ExamProblems.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/exam/problems/ExamQuestions.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/ExamService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/ExamService.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

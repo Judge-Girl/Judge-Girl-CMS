@@ -46,7 +46,7 @@ const ExamQuestions = () => {
         if (!examQuestions) {
             fetchExam()
         }
-    }, [examQuestions, fetchExam]);
+    }, [currentExam, examId, refetchExam, examQuestions, fetchExam]);
 
     const editQuestion = (questionId) => {
         const editQuestionPromise = examService.editExamQuestion({examId, questionId});

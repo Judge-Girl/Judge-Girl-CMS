@@ -17,7 +17,7 @@ import {useExamContext} from "../problems/ExamContext";
 const Examinees = () => {
     const { url: currentURL } = useRouteMatch();
     const { examId } = useParams();
-    const { currentExam: currentExam, refetchExam } = useExamContext()
+    const { currentExam, refetchExam } = useExamContext()
     const [examinees, setExaminees] = useState(undefined);
     const [selectedExaminee, setSelectedExaminee] = useState(undefined);
     const [showAddStudentModal, setShowAddStudentModal] = useState(false);
@@ -33,7 +33,7 @@ const Examinees = () => {
             examService.getExaminees(examId)
                 .then(students => setExaminees(students));
         }
-    }, [currentExam, examId, examinees]);
+    }, [currentExam, examId, examinees, refetchExam]);
 
     const actionItemsButton = ({examinee}) =>
         <ThreeDotsButton dropDownItems={[

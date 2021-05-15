@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Redirect, useParams, useRouteMatch} from 'react-router-dom'
+import {useParams, useRouteMatch} from 'react-router-dom'
 import {ExamInPageNavigationBar} from "../ExamInPageNavigationBar";
 import {TitleLine} from "../../commons/titles/TitleLine";
 import ExamName from "./ExamName";

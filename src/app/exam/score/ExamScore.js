@@ -2,7 +2,7 @@ import {ExamInPageNavigationBar} from "../ExamInPageNavigationBar";
 import {ItemListPage} from "../../commons/ItemListPage/ItemListPage";
 import FakeLink from "../../commons/FakeLink";
 import {ThreeDotsButton} from "../../commons/buttons/ThreeDotsButton";
-import {Redirect, useParams, useRouteMatch} from "react-router-dom";
+import {useParams, useRouteMatch} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import {useExamContext} from "../problems/ExamContext";
 import {Spinner} from "../../commons/Spinner";
@@ -41,12 +41,16 @@ const ExamScore = () => {
             total += parseFloat(examinee.totalScore)
         })
         setAverageScore(total/examinees.length)
-    }, [examinees, averageScore]);
+    }, [examId, currentExam, examinees, averageScore, refetchExam]);
 
     const dropDownItems = (studentId) => [{
         name: "Delete",
         dangerous: true,
         onClick: () => {
+            setExaminees(prev => {
+                console.log("DEBUG----------123", prev.filter(examinee => examinee.studentId !== studentId))
+                return prev.filter(examinee => examinee.studentId !== studentId)
+            })
         }
     }];
 

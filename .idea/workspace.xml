@@ -4,7 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bf8cb018-72d4-4d32-bc11-a6b2858be79c" name="Default Changelist" comment="Now can link to the four tabs directly by URL." />
+    <list default="true" id="bf8cb018-72d4-4d32-bc11-a6b2858be79c" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/exam/options/ExamOptions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/exam/options/ExamOptions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/exam/participants/Examinees.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/exam/participants/Examinees.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/exam/problems/ExamQuestions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/exam/problems/ExamQuestions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/exam/score/ExamScore.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/exam/score/ExamScore.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useCallback} from "react";
-import {Redirect, useParams, useRouteMatch} from "react-router-dom";
+import {useParams, useRouteMatch} from "react-router-dom";
 
 import { examService, submissionService } from "../../../services/services.js";
 import { ThreeDotsButton } from "../../commons/buttons/ThreeDotsButton.js";

@@ -11,9 +11,6 @@ $markdown-background-color: #FFFFFF;
     box-sizing: content-box;
     outline: none;
     margin-bottom: 21px;
-    font-family: Poppins, sans-serif;
-    font-style: normal;
-    font-weight: normal;
     font-size: 17px;
     line-height: 25px;
     display: flex;
@@ -52,6 +49,8 @@ $markdown-background-color: #FFFFFF;
   }
 
   .content-tabs {
+    font-size: 20px;
+    width: inherit;
 
     .hide {
       display: none;
@@ -62,6 +61,7 @@ $markdown-background-color: #FFFFFF;
       border: 1px solid #E4E1E1;
       border-radius: 10px;
       height: 500px;
+      width: 100%;
       padding: 20px;
     }
 

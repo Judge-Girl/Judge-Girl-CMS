@@ -14,7 +14,7 @@ const EditorButton = ({
                 style={{
                     background: buttonColor, width: width, height: height,
                     borderRadius: borderRadius, padding: 10, color: fontColor,
-                    display: "flex", fontFamily: "Poppins", borderColor: borderColor,
+                    display: "flex", borderColor: borderColor,
                     borderWidth: 2, marginTop: marginTop,  marginRight: marginRight,
                     marginBottom : marginBottom, marginLeft: marginLeft,
                 }}

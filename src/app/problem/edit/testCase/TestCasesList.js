@@ -29,7 +29,7 @@ function TestCasesList() {
                     fontColor={"#FFFFFF"}
                     width={"100%"}
                     height={46}
-                    onClickFunc={addNewTestCase}
+                    onClick={addNewTestCase}
                 />
             </div>
         </div>

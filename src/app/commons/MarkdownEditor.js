@@ -40,10 +40,13 @@ function Tabs({textareaVal, setTextareaVal}) {
                         className="description-textarea"
                         value={textareaVal}
                         onChange={handleTextareaChange}
+                        style={{ backgroundColor: "white" }}
                     />
                 </div>
 
-                <div className={(toggleState === TAB_PREVIEW ? "active-markdown" : "hide")}>
+                <div className={(toggleState === TAB_PREVIEW ? "active-markdown" : "hide")}
+
+                >
                     <ReactMarkdown>
                         {textareaVal}
                     </ReactMarkdown>
@@ -53,7 +56,7 @@ function Tabs({textareaVal, setTextareaVal}) {
     );
 }
 
-const MarkdownEditor = () => {
+const MarkdownEditor = ({ style }) => {
     // TODO: problemService.getProblemDescription
     const [editingState, setEditingState] = useState(false);
     const [textareaVal, setTextareaVal] = useState('Press Edit Description to start writing the description. Styling with Markdown is supported.\n');
@@ -74,7 +77,7 @@ const MarkdownEditor = () => {
 
     if (!editingState) {
         return (
-            <div className="markdown-editor">
+            <div className="markdown-editor font-poppins" style={style}>
                 <div className="content-tabs">
                     <div className="active-markdown">
                         <ReactMarkdown>
@@ -91,7 +94,7 @@ const MarkdownEditor = () => {
                             borderRadius={20}
                             borderColor={"#F2B311"}
                             marginTop={15}
-                            onClickFunc={() => {
+                            onClick={() => {
                                 setEditingState(true);
                                 setLastTextareaVal(textareaVal);
                             }}
@@ -104,7 +107,7 @@ const MarkdownEditor = () => {
 
 
     return (
-        <div className="markdown-editor">
+        <div className="markdown-editor font-poppins" style={style}>
             <Tabs textareaVal={textareaVal} setTextareaVal={setTextareaVal}/>
             <div className="field is-grouped is-align-items-center is-pulled-right is-paddingless">
                 <EditorButton
@@ -115,7 +118,7 @@ const MarkdownEditor = () => {
                     fontSize={15}
                     borderRadius={20}
                     marginTop={15} marginRight={4}
-                    onClickFunc={e => handleDescription(e)}
+                    onClick={e => handleDescription(e)}
                 />
                 <EditorButton
                     text={"Cancel"}
@@ -126,7 +129,7 @@ const MarkdownEditor = () => {
                     borderRadius={20}
                     borderColor={"#A2A3B1"}
                     marginTop={15} marginLeft={4}
-                    onClickFunc={() => {
+                    onClick={() => {
                         setEditingState(false);
                         setTextareaVal(lastTextareaVal);
                     }}

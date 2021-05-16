@@ -5,7 +5,6 @@ import FakeLink from "../commons/FakeLink";
 import {CreateStudentAccountModal} from "./CreateStudentAccountModal";
 import {CreateButton} from "../commons/buttons/CreateButton";
 import {EmptyCell, TableCell} from "../../utils/TableCell";
-import {Tab} from "react-tabs";
 
 const useStudentList = () => {
     const [students, setStudents] = useState(undefined);

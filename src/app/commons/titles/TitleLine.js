@@ -22,7 +22,7 @@ const TitleLine = function ({
                             }) {
     const textShadow = shadow ? '2px 2px 0 rgba(0, 0, 0, 0.25)' : '0';
     return (
-        <div className={`mt-2 has-text-${alignment}`} >
+        <div className={`mt-2 has-text-${alignment}`} style={{ width: "100%" }}>
             <p className="title-line" style={{fontSize, color, textShadow, fontWeight}}>
                 {title}
             </p>

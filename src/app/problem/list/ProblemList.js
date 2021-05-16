@@ -4,7 +4,6 @@ import {CreateButton} from "../../commons/buttons/CreateButton";
 import CreateProblemModal from "../Modal/CreateProblemModal";
 import {problemService} from "../../../services/services";
 import {Spinner} from "../../commons/Spinner";
-import FakeLink from "../../commons/FakeLink";
 import {ProblemEditor} from "../ProblemEditor";
 import {Link, Route} from "react-router-dom";
 import {TableCell} from "../../../utils/TableCell";

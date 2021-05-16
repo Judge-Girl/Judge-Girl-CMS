@@ -25,7 +25,7 @@ const ProblemEditor = () => {
         if (!currentProblem) {
             refetchProblem(problemId)
         }
-    }, [currentProblem, refetchProblem])
+    }, [currentProblem, refetchProblem, problemId])
 
     if (!currentProblem) {
         return <Spinner/>

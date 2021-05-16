@@ -12,12 +12,13 @@ import {RemoveConfirmationModal} from "../../commons/modals/RemoveConfirmationMo
 import {Spinner} from "../../commons/Spinner";
 import {removeIf} from "../../../utils/array";
 import {useExamContext} from "../problems/ExamContext";
+import {EmptyCell, TableCell} from "../../../utils/TableCell";
 
 
 const Examinees = () => {
-    const { url: currentURL } = useRouteMatch();
-    const { examId } = useParams();
-    const { currentExam, refetchExam } = useExamContext()
+    const {url: currentURL} = useRouteMatch();
+    const {examId} = useParams();
+    const {currentExam, refetchExam} = useExamContext()
     const [examinees, setExaminees] = useState(undefined);
     const [selectedExaminee, setSelectedExaminee] = useState(undefined);
     const [showAddStudentModal, setShowAddStudentModal] = useState(false);
@@ -82,76 +83,82 @@ const Examinees = () => {
     }
 
     return (
-        <div className="examinees">
+        <div className="examinees font-poppins">
             <ExamInPageNavigationBar currentURL={currentURL}
                                      examName={currentExam.name}
                                      examId={examId}/>
-            <div style={{padding: "20px 10% 20px 10%"}}>
-                <ItemListPage title="Examinees"
-                              filterItems={["Filter", "Name", "Email"]}
-                              Button={() => new DropDownBtn({
-                                  buttonName: '+ People',
-                                  dropDownItems: [
-                                      {
-                                          name: "Student",
-                                          onClick: () => setShowAddStudentModal(true)
-                                      },
-                                      {
-                                          name: "Group",
-                                          onClick: () => setShowAddGroupModal(true)
-                                      }
-                                  ]
-                              })}
-                              tableHeaders={["Name", "Email", " "]}
-                              tableRowGenerator={{
-                                  list: examinees,
-                                  key: (student) => student.id,
-                                  data: (student) => [
-                                      (<FakeLink content={student.name}/>),
-                                      student.email,
-                                      actionItemsButton({examinee: student})
-                                  ]
-                              }}
-                              tableDataStyle={{textAlign: "left"}}/>
-            </div>
+            <div style={{paddingTop: "20px"}}>
+                <div style={{display: "flex", justifyContent: "center"}}>
+                    <ItemListPage width="550px"
+                                  title="Examinees"
+                                  filterItems={["Filter", "Name", "Email"]}
+                                  Button={() => new DropDownBtn({
+                                      buttonName: '+ People',
+                                      dropDownItems: [
+                                          {
+                                              name: "Student",
+                                              onClick: () => setShowAddStudentModal(true)
+                                          },
+                                          {
+                                              name: "Group",
+                                              onClick: () => setShowAddGroupModal(true)
+                                          }
+                                      ]
+                                  })}
+                                  tableHeaders={[
+                                      <TableCell>Name</TableCell>,
+                                      <TableCell>Email</TableCell>,
+                                      <EmptyCell/>
+                                  ]}
+                                  tableRowGenerator={{
+                                      list: examinees,
+                                      key: (student) => student.id,
+                                      data: (student) => [
+                                          <FakeLink>{student.name}</FakeLink>,
+                                          <TableCell>{student.email}</TableCell>,
+                                          <TableCell>{actionItemsButton({examinee: student})}</TableCell>,
+                                      ]
+                                  }}/>
+                </div>
 
-            <TextareaModal title={"Add Students"}
-                           body={{
+                <TextareaModal title={"Add Students"}
+                               body={{
                                    description: "Add examinees to the exam with the examinees’ email.",
                                    Icon: AiOutlineMail,
                                    placeholder: "studentA@example.com\nstudentB@example.com",
                                    remark: "＊One email per line.",
                                    buttonName: "Add"
                                }}
-                           show={showAddStudentModal}
-                           onClose={() => setShowAddStudentModal(false)}
-                           onSubmit={emails => addExaminees(emails)}/>
+                               show={showAddStudentModal}
+                               onClose={() => setShowAddStudentModal(false)}
+                               onSubmit={emails => addExaminees(emails)}/>
 
-            <TextareaModal title={"Add Students By Groups"}
-                           body={{
+                <TextareaModal title={"Add Students By Groups"}
+                               body={{
                                    description: "Add groups to the exam with the groups’ name.",
                                    Icon: AiOutlineUsergroupAdd,
                                    placeholder: "group-name-A\ngroup-name-B",
                                    remark: "＊One group name per line.",
                                    buttonName: "Add"
                                }}
-                           show={showAddGroupModal}
-                           onClose={() => setShowAddGroupModal(false)}/>
+                               show={showAddGroupModal}
+                               onClose={() => setShowAddGroupModal(false)}/>
 
-            <RemoveConfirmationModal title={"Remove the Student"}
-                                     data={[
-                                         {
-                                             title: "Name",
-                                             value: selectedExaminee?.name
-                                         },
-                                         {
-                                             title: "Email",
-                                             value: selectedExaminee?.email
-                                         }
-                                     ]}
-                                     show={showRemoveExamineeConfirmationModal}
-                                     onClose={() => setShowRemoveExamineeConfirmationModal(false)}
-                                     onSubmit={() => removeExaminee(selectedExaminee.email)}/>
+                <RemoveConfirmationModal title={"Remove the Student"}
+                                         data={[
+                                             {
+                                                 title: "Name",
+                                                 value: selectedExaminee?.name
+                                             },
+                                             {
+                                                 title: "Email",
+                                                 value: selectedExaminee?.email
+                                             }
+                                         ]}
+                                         show={showRemoveExamineeConfirmationModal}
+                                         onClose={() => setShowRemoveExamineeConfirmationModal(false)}
+                                         onSubmit={() => removeExaminee(selectedExaminee.email)}/>
+            </div>
         </div>
     );
 }

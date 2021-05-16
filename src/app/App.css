@@ -8,6 +8,7 @@
 html, body {
     background: var(--background);
     height: 100%;
+    overflow-y: auto;
 }
 
 .field:not(:last-child) {

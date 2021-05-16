@@ -4,6 +4,7 @@ import {studentService} from "../../services/services";
 import FakeLink from "../commons/FakeLink";
 import {CreateAdminAccountModal} from "./CreateAdminAccountModal";
 import {CreateButton} from "../commons/buttons/CreateButton";
+import {EmptyCell, TableCell} from "../../utils/TableCell";
 
 const useAdminList = () => {
     const [admins, setAdmins] = useState(undefined);
@@ -23,29 +24,35 @@ const AdminList = () => {
         }
     });
     return (
-        <div style={{padding: "20px 100px 20px 100px"}}>
-            <div className="container font-poppins">
-            <ItemListPage title="Admin List"
-                          filterItems={["Filter", "Name", "Email"]}
-                          Button={() => new CreateButton({
-                              onCreateButtonClick: () => setShowCreateAdminAccountModal(true)
-                          })}
-                          tableHeaders={["Name", "Email", " "]}
-                          tableRowGenerator={{
-                              list: admins,
-                              key: (admin) => admin.id,
-                              data: (admin) => [
-                                  (<FakeLink content={admin.name}/>),
-                                  admin.email,
-                                  ""
-                              ]
-                          }}
-                          tableDataStyle={{textAlign: "left"}}/>
+        <div className="admin-list font-poppins">
+            <div style={{paddingTop: "20px"}}>
+                <div style={{display: "flex", justifyContent: "center"}}>
+                    <ItemListPage title="Admin List"
+                                  width="700px"
+                                  filterItems={["Filter", "Name", "Email"]}
+                                  Button={() => new CreateButton({
+                                      onCreateButtonClick: () => setShowCreateAdminAccountModal(true)
+                                  })}
+                                  tableHeaders={[
+                                      <TableCell>Name</TableCell>,
+                                      <TableCell>Email</TableCell>,
+                                      <EmptyCell/>
+                                  ]}
+                                  tableRowGenerator={{
+                                      list: admins,
+                                      key: (admin) => admin.id,
+                                      data: (admin) => [
+                                          <FakeLink>{admin.name}</FakeLink>,
+                                          <FakeLink>{admin.email}</FakeLink>,
+                                          <EmptyCell/>
+                                      ]
+                                  }}
+                                  tableDataStyle={{textAlign: "left"}}/>
+                    <CreateAdminAccountModal show={showCreateAdminAccountModal}
+                                             onClose={() => setShowCreateAdminAccountModal(false)}
+                                             onAdminCreated={student => addAdmin(student)}/>
+                </div>
             </div>
-
-            <CreateAdminAccountModal show={showCreateAdminAccountModal}
-                                     onClose={() => setShowCreateAdminAccountModal(false)}
-                                     onAdminCreated={student => addAdmin(student)}/>
         </div>
     )
 };

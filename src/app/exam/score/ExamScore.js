@@ -6,12 +6,13 @@ import {useParams, useRouteMatch} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import {useExamContext} from "../problems/ExamContext";
 import {Spinner} from "../../commons/Spinner";
+import {EmptyCell, TableCell} from "../../../utils/TableCell";
 
 
 const ExamScore = () => {
-    const { url: currentURL } = useRouteMatch()
-    const { examId } = useParams()
-    const { currentExam, refetchExam } = useExamContext()
+    const {url: currentURL} = useRouteMatch()
+    const {examId} = useParams()
+    const {currentExam, refetchExam} = useExamContext()
     const [averageScore, setAverageScore] = useState(0.0)
     const [examinees, setExaminees] = useState([
         {
@@ -40,7 +41,7 @@ const ExamScore = () => {
         examinees.forEach((examinee) => {
             total += parseFloat(examinee.totalScore)
         })
-        setAverageScore(total/examinees.length)
+        setAverageScore(parseFloat((total / examinees.length).toFixed(2)))
     }, [examId, currentExam, examinees, averageScore, refetchExam]);
 
     const dropDownItems = (studentId) => [{
@@ -59,65 +60,65 @@ const ExamScore = () => {
     }
 
     return (
-        <div className="exam-score">
-            <ExamInPageNavigationBar
-                currentURL={currentURL}
-                examName={currentExam.name}
-                examId={examId} />
-            <div style={{ padding: "20px 10% 20px 10%" }}>
-                <div className="columns mt-2">
-                    <div className="mt-4 mr-3" style={{ width: "17%", textAlign: "center" }}>
-                        <div className="card" style={{ width: "auto" }}>
+        <div className="exam-score font-poppins">
+            <ExamInPageNavigationBar currentURL={currentURL}
+                                     examName={currentExam.name}
+                                     examId={examId}/>
+            <div style={{paddingTop: "20px"}}>
+                <div className="mt-2" style={{display: "flex", justifyContent: "center"}}>
+                    <div className="mt-4 mr-3" style={{width: "fit-content", textAlign: "center"}}>
+                        <div className="card">
                             <div className="card-content">
-                                <div className="content" style={{ color: "#0B5286" }}>
-                                    <span style={{ fontSize: "20px" }}>Average Score</span>
+                                <div className="content" style={{color: "#0B5286"}}>
+                                    <span style={{fontSize: "20px"}}>Average Score</span>
                                     <br/>
-                                    <span style={{ fontSize: "50px" }}>{averageScore}</span>/100
+                                    <span style={{fontSize: "40px"}}>{averageScore}</span> / 100
                                 </div>
                             </div>
                         </div>
                         <br/>
-                        <div className="card" style={{ width: "auto" }}>
+                        <div className="card">
                             <div className="card-content">
-                                <div className="content" style={{ color: "#0B5286" }}>
-                                    <span style={{ fontSize: "20px" }}># of Examinees</span>
+                                <div className="content" style={{color: "#0B5286"}}>
+                                    <span style={{fontSize: "20px"}}># of Examinees</span>
                                     <br/>
-                                    <span style={{ fontSize: "50px" }}>{examinees.length}</span>
+                                    <span style={{fontSize: "40px"}}>{examinees.length}</span>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div style={{ width: "70%" }}>
-                        <ItemListPage
-                            tableHeaders={["Name", "A", "B", "C", "D", "E", "Total score"]}
-                            tableRowGenerator={{
-                                list: examinees,
-                                key: examinee => examinee.studentId,
-                                data: (examinee) => {
-                                    return [
-                                        <FakeLink content={examinee.studentId} />,
-                                        <FakeLink content={examinee.A} />,
-                                        <FakeLink content={examinee.B} />,
-                                        <FakeLink content={examinee.C} />,
-                                        <FakeLink content={examinee.D} />,
-                                        <FakeLink content={examinee.E} />,
-                                        <FakeLink content={examinee.totalScore} />,
-
-                                        <div style={{ textAlign: "middle" }}>
-                                            <ThreeDotsButton dropDownItems={dropDownItems(examinee.studentId)}/>
-                                        </div>
-
-                                    ]
-                                },
-                            }}
-                            showFilterSearchBar={false}
-                            tableDataStyle={{
-                                textAlign: "left",
-                                verticalAlign: "middle",
-                                height: "50px",
-                            }}
-                        />
-                    </div>
+                    <ItemListPage
+                        width="800px"
+                        tableHeaders={[
+                            <TableCell>Name</TableCell>,
+                            <TableCell>A</TableCell>,
+                            <TableCell>B</TableCell>,
+                            <TableCell>C</TableCell>,
+                            <TableCell>D</TableCell>,
+                            <TableCell>E</TableCell>,
+                            <TableCell>Table Score</TableCell>,
+                            <EmptyCell/>
+                        ]}
+                        tableRowGenerator={{
+                            list: examinees,
+                            key: examinee => examinee.studentId,
+                            data: (examinee) => {
+                                return [
+                                    <FakeLink>{examinee.studentId}</FakeLink>,
+                                    <FakeLink>{examinee.A}</FakeLink>,
+                                    <FakeLink>{examinee.B}</FakeLink>,
+                                    <FakeLink>{examinee.D}</FakeLink>,
+                                    <FakeLink>{examinee.C}</FakeLink>,
+                                    <FakeLink>{examinee.E}</FakeLink>,
+                                    <FakeLink>{examinee.totalScore}</FakeLink>,
+                                    <TableCell>
+                                        <ThreeDotsButton dropDownItems={dropDownItems(examinee.studentId)}/>
+                                    </TableCell>,
+                                ]
+                            },
+                        }}
+                        showFilterSearchBar={false}
+                    />
                 </div>
             </div>
         </div>

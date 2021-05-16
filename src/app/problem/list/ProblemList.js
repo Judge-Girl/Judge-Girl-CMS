@@ -7,6 +7,7 @@ import {Spinner} from "../../commons/Spinner";
 import FakeLink from "../../commons/FakeLink";
 import {ProblemEditor} from "../ProblemEditor";
 import {Route} from "react-router-dom";
+import {TableCell} from "../../../utils/TableCell";
 
 export const useProblemList = () => {
     const [problems, setProblems] = useState(undefined);
@@ -45,27 +46,36 @@ const ProblemList = () => {
     return (
         <>
             <Route path="/problems" exact>
-                <div style={{padding: "20px 100px 20px 100px"}}>
-                    <div className="container font-poppins">
-                        <ItemListPage title="Problem List"
-                                      filterItems={["Filter", "Id", "tags"]}
-                                      Button={() => new CreateButton({
-                                          onCreateButtonClick: () => setShowCreateProblemModal(true)
-                                      })}
-                                      tableHeaders={["#", "Problem Title", "Tags"]}
-                                      tableRowGenerator={{
-                                          list: problems,
-                                          key: (problem) => problem.id,
-                                          data: (problem) => [
-                                              problem.id,
-                                              <FakeLink content={problem.title}/>,
-                                              <span className="tag is-link">Functions</span>
-                                          ]
-                                      }}
-                                      tableDataStyle={{ textAlign: "left" }}/>
-                        <CreateProblemModal show={showCreateProblemModal}
-                                            onClose={() => setShowCreateProblemModal(false)}
-                                            onProblemCreated={onProblemCreated}/>
+                <div className="problem-list font-poppins">
+                    <div style={{paddingTop: "20px"}}>
+                        <div style={{display: "flex", justifyContent: "center"}}>
+                            <ItemListPage title="Problem List"
+                                          width="1000px"
+                                          filterItems={["Filter", "Id", "tags"]}
+                                          Button={() => new CreateButton({
+                                              onCreateButtonClick: () => setShowCreateProblemModal(true)
+                                          })}
+                                          tableHeaders={[
+                                              <TableCell>#</TableCell>,
+                                              <TableCell>Problem Title</TableCell>,
+                                              <TableCell>Tags</TableCell>
+                                          ]}
+                                          tableRowGenerator={{
+                                              list: problems,
+                                              key: (problem) => problem.id,
+                                              data: (problem) => [
+                                                  <FakeLink>{problem.id}</FakeLink>,
+                                                  <FakeLink>{problem.title}</FakeLink>,
+                                                  <TableCell>
+                                                      <span className="tag is-link">Functions</span>
+                                                  </TableCell>,
+                                              ]
+                                          }}
+                                          tableDataStyle={{textAlign: "left"}}/>
+                            <CreateProblemModal show={showCreateProblemModal}
+                                                onClose={() => setShowCreateProblemModal(false)}
+                                                onProblemCreated={onProblemCreated}/>
+                        </div>
                     </div>
                 </div>
             </Route>

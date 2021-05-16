@@ -4,22 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bf8cb018-72d4-4d32-bc11-a6b2858be79c" name="Default Changelist" comment="Try CI2.">
-      <change afterPath="$PROJECT_DIR$/src/utils/TableCell.js" afterDir="false" />
+    <list default="true" id="bf8cb018-72d4-4d32-bc11-a6b2858be79c" name="Default Changelist" comment="CSS King.">
+      <change afterPath="$PROJECT_DIR$/src/app/problem/list/ProblemContext.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/App.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/admins/AdminList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/admins/AdminList.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/commons/FakeLink.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/commons/FakeLink.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/commons/IndexBanner/InPageNavigationBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/commons/IndexBanner/InPageNavigationBar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/commons/ItemListPage/ItemListPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/commons/ItemListPage/ItemListPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/commons/buttons/ThreeDotsButton.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/commons/buttons/ThreeDotsButton.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/exam/ExamList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/exam/ExamList.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/exam/participants/Examinees.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/exam/participants/Examinees.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/exam/problems/ExamQuestions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/exam/problems/ExamQuestions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/exam/problems/ExamQuestions.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/exam/problems/ExamQuestions.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/exam/score/ExamScore.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/exam/score/ExamScore.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/problem/ProblemEditor.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/problem/ProblemEditor.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/problem/edit/EditorButton.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/problem/edit/EditorButton.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/problem/edit/ProblemEditorTitle.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/problem/edit/ProblemEditorTitle.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/problem/list/ProblemList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/problem/list/ProblemList.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/students/StudentList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/students/StudentList.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -317,7 +308,14 @@
       <option name="project" value="LOCAL" />
       <updated>1621071381931</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="CSS King.">
+      <created>1621146563714</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1621146563714</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -336,7 +334,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Update package-lock.json to fit master branch." />
     <MESSAGE value="Update package.json to fit master branch." />
     <MESSAGE value="Revert &quot;Update package.json to fit master branch.&quot;&#10;&#10;This reverts commit f559efd0" />
     <MESSAGE value="Revert &quot;Update package-lock.json to fit master branch.&quot;&#10;&#10;This reverts commit 69772304" />
@@ -361,6 +358,7 @@
     <MESSAGE value="Now can link to the four tabs directly by URL." />
     <MESSAGE value="Try CI1." />
     <MESSAGE value="Try CI2." />
-    <option name="LAST_COMMIT_MESSAGE" value="Try CI2." />
+    <MESSAGE value="CSS King." />
+    <option name="LAST_COMMIT_MESSAGE" value="CSS King." />
   </component>
 </project>

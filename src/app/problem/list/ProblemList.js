@@ -6,8 +6,9 @@ import {problemService} from "../../../services/services";
 import {Spinner} from "../../commons/Spinner";
 import FakeLink from "../../commons/FakeLink";
 import {ProblemEditor} from "../ProblemEditor";
-import {Route} from "react-router-dom";
+import {Link, Route} from "react-router-dom";
 import {TableCell} from "../../../utils/TableCell";
+import {ProblemContext} from "./ProblemContext";
 
 export const useProblemList = () => {
     const [problems, setProblems] = useState(undefined);
@@ -22,6 +23,7 @@ export const useProblemList = () => {
 const ProblemList = () => {
     const [showCreateProblemModal, setShowCreateProblemModal] = useState(false)
     const {problems, setProblems, addProblem} = useProblemList();
+    const [currentProblem, setCurrentProblem] = useState(null);
 
     useEffect(() => {
         if (!problems || problems.length === 0) {
@@ -30,12 +32,17 @@ const ProblemList = () => {
                     setProblems(problems);
                 })
         }
-    });
+    }, [problems, setProblems]);
+
+    const refetchProblem = (problemId) => {
+        setCurrentProblem(problems.find(problem => {
+            return parseInt(problem.id) === parseInt(problemId)
+        }))
+    }
 
     const onProblemCreated = (problem) => {
         addProblem(problem)
     }
-
 
     if (!problems) {
         return (
@@ -64,8 +71,16 @@ const ProblemList = () => {
                                               list: problems,
                                               key: (problem) => problem.id,
                                               data: (problem) => [
-                                                  <FakeLink>{problem.id}</FakeLink>,
-                                                  <FakeLink>{problem.title}</FakeLink>,
+                                                  <TableCell>
+                                                      <Link to={`/problems/${problem.id}/edit`}
+                                                            onClick={() => {refetchProblem(problem.id)}}
+                                                      >{problem.id}</Link>
+                                                  </TableCell>,
+                                                  <TableCell>
+                                                      <Link to={`/problems/${problem.id}/edit`}
+                                                            onClick={() => {refetchProblem(problem.id)}}
+                                                      >{problem.title}</Link>
+                                                  </TableCell>,
                                                   <TableCell>
                                                       <span className="tag is-link">Functions</span>
                                                   </TableCell>,
@@ -79,9 +94,11 @@ const ProblemList = () => {
                     </div>
                 </div>
             </Route>
-            <Route path="/problems/:problemId/edit">
-                <ProblemEditor/>
-            </Route>
+            <ProblemContext.Provider value={{currentProblem, setCurrentProblem, refetchProblem}}>
+                <Route path="/problems/:problemId/edit">
+                    <ProblemEditor/>
+                </Route>
+            </ProblemContext.Provider>
         </>
 
     )

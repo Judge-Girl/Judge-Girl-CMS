@@ -4,9 +4,9 @@ import {FaEdit} from "react-icons/all";
 import {EditorButton} from "./EditorButton";
 import {problemService} from "../../../services/services";
 
-function ProblemEditorTitle ({problemId}) {
+function ProblemEditorTitle ({problem}) {
     // TODO: problemService.getProblemTitle
-    const [problemNameInput, setProblemNameInput] = useState('Negative and Positive');
+    const [problemNameInput, setProblemNameInput] = useState(problem.title);
     const [lastProblemNameInput, setLastProblemNameInput] = useState(problemNameInput);
     const [editingState, setEditingState] = useState(false);
 
@@ -19,7 +19,7 @@ function ProblemEditorTitle ({problemId}) {
 
         setEditingState(false);
 
-        problemService.modifyProblemTitle(problemId, problemNameInput)
+        problemService.modifyProblemTitle(problem.problemId, problemNameInput)
             .then(() => console.log("The problem's title has been modified"));
     };
 

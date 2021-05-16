@@ -13,6 +13,7 @@ import "./ExamQuestions.scss";
 import {useExamContext} from "./ExamContext";
 import {Spinner} from "../../commons/Spinner";
 import {TableCell} from "../../../utils/TableCell";
+import ExamDescriptionEditor from "./ExamDescriptionEditor";
 
 const toCharacterIndex = i => {
     return String.fromCharCode(i + 65);
@@ -100,62 +101,72 @@ const ExamQuestions = () => {
     }
 
     return (
-        <div className="exam-questions font-poppins">
+        <div className="exam-questions">
             <ExamInPageNavigationBar
                 currentURL={currentURL}
                 examName={currentExam.name}
                 examId={examId}/>
-            <div style={{paddingTop: "20px"}}>
-                <div style={{display: "flex", justifyContent: "center"}}>
-                    <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end" }}>
-                        <ItemListPage
-                            width="800px"
-                            title="Questions"
-                            tableHeaders={[
-                                <TableCell>#</TableCell>,
-                                <TableCell>Question ID</TableCell>,
-                                <TableCell>Question Title</TableCell>,
-                                <TableCell>Score Percentage</TableCell>,
-                                <TableCell>Submission Quota</TableCell>, " "]}
-                            tableDataStyle={{height: "60px"}}
-                            tableRowGenerator={{
-                                list: examQuestions,
-                                key: examQuestion => examQuestion.problemId,
-                                data: (examQuestion) => {
-                                    return [
-                                        <TableCell>{toCharacterIndex(examQuestion.questionOrder)}</TableCell>,
-                                        <FakeLink>{examQuestion.problemId}</FakeLink>,
-                                        <FakeLink>{examQuestion.problemTitle}</FakeLink>,
-                                        <TableCell>{examQuestion.score}</TableCell>,
-                                        <TableCell>{examQuestion.quota}</TableCell>,
-                                        <div style={{width: "40px", height: "28px"}}>
-                                            {rejudgeProblemId === examQuestion.problemId ?
-                                                <span className="tag" style={{backgroundColor: "#FFBB00", color: "white"}}>
-                                            Rejudging
-                                                <span className="waitingForConnection">.</span>
-                                                <span className="waitingForConnection2">.</span>
-                                                <span className="waitingForConnection3">.</span>
-                                        </span>
-                                                :
-                                                <div className="text-center">
-                                                    <ThreeDotsButton dropDownItems={dropDownItems(examQuestion)}/>
-                                                </div>
-                                            }
-                                            <RejudgeQuestionModal
-                                                show={showRejudgeQuestionModal === examQuestion.problemId}
-                                                title="Rejudge The Problem?"
-                                                question={examQuestion}
-                                                onClose={() => setShowRejudgeQuestionModal(NOT_SET)}
-                                                onConfirmRejudge={rejudgeQuestion}/>
-                                        </div>
-                                    ]
-                                },
-                            }}
-                            showFilterSearchBar={false}/>
-                        <div className="add-question-btn"
-                             onClick={() => setShowAddQuestionModal(true)}>
-                            <span>Add New Question</span>
+            <div className="font-poppins" style={{paddingTop: "20px"}}>
+                <div style={{display: "flex", justifyContent: "center", paddingBottom: "150px"}}>
+                    <div style={{
+                        display: "flex", flexDirection: "column",
+                        justifyContent: "flex-start", alignItems: "center",
+                    }}>
+                        <div style={{
+                            display: "flex", flexDirection: "column",
+                            justifyContent: "flex-start", alignItems: "flex-end",
+                        }}>
+                            <ItemListPage
+                                width="800px"
+                                title="Questions"
+                                tableHeaders={[
+                                    <TableCell>#</TableCell>,
+                                    <TableCell>Question ID</TableCell>,
+                                    <TableCell>Question Title</TableCell>,
+                                    <TableCell>Score Percentage</TableCell>,
+                                    <TableCell>Submission Quota</TableCell>, " "]}
+                                tableDataStyle={{height: "60px"}}
+                                tableRowGenerator={{
+                                    list: examQuestions,
+                                    key: examQuestion => examQuestion.problemId,
+                                    data: (examQuestion) => {
+                                        return [
+                                            <TableCell>{toCharacterIndex(examQuestion.questionOrder)}</TableCell>,
+                                            <FakeLink>{examQuestion.problemId}</FakeLink>,
+                                            <FakeLink>{examQuestion.problemTitle}</FakeLink>,
+                                            <TableCell>{examQuestion.score}</TableCell>,
+                                            <TableCell>{examQuestion.quota}</TableCell>,
+                                            <TableCell>
+                                                {rejudgeProblemId === examQuestion.problemId ?
+                                                    <span className="tag"
+                                                          style={{backgroundColor: "#FFBB00", color: "white"}}>
+                                                    Rejudging
+                                                    <span className="waitingForConnection">.</span>
+                                                    <span className="waitingForConnection2">.</span>
+                                                    <span className="waitingForConnection3">.</span>
+                                                </span>
+                                                    :
+                                                    <div className="text-center">
+                                                        <ThreeDotsButton dropDownItems={dropDownItems(examQuestion)}/>
+                                                    </div>
+                                                }
+                                                <RejudgeQuestionModal
+                                                    show={showRejudgeQuestionModal === examQuestion.problemId}
+                                                    title="Rejudge The Problem?"
+                                                    question={examQuestion}
+                                                    onClose={() => setShowRejudgeQuestionModal(NOT_SET)}
+                                                    onConfirmRejudge={rejudgeQuestion}/>
+                                            </TableCell>
+                                        ]
+                                    },
+                                }}
+                                showFilterSearchBar={false}/>
+                            <div className="add-question-btn"
+                                 onClick={() => setShowAddQuestionModal(true)}>
+                                <span>Add New Question</span>
+                            </div>
                         </div>
+                        <ExamDescriptionEditor style={{backgroundColor: "var(--background)", width: "1000px"}}/>
                     </div>
                 </div>
             </div>

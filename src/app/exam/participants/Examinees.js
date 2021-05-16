@@ -83,11 +83,11 @@ const Examinees = () => {
     }
 
     return (
-        <div className="examinees font-poppins">
+        <div className="examinees">
             <ExamInPageNavigationBar currentURL={currentURL}
                                      examName={currentExam.name}
                                      examId={examId}/>
-            <div style={{paddingTop: "20px"}}>
+            <div className="font-poppins" style={{paddingTop: "20px"}}>
                 <div style={{display: "flex", justifyContent: "center"}}>
                     <ItemListPage width="550px"
                                   title="Examinees"

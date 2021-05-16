@@ -60,11 +60,11 @@ const ExamScore = () => {
     }
 
     return (
-        <div className="exam-score font-poppins">
+        <div className="exam-score">
             <ExamInPageNavigationBar currentURL={currentURL}
                                      examName={currentExam.name}
                                      examId={examId}/>
-            <div style={{paddingTop: "20px"}}>
+            <div className="font-poppins" style={{paddingTop: "20px"}}>
                 <div className="mt-2" style={{display: "flex", justifyContent: "center"}}>
                     <div className="mt-4 mr-3" style={{width: "fit-content", textAlign: "center"}}>
                         <div className="card">

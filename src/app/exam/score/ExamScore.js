@@ -48,10 +48,7 @@ const ExamScore = () => {
         name: "Delete",
         dangerous: true,
         onClick: () => {
-            setExaminees(prev => {
-                console.log("DEBUG----------123", prev.filter(examinee => examinee.studentId !== studentId))
-                return prev.filter(examinee => examinee.studentId !== studentId)
-            })
+            setExaminees(prev => prev.filter(examinee => examinee.studentId !== studentId))
         }
     }];
 

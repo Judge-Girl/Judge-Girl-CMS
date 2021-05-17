@@ -1,7 +1,7 @@
-import './EditProblemModal.scss'
 import React, { createRef, useEffect, useState } from "react";
 import { renderModal } from "../../commons/modals/modal";
 import { ModalHeader } from "../../commons/modals/ModalHeader";
+import './EditQuestionModal.scss'
 
 const InputField = ({ id, type, labelText, value, placeholder, onChange }) => (
     <div className="input-field">

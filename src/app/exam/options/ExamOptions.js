@@ -1,5 +1,5 @@
-import React, {useState} from "react";
-import { useParams, useRouteMatch } from 'react-router-dom'
+import React, {useEffect, useState} from "react";
+import {useParams, useRouteMatch} from 'react-router-dom'
 import {ExamInPageNavigationBar} from "../ExamInPageNavigationBar";
 import {TitleLine} from "../../commons/titles/TitleLine";
 import ExamName from "./ExamName";
@@ -10,27 +10,33 @@ import {examService} from "../../../services/services";
 import {formatDate} from "../../../utils/utils";
 import './ExamOptions.scss';
 import {useExamContext} from "../problems/ExamContext";
+import {Spinner} from "../../commons/Spinner";
 
 
 const ExamOptions = () => {
-    const { url: currentURL } = useRouteMatch()
-    const { currentExam } = useExamContext()
-    const { examId } = useParams()
-    const [examName, setExamName] = useState(currentExam.name)
-    const [startTime, setStartTime] = useState(formatDate(currentExam.startTime))
-    const [endTime, setEndTime] = useState(formatDate(currentExam.endTime))
+    const {url: currentURL} = useRouteMatch()
+    const {currentExam, refetchExam} = useExamContext()
+    const {examId} = useParams()
+    const [startTime, setStartTime] = useState(formatDate(currentExam?.startTime))
+    const [endTime, setEndTime] = useState(formatDate(currentExam?.endTime))
+
+    useEffect(() => {
+        if (!currentExam) {
+            refetchExam(examId)
+        }
+    })
 
     const onButtonUpdateChangeClicked = () => {
         console.log({
             examId: examId,
-            name: examName,
+            name: currentExam?.name,
             startTime: startTime,
             endTime: endTime,
             description: "",
         })
-        examService.updateExam(examId,{
+        examService.updateExam(examId, {
             examId: examId,
-            name: examName,
+            name: currentExam?.name,
             startTime: startTime,
             endTime: endTime,
             description: "",
@@ -41,57 +47,66 @@ const ExamOptions = () => {
 
     }
 
+    if (!currentExam) {
+        return <Spinner/>
+    }
+
     return (
-        <>
+        <div className="exam-options">
             <ExamInPageNavigationBar
                 currentURL={currentURL}
                 examName={currentExam.name}
                 examId={examId}/>
-            <div style={{padding: "40px 10% 20px 10%"}}>
-                <TitleLine title={"Options"}/>
-                <div className="columns exam-options">
-                    <div className="column is-narrow" style={{width: "450px"}}>
+            <div style={{paddingTop: "20px"}}>
+                <div style={{display: "flex", justifyContent: "flex-start", paddingBottom: "150px"}}>
+                    <div style={{display: "flex", flexDirection: "column", alignItems: "flex-start",
+                        paddingLeft: "150px"
+                    }}>
+                        <TitleLine title={"Options"}/>
+                        <div className="column is-narrow" style={{width: "450px"}}>
+                            <section>
+                                <ExamName examName={currentExam.Name} setter={refetchExam}/>
+                            </section>
+                            <section>
+                                <ExamSchedule
+                                    startTime={startTime}
+                                    endTime={endTime}
+                                    setStartTime={setStartTime}
+                                    setEndTime={setEndTime}/>
+                            </section>
+                            <section>
+                                <ExamWhiteList/>
+                            </section>
+                            <section>
+                                <UpdateChangeButton
+                                    onUpdateChangeButtonClick={onButtonUpdateChangeClicked}/>
+                            </section>
+                        </div>
+                        <div className="column right">
+                        </div>
+
+                        <TitleLine title={"Danger Zone"}/>
                         <section>
-                            <ExamName examName={examName} setter={setExamName}/>
+                            <div className="danger-zone">
+                                <div className="columns">
+                                    <div className="column">
+                                        <p className="title is-spaced is-5">Delete this exam</p>
+                                        Once you delete an exam, there is no going back. Please be certain.
+                                    </div>
+                                    <div className="column is-narrow mt-1 mr-5">
+                                        <button
+                                            className="button is-danger"
+                                            onClick={onButtonDeleteExamClicked}
+                                        >Delete Exam
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
                         </section>
-                        <section>
-                            <ExamSchedule
-                                startTime={startTime}
-                                endTime={endTime}
-                                setStartTime={setStartTime}
-                                setEndTime={setEndTime}/>
-                        </section>
-                        <section>
-                            <ExamWhiteList/>
-                        </section>
-                        <section>
-                            <UpdateChangeButton
-                                onUpdateChangeButtonClick={onButtonUpdateChangeClicked}/>
-                        </section>
-                    </div>
-                    <div className="column right">
                     </div>
                 </div>
-                <TitleLine title={"Danger Zone"}/>
-                <section>
-                    <div className="danger-zone">
-                        <div className="columns">
-                            <div className="column">
-                                <p className="title is-spaced is-5">Delete this exam</p>
-                                Once you delete an exam, there is no going back. Please be certain.
-                            </div>
-                            <div className="column is-narrow mt-1 mr-5">
-                                <button
-                                    className="button is-danger"
-                                    onClick={onButtonDeleteExamClicked}
-                                >Delete Exam
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </section>
             </div>
-        </>
+        </div>
     )
 }
 

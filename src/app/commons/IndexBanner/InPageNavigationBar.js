@@ -29,8 +29,10 @@ const InPageNavigationBar = function ({currentURL, path, tabContents, events}) {
     return (
         <div className="in-page-nav-bar">
             <p className="path">
-                <Link to={to} onClick={() => { firstParamResetState(null) }}>{path.head}</Link>
-                <span> / </span><FakeLink content={path.tail}/>
+                <Link
+                    to={to}
+                    onClick={() => { firstParamResetState(null) }}>{path.head}</Link>
+                <span> / </span><FakeLink inline>{path.tail}</FakeLink>
             </p>
             <div className="tabs">
                 {tabContents?.map(content =>

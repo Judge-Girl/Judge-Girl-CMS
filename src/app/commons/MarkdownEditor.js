@@ -1,8 +1,8 @@
 import React, {useState} from "react";
 import ReactMarkdown from "react-markdown";
-import './MarkdwonEditor.scss';
 import {EditorButton} from "../problem/edit/EditorButton";
 import {problemService} from "../../services/services";
+import './MarkdwonEditor.scss';
 
 function Tabs({textareaVal, setTextareaVal}) {
     const [toggleState, setToggleState] = useState(1);
@@ -35,15 +35,18 @@ function Tabs({textareaVal, setTextareaVal}) {
             </div>
 
             <div className="content-tabs">
-                <div className={"content " + (toggleState === TAB_WRITE ? "active-textarea" : "hide")}>
+                <div className={(toggleState === TAB_WRITE ? "active-textarea" : "hide")}>
                     <textarea
                         className="description-textarea"
                         value={textareaVal}
                         onChange={handleTextareaChange}
+                        style={{ backgroundColor: "white" }}
                     />
                 </div>
 
-                <div className={"content " + (toggleState === TAB_PREVIEW ? "active-markdown" : "hide")}>
+                <div className={(toggleState === TAB_PREVIEW ? "active-markdown" : "hide")}
+
+                >
                     <ReactMarkdown>
                         {textareaVal}
                     </ReactMarkdown>
@@ -53,7 +56,7 @@ function Tabs({textareaVal, setTextareaVal}) {
     );
 }
 
-function MarkdownEditor({problemId}) {
+const MarkdownEditor = ({ style }) => {
     // TODO: problemService.getProblemDescription
     const [editingState, setEditingState] = useState(false);
     const [textareaVal, setTextareaVal] = useState('Press Edit Description to start writing the description. Styling with Markdown is supported.\n');
@@ -68,15 +71,15 @@ function MarkdownEditor({problemId}) {
 
         setEditingState(false);
 
-        problemService.modifyProblemDescription(problemId, textareaVal)
+        problemService.modifyProblemDescription(0, textareaVal)
             .then(() => console.log("The problem's description has been modified"));
     };
 
     if (!editingState) {
         return (
-            <div className="markdown-editor">
+            <div className="markdown-editor font-poppins" style={style}>
                 <div className="content-tabs">
-                    <div className={"content active-markdown"}>
+                    <div className="active-markdown">
                         <ReactMarkdown>
                             {textareaVal}
                         </ReactMarkdown>
@@ -91,7 +94,7 @@ function MarkdownEditor({problemId}) {
                             borderRadius={20}
                             borderColor={"#F2B311"}
                             marginTop={15}
-                            onClickFunc={() => {
+                            onClick={() => {
                                 setEditingState(true);
                                 setLastTextareaVal(textareaVal);
                             }}
@@ -104,7 +107,7 @@ function MarkdownEditor({problemId}) {
 
 
     return (
-        <div className="markdown-editor">
+        <div className="markdown-editor font-poppins" style={style}>
             <Tabs textareaVal={textareaVal} setTextareaVal={setTextareaVal}/>
             <div className="field is-grouped is-align-items-center is-pulled-right is-paddingless">
                 <EditorButton
@@ -115,7 +118,7 @@ function MarkdownEditor({problemId}) {
                     fontSize={15}
                     borderRadius={20}
                     marginTop={15} marginRight={4}
-                    onClickFunc={e => handleDescription(e)}
+                    onClick={e => handleDescription(e)}
                 />
                 <EditorButton
                     text={"Cancel"}
@@ -126,7 +129,7 @@ function MarkdownEditor({problemId}) {
                     borderRadius={20}
                     borderColor={"#A2A3B1"}
                     marginTop={15} marginLeft={4}
-                    onClickFunc={() => {
+                    onClick={() => {
                         setEditingState(false);
                         setTextareaVal(lastTextareaVal);
                     }}

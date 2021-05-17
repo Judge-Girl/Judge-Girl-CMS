@@ -12,6 +12,8 @@ import {ExamOptions} from "./options/ExamOptions";
 import './ExamList.css';
 import {Spinner} from "../commons/Spinner";
 import {ExamContext} from "./problems/ExamContext";
+import ExamScore from "./score/ExamScore";
+import {TableCell} from "../../utils/TableCell";
 
 
 export const useExamList = () => {
@@ -32,50 +34,65 @@ const ExamList = () => {
     useEffect(() => {
         if (!exams || exams.length === 0) {
             examService.getExams({status: EXAM_STATUSES.ALL})
-                .then(exams => setExams(exams));
+                .then(exams => setExams(exams))
         }
-    });
+    }, [exams, setExams]);
+
+    const refetchExam = (examId) => {
+        setCurrentExam(exams.find(_exam => _exam.id === parseInt(examId)))
+    }
 
     if (!exams) {
-        return (
-            <Spinner/>
-        )
+        return <Spinner/>
     }
 
     return (
         <>
             <Route path="/exams" exact>
-                <div className="container font-poppins">
-                    <ItemListPage title="Exam List"
-                                  filterItems={["Filter", "Id", "name"]}
-                                  Button={() => new CreateButton({
-                                      onCreateButtonClick: () => setShowCreateExamModal(true)
-                                  })}
-                                  tableHeaders={["#", "Exam Name", "Start Time", "End Time"]}
-                                  tableRowGenerator={{
-                                      list: exams,
-                                      key: (exam) => exam.id,
-                                      data: (exam) => [
-                                          exam?.id,
-                                          <Link to={`/exams/${exam.id}/students`}
-                                                onClick={() => {
-                                                    setCurrentExam(exams.find(_exam => _exam.id === exam.id))
-                                                }}>
-                                              {exam.name}
-                                          </Link>,
-                                          displayDate(exam?.startTime),
-                                          displayDate(exam?.endTime),
-                                      ]
-                                  }}/>
+                <div className="exam-list font-poppins">
+                    <div style={{paddingTop: "20px"}}>
+                        <div style={{display: "flex", justifyContent: "center"}}>
+                            <ItemListPage title="Exam List"
+                                          width="1000px"
+                                          filterItems={["Filter", "Id", "name"]}
+                                          Button={() => new CreateButton({
+                                              onCreateButtonClick: () => setShowCreateExamModal(true)
+                                          })}
+                                          tableHeaders={[
+                                              <TableCell>#</TableCell>,
+                                              <TableCell>Exam Name</TableCell>,
+                                              <TableCell>Start Time</TableCell>,
+                                              <TableCell>End Time</TableCell>]}
+                                          tableRowGenerator={{
+                                              list: exams,
+                                              key: (exam) => exam.id,
+                                              data: (exam) => [
+                                                  <TableCell>{exam?.id}</TableCell>,
+                                                  <TableCell>
+                                                      <Link to={`/exams/${exam.id}/problems`}
+                                                            onClick={() => {
+                                                                refetchExam(exam.id)
+                                                            }}>
+                                                          {exam.name}</Link>
+                                                  </TableCell>,
+                                                  <TableCell>{displayDate(exam?.startTime)}</TableCell>,
+                                                  <TableCell>{displayDate(exam?.endTime)}</TableCell>,
+                                              ]
+                                          }}/>
 
-                    <CreateExamModal show={showCreateExamModal}
-                                     onClose={() => setShowCreateExamModal(false)}
-                                     onExamCreated={exam => addExam(exam)}/>
+                            <CreateExamModal show={showCreateExamModal}
+                                             onClose={() => setShowCreateExamModal(false)}
+                                             onExamCreated={exam => addExam(exam)}/>
+                        </div>
+                    </div>
                 </div>
             </Route>
-            <ExamContext.Provider value={{currentExam, setCurrentExam}}>
+            <ExamContext.Provider value={{currentExam, setCurrentExam, refetchExam}}>
                 <Route path="/exams/:examId/problems">
                     <ExamQuestions/>
+                </Route>
+                <Route path="/exams/:examId/score">
+                    <ExamScore/>
                 </Route>
                 <Route path="/exams/:examId/students">
                     <Examinees/>

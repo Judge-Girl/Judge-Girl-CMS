@@ -11,29 +11,30 @@ import {ThreeDotsButton} from "../../commons/buttons/ThreeDotsButton";
 import {RemoveConfirmationModal} from "../../commons/modals/RemoveConfirmationModal";
 import {Spinner} from "../../commons/Spinner";
 import {removeIf} from "../../../utils/array";
+import {useExamContext} from "../problems/ExamContext";
+import {EmptyCell, TableCell} from "../../../utils/TableCell";
 
 
 const Examinees = () => {
-    const { url: currentURL } = useRouteMatch();
-    const { examId } = useParams();
+    const {url: currentURL} = useRouteMatch();
+    const {examId} = useParams();
+    const {currentExam, refetchExam} = useExamContext()
     const [examinees, setExaminees] = useState(undefined);
     const [selectedExaminee, setSelectedExaminee] = useState(undefined);
-    const [exam, setExam] = useState(undefined);
     const [showAddStudentModal, setShowAddStudentModal] = useState(false);
     const [showAddGroupModal, setShowAddGroupModal] = useState(false);
 
     const [showRemoveExamineeConfirmationModal, setShowRemoveExamineeConfirmationModal] = useState(false);
 
     useEffect(() => {
-        if (!exam) {
-            examService.getExam(examId)
-                .then(exam => setExam(exam))
+        if (!currentExam) {
+            refetchExam(examId)
         }
-        if (!examinees && exam) {
+        if (!examinees && currentExam) {
             examService.getExaminees(examId)
                 .then(students => setExaminees(students));
         }
-    }, [exam, examId, examinees]);
+    }, [currentExam, examId, examinees, refetchExam]);
 
     const actionItemsButton = ({examinee}) =>
         <ThreeDotsButton dropDownItems={[
@@ -48,7 +49,7 @@ const Examinees = () => {
         ]}/>
 
     const addExaminees = async (emails) => {
-        await examService.addExaminees(exam.id, emails)
+        await examService.addExaminees(currentExam.id, emails)
             .then(errorList => {
                 // TODO: the error should be handled in the future
                 console.log(`errorList=${errorList}`);
@@ -77,81 +78,87 @@ const Examinees = () => {
         setExaminees(examinees)
     }
 
-    if (!exam) {
+    if (!currentExam) {
         return <Spinner/>
     }
 
     return (
-        <div>
+        <div className="examinees">
             <ExamInPageNavigationBar currentURL={currentURL}
-                                     examName={exam.name}
+                                     examName={currentExam.name}
                                      examId={examId}/>
-            <div style={{padding: "40px 25% 20px 25%"}}>
-                <ItemListPage title="Examinees"
-                              filterItems={["Filter", "Name", "Email"]}
-                              Button={() => new DropDownBtn({
-                                  buttonName: '+ People',
-                                  dropDownItems: [
-                                      {
-                                          name: "Student",
-                                          onClick: () => setShowAddStudentModal(true)
-                                      },
-                                      {
-                                          name: "Group",
-                                          onClick: () => setShowAddGroupModal(true)
-                                      }
-                                  ]
-                              })}
-                              tableHeaders={["Name", "Email", " "]}
-                              tableRowGenerator={{
-                                  list: examinees,
-                                  key: (student) => student.id,
-                                  data: (student) => [
-                                      (<FakeLink content={student.name}/>),
-                                      student.email,
-                                      actionItemsButton({examinee: student})
-                                  ]
-                              }}
-                              tableDataStyle={{textAlign: "left"}}/>
-            </div>
+            <div className="font-poppins" style={{paddingTop: "20px"}}>
+                <div style={{display: "flex", justifyContent: "center"}}>
+                    <ItemListPage width="550px"
+                                  title="Examinees"
+                                  filterItems={["Filter", "Name", "Email"]}
+                                  Button={() => new DropDownBtn({
+                                      buttonName: '+ People',
+                                      dropDownItems: [
+                                          {
+                                              name: "Student",
+                                              onClick: () => setShowAddStudentModal(true)
+                                          },
+                                          {
+                                              name: "Group",
+                                              onClick: () => setShowAddGroupModal(true)
+                                          }
+                                      ]
+                                  })}
+                                  tableHeaders={[
+                                      <TableCell>Name</TableCell>,
+                                      <TableCell>Email</TableCell>,
+                                      <EmptyCell/>
+                                  ]}
+                                  tableRowGenerator={{
+                                      list: examinees,
+                                      key: (student) => student.id,
+                                      data: (student) => [
+                                          <FakeLink>{student.name}</FakeLink>,
+                                          <TableCell>{student.email}</TableCell>,
+                                          <TableCell>{actionItemsButton({examinee: student})}</TableCell>,
+                                      ]
+                                  }}/>
+                </div>
 
-            <TextareaModal title={"Add Students"}
-                           body={{
+                <TextareaModal title={"Add Students"}
+                               body={{
                                    description: "Add examinees to the exam with the examinees’ email.",
                                    Icon: AiOutlineMail,
                                    placeholder: "studentA@example.com\nstudentB@example.com",
                                    remark: "＊One email per line.",
                                    buttonName: "Add"
                                }}
-                           show={showAddStudentModal}
-                           onClose={() => setShowAddStudentModal(false)}
-                           onSubmit={emails => addExaminees(emails)}/>
+                               show={showAddStudentModal}
+                               onClose={() => setShowAddStudentModal(false)}
+                               onSubmit={emails => addExaminees(emails)}/>
 
-            <TextareaModal title={"Add Students By Groups"}
-                           body={{
+                <TextareaModal title={"Add Students By Groups"}
+                               body={{
                                    description: "Add groups to the exam with the groups’ name.",
                                    Icon: AiOutlineUsergroupAdd,
                                    placeholder: "group-name-A\ngroup-name-B",
                                    remark: "＊One group name per line.",
                                    buttonName: "Add"
                                }}
-                           show={showAddGroupModal}
-                           onClose={() => setShowAddGroupModal(false)}/>
+                               show={showAddGroupModal}
+                               onClose={() => setShowAddGroupModal(false)}/>
 
-            <RemoveConfirmationModal title={"Remove the Student"}
-                                     data={[
-                                         {
-                                             title: "Name",
-                                             value: selectedExaminee?.name
-                                         },
-                                         {
-                                             title: "Email",
-                                             value: selectedExaminee?.email
-                                         }
-                                     ]}
-                                     show={showRemoveExamineeConfirmationModal}
-                                     onClose={() => setShowRemoveExamineeConfirmationModal(false)}
-                                     onSubmit={() => removeExaminee(selectedExaminee.email)}/>
+                <RemoveConfirmationModal title={"Remove the Student"}
+                                         data={[
+                                             {
+                                                 title: "Name",
+                                                 value: selectedExaminee?.name
+                                             },
+                                             {
+                                                 title: "Email",
+                                                 value: selectedExaminee?.email
+                                             }
+                                         ]}
+                                         show={showRemoveExamineeConfirmationModal}
+                                         onClose={() => setShowRemoveExamineeConfirmationModal(false)}
+                                         onSubmit={() => removeExaminee(selectedExaminee.email)}/>
+            </div>
         </div>
     );
 }

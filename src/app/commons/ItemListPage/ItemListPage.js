@@ -35,18 +35,21 @@ const FilterSearchBar = ({filterItems, Button}) => {
 const ItemListPage = ({
                           title, filterItems, Button,
                           tableHeaders, tableRowGenerator,
-                          tableDataStyle, 
+                          tableDataStyle, width,
                           showFilterSearchBar = true,
                       }) => {
     return (
-        <div className="has-text-centered">
-            <TitleLine title={title}/>
+        <div style={{ width: width }}>
+            {title?
+                <TitleLine title={title}/> : ""
+            }
             {showFilterSearchBar ? (<FilterSearchBar filterItems={filterItems} Button={Button} />) : ''}
             <table className="table items-table mt-4">
-                <thead>
+                <thead style={{ whiteSpace: "nowrap" }}>
                 <tr>
                 {
-                    tableHeaders?.map(header => <th key={header} scope="col">{header}</th>)
+                    tableHeaders?.map(header => <th key={header} scope="col"
+                                                    style={{ verticalAlign: "middle" }}>{header}</th>)
                 }
                 </tr>
                 </thead>
@@ -56,7 +59,10 @@ const ItemListPage = ({
                         ?.map(item =>
                             <tr key={tableRowGenerator.key(item)}>
                                 {tableRowGenerator.data(item)
-                                    .map(tdContent => <td style={tableDataStyle}>{tdContent}</td>)}
+                                    .map(tdContent =>
+                                        <td style={{verticalAlign: "middle", ...tableDataStyle}}>
+                                            {tdContent}
+                                        </td>)}
                             </tr>
                         )
                 }

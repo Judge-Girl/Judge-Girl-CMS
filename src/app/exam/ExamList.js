@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import {Link, Route} from "react-router-dom";
 import {examService} from "../../services/services";
 import {EXAM_STATUSES} from "../../services/ExamService";
@@ -30,14 +30,13 @@ const ExamList = () => {
     const [showCreateExamModal, setShowCreateExamModal] = useState(false);
     const {exams, setExams, addExam} = useExamList();
     const [currentExam, setCurrentExam] = useState(null);
-
-    const refetchExam = (examId) => {
+    const refetchExam = useCallback((examId) => {
         examService.getExams({status: EXAM_STATUSES.ALL})
             .then(exams => {
                 setExams(exams)
                 setCurrentExamById(exams, examId)
             })
-    }
+    })
 
     useEffect(() => {
         if (!exams || exams.length === 0) {

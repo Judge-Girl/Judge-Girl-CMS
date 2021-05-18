@@ -31,12 +31,6 @@ const ExamList = () => {
     const {exams, setExams, addExam} = useExamList();
     const [currentExam, setCurrentExam] = useState(null);
 
-    useEffect(() => {
-        if (!exams || exams.length === 0) {
-            refetchExam()
-        }
-    }, [exams]);
-
     const refetchExam = (examId) => {
         examService.getExams({status: EXAM_STATUSES.ALL})
             .then(exams => {
@@ -44,6 +38,12 @@ const ExamList = () => {
                 setCurrentExamById(exams, examId)
             })
     }
+
+    useEffect(() => {
+        if (!exams || exams.length === 0) {
+            refetchExam()
+        }
+    }, [exams, refetchExam]);
 
     const setCurrentExamById = (exams, examId) => {
         setCurrentExam(exams.find(_exam => _exam.id === parseInt(examId)))

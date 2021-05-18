@@ -36,7 +36,7 @@ const ExamList = () => {
                 setExams(exams)
                 setCurrentExamById(exams, examId)
             })
-    }, [exams])
+    }, [setExams])
 
     useEffect(() => {
         if (!exams || exams.length === 0) {

@@ -9,11 +9,11 @@ import {CreateExamModal} from "./modals/CreateExamModal";
 import {Examinees} from "./participants/Examinees";
 import ExamQuestions from "./problems/ExamQuestions";
 import {ExamOptions} from "./options/ExamOptions";
-import './ExamList.css';
 import {Spinner} from "../commons/Spinner";
 import {ExamContext} from "./problems/ExamContext";
 import ExamScore from "./score/ExamScore";
 import {TableCell} from "../../utils/TableCell";
+import './ExamList.css';
 
 
 export const useExamList = () => {
@@ -33,12 +33,19 @@ const ExamList = () => {
 
     useEffect(() => {
         if (!exams || exams.length === 0) {
-            examService.getExams({status: EXAM_STATUSES.ALL})
-                .then(exams => setExams(exams))
+            refetchExam()
         }
-    }, [exams, setExams]);
+    }, [exams]);
 
     const refetchExam = (examId) => {
+        examService.getExams({status: EXAM_STATUSES.ALL})
+            .then(exams => {
+                setExams(exams)
+                setCurrentExamById(exams, examId)
+            })
+    }
+
+    const setCurrentExamById = (exams, examId) => {
         setCurrentExam(exams.find(_exam => _exam.id === parseInt(examId)))
     }
 
@@ -70,9 +77,7 @@ const ExamList = () => {
                                                   <TableCell>{exam?.id}</TableCell>,
                                                   <TableCell>
                                                       <Link to={`/exams/${exam.id}/problems`}
-                                                            onClick={() => {
-                                                                refetchExam(exam.id)
-                                                            }}>
+                                                            onClick={() => setCurrentExamById(exams, exam.id)}>
                                                           {exam.name}</Link>
                                                   </TableCell>,
                                                   <TableCell>{displayDate(exam?.startTime)}</TableCell>,

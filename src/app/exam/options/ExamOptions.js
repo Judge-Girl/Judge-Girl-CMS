@@ -8,15 +8,16 @@ import ExamWhiteList from "./ExamWhiteList";
 import {UpdateChangeButton} from "./UpdateChangeButton";
 import {examService} from "../../../services/services";
 import {formatDate} from "../../../utils/utils";
-import './ExamOptions.scss';
 import {useExamContext} from "../problems/ExamContext";
 import {Spinner} from "../../commons/Spinner";
+import './ExamOptions.scss';
 
 
 const ExamOptions = () => {
     const {url: currentURL} = useRouteMatch()
     const {currentExam, refetchExam} = useExamContext()
     const {examId} = useParams()
+    const [newExamName, setNewExamName] = useState()
     const [startTime, setStartTime] = useState(formatDate(currentExam?.startTime))
     const [endTime, setEndTime] = useState(formatDate(currentExam?.endTime))
 
@@ -27,20 +28,17 @@ const ExamOptions = () => {
     })
 
     const onButtonUpdateChangeClicked = () => {
-        console.log({
-            examId: examId,
-            name: currentExam?.name,
-            startTime: startTime,
-            endTime: endTime,
-            description: "",
-        })
         examService.updateExam(examId, {
             examId: examId,
-            name: currentExam?.name,
+            name: newExamName,
             startTime: startTime,
             endTime: endTime,
             description: "",
-        }).then(() => console.log("Exam Updated."))
+        }).then(res => {
+            console.log("new:", res)
+            console.log("old:", currentExam)
+            refetchExam(examId)
+        })
     }
 
     const onButtonDeleteExamClicked = () => {
@@ -65,7 +63,7 @@ const ExamOptions = () => {
                         <TitleLine title={"Options"}/>
                         <div className="column is-narrow" style={{width: "450px"}}>
                             <section>
-                                <ExamName examName={currentExam.Name} setter={refetchExam}/>
+                                <ExamName examName={currentExam.name} setter={setNewExamName}/>
                             </section>
                             <section>
                                 <ExamSchedule

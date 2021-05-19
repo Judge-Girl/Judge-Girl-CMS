@@ -1,4 +1,3 @@
-import axios from "axios";
 import AbstractService from "./AbstractService";
 
 export class ProblemService extends AbstractService {

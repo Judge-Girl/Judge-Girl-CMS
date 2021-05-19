@@ -1,18 +1,19 @@
 import Exam from "../models/Exam";
-import axios from "axios";
 import Student from "../models/Student";
 import Question from "../models/Question";
+import AbstractService from "./AbstractService";
 
 export const EXAM_STATUSES = {
     ALL: 'all', UPCOMING: 'upcoming', PAST: 'past', CURRENT: 'current'
 };
 
-export class ExamService {
+export class ExamService extends AbstractService {
 
-    constructor() {
-        this.axios = axios.create({
+    constructor(studentService) {
+        super({
             baseURL: process.env.REACT_APP_EXAM_SVC_BASE_URL,
-            timeout: 10000
+            timeout: 10000,
+            tokenSupplier: studentService.currentToken
         });
     }
 

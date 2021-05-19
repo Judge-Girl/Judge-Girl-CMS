@@ -1,6 +1,7 @@
 import axios from "axios";
 import Student from "../models/Student";
 import {Group} from "../models/Group";
+import AbstractService from "./AbstractService";
 
 export class YouAreNotAdminError extends Error {
 }
@@ -17,11 +18,12 @@ export class AuthenticationFailureError extends Error {
 
 let currentAdmin = undefined;
 
-const KEY_TOKEN = "token";
+export const KEY_TOKEN = "token";
 
 function updateCurrentAdmin(admin) {
     currentAdmin = admin;
     localStorage.setItem(KEY_TOKEN, currentAdmin.token);
+    axios.defaults.headers.common['Authorization'] = `Bearer ${currentAdmin.token}`;
     return currentAdmin;
 }
 
@@ -30,11 +32,13 @@ function clearCurrentAdmin() {
     localStorage.removeItem(KEY_TOKEN);
 }
 
-export default class StudentService {
+
+export default class StudentService extends AbstractService {
     constructor() {
-        this.axios = axios.create({
+        super({
             baseURL: process.env.REACT_APP_STUDENT_SVC_BASE_URL,
-            timeout: 10000
+            timeout: 10000,
+            tokenSupplier: () => currentAdmin?.token
         });
     }
 
@@ -130,6 +134,10 @@ export default class StudentService {
     async createAdminAccount({name, email, password}) {
         return this.axios.post('/api/admins', {name, email, password, isAdmin: true})
             .then(res => new Student(res.data));
+    }
+
+    currentToken() {
+        return currentAdmin.token;
     }
 }
 

@@ -1,18 +1,20 @@
-import axios from "axios";
+import AbstractService from "./AbstractService";
 
-export class SubmissionService {
+export class SubmissionService extends AbstractService {
 
-    constructor() {
-        this.axios = axios.create({
+    constructor(studentService) {
+        super({
             baseURL: process.env.REACT_APP_PROBLEM_SVC_BASE_URL,
-            timeout: 10000
+            timeout: 10000,
+            tokenSupplier: studentService.currentToken
         });
     }
 
     async rejudge({examId, problemId}) {
         return new Promise((res) => {
             setTimeout(() => {
-                console.log("rejudge success.")
+                // TODO
+                console.log("rejudge success.");
                 res("SUCCESS")
             }, 2000);
         })

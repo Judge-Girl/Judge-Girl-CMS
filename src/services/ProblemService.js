@@ -1,11 +1,12 @@
-import axios from "axios";
+import AbstractService from "./AbstractService";
 
-export class ProblemService {
+export class ProblemService extends AbstractService {
 
-    constructor() {
-        this.axios = axios.create({
+    constructor(studentService) {
+        super({
             baseURL: process.env.REACT_APP_PROBLEM_SVC_BASE_URL,
-            timeout: 10000
+            timeout: 10000,
+            tokenSupplier: studentService.currentToken
         });
     }
 
@@ -34,4 +35,5 @@ export class ProblemService {
     async getAllProblems() {
         return this.axios.get(`/api/problems`).then(res => res.data)
     }
+
 }

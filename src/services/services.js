@@ -4,9 +4,9 @@ import {ProblemService} from "./ProblemService";
 import {SubmissionService} from "./SubmissionService";
 
 
-const examService = new ExamService();
 const studentService = new StudentService();
-const problemService = new ProblemService();
-const submissionService = new SubmissionService();
+const examService = new ExamService(studentService);
+const problemService = new ProblemService(studentService);
+const submissionService = new SubmissionService(studentService);
 
 export {examService, studentService, problemService, submissionService};

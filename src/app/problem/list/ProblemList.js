@@ -26,7 +26,7 @@ const ProblemList = () => {
     const [shouldRedirect, setShouldRedirect] = useState(false)
     const setCurrentProblemById = useCallback((problemId) => {
             setCurrentProblem(problems.find(problem => parseInt(problem.id) === parseInt(problemId)))
-    }, [setCurrentProblem])
+    }, [problems, setCurrentProblem])
     const refetchProblem = useCallback((problemId) => {
         problemService.getAllProblems()
             .then(problems => {

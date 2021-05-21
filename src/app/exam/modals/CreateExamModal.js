@@ -1,5 +1,5 @@
 import * as React from "react";
-import {createRef, useEffect, useState} from "react";
+import {createRef, useState} from "react";
 import {SubtitleLine} from "../../commons/titles/TitleLine";
 import {now} from "moment";
 import {examService} from "../../../services/services";

@@ -1,4 +1,4 @@
-import {createRef, useEffect, useState} from "react";
+import {createRef, useState} from "react";
 import {problemService} from "../../../services/services";
 import {renderModal} from "../../commons/modals/modal";
 import {ModalInput} from "../../commons/modals/ModalInput";

@@ -17,7 +17,7 @@ import './ExamList.css';
 
 
 export const useExamList = () => {
-    const [exams, setExams] = useState(undefined);
+    const [exams, setExams] = useState();
     const addExam = (exam) => {
         exams.push(exam);
         setExams(exams);
@@ -34,7 +34,6 @@ const ExamList = () => {
     const refetchExam = useCallback((examId) => {
         examService.getExams({status: EXAM_STATUSES.ALL})
             .then(exams => {
-                console.log("0521: refetch exams:", exams)
                 setExams(exams)
                 setCurrentExamById(exams, examId)
             })

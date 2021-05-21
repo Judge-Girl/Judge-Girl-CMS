@@ -10,7 +10,7 @@ import {TableCell} from "../../../utils/TableCell";
 import {ProblemContext} from "./ProblemContext";
 
 export const useProblemList = () => {
-    const [problems, setProblems] = useState(undefined);
+    const [problems, setProblems] = useState();
     const addProblem = (problem) => {
         problems.push(problem);
         setProblems(problems);
@@ -30,8 +30,6 @@ const ProblemList = () => {
     const refetchProblem = useCallback((problemId) => {
         problemService.getAllProblems()
             .then(problems => {
-                // TODO: should check the API return [] when no Problems, then problems can be init as undefined.
-                console.log("DEBUG------refetchProblem----problems", problems)
                 setProblems(problems)
                 setCurrentProblemById(problemId)
             })

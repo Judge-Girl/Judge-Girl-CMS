@@ -30,9 +30,8 @@ const StudentList = () => {
                     <ItemListPage title="Student List"
                                   width="700px"
                                   filterItems={["Filter", "Name", "Email"]}
-                                  Button={() => new CreateButton({
-                                      onCreateButtonClick: () => setShowCreateStudentAccountModal(true)
-                                  })}
+                                  Button={() => <CreateButton onClick={() =>
+                                      setShowCreateStudentAccountModal(true)}/>}
                                   tableHeaders={[
                                       <TableCell>Name</TableCell>,
                                       <TableCell>Email</TableCell>,

@@ -1,9 +1,9 @@
 import * as React from "react";
 
-const CreateButton = function ({onCreateButtonClick}) {
+const CreateButton = ({onClick}) => {
     return (
         <button className="button ml-2 my-green-btn"
-                style={{flexGrow: "1"}} onClick={onCreateButtonClick}>+ Create
+                style={{flexGrow: "1"}} onClick={onClick}>+ Create
         </button>
     )
 }

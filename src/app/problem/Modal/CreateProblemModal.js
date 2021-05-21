@@ -42,7 +42,6 @@ const CreateProblemModal = ({ show, onClose, onProblemCreated }) => {
                                 fontSize="20px" height="41px"
                                 placeholder="New Problem Title"
                                 onChange={e => setName(e.target.value)}/>
-                    // TODO: 這個button 沒有 onClick, 那是怎麼觸發submit?
                     <button className="button ml-2 mt-3 my-green-btn" id="create-btn">Create</button>
                 </div>
             </form>

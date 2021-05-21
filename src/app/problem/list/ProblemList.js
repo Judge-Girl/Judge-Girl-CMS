@@ -23,6 +23,8 @@ const ProblemList = () => {
     const [showCreateProblemModal, setShowCreateProblemModal] = useState(false)
     const {problems, setProblems, addProblem} = useProblemList();
     const [currentProblem, setCurrentProblem] = useState();
+    const setCurrentProblemById = (problemId) =>
+        setCurrentProblem(problems.find(problem => parseInt(problem.id) === parseInt(problemId)))
     const [shouldRedirect, setShouldRedirect] = useState(false)
     const refetchProblem = useCallback((problemId) => {
         problemService.getAllProblems()
@@ -32,17 +34,13 @@ const ProblemList = () => {
                 setProblems(problems)
                 setCurrentProblemById(problemId)
             })
-    }, [setProblems])
+    }, [setProblems, setCurrentProblemById])
 
     useEffect(() => {
         if (!problems || problems.length === 0) {
             refetchProblem()
         }
     }, [problems, refetchProblem]);
-
-    const setCurrentProblemById = (problemId) => {
-        setCurrentProblem(problems.find(problem => parseInt(problem.id) === parseInt(problemId)))
-    }
 
     const onProblemCreated = (problem) => {
         addProblem(problem)

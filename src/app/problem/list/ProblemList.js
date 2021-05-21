@@ -1,11 +1,11 @@
-import React, {useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import {ItemListPage} from "../../commons/ItemListPage/ItemListPage";
 import {CreateButton} from "../../commons/buttons/CreateButton";
 import CreateProblemModal from "../Modal/CreateProblemModal";
 import {problemService} from "../../../services/services";
 import {Spinner} from "../../commons/Spinner";
 import {ProblemEditor} from "../ProblemEditor";
-import {Link, Route} from "react-router-dom";
+import {Link, Redirect, Route} from "react-router-dom";
 import {TableCell} from "../../../utils/TableCell";
 import {ProblemContext} from "./ProblemContext";
 
@@ -22,31 +22,40 @@ export const useProblemList = () => {
 const ProblemList = () => {
     const [showCreateProblemModal, setShowCreateProblemModal] = useState(false)
     const {problems, setProblems, addProblem} = useProblemList();
-    const [currentProblem, setCurrentProblem] = useState(null);
+    const [currentProblem, setCurrentProblem] = useState();
+    const [shouldRedirect, setShouldRedirect] = useState(false)
+    const refetchProblem = useCallback((problemId) => {
+        problemService.getAllProblems()
+            .then(problems => {
+                // TODO: should check the API return [] when no Problems, then problems can be init as undefined.
+                console.log("DEBUG------refetchProblem----problems", problems)
+                setProblems(problems)
+                setCurrentProblemById(problemId)
+            })
+    }, [setProblems])
 
     useEffect(() => {
         if (!problems || problems.length === 0) {
-            problemService.getAllProblems()
-                .then(problems => {
-                    setProblems(problems);
-                })
+            refetchProblem()
         }
-    }, [problems, setProblems]);
+    }, [problems, refetchProblem]);
 
-    const refetchProblem = (problemId) => {
-        setCurrentProblem(problems.find(problem => {
-            return parseInt(problem.id) === parseInt(problemId)
-        }))
+    const setCurrentProblemById = (problemId) => {
+        setCurrentProblem(problems.find(problem => parseInt(problem.id) === parseInt(problemId)))
     }
 
     const onProblemCreated = (problem) => {
         addProblem(problem)
+        setCurrentProblem(problem)
+        setShouldRedirect(true)
+    }
+
+    if (shouldRedirect) {
+        return <Redirect to={`/problems/${currentProblem.id}/edit`}/>
     }
 
     if (!problems) {
-        return (
-            <Spinner/>
-        )
+        return <Spinner/>
     }
 
     return (
@@ -58,9 +67,8 @@ const ProblemList = () => {
                             <ItemListPage title="Problem List"
                                           width="1000px"
                                           filterItems={["Filter", "Id", "tags"]}
-                                          Button={() => new CreateButton({
-                                              onCreateButtonClick: () => setShowCreateProblemModal(true)
-                                          })}
+                                          Button={() =>
+                                              <CreateButton onClick={() => setShowCreateProblemModal(true)}/>}
                                           tableHeaders={[
                                               <TableCell>#</TableCell>,
                                               <TableCell>Problem Title</TableCell>,
@@ -72,13 +80,13 @@ const ProblemList = () => {
                                               data: (problem) => [
                                                   <TableCell>
                                                       <Link to={`/problems/${problem.id}/edit`}
-                                                            onClick={() => {refetchProblem(problem.id)}}
-                                                      >{problem.id}</Link>
+                                                            onClick={() => {setCurrentProblemById(problem.id)}}>
+                                                          {problem.id}</Link>
                                                   </TableCell>,
                                                   <TableCell>
                                                       <Link to={`/problems/${problem.id}/edit`}
-                                                            onClick={() => {refetchProblem(problem.id)}}
-                                                      >{problem.title}</Link>
+                                                            onClick={() => {setCurrentProblemById(problem.id)}}>
+                                                          {problem.title}</Link>
                                                   </TableCell>,
                                                   <TableCell>
                                                       <span className="tag is-link">Functions</span>
@@ -99,7 +107,6 @@ const ProblemList = () => {
                 </Route>
             </ProblemContext.Provider>
         </>
-
     )
 }
 

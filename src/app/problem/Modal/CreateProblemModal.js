@@ -7,12 +7,8 @@ import {ModalHeader} from "../../commons/modals/ModalHeader";
 
 
 const CreateProblemModal = ({ show, onClose, onProblemCreated }) => {
-    const [problemName, setName] = useState('');
+    const [problemName, setName] = useState();
     const closeIconRef = createRef(), formRef = createRef(), nameInputRef = createRef()
-
-    useEffect(() => {
-
-    })
 
     const handleSubmit = e => {
         e.preventDefault();
@@ -21,9 +17,9 @@ const CreateProblemModal = ({ show, onClose, onProblemCreated }) => {
         if (form.checkValidity()) {
             problemService.createProblem(problemName)
                 .then(problem => {
-                    onProblemCreated(problem);
-                    closeIconRef.current.click();
-                    setName('');
+                    onProblemCreated(problem)
+                    setName(null)
+                    closeIconRef.current.click()
                 });
         } else {
             form.reportValidity();

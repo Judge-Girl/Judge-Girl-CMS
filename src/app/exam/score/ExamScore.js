@@ -61,7 +61,7 @@ const ExamScore = () => {
             <ExamInPageNavigationBar currentURL={currentURL}
                                      examName={currentExam.name}
                                      examId={examId}/>
-            <div className="font-poppins" style={{paddingTop: "20px"}}>
+            <div className="font-poppins" style={{paddingTop: "20px", paddingBottom: "150px"}}>
                 <div className="mt-2" style={{display: "flex", justifyContent: "center"}}>
                     <div className="mt-4 mr-3" style={{width: "fit-content", textAlign: "center"}}>
                         <div className="card">

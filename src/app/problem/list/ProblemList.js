@@ -21,19 +21,16 @@ export const useProblemList = () => {
 
 const ProblemList = () => {
     const [showCreateProblemModal, setShowCreateProblemModal] = useState(false)
-    const {problems, setProblems, addProblem} = useProblemList();
+    const {problems, setProblems} = useProblemList();
     const [currentProblem, setCurrentProblem] = useState();
     const [shouldRedirect, setShouldRedirect] = useState(false)
-    const setCurrentProblemById = useCallback((problemId) => {
-            setCurrentProblem(problems.find(problem => parseInt(problem.id) === parseInt(problemId)))
-    }, [problems, setCurrentProblem])
     const refetchProblem = useCallback((problemId) => {
         problemService.getAllProblems()
             .then(problems => {
                 setProblems(problems)
-                setCurrentProblemById(problemId)
+                setCurrentProblem(problems.find(problem => parseInt(problem.id) === parseInt(problemId)))
             })
-    }, [setProblems, setCurrentProblemById])
+    }, [setProblems, setCurrentProblem])
 
     useEffect(() => {
         if (!problems || problems.length === 0) {
@@ -41,25 +38,21 @@ const ProblemList = () => {
         }
     }, [problems, refetchProblem]);
 
-    const onProblemCreated = (problem) => {
-        addProblem(problem)
-        setCurrentProblem(problem)
+    const onProblemCreated = (problemId) => {
+        refetchProblem(problemId)
         setShouldRedirect(true)
     }
 
-    if (shouldRedirect) {
-        return <Redirect to={`/problems/${currentProblem.id}/edit`}/>
-    }
-
-    if (!problems) {
+    if (!problems || (shouldRedirect && !currentProblem)) {
         return <Spinner/>
     }
 
     return (
-        <>
+        <>{shouldRedirect?
+            <Redirect to={`problems/:problemId/edit`}/> : ""}
             <Route path="/problems" exact>
                 <div className="problem-list font-poppins">
-                    <div style={{paddingTop: "20px"}}>
+                    <div style={{paddingTop: "20px", paddingBottom: "150px"}}>
                         <div style={{display: "flex", justifyContent: "center"}}>
                             <ItemListPage title="Problem List"
                                           width="1000px"
@@ -77,12 +70,12 @@ const ProblemList = () => {
                                               data: (problem) => [
                                                   <TableCell>
                                                       <Link to={`/problems/${problem.id}/edit`}
-                                                            onClick={() => {setCurrentProblemById(problem.id)}}>
+                                                            onClick={() => setCurrentProblem(problem)}>
                                                           {problem.id}</Link>
                                                   </TableCell>,
                                                   <TableCell>
                                                       <Link to={`/problems/${problem.id}/edit`}
-                                                            onClick={() => {setCurrentProblemById(problem.id)}}>
+                                                            onClick={() => setCurrentProblem(problem)}>
                                                           {problem.title}</Link>
                                                   </TableCell>,
                                                   <TableCell>
@@ -98,11 +91,12 @@ const ProblemList = () => {
                     </div>
                 </div>
             </Route>
-            <ProblemContext.Provider value={{currentProblem, setCurrentProblem, refetchProblem}}>
-                <Route path="/problems/:problemId/edit">
+            <Route path="/problems/:problemId/edit">
+                <ProblemContext.Provider value={{
+                    currentProblem, setCurrentProblem, refetchProblem, setShouldRedirect}}>
                     <ProblemEditor/>
-                </Route>
-            </ProblemContext.Provider>
+                </ProblemContext.Provider>
+            </Route>
         </>
     )
 }

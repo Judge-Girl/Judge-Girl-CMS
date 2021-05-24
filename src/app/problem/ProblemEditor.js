@@ -18,7 +18,7 @@ import {useProblemContext} from "./list/ProblemContext";
 
 const ProblemEditor = () => {
     const { problemId } = useParams()
-    const { currentProblem, setCurrentProblem, refetchProblem} = useProblemContext()
+    const { currentProblem, setCurrentProblem, refetchProblem, setShouldRedirect} = useProblemContext()
     const [problemSaved, setProblemSaved] = useState(false)
 
     useEffect(() => {
@@ -33,6 +33,7 @@ const ProblemEditor = () => {
 
     if (problemSaved) {
         setCurrentProblem(null)
+        setShouldRedirect(false)
         return <Redirect to="/problems"/>
     }
 
@@ -67,8 +68,7 @@ const ProblemEditor = () => {
                         </section>
                         <section>
                             <EditorButton text={"Save Change"} buttonColor={"#96D745"} fontColor={"#FFFFFF"}
-                                          onClick={() => setProblemSaved(true)}
-                            />
+                                          onClick={() => setProblemSaved(true)}/>
                             <EditorButton text={"Delete Problem"} buttonColor={"#FFFFFF"} fontColor={"#A2A3B1"}/>
                         </section>
                     </div>

@@ -1,6 +1,5 @@
 import React, {useState, useEffect, useCallback} from "react";
 import {useParams, useRouteMatch} from "react-router-dom";
-
 import {examService, submissionService} from "../../../services/services.js";
 import {ThreeDotsButton} from "../../commons/buttons/ThreeDotsButton.js";
 import FakeLink from "../../commons/FakeLink.js";
@@ -9,11 +8,11 @@ import {ExamInPageNavigationBar} from "../ExamInPageNavigationBar";
 import {AddQuestionModal} from "../modals/AddQuestionModal.js";
 import {EditQuestionModal} from "../modals/EditQuestionModal.js";
 import {RejudgeQuestionModal} from "../modals/RejudgeQuestionModal";
-import "./ExamQuestions.scss";
 import {useExamContext} from "./ExamContext";
 import {Spinner} from "../../commons/Spinner";
 import {TableCell} from "../../../utils/TableCell";
 import ExamDescriptionEditor from "./ExamDescriptionEditor";
+import "./ExamQuestions.scss";
 
 const toCharacterIndex = i => {
     return String.fromCharCode(i + 65);
@@ -106,8 +105,8 @@ const ExamQuestions = () => {
                 currentURL={currentURL}
                 examName={currentExam.name}
                 examId={examId}/>
-            <div className="font-poppins" style={{paddingTop: "20px"}}>
-                <div style={{display: "flex", justifyContent: "center", paddingBottom: "150px"}}>
+            <div className="font-poppins" style={{paddingTop: "20px", paddingBottom: "150px"}}>
+                <div style={{display: "flex", justifyContent: "center"}}>
                     <div style={{
                         display: "flex", flexDirection: "column",
                         justifyContent: "flex-start", alignItems: "center",

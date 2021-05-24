@@ -67,7 +67,7 @@ const ExamList = () => {
         <>
             <Route path="/exams" exact>
                 <div className="exam-list font-poppins">
-                    <div style={{paddingTop: "20px"}}>
+                    <div className="font-poppins" style={{paddingTop: "20px", paddingBottom: "150px"}}>
                         <div style={{display: "flex", justifyContent: "center"}}>
                             <ItemListPage title="Exam List"
                                           width="1000px"

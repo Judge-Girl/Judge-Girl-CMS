@@ -1,7 +1,7 @@
 import * as React from "react";
 
 
-const renderModal = function ({modalClassName, modalWidth, contentRendering, show, closeIconRef, onClose}) {
+const renderModal = ({modalClassName, modalWidth, contentRendering, show, closeIconRef, onClose}) => {
     return (
         <div className={`${modalClassName} modal ${show ? 'is-active' : ''}`}>
             <div className="modal-background"/>
@@ -19,7 +19,7 @@ const renderModal = function ({modalClassName, modalWidth, contentRendering, sho
             </div>
         </div>
     );
-};
+}
 
 
 export {renderModal};

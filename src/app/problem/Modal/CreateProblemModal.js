@@ -1,8 +1,8 @@
+import * as React from "react";
 import {createRef, useState} from "react";
 import {problemService} from "../../../services/services";
 import {renderModal} from "../../commons/modals/modal";
 import {ModalInput} from "../../commons/modals/ModalInput";
-import * as React from "react";
 import {ModalHeader} from "../../commons/modals/ModalHeader";
 
 
@@ -16,11 +16,9 @@ const CreateProblemModal = ({ show, onClose, onProblemCreated }) => {
 
         if (form.checkValidity()) {
             problemService.createProblem(problemName)
-                .then(problem => {
-                    onProblemCreated(problem)
-                    setName(null)
-                    closeIconRef.current.click()
-                });
+                .then(problemId => onProblemCreated(problemId))
+            setName(null)
+            closeIconRef.current.click()
         } else {
             form.reportValidity();
         }

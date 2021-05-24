@@ -87,7 +87,7 @@ const Examinees = () => {
             <ExamInPageNavigationBar currentURL={currentURL}
                                      examName={currentExam.name}
                                      examId={examId}/>
-            <div className="font-poppins" style={{paddingTop: "20px"}}>
+            <div className="font-poppins" style={{paddingTop: "20px", paddingBottom: "150px"}}>
                 <div style={{display: "flex", justifyContent: "center"}}>
                     <ItemListPage width="550px"
                                   title="Examinees"

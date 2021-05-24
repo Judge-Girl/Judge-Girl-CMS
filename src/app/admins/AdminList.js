@@ -25,14 +25,13 @@ const AdminList = () => {
     });
     return (
         <div className="admin-list font-poppins">
-            <div style={{paddingTop: "20px"}}>
+            <div style={{paddingTop: "20px", paddingBottom: "150px"}}>
                 <div style={{display: "flex", justifyContent: "center"}}>
                     <ItemListPage title="Admin List"
                                   width="700px"
                                   filterItems={["Filter", "Name", "Email"]}
-                                  Button={() => new CreateButton({
-                                      onCreateButtonClick: () => setShowCreateAdminAccountModal(true)
-                                  })}
+                                  Button={() =>
+                                      <CreateButton onClick={() => setShowCreateAdminAccountModal(true)}/>}
                                   tableHeaders={[
                                       <TableCell>Name</TableCell>,
                                       <TableCell>Email</TableCell>,

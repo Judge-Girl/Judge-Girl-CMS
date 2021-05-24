@@ -53,11 +53,9 @@ const CreateExamModal = ({show, onClose, onExamCreated}) => {
         // validation
         if (form.checkValidity()) {
             examService.createExam({name, startTime, endTime})
-                .then(exam => {
-                    onExamCreated(exam)
-                    resetState()
-                    closeIconRef.current.click(); // close the modal
-                });
+                .then(exam => onExamCreated(exam))
+            resetState()
+            closeIconRef.current.click();
         } else {
             form.reportValidity();
         }

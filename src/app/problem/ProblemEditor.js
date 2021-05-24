@@ -44,7 +44,7 @@ const ProblemEditor = () => {
                     <ProblemEditorTitle problem={currentProblem}/>
                 </div>
                 <div className="columns">
-                    <div style={{ paddingLeft: "2%",  width: "25%" }}>
+                    <div style={{ paddingLeft: "1%",  width: "25%" }}>
                         <section>
                             <TagList/>
                         </section>

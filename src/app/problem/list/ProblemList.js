@@ -49,7 +49,7 @@ const ProblemList = () => {
 
     return (
         <>{shouldRedirect?
-            <Redirect to={`problems/:problemId/edit`}/> : ""}
+            <Redirect to={`problems/${currentProblem.id}/edit`}/> : ""}
             <Route path="/problems" exact>
                 <div className="problem-list font-poppins">
                     <div style={{paddingTop: "20px", paddingBottom: "150px"}}>

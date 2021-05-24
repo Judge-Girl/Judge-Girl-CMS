@@ -28,16 +28,16 @@ export const useExamList = () => {
 
 const ExamList = () => {
     const [showCreateExamModal, setShowCreateExamModal] = useState(false);
-    const {exams, setExams, addExam} = useExamList();
-    const [currentExam, setCurrentExam] = useState(null);
+    const {exams, setExams} = useExamList();
+    const [currentExam, setCurrentExam] = useState()
     const [shouldRedirect, setShouldRedirect] = useState(false)
     const refetchExam = useCallback((examId) => {
         examService.getExams({status: EXAM_STATUSES.ALL})
             .then(exams => {
                 setExams(exams)
-                setCurrentExamById(exams, examId)
+                setCurrentExam(exams.find(exam => parseInt(exam.id) === parseInt(examId)))
             })
-    }, [setExams])
+    }, [setExams, setCurrentExam])
 
     useEffect(() => {
         if (!exams || exams.length === 0) {
@@ -45,26 +45,18 @@ const ExamList = () => {
         }
     }, [exams, refetchExam]);
 
-    const setCurrentExamById = (exams, examId) => {
-        setCurrentExam(exams.find(_exam => _exam.id === parseInt(examId)))
-    }
-
     const onExamCreated = (exam) => {
-        addExam(exam)
-        setCurrentExam(exam)
+        refetchExam(exam.id)
         setShouldRedirect(true)
     }
 
-    if (shouldRedirect) {
-        return <Redirect to={`/exams/${currentExam.id}/problems`}/>
-    }
-
-    if (!exams) {
+    if (!exams || (shouldRedirect && !currentExam)) {
         return <Spinner/>
     }
 
     return (
-        <>
+        <>{shouldRedirect?
+            <Redirect to={`/exams/${currentExam.id}/problems`}/>: ""}
             <Route path="/exams" exact>
                 <div className="exam-list font-poppins">
                     <div className="font-poppins" style={{paddingTop: "20px", paddingBottom: "150px"}}>
@@ -86,7 +78,7 @@ const ExamList = () => {
                                                   <TableCell>{exam?.id}</TableCell>,
                                                   <TableCell>
                                                       <Link to={`/exams/${exam.id}/problems`}
-                                                            onClick={() => setCurrentExamById(exams, exam.id)}>
+                                                            onClick={() => setCurrentExam(exam)}>
                                                           {exam.name}</Link>
                                                   </TableCell>,
                                                   <TableCell>{displayDate(exam?.startTime)}</TableCell>,
@@ -101,7 +93,7 @@ const ExamList = () => {
                     </div>
                 </div>
             </Route>
-            <ExamContext.Provider value={{currentExam, setCurrentExam, refetchExam}}>
+            <ExamContext.Provider value={{currentExam, setCurrentExam, refetchExam, setShouldRedirect}}>
                 <Switch>
                     <Route path="/exams/:examId/problems">
                         <ExamQuestions/>
@@ -122,7 +114,7 @@ const ExamList = () => {
             </ExamContext.Provider>
         </>
     )
-};
+}
 
 
-export {ExamList};
+export {ExamList}

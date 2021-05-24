@@ -48,22 +48,25 @@ const ItemListPage = ({
                 <thead style={{ whiteSpace: "nowrap" }}>
                 <tr>
                 {
-                    tableHeaders?.map(header => <th key={header} scope="col"
-                                                    style={{ verticalAlign: "middle" }}>{header}</th>)
+                    tableHeaders?.map((header, index) => <th key={index}
+                                                             scope="col"
+                                                             style={{ verticalAlign: "middle" }}>{header}</th>)
                 }
                 </tr>
                 </thead>
                 <tbody>
                 {
                     tableRowGenerator?.list
-                        ?.map(item =>
-                            <tr key={tableRowGenerator.key(item)}>
+                        ?.map(item => {
+                            console.log()
+                            return <tr key={tableRowGenerator.key(item)}>
                                 {tableRowGenerator.data(item)
-                                    .map(tdContent =>
-                                        <td style={{verticalAlign: "middle", ...tableDataStyle}}>
+                                    .map((tdContent, index) =>
+                                        <td key={index}
+                                            style={{verticalAlign: "middle", ...tableDataStyle}}>
                                             {tdContent}
                                         </td>)}
-                            </tr>
+                            </tr>}
                         )
                 }
                 </tbody>

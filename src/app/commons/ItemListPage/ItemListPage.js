@@ -57,16 +57,14 @@ const ItemListPage = ({
                 <tbody>
                 {
                     tableRowGenerator?.list
-                        ?.map(item => {
-                            console.log()
-                            return <tr key={tableRowGenerator.key(item)}>
-                                {tableRowGenerator.data(item)
-                                    .map((tdContent, index) =>
-                                        <td key={index}
-                                            style={{verticalAlign: "middle", ...tableDataStyle}}>
-                                            {tdContent}
-                                        </td>)}
-                            </tr>}
+                        ?.map(item =>
+                            <tr key={tableRowGenerator.key(item)}>
+                            {tableRowGenerator.data(item).map((tdContent, index) =>
+                                <td key={index}
+                                    style={{verticalAlign: "middle", ...tableDataStyle}}>
+                                    {tdContent}
+                                </td>)}
+                            </tr>
                         )
                 }
                 </tbody>

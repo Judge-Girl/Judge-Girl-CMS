@@ -8,7 +8,6 @@ export const ModalInput = React.forwardRef((
         height, fontSize, labelText, labelFontSize,
         onChange = e => {}, required = true
     }, ref) => {
-    console.log("DEBUG-----ref2", ref)
     return (
         <div className="mt-3">
             {labelText ?

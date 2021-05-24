@@ -3,7 +3,8 @@ import {AiOutlineSetting, FaClipboardList, FaRegEdit, FaUserFriends} from "react
 import {useExamContext} from "./problems/ExamContext";
 
 const ExamInPageNavigationBar = function ({currentURL, examName, examId}) {
-    const { setCurrentExam: firstParamResetState } = useExamContext()
+    const {setCurrentExam, setShouldRedirect} = useExamContext()
+    const resetFunctions = [setCurrentExam, setShouldRedirect]
 
     return (
         <InPageNavigationBar currentURL={currentURL}
@@ -11,7 +12,7 @@ const ExamInPageNavigationBar = function ({currentURL, examName, examId}) {
                                  head: "Exam",
                                  tail: examName
                              }}
-                             events={{ firstParamResetState }}
+                             events={{ firstParamOnClicks: resetFunctions }}
                              tabContents={[
                                  {
                                      to: `/exams/${examId}/problems`,
@@ -36,6 +37,6 @@ const ExamInPageNavigationBar = function ({currentURL, examName, examId}) {
                              ]}
         />
     )
-};
+}
 
 export {ExamInPageNavigationBar};

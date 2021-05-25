@@ -116,7 +116,7 @@ const ExamQuestions = () => {
                             justifyContent: "flex-start", alignItems: "flex-end",
                         }}>
                             <ItemListPage
-                                width="800px"
+                                width="1200px"
                                 title="Questions"
                                 tableHeaders={[
                                     <TableCell>#</TableCell>,
@@ -165,7 +165,7 @@ const ExamQuestions = () => {
                                 <span>Add New Question</span>
                             </div>
                         </div>
-                        <ExamDescriptionEditor style={{backgroundColor: "var(--background)", width: "1000px"}}/>
+                        <ExamDescriptionEditor style={{backgroundColor: "var(--background)", width: "1200px"}}/>
                     </div>
                 </div>
             </div>

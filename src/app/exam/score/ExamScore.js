@@ -85,7 +85,7 @@ const ExamScore = () => {
                         </div>
                     </div>
                     <ItemListPage
-                        width="800px"
+                        width="1000px"
                         tableHeaders={[
                             <TableCell>Name</TableCell>,
                             <TableCell>A</TableCell>,

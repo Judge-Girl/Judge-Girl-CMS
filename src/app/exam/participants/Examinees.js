@@ -89,7 +89,7 @@ const Examinees = () => {
                                      examId={examId}/>
             <div className="font-poppins" style={{paddingTop: "20px", paddingBottom: "150px"}}>
                 <div style={{display: "flex", justifyContent: "center"}}>
-                    <ItemListPage width="550px"
+                    <ItemListPage width="1200px"
                                   title="Examinees"
                                   filterItems={["Filter", "Name", "Email"]}
                                   Button={() => new DropDownBtn({

@@ -8,10 +8,10 @@ const ExamInPageNavigationBar = function ({currentURL, examName, examId}) {
     const onBreadcrumbClickAtIndex = (index) => {
         const BACK_TO_EXAM_LIST = 0
         switch (index) {
-            case BACK_TO_EXAM_LIST: {
+            case BACK_TO_EXAM_LIST:
                 setCurrentExam(null)
                 setShouldRedirect(false)
-            } break;
+                break;
             default:
                 console.log("WARNING: onBreadcrumbClickAtIndex index out of range.")
         }

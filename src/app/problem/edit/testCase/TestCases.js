@@ -7,10 +7,13 @@ import {EditorButton} from "../EditorButton";
 
 function TestCases({testCasesItems, removeTestCase}) {
     return testCasesItems.map((testCaseId) => (
-        <div className="test-case-box-out" key={testCaseId}>
-            <div >
-                <span className="test-case-ame">Test Case Name</span>
-                <input className="text-case-name-input" />
+        <div key={testCaseId}
+             className="test-case-box-out"
+             style={{ display: "flex", flexDirection: "column" }}>
+            <div style={{ display: "flex", justifyContent: "flex-start", alignItems: "center",
+                padding: "1% 0 3px 15px", whiteSpace:"nowrap" }}>
+                <span className="test-case-name">Test Case Name</span>
+                <input className="text-case-name-input" style={{ marginLeft: "5px" }}/>
             </div>
             <div className="test-case-box-in columns">
                 <div className="column is-two-fifths">
@@ -52,7 +55,7 @@ function TestCases({testCasesItems, removeTestCase}) {
                     />
                 </div>
             </div>
-            <div className="is-pulled-right is-flex">
+            <div style={{ display: "flex", flexDirection: "row", marginRight: "10px", alignSelf: "flex-end"}}>
                 <EditorButton
                     text={"Save"}
                     buttonColor={"#91CB46"}
@@ -69,6 +72,7 @@ function TestCases({testCasesItems, removeTestCase}) {
                     fontSize={12}
                     borderRadius={10}
                     borderColor={"#E26C65"}
+                    marginLeft={5}
                     onClickFunc={() => removeTestCase(testCaseId)}
                 />
             </div>

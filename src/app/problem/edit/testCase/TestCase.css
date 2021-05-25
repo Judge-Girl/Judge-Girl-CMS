@@ -1,5 +1,4 @@
 .problem-editor .test-case-box-out {
-    width: 717px;
     height: 336px;
     background: #F9F9F9;
     border: 1px solid #A2A3B1;
@@ -9,34 +8,25 @@
 }
 
 .problem-editor .test-case-name {
-    font-family: Poppins;
     font-style: normal;
     font-weight: bold;
     font-size: 17px;
-    line-height: 25px;
-    margin-left: 100px;
     color : #6D6E7D;
-
-    display: flex;
-    align-items: center;
 }
 
 .problem-editor .text-case-name-input {
-    width: 168px;
-    height: 31px;
+    height: 28px;
+    width: 150px;
     border: 1px solid #E4E1E1;
-    padding: 5px 10px;
-    margin: 5px;
 }
 
 .problem-editor .test-case-box-in {
-    width: 690px;
     height: 240px;
     background: #FFFFFF;
     border: 1px solid #E4E1E1;
     box-sizing: border-box;
-    border-radius: 10px;
-    margin: 12px;
+    border-radius: 2px;
+    margin: 2px;
 }
 
 .problem-editor .test-case-left {

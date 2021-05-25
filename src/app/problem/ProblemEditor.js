@@ -17,8 +17,8 @@ import {Spinner} from "../commons/Spinner";
 import {useProblemContext} from "./list/ProblemContext";
 
 const ProblemEditor = () => {
-    const { problemId } = useParams()
-    const { currentProblem, setCurrentProblem, refetchProblem, setShouldRedirect} = useProblemContext()
+    const {problemId} = useParams()
+    const {currentProblem, setCurrentProblem, refetchProblem, setShouldRedirect} = useProblemContext()
     const [problemSaved, setProblemSaved] = useState(false)
 
     useEffect(() => {
@@ -39,53 +39,59 @@ const ProblemEditor = () => {
 
     return (
         <div className="problem-editor">
-            <div style={{ padding: "20px 10% 200px 10%", backgroundColor: "#FFFFFF" }}>
-                <div className="pt-2">
-                    <ProblemEditorTitle problem={currentProblem}/>
-                </div>
-                <div className="columns">
-                    <div style={{ paddingLeft: "1%",  width: "25%" }}>
-                        <section>
-                            <TagList/>
-                        </section>
-                        <section>
-                            <ProvidedCodeList/>
-                        </section>
-                        <section>
-                            <SubmittedCodeList/>
-                        </section>
-                        <section>
-                            <ResourceSpec/>
-                        </section>
-                        <section>
-                            <CompilationScript/>
-                        </section>
-                        <section>
-                            <OutputMatchPolicyList/>
-                        </section>
-                        <section>
-                            <Visible/>
-                        </section>
-                        <section>
-                            <EditorButton text={"Save Change"} buttonColor={"#96D745"} fontColor={"#FFFFFF"}
-                                          onClick={() => setProblemSaved(true)}/>
-                            <EditorButton text={"Delete Problem"} buttonColor={"#FFFFFF"} fontColor={"#A2A3B1"}/>
-                        </section>
+            <div style={{padding: "20px 10% 200px 10%", backgroundColor: "#FFFFFF"}}>
+                <div style={{
+                    display: "flex", flexDirection: "column",
+                    justifyContent: "flex-start", alignItems: "flex-start",
+                }}>
+                    <div className="pt-2">
+                        <ProblemEditorTitle problem={currentProblem}/>
                     </div>
-                    <div style={{ width: "10%" }}/>
-                    <div style={{ width: "55%" }}>
-                        <section>
-                            <SubtitleLine title={"Description"}/>
-                            <MarkdownEditor problemId={problemId}/>
-                        </section>
-                        <section>
-                            <TestCase />
-                        </section>
+                    <div style={{
+                        display: "flex", flexDirection: "row",
+                        justifyContent: "space-between", alignItems: "flex-start",
+                    }}>
+                        <div style={{width: "25%"}}>
+                            <section>
+                                <TagList/>
+                            </section>
+                            <section>
+                                <ProvidedCodeList/>
+                            </section>
+                            <section>
+                                <SubmittedCodeList/>
+                            </section>
+                            <section>
+                                <ResourceSpec/>
+                            </section>
+                            <section>
+                                <CompilationScript/>
+                            </section>
+                            <section>
+                                <OutputMatchPolicyList/>
+                            </section>
+                            <section>
+                                <Visible/>
+                            </section>
+                            <section>
+                                <EditorButton text={"Save Change"} buttonColor={"#96D745"} fontColor={"#FFFFFF"}
+                                              onClick={() => setProblemSaved(true)}/>
+                                <EditorButton text={"Delete Problem"} buttonColor={"#FFFFFF"} fontColor={"#A2A3B1"}/>
+                            </section>
+                        </div>
+                        <div style={{width: "65%"}}>
+                            <section>
+                                <SubtitleLine title={"Description"}/>
+                                <MarkdownEditor problemId={problemId}/>
+                            </section>
+                            <section>
+                                <TestCase/>
+                            </section>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     );
 }
-
 export {ProblemEditor};

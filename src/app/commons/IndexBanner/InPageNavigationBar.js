@@ -20,18 +20,17 @@ function link(currentPathName, to, name, Icon) {
  *              (3) Icon, the Icon on the tab
  */
 
-const InPageNavigationBar = function ({currentURL, path, tabContents, events}) {
+const InPageNavigationBar = function ({currentURL, path, tabContents, onBreadcrumbClickAtIndex}) {
     const secondSlashPos = currentURL.substr(1).indexOf('/')
     const to = currentURL.substr(0, 1+secondSlashPos)
-    // TODO: firstParamResetState is not a good design and should be fixed on issue #85.
-    const { firstParamOnClicks } = events
 
     return (
         <div className="in-page-nav-bar">
             <div className="path">
-                <Link to={to} onClick={() =>
-                    firstParamOnClicks.forEach(onClick => onClick())}>
-                    {path.head}</Link>
+                <Link to={to}
+                      onClick={() => onBreadcrumbClickAtIndex(0)}>
+                    {path.head}
+                </Link>
                 <span> / </span><FakeLink inline>{path.tail}</FakeLink>
             </div>
             <div className="tabs">

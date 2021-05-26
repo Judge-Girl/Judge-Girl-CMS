@@ -34,6 +34,7 @@ const AddQuestionModal = ({ title, show, onClose, onSubmitQuestion }) => {
                 quota: submissionQuota
             });
             onSubmitQuestion(question).then(clearFields);
+            closeIconRef.current.click();
         } else {
             form.reportValidity();
         }

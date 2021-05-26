@@ -16,6 +16,7 @@ import {GroupMembers} from "./students/GroupMembers";
 import {ExamList} from "./exam/ExamList";
 import 'bulma';
 import './App.css';
+import {ScrollToTop} from "./commons/UX/ScrollToTop";
 
 function App() {
     const [admin, setAdmin] = useState(null);
@@ -37,6 +38,7 @@ function App() {
                             <Redirect to="/"/>
                         </Route>
                     </Switch>
+                    <ScrollToTop/>
                 </div>
             </Router>
         </AuthContext.Provider>

@@ -3,7 +3,19 @@ import {AiOutlineSetting, FaClipboardList, FaRegEdit, FaUserFriends} from "react
 import {useExamContext} from "./problems/ExamContext";
 
 const ExamInPageNavigationBar = function ({currentURL, examName, examId}) {
-    const { setCurrentExam: firstParamResetState } = useExamContext()
+    const {setCurrentExam, setShouldRedirect} = useExamContext()
+
+    const onBreadcrumbClickAtIndex = (index) => {
+        const BACK_TO_EXAM_LIST = 0
+        switch (index) {
+            case BACK_TO_EXAM_LIST:
+                setCurrentExam(null)
+                setShouldRedirect(false)
+                break;
+            default:
+                console.log("WARNING: onBreadcrumbClickAtIndex index out of range.")
+        }
+    }
 
     return (
         <InPageNavigationBar currentURL={currentURL}
@@ -11,7 +23,7 @@ const ExamInPageNavigationBar = function ({currentURL, examName, examId}) {
                                  head: "Exam",
                                  tail: examName
                              }}
-                             events={{ firstParamResetState }}
+                             onBreadcrumbClickAtIndex={onBreadcrumbClickAtIndex}
                              tabContents={[
                                  {
                                      to: `/exams/${examId}/problems`,
@@ -36,6 +48,6 @@ const ExamInPageNavigationBar = function ({currentURL, examName, examId}) {
                              ]}
         />
     )
-};
+}
 
 export {ExamInPageNavigationBar};

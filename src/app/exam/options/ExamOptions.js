@@ -55,8 +55,8 @@ const ExamOptions = () => {
                 currentURL={currentURL}
                 examName={currentExam.name}
                 examId={examId}/>
-            <div style={{paddingTop: "20px"}}>
-                <div style={{display: "flex", justifyContent: "flex-start", paddingBottom: "150px"}}>
+            <div className="font-poppins" style={{paddingTop: "20px", paddingBottom: "150px"}}>
+                <div style={{display: "flex", justifyContent: "flex-start"}}>
                     <div style={{display: "flex", flexDirection: "column", alignItems: "flex-start",
                         paddingLeft: "150px"
                     }}>

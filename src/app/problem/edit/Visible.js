@@ -8,7 +8,7 @@ function Visible() {
             <SubtitleLine title={"Visible"}/>
             <div className="control">
                 <label className="radio">
-                    <input type="radio" name="visible" checked/>
+                    <input type="radio" name="visible" defaultChecked/>
                     visible
                 </label>
                 <label className="radio">

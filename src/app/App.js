@@ -1,9 +1,5 @@
-import { useState } from "react";
-import {
-    BrowserRouter as Router,
-    Redirect,
-    Route, Switch
-} from "react-router-dom";
+import {useState} from "react";
+import {BrowserRouter as Router, Redirect, Route, Switch} from "react-router-dom";
 import PrivateRoute from "./commons/access-control/PrivateRoute";
 import {AuthContext} from "./commons/access-control/auth";
 import NavigationBar from "./NavigationBar";

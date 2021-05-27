@@ -28,14 +28,29 @@
 .waitingForConnection {
   animation: blinker 2.1s cubic-bezier(.5, 0, 1, 1) infinite alternate;
 }
-@keyframes blinker { to { opacity: 0; } }
+
+@keyframes blinker {
+  to {
+    opacity: 0;
+  }
+}
 
 .waitingForConnection2 {
   animation: blinker2 1.7s cubic-bezier(1, 0, 0, 1) infinite alternate;
 }
-@keyframes blinker2 { to { opacity: 0; } }
+
+@keyframes blinker2 {
+  to {
+    opacity: 0;
+  }
+}
 
 .waitingForConnection3 {
   animation: blinker3 1.3s ease-in-out infinite alternate;
 }
-@keyframes blinker3 { to { opacity: 0; } }
+
+@keyframes blinker3 {
+  to {
+    opacity: 0;
+  }
+}

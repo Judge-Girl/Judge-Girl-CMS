@@ -6,9 +6,9 @@ import {ModalInput} from "../../commons/modals/ModalInput";
 import {ModalHeader} from "../../commons/modals/ModalHeader";
 
 
-const CreateProblemModal = ({ show, onClose, onProblemCreated }) => {
+const CreateProblemModal = ({show, onClose, onProblemCreated}) => {
     const [problemName, setName] = useState();
-    const closeIconRef = createRef(), formRef = createRef(), nameInputRef = createRef()
+    const closeIconRef = createRef(), formRef = createRef(), nameInputRef = createRef();
 
     const handleSubmit = e => {
         e.preventDefault();
@@ -16,8 +16,8 @@ const CreateProblemModal = ({ show, onClose, onProblemCreated }) => {
 
         if (form.checkValidity()) {
             problemService.createProblem(problemName)
-                .then(problemId => onProblemCreated(problemId))
-            setName(null)
+                .then(problemId => onProblemCreated(problemId));
+            setName(null);
             closeIconRef.current.click()
         } else {
             form.reportValidity();
@@ -33,7 +33,7 @@ const CreateProblemModal = ({ show, onClose, onProblemCreated }) => {
             <form onSubmit={handleSubmit} ref={formRef}>
                 <div className="p-5 has-text-centered">
                     <ModalHeader title="Create New Problem"
-                                 style={{ textAlign: "center"}}/>
+                                 style={{textAlign: "center"}}/>
                     <ModalInput ref={nameInputRef}
                                 value={problemName} required
                                 fontSize="20px" height="41px"
@@ -44,6 +44,6 @@ const CreateProblemModal = ({ show, onClose, onProblemCreated }) => {
             </form>
         )
     })
-}
+};
 
 export default CreateProblemModal;

@@ -1,6 +1,6 @@
 import {useState} from "react"
 
-const useUploads = function() {
+const useUploads = function () {
     const [files, setFiles] = useState([]);
 
     const addFile = (event) => {
@@ -16,6 +16,6 @@ const useUploads = function() {
     };
 
     return {files, addFile, removeFile};
-}
+};
 
 export {useUploads}

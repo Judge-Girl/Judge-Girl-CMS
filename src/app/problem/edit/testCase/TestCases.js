@@ -9,11 +9,13 @@ function TestCases({testCasesItems, removeTestCase}) {
     return testCasesItems.map((testCaseId) => (
         <div key={testCaseId}
              className="test-case-box-out"
-             style={{ display: "flex", flexDirection: "column" }}>
-            <div style={{ display: "flex", justifyContent: "flex-start", alignItems: "center",
-                padding: "1% 0 3px 15px", whiteSpace:"nowrap" }}>
+             style={{display: "flex", flexDirection: "column"}}>
+            <div style={{
+                display: "flex", justifyContent: "flex-start", alignItems: "center",
+                padding: "1% 0 3px 15px", whiteSpace: "nowrap"
+            }}>
                 <span className="test-case-name">Test Case Name</span>
-                <input className="text-case-name-input" style={{ marginLeft: "5px" }}/>
+                <input className="text-case-name-input" style={{marginLeft: "5px"}}/>
             </div>
             <div className="test-case-box-in columns">
                 <div className="column is-two-fifths">
@@ -55,7 +57,7 @@ function TestCases({testCasesItems, removeTestCase}) {
                     />
                 </div>
             </div>
-            <div style={{ display: "flex", flexDirection: "row", marginRight: "10px", alignSelf: "flex-end"}}>
+            <div style={{display: "flex", flexDirection: "row", marginRight: "10px", alignSelf: "flex-end"}}>
                 <EditorButton
                     text={"Save"}
                     buttonColor={"#91CB46"}

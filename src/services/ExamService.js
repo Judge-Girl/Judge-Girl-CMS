@@ -65,8 +65,8 @@ export class ExamService extends AbstractService {
         return this.axios.put(`/api/exams/${examId}/problems/${problemId}`, question).then(res => new Question(res.data));
     }
 
-    async deleteExamQuestion({examId, questionId}) {
-        return this.axios.delete(`/api/exams/${examId}/problems/${questionId}`)
+    async deleteExamQuestion({examId, problemId}) {
+        return this.axios.delete(`/api/exams/${examId}/problems/${problemId}`)
     }
 
     async updateExam(examId, data) {

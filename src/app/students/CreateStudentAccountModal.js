@@ -36,7 +36,7 @@ const CreateStudentAccountModal = ({show, onClose, onStudentCreated}) => {
             <form onSubmit={handleSubmit} ref={formRef}>
                 <div id="modal" className="font-poppins has-text-centered">
                     <ModalHeader title="Create Student Account"
-                                 style={{ textAlign: "left" }}/>
+                                 style={{textAlign: "left"}}/>
                     <ModalInput labelText="Name" value={name} required={true} height="50px"
                                 placeholder="Name" placeholderTextAlign="left" fontSize="20px"
                                 onChange={e => setName(e.target.value)}/>

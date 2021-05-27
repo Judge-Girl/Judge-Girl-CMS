@@ -18,8 +18,8 @@ const TextareaModal = ({title, body, show, onClose, onSubmit}) => {
     const [content, setContent] = useState();
 
     const handleSubmit = e => {
-        onSubmit(content)
-        closeIconRef.current.click()
+        onSubmit(content);
+        closeIconRef.current.click();
         setContent('');
         e.preventDefault()
     };
@@ -32,7 +32,7 @@ const TextareaModal = ({title, body, show, onClose, onSubmit}) => {
             <form onSubmit={e => handleSubmit(e)} ref={formRef}>
                 <div id="modal" className="font-poppins has-text-centered">
                     <ModalHeader className="header" title={title}
-                                 style={{ textAlign: "left"}}/>
+                                 style={{textAlign: "left"}}/>
                     <p className="description"><Icon className="modal-icon"/>{body.description}</p>
                     <textarea className="textarea"
                               value={content}

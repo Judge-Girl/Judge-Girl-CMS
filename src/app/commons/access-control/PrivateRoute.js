@@ -6,9 +6,9 @@ function PrivateRoute({component: Component, ...rest}) {
     const {admin} = useAuth();
     const location = useLocation();
     return (
-        <Route {...rest}>{admin?
-            <Component />
-                : <Redirect to={{ pathname: '/', state: {referer: location} }}/>}
+        <Route {...rest}>{admin ?
+            <Component/>
+            : <Redirect to={{pathname: '/', state: {referer: location}}}/>}
         </Route>
     );
 }

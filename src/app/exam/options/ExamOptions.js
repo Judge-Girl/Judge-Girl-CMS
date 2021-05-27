@@ -41,7 +41,7 @@ const ExamOptions = () => {
         })
     };
 
-    const onButtonDeleteExamClicked = () => {
+    const onDeleteExamButtonClicked = () => {
 
     };
 
@@ -57,7 +57,8 @@ const ExamOptions = () => {
                 examId={examId}/>
             <div className="font-poppins" style={{paddingTop: "20px", paddingBottom: "150px"}}>
                 <div style={{display: "flex", justifyContent: "flex-start"}}>
-                    <div style={{display: "flex", flexDirection: "column", alignItems: "flex-start",
+                    <div style={{
+                        display: "flex", flexDirection: "column", alignItems: "flex-start",
                         paddingLeft: "150px"
                     }}>
                         <TitleLine title={"Options"}/>
@@ -94,7 +95,7 @@ const ExamOptions = () => {
                                     <div className="column is-narrow mt-1 mr-5">
                                         <button
                                             className="button is-danger"
-                                            onClick={onButtonDeleteExamClicked}
+                                            onClick={onDeleteExamButtonClicked}
                                         >Delete Exam
                                         </button>
                                     </div>

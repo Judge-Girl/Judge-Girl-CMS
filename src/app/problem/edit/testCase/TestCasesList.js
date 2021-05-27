@@ -14,15 +14,15 @@ function TestCasesList() {
     };
 
     const deleteTestCase = deleteId => {
-        const removeAttr = [...testCasesList].filter(testCaseId => testCaseId !== deleteId)
+        const removeAttr = [...testCasesList].filter(testCaseId => testCaseId !== deleteId);
         setTestCasesList(removeAttr);
-    }
+    };
 
     return (
         <div>
             <SubtitleLine title="Test Cases"/>
             <TestCases testCasesItems={testCasesList} removeTestCase={deleteTestCase}/>
-            <div style={{ margin: "2% 3%" }}>
+            <div style={{margin: "2% 3%"}}>
                 <EditorButton
                     text={"Add New Test Case"}
                     buttonColor={"#1273BA"}

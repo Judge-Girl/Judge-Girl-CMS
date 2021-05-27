@@ -4,9 +4,9 @@ import {ModalHeader} from "../../commons/modals/ModalHeader";
 import "./RejudgeQuestionModal.scss"
 
 
-const RejudgeQuestionModal = ({ show, title, question, onClose, onConfirmRejudge }) => {
+const RejudgeQuestionModal = ({show, title, question, onClose, onConfirmRejudge}) => {
     const closeIconRef = createRef(),
-          formRef = createRef();
+        formRef = createRef();
 
     const handleFormSubmit = e => {
         e.preventDefault();
@@ -36,7 +36,8 @@ const RejudgeQuestionModal = ({ show, title, question, onClose, onConfirmRejudge
                             All the submissions under this problem will be rejudged.
                         </div>
                         <div className="placeholder mx-6 my-3">
-                            <h1>Problem Title: <span className="data my-1">{question.problemId} {question.problemTitle}</span></h1>
+                            <h1>Problem Title: <span
+                                className="data my-1">{question.problemId} {question.problemTitle}</span></h1>
                         </div>
                         <div className="submit-btn mx-5">
                             <button className="button" id="add-btn" type="submit">
@@ -51,4 +52,4 @@ const RejudgeQuestionModal = ({ show, title, question, onClose, onConfirmRejudge
 };
 
 
-export { RejudgeQuestionModal };
+export {RejudgeQuestionModal};

@@ -40,7 +40,7 @@ function Tabs({textareaVal, setTextareaVal}) {
                         className="description-textarea"
                         value={textareaVal}
                         onChange={handleTextareaChange}
-                        style={{ backgroundColor: "white" }}
+                        style={{backgroundColor: "white"}}
                     />
                 </div>
 
@@ -56,7 +56,7 @@ function Tabs({textareaVal, setTextareaVal}) {
     );
 }
 
-const MarkdownEditor = ({ style }) => {
+const MarkdownEditor = ({style}) => {
     // TODO: problemService.getProblemDescription
     const [editingState, setEditingState] = useState(false);
     const [textareaVal, setTextareaVal] = useState('Press Edit Description to start writing the description. Styling with Markdown is supported.\n');
@@ -137,6 +137,6 @@ const MarkdownEditor = ({ style }) => {
             </div>
         </div>
     )
-}
+};
 
 export default MarkdownEditor;

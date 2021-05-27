@@ -55,8 +55,8 @@ const ExamList = () => {
     }
 
     return (
-        <>{shouldRedirect?
-            <Redirect to={`/exams/${currentExam.id}/problems`}/>: ""}
+        <>{shouldRedirect ?
+            <Redirect to={`/exams/${currentExam.id}/problems`}/> : ""}
             <Route path="/exams" exact>
                 <div className="exam-list font-poppins">
                     <div className="font-poppins" style={{paddingTop: "20px", paddingBottom: "150px"}}>

@@ -74,9 +74,9 @@ const CreateExamModal = ({show, onClose, onExamCreated}) => {
                                 onChange={e => setName(e.target.value)}/>
                     <SubtitleLine title="Schedule"/>
                     <ScheduleItem inputRef={startTimeInputRef} label='Start Time' inputName='startTime'
-                                  timeValue={startTime} setTime={setStartTimeHandler} minTime={new Date()} />
+                                  timeValue={startTime} setTime={setStartTimeHandler} minTime={new Date()}/>
                     <ScheduleItem inputRef={endTimeInputRef} label='End Time' inputName='endTime'
-                                  timeValue={endTime} setTime={setEndTimeHandler} minTime={new Date(startTime)} />
+                                  timeValue={endTime} setTime={setEndTimeHandler} minTime={new Date(startTime)}/>
                     {/* TODO: white-list */}
                     <button className="button ml-2 mt-3 my-green-btn" id="create-btn">Create Exam</button>
                 </div>

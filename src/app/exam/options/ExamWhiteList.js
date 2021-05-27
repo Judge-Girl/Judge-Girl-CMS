@@ -6,14 +6,14 @@ import {TextInputItems} from "../../problem/edit/TextInputItems";
 import './ExamOptions.scss';
 
 const ExamWhiteList = () => {
-  const {tags, addTags, removeTag} = useTags();
-  return (
-    <div>
-      <SubtitleLine title={"WhiteList"}/>
-      <TextInputForm placeholder={'Add IP'} onSubmit={addTags}/>
-      <TextInputItems items={tags} removeItems={removeTag}/>
-    </div>
-  )
-}
+    const {tags, addTags, removeTag} = useTags();
+    return (
+        <div>
+            <SubtitleLine title={"WhiteList"}/>
+            <TextInputForm placeholder={'Add IP'} onSubmit={addTags}/>
+            <TextInputItems items={tags} removeItems={removeTag}/>
+        </div>
+    )
+};
 
 export default ExamWhiteList

@@ -38,7 +38,7 @@ const ExamQuestions = () => {
             exam.questions.sort((questionA, questionB) => questionA.questionOrder - questionB.questionOrder);
             setExamQuestions(exam.questions);
         });
-    }, [examId])
+    }, [examId]);
 
     useEffect(() => {
         if (!currentExam) {

@@ -4,16 +4,16 @@ import FakeLink from "../../commons/FakeLink";
 import {ThreeDotsButton} from "../../commons/buttons/ThreeDotsButton";
 import {useParams, useRouteMatch} from "react-router-dom";
 import React, {useEffect, useState} from "react";
-import {useExamContext} from "../problems/ExamContext";
+import {useExamContext} from "../questions/ExamContext";
 import {Spinner} from "../../commons/Spinner";
 import {EmptyCell, TableCell} from "../../../utils/TableCell";
 
 
 const ExamScore = () => {
-    const {url: currentURL} = useRouteMatch()
-    const {examId} = useParams()
-    const {currentExam, refetchExam} = useExamContext()
-    const [averageScore, setAverageScore] = useState(0.0)
+    const {url: currentURL} = useRouteMatch();
+    const {examId} = useParams();
+    const {currentExam, refetchExam} = useExamContext();
+    const [averageScore, setAverageScore] = useState(0.0);
     const [examinees, setExaminees] = useState([
         {
             studentId: "R09922111",
@@ -31,7 +31,7 @@ const ExamScore = () => {
             studentId: "R09922114",
             A: "20", B: "20", C: "20", D: "20", E: "20", totalScore: "87",
         },
-    ])
+    ]);
 
     useEffect(() => {
         if (!currentExam) {

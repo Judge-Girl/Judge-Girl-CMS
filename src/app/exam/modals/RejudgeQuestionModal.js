@@ -13,7 +13,7 @@ const RejudgeQuestionModal = ({ show, title, question, onClose, onConfirmRejudge
         const form = formRef.current;
 
         if (form.checkValidity()) {
-            onConfirmRejudge(question.problemId)
+            onConfirmRejudge(question.problemId);
             onClose()
         } else {
             form.reportValidity();

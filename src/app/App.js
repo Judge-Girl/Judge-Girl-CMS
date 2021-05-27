@@ -16,7 +16,7 @@ import {GroupMembers} from "./students/GroupMembers";
 import {ExamList} from "./exam/ExamList";
 import 'bulma';
 import './App.css';
-import {ScrollToTop} from "./commons/UX/ScrollToTop";
+import {ScrollToTop} from "./commons/control/ScrollToTop";
 
 function App() {
     const [admin, setAdmin] = useState(null);

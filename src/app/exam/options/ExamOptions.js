@@ -8,24 +8,24 @@ import ExamWhiteList from "./ExamWhiteList";
 import {UpdateChangeButton} from "./UpdateChangeButton";
 import {examService} from "../../../services/services";
 import {formatDate} from "../../../utils/utils";
-import {useExamContext} from "../problems/ExamContext";
+import {useExamContext} from "../questions/ExamContext";
 import {Spinner} from "../../commons/Spinner";
 import './ExamOptions.scss';
 
 
 const ExamOptions = () => {
-    const {url: currentURL} = useRouteMatch()
-    const {currentExam, refetchExam} = useExamContext()
-    const {examId} = useParams()
-    const [newExamName, setNewExamName] = useState()
-    const [startTime, setStartTime] = useState(formatDate(currentExam?.startTime))
-    const [endTime, setEndTime] = useState(formatDate(currentExam?.endTime))
+    const {url: currentURL} = useRouteMatch();
+    const {currentExam, refetchExam} = useExamContext();
+    const {examId} = useParams();
+    const [newExamName, setNewExamName] = useState(undefined);
+    const [startTime, setStartTime] = useState(formatDate(currentExam?.startTime));
+    const [endTime, setEndTime] = useState(formatDate(currentExam?.endTime));
 
     useEffect(() => {
         if (!currentExam) {
             refetchExam(examId)
         }
-    })
+    });
 
     const onButtonUpdateChangeClicked = () => {
         examService.updateExam(examId, {
@@ -35,15 +35,15 @@ const ExamOptions = () => {
             endTime: endTime,
             description: "",
         }).then(res => {
-            console.log("new:", res)
-            console.log("old:", currentExam)
+            console.log("new:", res);
+            console.log("old:", currentExam);
             refetchExam(examId)
         })
-    }
+    };
 
     const onButtonDeleteExamClicked = () => {
 
-    }
+    };
 
     if (!currentExam) {
         return <Spinner/>
@@ -106,7 +106,7 @@ const ExamOptions = () => {
             </div>
         </div>
     )
-}
+};
 
 
 export {ExamOptions}

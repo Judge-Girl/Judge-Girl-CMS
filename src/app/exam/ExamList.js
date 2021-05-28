@@ -7,10 +7,10 @@ import {CreateButton} from "../commons/buttons/CreateButton";
 import {displayDate} from "../../utils/utils";
 import {CreateExamModal} from "./modals/CreateExamModal";
 import {Examinees} from "./participants/Examinees";
-import ExamQuestions from "./problems/ExamQuestions";
+import ExamQuestions from "./questions/ExamQuestions";
 import {ExamOptions} from "./options/ExamOptions";
 import {Spinner} from "../commons/Spinner";
-import {ExamContext} from "./problems/ExamContext";
+import {ExamContext} from "./questions/ExamContext";
 import ExamScore from "./score/ExamScore";
 import {TableCell} from "../../utils/TableCell";
 import './ExamList.css';
@@ -29,15 +29,15 @@ export const useExamList = () => {
 const ExamList = () => {
     const [showCreateExamModal, setShowCreateExamModal] = useState(false);
     const {exams, setExams} = useExamList();
-    const [currentExam, setCurrentExam] = useState()
-    const [shouldRedirect, setShouldRedirect] = useState(false)
+    const [currentExam, setCurrentExam] = useState(undefined);
+    const [shouldRedirect, setShouldRedirect] = useState(false);
     const refetchExam = useCallback((examId) => {
         examService.getExams({status: EXAM_STATUSES.ALL})
             .then(exams => {
-                setExams(exams)
+                setExams(exams);
                 setCurrentExam(exams.find(exam => parseInt(exam.id) === parseInt(examId)))
             })
-    }, [setExams, setCurrentExam])
+    }, [setExams, setCurrentExam]);
 
     useEffect(() => {
         if (!exams || exams.length === 0) {
@@ -46,17 +46,17 @@ const ExamList = () => {
     }, [exams, refetchExam]);
 
     const onExamCreated = (exam) => {
-        refetchExam(exam.id)
-        setShouldRedirect(true)
-    }
+        refetchExam(exam.id);
+        setShouldRedirect(true);
+    };
 
     if (!exams || (shouldRedirect && !currentExam)) {
         return <Spinner/>
     }
 
     return (
-        <>{shouldRedirect?
-            <Redirect to={`/exams/${currentExam.id}/problems`}/>: ""}
+        <>{shouldRedirect ?
+            <Redirect to={`/exams/${currentExam.id}/problems`}/> : ""}
             <Route path="/exams" exact>
                 <div className="exam-list font-poppins">
                     <div className="font-poppins" style={{paddingTop: "20px", paddingBottom: "150px"}}>
@@ -114,7 +114,7 @@ const ExamList = () => {
             </ExamContext.Provider>
         </>
     )
-}
+};
 
 
 export {ExamList}

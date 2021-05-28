@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useCallback} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import {useParams, useRouteMatch} from "react-router-dom";
 import {examService, submissionService} from "../../../services/services.js";
 import {ThreeDotsButton} from "../../commons/buttons/ThreeDotsButton.js";
@@ -13,22 +13,23 @@ import {Spinner} from "../../commons/Spinner";
 import {TableCell} from "../../../utils/TableCell";
 import ExamDescriptionEditor from "./ExamDescriptionEditor";
 import "./ExamQuestions.scss";
+import {RemoveConfirmationModal} from "../../commons/modals/RemoveConfirmationModal";
 
 const toCharacterIndex = i => {
     return String.fromCharCode(i + 65);
-}
-
+};
 
 const ExamQuestions = () => {
-    const {url: currentURL} = useRouteMatch()
-    const {currentExam, refetchExam} = useExamContext()
-    const {examId} = useParams()
-    const [examQuestions, setExamQuestions] = useState(null);
+    const {url: currentURL} = useRouteMatch();
+    const {currentExam, refetchExam} = useExamContext();
+    const {examId} = useParams();
+    const [questions, setQuestions] = useState(undefined);
 
-    const NOT_SET = -1
+    const NOT_SET = -1;
     const [showAddQuestionModal, setShowAddQuestionModal] = useState(false);
     const [showRejudgeQuestionModal, setShowRejudgeQuestionModal] = useState(NOT_SET);
-    const [rejudgeProblemId, setRejudgeProblemId] = useState(NOT_SET)
+    const [showDeleteQuestionModal, setShowDeleteQuestionModal] = useState(undefined);
+    const [rejudgingProblemId, setRejudgeProblemId] = useState(NOT_SET);
     const [showEditQuestionModal, setShowEditQuestionModal] = useState(false);
     const [editingQuestion, setEditingQuestion] = useState(null);
 
@@ -36,62 +37,66 @@ const ExamQuestions = () => {
     const fetchExam = useCallback(() => {
         examService.getExamOverview(examId).then(exam => {
             exam.questions.sort((questionA, questionB) => questionA.questionOrder - questionB.questionOrder);
-            setExamQuestions(exam.questions);
+            setQuestions(exam.questions);
         });
-    }, [examId])
+    }, [examId]);
 
     useEffect(() => {
         if (!currentExam) {
             refetchExam(examId)
         }
-        if (!examQuestions) {
+        if (!questions) {
             fetchExam()
         }
-    }, [currentExam, examId, refetchExam, examQuestions, fetchExam]);
+    }, [currentExam, examId, refetchExam, questions, fetchExam]);
 
-    const editQuestion = (questionId) => {
-        const editQuestionPromise = examService.editExamQuestion({examId, questionId});
+    const editQuestion = (question) => {
+        const editQuestionPromise = examService.editExamQuestion(question);
         editQuestionPromise.then(fetchExam);
         return editQuestionPromise;
     };
 
-    const dropDownItems = (examQuestion) => [{
+    const deleteQuestion = (question) => {
+        examService.deleteExamQuestion(question)
+            .then(() => {
+                setQuestions(questions.filter(q => q !== question));
+                console.log(`Delete question successfully.`);
+            });
+    };
+
+    const dropDownItems = (question) => [{
         name: "Edit",
         dangerous: false,
         onClick: () => {
-            setEditingQuestion(examQuestion)
+            setEditingQuestion(question);
             setShowEditQuestionModal(true)
         }
     }, {
         name: "Rejudge",
         dangerous: false,
         onClick: () => {
-            setShowRejudgeQuestionModal(examQuestion.problemId)
+            setShowRejudgeQuestionModal(question.problemId)
         }
     }, {
         name: "Delete",
         dangerous: true,
         onClick: () => {
-            examService.deleteExamQuestion({examId, examQuestion})
-                .then(res => {
-                    console.log(`Calling API: DELETE /api/exams/${examId}/problems/${examQuestion.problemId}`
-                        + " and get result:", res)
-                })
+            setShowDeleteQuestionModal(question);
         }
     }];
 
     const rejudgeQuestion = (problemId) => {
-        setRejudgeProblemId(problemId)
+        setRejudgeProblemId(problemId);
         submissionService.rejudge({examId, problemId})
             .then(res => {
-                console.log("Calling Rejudge API: and get result:", res)
+                console.log("Calling Rejudge API: and get result:", res);
                 setRejudgeProblemId(NOT_SET)
             })
-    }
+    };
 
     const addQuestion = (question) => {
         question.examId = examId;
-        question.questionOrder = examQuestions.length;
+        question.questionOrder = questions.length;
         return examService.addExamQuestion(question).then(fetchExam);
     };
 
@@ -123,20 +128,21 @@ const ExamQuestions = () => {
                                     <TableCell>Question ID</TableCell>,
                                     <TableCell>Question Title</TableCell>,
                                     <TableCell>Score Percentage</TableCell>,
-                                    <TableCell>Submission Quota</TableCell>, " "]}
+                                    <TableCell>Submission Quota</TableCell>,
+                                    " "]}
                                 tableDataStyle={{height: "60px"}}
                                 tableRowGenerator={{
-                                    list: examQuestions,
-                                    key: examQuestion => examQuestion.problemId,
-                                    data: (examQuestion) => {
+                                    list: questions,
+                                    key: question => `${question.questionOrder}-${question.problemId}`,
+                                    data: (question) => {
                                         return [
-                                            <TableCell>{toCharacterIndex(examQuestion.questionOrder)}</TableCell>,
-                                            <FakeLink>{examQuestion.problemId}</FakeLink>,
-                                            <FakeLink>{examQuestion.problemTitle}</FakeLink>,
-                                            <TableCell>{examQuestion.score}</TableCell>,
-                                            <TableCell>{examQuestion.quota}</TableCell>,
+                                            <TableCell>{toCharacterIndex(question.questionOrder)}</TableCell>,
+                                            <FakeLink>{question.problemId}</FakeLink>,
+                                            <FakeLink>{question.problemTitle}</FakeLink>,
+                                            <TableCell>{question.maxScore}</TableCell>,
+                                            <TableCell>{question.quota}</TableCell>,
                                             <TableCell>
-                                                {rejudgeProblemId === examQuestion.problemId ?
+                                                {rejudgingProblemId === question.problemId ?
                                                     <span className="tag"
                                                           style={{backgroundColor: "#FFBB00", color: "white"}}>
                                                     Rejudging
@@ -146,13 +152,13 @@ const ExamQuestions = () => {
                                                 </span>
                                                     :
                                                     <div className="text-center">
-                                                        <ThreeDotsButton dropDownItems={dropDownItems(examQuestion)}/>
+                                                        <ThreeDotsButton dropDownItems={dropDownItems(question)}/>
                                                     </div>
                                                 }
                                                 <RejudgeQuestionModal
-                                                    show={showRejudgeQuestionModal === examQuestion.problemId}
+                                                    show={showRejudgeQuestionModal === question.problemId}
                                                     title="Rejudge The Problem?"
-                                                    question={examQuestion}
+                                                    question={question}
                                                     onClose={() => setShowRejudgeQuestionModal(NOT_SET)}
                                                     onConfirmRejudge={rejudgeQuestion}/>
                                             </TableCell>
@@ -181,9 +187,23 @@ const ExamQuestions = () => {
                                question={editingQuestion}
                                onClose={() => setShowEditQuestionModal(false)}
                                onSubmitQuestion={editQuestion}/>
+
+
+            {showDeleteQuestionModal ?
+                <RemoveConfirmationModal title={"Delete the Question?"}
+                                         data={[
+                                             {
+                                                 title: "Question Title",
+                                                 value: showDeleteQuestionModal?.problemTitle
+                                             }
+                                         ]}
+                                         show={showDeleteQuestionModal}
+                                         onClose={() => setShowDeleteQuestionModal(undefined)}
+                                         onSubmit={() => deleteQuestion(showDeleteQuestionModal)}/> : undefined}
+
         </div>
     )
-}
+};
 
 
 export default ExamQuestions;

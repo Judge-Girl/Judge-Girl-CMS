@@ -6,19 +6,19 @@ import {examService} from "../../../services/services";
 import {renderModal} from "../../commons/modals/modal";
 import {ModalInput} from "../../commons/modals/ModalInput";
 import ScheduleItem from "../../commons/ScheduleItem";
-import {SECS_ONE_HOUR} from "../../commons/constants/Times";
+import {SECS_ONE_HOUR} from "../../../utils/times";
 import "./CreateExamModel.css";
 
 
 const CreateExamModal = ({show, onClose, onExamCreated}) => {
-    const [name, setName] = useState()
-    const nameInputRef = createRef()
-    const [startTime, setStartTime] = useState(now() + SECS_ONE_HOUR)
-    const startTimeInputRef = createRef()
-    const [endTime, setEndTime] = useState(now() + SECS_ONE_HOUR * 2)
-    const endTimeInputRef = createRef()
-    const formRef = createRef()
-    const closeIconRef = createRef()
+    const [name, setName] = useState(null);
+    const nameInputRef = createRef();
+    const [startTime, setStartTime] = useState(now() + SECS_ONE_HOUR);
+    const startTimeInputRef = createRef();
+    const [endTime, setEndTime] = useState(now() + SECS_ONE_HOUR * 2);
+    const endTimeInputRef = createRef();
+    const formRef = createRef();
+    const closeIconRef = createRef();
 
     const validateTimes = (startTime, endTime) => {
         if (now() >= startTime) {
@@ -41,10 +41,10 @@ const CreateExamModal = ({show, onClose, onExamCreated}) => {
     };
 
     const resetState = () => {
-        setName(null)
+        setName(null);
         setStartTime(now() + SECS_ONE_HOUR);
         setEndTime(now() + SECS_ONE_HOUR * 2);
-    }
+    };
 
     const handleSubmit = e => {
         e.preventDefault();
@@ -53,8 +53,8 @@ const CreateExamModal = ({show, onClose, onExamCreated}) => {
         // validation
         if (form.checkValidity()) {
             examService.createExam({name, startTime, endTime})
-                .then(exam => onExamCreated(exam))
-            resetState()
+                .then(exam => onExamCreated(exam));
+            resetState();
             closeIconRef.current.click();
         } else {
             form.reportValidity();
@@ -74,9 +74,9 @@ const CreateExamModal = ({show, onClose, onExamCreated}) => {
                                 onChange={e => setName(e.target.value)}/>
                     <SubtitleLine title="Schedule"/>
                     <ScheduleItem inputRef={startTimeInputRef} label='Start Time' inputName='startTime'
-                                  timeValue={startTime} setTime={setStartTimeHandler} minTime={new Date()} />
+                                  timeValue={startTime} setTime={setStartTimeHandler} minTime={new Date()}/>
                     <ScheduleItem inputRef={endTimeInputRef} label='End Time' inputName='endTime'
-                                  timeValue={endTime} setTime={setEndTimeHandler} minTime={new Date(startTime)} />
+                                  timeValue={endTime} setTime={setEndTimeHandler} minTime={new Date(startTime)}/>
                     {/* TODO: white-list */}
                     <button className="button ml-2 mt-3 my-green-btn" id="create-btn">Create Exam</button>
                 </div>

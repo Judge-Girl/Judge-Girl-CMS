@@ -21,8 +21,8 @@ function link(currentPathName, to, name, Icon) {
  */
 
 const InPageNavigationBar = function ({currentURL, path, tabContents, onBreadcrumbClickAtIndex}) {
-    const secondSlashPos = currentURL.substr(1).indexOf('/')
-    const to = currentURL.substr(0, 1+secondSlashPos)
+    const secondSlashPos = currentURL.substr(1).indexOf('/');
+    const to = currentURL.substr(0, 1 + secondSlashPos);
 
     return (
         <div className="in-page-nav-bar">

@@ -11,7 +11,7 @@ import {ThreeDotsButton} from "../../commons/buttons/ThreeDotsButton";
 import {RemoveConfirmationModal} from "../../commons/modals/RemoveConfirmationModal";
 import {Spinner} from "../../commons/Spinner";
 import {removeIf} from "../../../utils/array";
-import {useExamContext} from "../problems/ExamContext";
+import {useExamContext} from "../questions/ExamContext";
 import {EmptyCell, TableCell} from "../../../utils/TableCell";
 
 

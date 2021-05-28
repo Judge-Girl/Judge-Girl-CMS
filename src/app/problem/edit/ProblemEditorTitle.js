@@ -4,7 +4,7 @@ import {FaEdit} from "react-icons/all";
 import {EditorButton} from "./EditorButton";
 import {problemService} from "../../../services/services";
 
-function ProblemEditorTitle ({problem}) {
+function ProblemEditorTitle({problem}) {
     // TODO: problemService.getProblemTitle
     const [problemNameInput, setProblemNameInput] = useState(problem.title);
     const [lastProblemNameInput, setLastProblemNameInput] = useState(problemNameInput);

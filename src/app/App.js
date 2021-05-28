@@ -1,9 +1,5 @@
-import { useState } from "react";
-import {
-    BrowserRouter as Router,
-    Redirect,
-    Route, Switch
-} from "react-router-dom";
+import {useState} from "react";
+import {BrowserRouter as Router, Redirect, Route, Switch} from "react-router-dom";
 import PrivateRoute from "./commons/access-control/PrivateRoute";
 import {AuthContext} from "./commons/access-control/auth";
 import NavigationBar from "./NavigationBar";
@@ -16,7 +12,7 @@ import {GroupMembers} from "./students/GroupMembers";
 import {ExamList} from "./exam/ExamList";
 import 'bulma';
 import './App.css';
-import {ScrollToTop} from "./commons/UX/ScrollToTop";
+import {ScrollToTop} from "./commons/control/ScrollToTop";
 
 function App() {
     const [admin, setAdmin] = useState(null);

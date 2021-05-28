@@ -39,19 +39,19 @@ const ItemListPage = ({
                           showFilterSearchBar = true,
                       }) => {
     return (
-        <div style={{ width: width }}>
-            {title?
+        <div style={{width: width}}>
+            {title ?
                 <TitleLine title={title}/> : ""
             }
-            {showFilterSearchBar ? (<FilterSearchBar filterItems={filterItems} Button={Button} />) : ''}
+            {showFilterSearchBar ? (<FilterSearchBar filterItems={filterItems} Button={Button}/>) : ''}
             <table className="table items-table mt-4">
-                <thead style={{ whiteSpace: "nowrap" }}>
+                <thead style={{whiteSpace: "nowrap"}}>
                 <tr>
-                {
-                    tableHeaders?.map((header, index) => <th key={index}
-                                                             scope="col"
-                                                             style={{ verticalAlign: "middle" }}>{header}</th>)
-                }
+                    {
+                        tableHeaders?.map((header, index) => <th key={index}
+                                                                 scope="col"
+                                                                 style={{verticalAlign: "middle"}}>{header}</th>)
+                    }
                 </tr>
                 </thead>
                 <tbody>
@@ -59,11 +59,11 @@ const ItemListPage = ({
                     tableRowGenerator?.list
                         ?.map(item =>
                             <tr key={tableRowGenerator.key(item)}>
-                            {tableRowGenerator.data(item).map((tdContent, index) =>
-                                <td key={index}
-                                    style={{verticalAlign: "middle", ...tableDataStyle}}>
-                                    {tdContent}
-                                </td>)}
+                                {tableRowGenerator.data(item).map((tdContent, index) =>
+                                    <td key={index}
+                                        style={{verticalAlign: "middle", ...tableDataStyle}}>
+                                        {tdContent}
+                                    </td>)}
                             </tr>
                         )
                 }

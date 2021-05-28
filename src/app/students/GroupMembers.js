@@ -31,37 +31,37 @@ const GroupMembers = withRouter(({history, match}) => {
                 setShowRemoveMemberModal(true);
             }
         }]
-    })
+    });
 
     const addMembersByEmails = (emails) => {
         studentService.addMembersInToGroupByEmails(groupId, emails)
             // TODO: the error should be handled in the future
             .then(errorList => {
-                console.log(errorList)
+                console.log(errorList);
                 // TODO: currently, to avoid "render more hooks than expected" error thrown from React,
                 //  setting an empty array is a effective trick, but we need to know the root cause
                 //  and use the more proper way instead.
-                setMembers([])
+                setMembers([]);
                 fetchMembers();
             })
-    }
+    };
 
     const deleteMembersFormGroup = (selectedMember) => {
         studentService.deleteMembersFromGroup(groupId, selectedMember.id)
             .then(() => {
-                removeIf(members, member => member.id === selectedMember.id)
+                removeIf(members, member => member.id === selectedMember.id);
                 // TODO: currently, to avoid "render fewer hooks than expected" error thrown from React,
                 //  setting an empty array is a effective trick, but we need to know the root cause
                 //  and use the more proper way instead.
-                setMembers([])
+                setMembers([]);
                 setMembers(members)
             });
-    }
+    };
 
     const fetchMembers = () => {
         studentService.getMembersInGroup(groupId)
             .then(members => setMembers(members));
-    }
+    };
 
     useEffect(() => {
         if (!group) {
@@ -101,12 +101,12 @@ const GroupMembers = withRouter(({history, match}) => {
 
             <TextareaModal title={"Add Students"}
                            body={{
-                                   description: "Add students to the group by students' email.",
-                                   Icon: AiOutlineMail,
-                                   placeholder: "studentA@example.com\nstudentB@example.com",
-                                   remark: "＊One email per line.",
-                                   buttonName: "Add"
-                               }}
+                               description: "Add students to the group by students' email.",
+                               Icon: AiOutlineMail,
+                               placeholder: "studentA@example.com\nstudentB@example.com",
+                               remark: "＊One email per line.",
+                               buttonName: "Add"
+                           }}
                            show={showAddMemberModal}
                            onClose={() => setShowAddMemberModal(false)}
                            onSubmit={(emails) => addMembersByEmails(emails)}/>

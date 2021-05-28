@@ -20,17 +20,17 @@ export const useProblemList = () => {
 };
 
 const ProblemList = () => {
-    const [showCreateProblemModal, setShowCreateProblemModal] = useState(false)
+    const [showCreateProblemModal, setShowCreateProblemModal] = useState(false);
     const {problems, setProblems} = useProblemList();
     const [currentProblem, setCurrentProblem] = useState();
-    const [shouldRedirect, setShouldRedirect] = useState(false)
+    const [shouldRedirect, setShouldRedirect] = useState(false);
     const refetchProblem = useCallback((problemId) => {
         problemService.getAllProblems()
             .then(problems => {
-                setProblems(problems)
+                setProblems(problems);
                 setCurrentProblem(problems.find(problem => parseInt(problem.id) === parseInt(problemId)))
             })
-    }, [setProblems, setCurrentProblem])
+    }, [setProblems, setCurrentProblem]);
 
     useEffect(() => {
         if (!problems || problems.length === 0) {
@@ -39,16 +39,16 @@ const ProblemList = () => {
     }, [problems, refetchProblem]);
 
     const onProblemCreated = (problemId) => {
-        refetchProblem(problemId)
+        refetchProblem(problemId);
         setShouldRedirect(true)
-    }
+    };
 
     if (!problems || (shouldRedirect && !currentProblem)) {
         return <Spinner/>
     }
 
     return (
-        <>{shouldRedirect?
+        <>{shouldRedirect ?
             <Redirect to={`problems/${currentProblem.id}/edit`}/> : ""}
             <Route path="/problems" exact>
                 <div className="problem-list font-poppins">
@@ -93,13 +93,14 @@ const ProblemList = () => {
             </Route>
             <Route path="/problems/:problemId/edit">
                 <ProblemContext.Provider value={{
-                    currentProblem, setCurrentProblem, refetchProblem, setShouldRedirect}}>
+                    currentProblem, setCurrentProblem, refetchProblem, setShouldRedirect
+                }}>
                     <ProblemEditor/>
                 </ProblemContext.Provider>
             </Route>
         </>
     )
-}
+};
 
 
 export {ProblemList};

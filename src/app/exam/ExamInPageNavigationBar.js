@@ -1,21 +1,21 @@
 import {InPageNavigationBar} from "../commons/IndexBanner/InPageNavigationBar";
 import {AiOutlineSetting, FaClipboardList, FaRegEdit, FaUserFriends} from "react-icons/all";
-import {useExamContext} from "./problems/ExamContext";
+import {useExamContext} from "./questions/ExamContext";
 
 const ExamInPageNavigationBar = function ({currentURL, examName, examId}) {
-    const {setCurrentExam, setShouldRedirect} = useExamContext()
+    const {setCurrentExam, setShouldRedirect} = useExamContext();
 
     const onBreadcrumbClickAtIndex = (index) => {
-        const BACK_TO_EXAM_LIST = 0
+        const BACK_TO_EXAM_LIST = 0;
         switch (index) {
             case BACK_TO_EXAM_LIST:
-                setCurrentExam(null)
-                setShouldRedirect(false)
+                setCurrentExam(null);
+                setShouldRedirect(false);
                 break;
             default:
                 console.log("WARNING: onBreadcrumbClickAtIndex index out of range.")
         }
-    }
+    };
 
     return (
         <InPageNavigationBar currentURL={currentURL}
@@ -48,6 +48,6 @@ const ExamInPageNavigationBar = function ({currentURL, examName, examId}) {
                              ]}
         />
     )
-}
+};
 
 export {ExamInPageNavigationBar};

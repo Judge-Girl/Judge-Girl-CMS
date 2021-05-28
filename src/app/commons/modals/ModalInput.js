@@ -6,7 +6,8 @@ export const ModalInput = React.forwardRef((
         type = "text", value,
         placeholder, placeholderTextAlign,
         height, fontSize, labelText, labelFontSize,
-        onChange = e => {}, required = true
+        onChange = () => {},
+        required = true
     }, ref) => {
     return (
         <div className="mt-3">
@@ -18,4 +19,4 @@ export const ModalInput = React.forwardRef((
                    onChange={onChange} required={required}/>
         </div>
     )
-})
+});

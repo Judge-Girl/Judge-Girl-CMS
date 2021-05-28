@@ -1,23 +1,23 @@
-import React, { createRef, useEffect, useState } from "react";
-import { renderModal } from "../../commons/modals/modal";
-import { ModalHeader } from "../../commons/modals/ModalHeader";
+import React, {createRef, useEffect, useState} from "react";
+import {renderModal} from "../../commons/modals/modal";
+import {ModalHeader} from "../../commons/modals/ModalHeader";
 import './EditQuestionModal.scss'
 
-const InputField = ({ id, type, labelText, value, placeholder, onChange }) => (
+const InputField = ({id, type, labelText, value, placeholder, onChange}) => (
     <div className="input-field">
         <label htmlFor={id}>{labelText}</label>
-        <input id={id} type={type} onChange={onChange} value={value} placeholder={placeholder} required={true} />
+        <input id={id} type={type} onChange={onChange} value={value} placeholder={placeholder} required={true}/>
     </div>
 );
 
-const NoInputField = ({ text }) => (
+const NoInputField = ({text}) => (
     <div className="input-field">
         <label>{text}</label>
     </div>
 );
 
 
-const EditQuestionModal = ({ title, show, onClose, onSubmitQuestion, question }) => {
+const EditQuestionModal = ({title, show, onClose, onSubmitQuestion, question}) => {
     const closeIconRef = createRef(), formRef = createRef();
     const [scorePercentage, setScorePercentage] = useState(question?.maxScore);
     const [submissionQuota, setSubmissionQuota] = useState(question?.quota);
@@ -45,7 +45,7 @@ const EditQuestionModal = ({ title, show, onClose, onSubmitQuestion, question })
     useEffect(() => {
         setScorePercentage(question?.maxScore);
         setSubmissionQuota(question?.quota);
-    }, [question])
+    }, [question]);
 
     return question ? renderModal({
         modalClassName: "edit-problem-modal",
@@ -56,10 +56,14 @@ const EditQuestionModal = ({ title, show, onClose, onSubmitQuestion, question })
                 <form onSubmit={handleFormSubmit} ref={formRef}>
                     <div id="modal" className="font-poppins has-text-centered">
                         <ModalHeader className="header" title={title}
-                                     style={{ textAlign: "left" }}/>
-                        <NoInputField text={"Problem: " + question.problemId + " " + question.problemTitle} />
-                        <InputField id="input-score-percentage" type="number" labelText="Score Percentage" value={scorePercentage} placeholder="" onChange={e => setScorePercentage(e.target.value)} />
-                        <InputField id="input-submission-quota" type="number" labelText="Submission Quota" value={submissionQuota} placeholder="" onChange={e => setSubmissionQuota(e.target.value)} />
+                                     style={{textAlign: "left"}}/>
+                        <NoInputField text={"Problem: " + question.problemId + " " + question.problemTitle}/>
+                        <InputField id="input-score-percentage" type="number" labelText="Score Percentage"
+                                    value={scorePercentage} placeholder=""
+                                    onChange={e => setScorePercentage(e.target.value)}/>
+                        <InputField id="input-submission-quota" type="number" labelText="Submission Quota"
+                                    value={submissionQuota} placeholder=""
+                                    onChange={e => setSubmissionQuota(e.target.value)}/>
                         <div className="submit-btn my-3 px-2">
                             <button className="button" id="add-btn" type="submit">Edit Question</button>
                         </div>
@@ -67,8 +71,8 @@ const EditQuestionModal = ({ title, show, onClose, onSubmitQuestion, question })
                 </form>
             </div>
         )
-    }) : (<div></div>);
+    }) : (<div/>);
 };
 
 
-export { EditQuestionModal };
+export {EditQuestionModal};

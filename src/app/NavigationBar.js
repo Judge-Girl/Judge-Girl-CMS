@@ -29,6 +29,7 @@ const NavigationBar = () => {
             <header>Judge Girl <span>CMS</span></header>
             <NavLink to="/problems" activeClassName="active-link">Problem</NavLink>
             <NavLink to="/exams" activeClassName="active-link">Exam</NavLink>
+            <NavLink to="/groups" activeClassName="active-link">Group</NavLink>
             <NavLink to="/students" activeClassName="active-link">Student</NavLink>
             <NavLink to="/admins" activeClassName="active-link">Admin</NavLink>
             <span className="logout" onClick={onLogout}>Logout</span>

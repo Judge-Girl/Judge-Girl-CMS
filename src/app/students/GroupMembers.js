@@ -13,7 +13,7 @@ import {removeIf} from "../../utils/array";
 import {TextareaModal} from "../commons/modals/TextareaModal";
 
 const GroupMembers = withRouter(({history, match}) => {
-    const currentPathName = history.location.pathname;
+    const currentURL = history.location.pathname;
     const [group, setGroup] = useState(undefined);
     const [members, setMembers] = useState(undefined);
     const [selectedMember, setSelectedMember] = useState(undefined);
@@ -22,8 +22,8 @@ const GroupMembers = withRouter(({history, match}) => {
 
     const groupId = match.params.groupId;
 
-    const actionItemsButton = (selectedMember) => new ThreeDotsButton({
-        dropDownItems: [{
+    const actionItemsButton = (selectedMember) =>
+        <ThreeDotsButton dropDownItems={[{
             name: "Remove",
             dangerous: true,
             onClick: () => {
@@ -31,7 +31,7 @@ const GroupMembers = withRouter(({history, match}) => {
                 setShowRemoveMemberModal(true);
             }
         }]
-    });
+    }/>;
 
     const addMembersByEmails = (emails) => {
         studentService.addMembersInToGroupByEmails(groupId, emails)
@@ -75,25 +75,23 @@ const GroupMembers = withRouter(({history, match}) => {
 
     return (
         <div>
-            {group ? <GroupInPageNavigationBar currentPathName={currentPathName}
+            {group ? <GroupInPageNavigationBar currentURL={currentURL}
                                                groupName={group.name}
                                                groupId={group.id}/> : <Spinner/>}
 
             <div style={{padding: "40px 15rem 20px 15rem"}}>
                 <ItemListPage title="Group Members"
                               filterItems={["Filter", "Name", "Email"]}
-                              Button={() => new CreateButton({
-                                  onCreateButtonClick: () => setShowAddMemberModal(true)
-                              })}
+                              Button={() =><CreateButton onClick={() => setShowAddMemberModal(true)}/>}
                               tableHeaders={["Name", "Email", " "]}
                               members={members}
                               tableRowGenerator={{
                                   list: members,
                                   key: (member) => member.id,
                                   data: (member) => [
-                                      (<FakeLink content={member.name}/>),
-                                      member.email,
-                                      actionItemsButton({member})
+                                      (<FakeLink>{member.name}</FakeLink>),
+                                          member.email,
+                                          actionItemsButton({member})
                                   ]
                               }}
                               tableDataStyle={{textAlign: "left"}}/>

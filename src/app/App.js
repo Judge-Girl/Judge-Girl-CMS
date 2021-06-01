@@ -27,8 +27,7 @@ function App() {
                         <PrivateRoute path="/problems" component={ProblemList}/>
                         <PrivateRoute path="/exams" component={ExamList}/>
                         <PrivateRoute path="/students" component={StudentList}/>
-                        <PrivateRoute path="/groups" exact component={GroupList}/>
-                        <PrivateRoute path="/groups/:groupId/students" component={GroupMembers}/>
+                        <PrivateRoute path="/groups" component={GroupList}/>
                         <PrivateRoute path="/admins" component={AdminList}/>
                         <Route path="*">
                             <Redirect to="/"/>

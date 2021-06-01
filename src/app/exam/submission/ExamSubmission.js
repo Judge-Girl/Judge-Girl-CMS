@@ -1,7 +1,7 @@
 import { ExamInPageNavigationBar } from "../ExamInPageNavigationBar";
 import { ItemListPage } from "../../commons/ItemListPage/ItemListPage";
 import { useParams, useRouteMatch } from "react-router-dom";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useExamContext } from "../questions/ExamContext";
 import { TableCell } from "../../../utils/TableCell";
 import { displayDate } from "../../../utils/utils";
@@ -13,9 +13,9 @@ import './ExamSubmission.scss';
 
 const ExamSubmission = () => {
     const { url: currentURL } = useRouteMatch();
-    const { currentExam, setCurrentExam } = useExamContext();
+    const { currentExam } = useExamContext();
     const { examId } = useParams();
-    const [submissions, setSubmissions] = useState([
+    const [submissions] = useState([
         new Submission("398428", "50140 File Encoder and Decoder", "B09902116", new Verdict("AC", "(74 ms, 256 KB)"), "2021/04/30 12:34:56"),
         new Submission("398427", "134 Reconstruct A Binary Tree", "B09902116", new Verdict("WA", "(score: 60)"), "2021/04/30 12:34:56"),
         new Submission("398426", "134 Reconstruct A Binary Tree", "B09902116", new Verdict("TLE", "(score: 20)"), "2021/04/30 12:34:56"),

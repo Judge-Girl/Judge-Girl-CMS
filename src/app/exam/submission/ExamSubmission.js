@@ -7,24 +7,52 @@ import { TableCell } from "../../../utils/TableCell";
 import { displayDate } from "../../../utils/utils";
 import { Spinner } from "../../commons/Spinner";
 import FakeLink from "../../commons/FakeLink";
-import Submission from "../../../models/Submission";
-import Verdict from "../../../models/Verdict";
+import VerdictIssuedEvent from "../../../models/VerdictIssuedEvent";
+import { Verdict, JudgeStatus } from "../../../models/Verdict";
 import './ExamSubmission.scss';
 
 const ExamSubmission = () => {
     const { url: currentURL } = useRouteMatch();
     const { currentExam } = useExamContext();
     const { examId } = useParams();
-    const [submissions] = useState([
-        new Submission("398428", "50140 File Encoder and Decoder", "B09902116", new Verdict("AC", "(74 ms, 256 KB)"), "2021/04/30 12:34:56"),
-        new Submission("398427", "134 Reconstruct A Binary Tree", "B09902116", new Verdict("WA", "(score: 60)"), "2021/04/30 12:34:56"),
-        new Submission("398426", "134 Reconstruct A Binary Tree", "B09902116", new Verdict("TLE", "(score: 20)"), "2021/04/30 12:34:56"),
-        new Submission("398425", "222 Bookshelf", "B09902116", new Verdict("CE", ""), "2021/04/30 12:34:56"),
-        new Submission("398424", "222 Bookshelf", "B09902116", new Verdict("RE", "(score: 20)"), "2021/04/30 12:34:56"),
+    const [verdictIssuedEvents] = useState([
+        new VerdictIssuedEvent({ problemId: "398428", problemTitle: "50140 File Encoder and Decoder", studentId: "B09902116", verdict: new Verdict({ summaryStatus: new JudgeStatus({ fullName: "AC" }), maximumRuntime: 74, maximumMemoryUsage: 256 }), submissionTime: 1619757296345 }),
+        new VerdictIssuedEvent({ problemId: "398427", problemTitle: "134 Reconstruct A Binary Tree", studentId: "B09902116", verdict: new Verdict({ summaryStatus: new JudgeStatus({ fullName: "WA" }), totalGrade: 60 }), submissionTime: 1619757296345 }),
+        new VerdictIssuedEvent({ problemId: "398426", problemTitle: "134 Reconstruct A Binary Tree", studentId: "B09902116", verdict: new Verdict({ summaryStatus: new JudgeStatus({ fullName: "TLE" }), totalGrade: 20 }), submissionTime: 1619757296345 }),
+        new VerdictIssuedEvent({ problemId: "398425", problemTitle: "222 Bookshelf", studentId: "B09902116", verdict: new Verdict({ summaryStatus: new JudgeStatus({ fullName: "CE" }) }), submissionTime: 1619757296345 }),
+        new VerdictIssuedEvent({ problemId: "398424", problemTitle: "222 Bookshelf", studentId: "B09902116", verdict: new Verdict({ summaryStatus: new JudgeStatus({ fullName: "RE" }), totalGrade: 20 }), submissionTime: 1619757296345 })
     ]);
 
     if (!currentExam) {
         return <Spinner />
+    }
+
+    const VerdictDescription = ({ children }) => {
+        var verdictIssuedEvent = children;
+        var verdict = verdictIssuedEvent?.verdict;
+        var summaryStatus = verdict?.summaryStatus?.fullName;
+        return (
+            <>
+                <span className={summaryStatus}>
+                    {summaryStatus}&nbsp;</span>
+                <VerdictRemark>{verdict}</VerdictRemark>
+            </>
+        );
+    }
+
+    const VerdictRemark = ({ children }) => {
+        var verdict = children;
+        switch (verdict?.summaryStatus?.fullName) {
+            case 'AC':
+                return <span>({verdict.maximumRuntime}&nbsp;ms,&nbsp;{verdict.maximumMemoryUsage}&nbsp;KB)</span>
+            case 'WA':
+            case 'TLE':
+            case 'RE':
+                return <span>(score:&nbsp;{verdict?.totalGrade})</span>
+            case 'CE':
+            default:
+                return <span />;
+        }
     }
 
     return <div className="exam-submissions">
@@ -37,25 +65,23 @@ const ExamSubmission = () => {
                 <ItemListPage width="1200px"
                     showFilterSearchBar={false}
                     tableHeaders={[
-                        <TableCell>#</TableCell>,
-                        <TableCell>Problem Title</TableCell>,
-                        <TableCell>User Name</TableCell>,
-                        <TableCell>Verdict</TableCell>,
-                        <TableCell>Submit Time</TableCell>
+                        <TableCell style={{ color: "#676877" }}>#</TableCell>,
+                        <TableCell style={{ color: "#676877" }}>Problem Title</TableCell>,
+                        <TableCell style={{ color: "#676877" }}>User Name</TableCell>,
+                        <TableCell style={{ color: "#676877" }}>Verdict</TableCell>,
+                        <TableCell style={{ color: "#676877" }}>Submit Time</TableCell>
                     ]}
                     tableRowGenerator={{
-                        list: submissions,
-                        key: (submission) => submission.id,
-                        data: (submission) => [
-                            <TableCell>{submission?.id}</TableCell>,
-                            <FakeLink>{submission?.title}</FakeLink>,
-                            <TableCell>{submission?.userName}</TableCell>,
+                        list: verdictIssuedEvents,
+                        key: (verdictIssuedEvent) => verdictIssuedEvent.problemId,
+                        data: (verdictIssuedEvent) => [
+                            <TableCell>{verdictIssuedEvent?.problemId}</TableCell>,
+                            <FakeLink>{verdictIssuedEvent?.problemTitle}</FakeLink>,
+                            <TableCell>{verdictIssuedEvent?.studentId}</TableCell>,
                             <TableCell>
-                                <span className={submission?.verdict?.judgeStatus}>
-                                    {submission?.verdict?.judgeStatus}&nbsp;</span>
-                                <span>{submission?.verdict?.description}</span>
+                                <VerdictDescription>{verdictIssuedEvent}</VerdictDescription>
                             </TableCell>,
-                            <TableCell>{displayDate(submission?.submitTime)}</TableCell>
+                            <TableCell>{displayDate(verdictIssuedEvent?.submissionTime)}</TableCell>
                         ]
                     }} />
             </div>

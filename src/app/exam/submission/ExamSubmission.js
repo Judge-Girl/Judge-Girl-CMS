@@ -8,7 +8,7 @@ import { displayDate } from "../../../utils/utils";
 import { Spinner } from "../../commons/Spinner";
 import FakeLink from "../../commons/FakeLink";
 import VerdictIssuedEvent from "../../../models/VerdictIssuedEvent";
-import { Verdict, JudgeStatus } from "../../../models/Verdict";
+import Verdict from "../../../models/Verdict";
 import './ExamSubmission.scss';
 
 const ExamSubmission = () => {
@@ -16,11 +16,11 @@ const ExamSubmission = () => {
     const { currentExam } = useExamContext();
     const { examId } = useParams();
     const [verdictIssuedEvents] = useState([
-        new VerdictIssuedEvent({ problemId: "398428", problemTitle: "50140 File Encoder and Decoder", studentId: "B09902116", verdict: new Verdict({ summaryStatus: new JudgeStatus({ fullName: "AC" }), maximumRuntime: 74, maximumMemoryUsage: 256 }), submissionTime: 1619757296345 }),
-        new VerdictIssuedEvent({ problemId: "398427", problemTitle: "134 Reconstruct A Binary Tree", studentId: "B09902116", verdict: new Verdict({ summaryStatus: new JudgeStatus({ fullName: "WA" }), totalGrade: 60 }), submissionTime: 1619757296345 }),
-        new VerdictIssuedEvent({ problemId: "398426", problemTitle: "134 Reconstruct A Binary Tree", studentId: "B09902116", verdict: new Verdict({ summaryStatus: new JudgeStatus({ fullName: "TLE" }), totalGrade: 20 }), submissionTime: 1619757296345 }),
-        new VerdictIssuedEvent({ problemId: "398425", problemTitle: "222 Bookshelf", studentId: "B09902116", verdict: new Verdict({ summaryStatus: new JudgeStatus({ fullName: "CE" }) }), submissionTime: 1619757296345 }),
-        new VerdictIssuedEvent({ problemId: "398424", problemTitle: "222 Bookshelf", studentId: "B09902116", verdict: new Verdict({ summaryStatus: new JudgeStatus({ fullName: "RE" }), totalGrade: 20 }), submissionTime: 1619757296345 })
+        new VerdictIssuedEvent({ problemId: "398428", problemTitle: "50140 File Encoder and Decoder", studentId: "B09902116", verdict: new Verdict({ summaryStatus: "AC", maximumRuntime: 74, maximumMemoryUsage: 256 }), submissionTime: 1619757296345 }),
+        new VerdictIssuedEvent({ problemId: "398427", problemTitle: "134 Reconstruct A Binary Tree", studentId: "B09902116", verdict: new Verdict({ summaryStatus: "WA", totalGrade: 60 }), submissionTime: 1619757296345 }),
+        new VerdictIssuedEvent({ problemId: "398426", problemTitle: "134 Reconstruct A Binary Tree", studentId: "B09902116", verdict: new Verdict({ summaryStatus: "TLE", totalGrade: 20 }), submissionTime: 1619757296345 }),
+        new VerdictIssuedEvent({ problemId: "398425", problemTitle: "222 Bookshelf", studentId: "B09902116", verdict: new Verdict({ summaryStatus: "CE" }), submissionTime: 1619757296345 }),
+        new VerdictIssuedEvent({ problemId: "398424", problemTitle: "222 Bookshelf", studentId: "B09902116", verdict: new Verdict({ summaryStatus: "RE", totalGrade: 20 }), submissionTime: 1619757296345 })
     ]);
 
     if (!currentExam) {
@@ -30,7 +30,7 @@ const ExamSubmission = () => {
     const VerdictDescription = ({ children }) => {
         var verdictIssuedEvent = children;
         var verdict = verdictIssuedEvent?.verdict;
-        var summaryStatus = verdict?.summaryStatus?.fullName;
+        var summaryStatus = verdict?.summaryStatus;
         return (
             <>
                 <span className={summaryStatus}>
@@ -42,7 +42,7 @@ const ExamSubmission = () => {
 
     const VerdictRemark = ({ children }) => {
         var verdict = children;
-        switch (verdict?.summaryStatus?.fullName) {
+        switch (verdict?.summaryStatus) {
             case 'AC':
                 return <span>({verdict.maximumRuntime}&nbsp;ms,&nbsp;{verdict.maximumMemoryUsage}&nbsp;KB)</span>
             case 'WA':

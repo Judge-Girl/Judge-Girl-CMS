@@ -1,4 +1,4 @@
-export class Verdict {
+export default class Verdict {
     constructor({ judges, summaryStatus, totalGrade, maxGrade, compileErrorMessage, maximumRuntime, maximumMemoryUsage, report, issueTime }) {
         this.judges = judges;
         this.summaryStatus = summaryStatus;
@@ -19,12 +19,6 @@ export class Judge {
         this.programProfile = programProfile;
         this.grade = grade;
         this.maxGrade = maxGrade;
-    }
-}
-
-export class JudgeStatus {
-    constructor({ fullName }) {
-        this.fullName = fullName;
     }
 }
 

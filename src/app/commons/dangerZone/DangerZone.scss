@@ -6,6 +6,16 @@ $danger-dark-red: #D95950;
     margin-bottom: 45px;
   }
 
+  .danger-zone-title {
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  .description {
+    font-size: 15px;
+    color: #6D6E7D;
+  }
+
   .danger-box {
     border: 2px solid $danger-red;
     padding: 10px 0 10px 15px;

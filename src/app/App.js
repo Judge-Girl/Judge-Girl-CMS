@@ -8,7 +8,6 @@ import {ProblemList} from "./problem/list/ProblemList";
 import {StudentList} from "./students/StudentList";
 import {AdminList} from "./admins/AdminList";
 import {GroupList} from "./students/GroupList";
-import {GroupMembers} from "./students/GroupMembers";
 import {ExamList} from "./exam/ExamList";
 import 'bulma';
 import './App.css';

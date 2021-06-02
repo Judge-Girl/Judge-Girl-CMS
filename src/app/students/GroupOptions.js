@@ -1,5 +1,5 @@
-import React, {useState} from "react";
-import {Redirect} from "react-router-dom";
+import React, {useEffect, useState} from "react";
+import {Redirect, useParams} from "react-router-dom";
 import {withRouter} from "react-router";
 import {Spinner} from "../commons/Spinner";
 import {RemoveConfirmationModal} from "../commons/modals/RemoveConfirmationModal";
@@ -10,7 +10,8 @@ import {studentService} from "../../services/services";
 
 const GroupOptions = withRouter(({history}) => {
     const currentURL = history.location.pathname;
-    const {currentGroup, groups, setGroups} = useGroupContext()
+    const {groupId} = useParams();
+    const {currentGroup, setCurrentGroup, groups, setGroups} = useGroupContext()
     const [shouldRedirect, setShouldRedirect] = useState(false);
     const [showDeleteGroupModal, setShowDeleteGroupModal] = useState(false);
 
@@ -22,9 +23,12 @@ const GroupOptions = withRouter(({history}) => {
             });
     };
 
-    if (shouldRedirect) {
-        return (<Redirect to={`/groups`}/>)
-    }
+    useEffect(() => {
+        if (!currentGroup) {
+            studentService.getGroupById(groupId)
+                .then(group => setCurrentGroup(group));
+        }
+    })
 
     if (!currentGroup) {
         return (<Spinner/>)
@@ -32,6 +36,7 @@ const GroupOptions = withRouter(({history}) => {
 
     return (
         <div>
+            {shouldRedirect ? <Redirect to={`/groups`}/> : ""}
             <GroupInPageNavigationBar currentURL={currentURL}
                                       groupName={currentGroup.name}
                                       groupId={currentGroup.id}/>

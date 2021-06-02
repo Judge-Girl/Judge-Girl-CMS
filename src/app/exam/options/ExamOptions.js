@@ -23,6 +23,7 @@ const ExamOptions = () => {
     const [endTime, setEndTime] = useState(formatDate(currentExam?.endTime));
 
     useEffect(() => {
+        // TODO: if examId doesn't exist, it will call refetchExam() infinitely.
         if (!currentExam) {
             refetchExam(examId)
         }

@@ -3,7 +3,7 @@ import {ItemListPage} from "../commons/ItemListPage/ItemListPage";
 import {studentService} from "../../services/services";
 import {CreateGroupModal} from "./CreateGroupModal";
 import {CreateButton} from "../commons/buttons/CreateButton";
-import {Link, Route, Switch} from "react-router-dom";
+import {Link, Redirect, Route, Switch} from "react-router-dom";
 import {GroupMembers} from "./GroupMembers";
 import {GroupOptions} from "./GroupOptions";
 import {GroupContext} from "./GroupContext";
@@ -17,6 +17,7 @@ const useGroupList = function () {
 const GroupList = () => {
     const [showCreateGroupModal, setShowCreateGroupModal] = useState(false);
     const [currentGroup, setCurrentGroup] = useState(null);
+    const [shouldRedirect, setShouldRedirect] = useState(false);
     const {groups, addGroup, setGroups} = useGroupList();
 
     useEffect(() => {
@@ -28,6 +29,7 @@ const GroupList = () => {
 
     return (
         <>
+            {shouldRedirect ? <Redirect to={`/groups/${currentGroup.id}/members`}/> : ""}
             <Route path="/groups" exact>
                 <div style={{padding: "40px 100px 20px 100px"}}>
                     <ItemListPage title="Group List"
@@ -47,7 +49,11 @@ const GroupList = () => {
 
                     <CreateGroupModal show={showCreateGroupModal}
                                       onClose={() => setShowCreateGroupModal(false)}
-                                      onGroupCreated={group => addGroup(group)}/>
+                                      onGroupCreated={group => {
+                                          addGroup(group);
+                                          setCurrentGroup(group);
+                                          setShouldRedirect(true);
+                                      }}/>
                 </div>
             </Route>
 

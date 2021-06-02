@@ -15,11 +15,10 @@ const CreateGroupModal = ({show, onClose, onGroupCreated}) => {
         e.preventDefault();
         studentService.createGroupWithName(name)
             .then(group => {
-                onGroupCreated(group);
                 closeIconRef.current.click();
                 setName("");
+                onGroupCreated(group);
             });
-
     };
 
     return renderModal({

@@ -12,10 +12,9 @@ import {ExamOptions} from "./options/ExamOptions";
 import {Spinner} from "../commons/Spinner";
 import {ExamContext} from "./questions/ExamContext";
 import ExamScore from "./score/ExamScore";
-import ExamSubmission from "./submission/ExamSubmission";
 import {TableCell} from "../../utils/TableCell";
+import ExamSubmissions from "./submissions/ExamSubmissions";
 import './ExamList.css';
-
 
 export const useExamList = () => {
     const [exams, setExams] = useState();
@@ -106,7 +105,7 @@ const ExamList = () => {
                         <Examinees/>
                     </Route>
                     <Route path="/exams/:examId/submissions">
-                        <ExamSubmission/>
+                        <ExamSubmissions/>
                     </Route>
                     <Route path="/exams/:examId/options">
                         <ExamOptions/>

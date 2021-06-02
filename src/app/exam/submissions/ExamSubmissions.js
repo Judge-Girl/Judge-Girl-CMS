@@ -9,9 +9,9 @@ import { Spinner } from "../../commons/Spinner";
 import FakeLink from "../../commons/FakeLink";
 import VerdictIssuedEvent from "../../../models/VerdictIssuedEvent";
 import Verdict from "../../../models/Verdict";
-import './ExamSubmission.scss';
+import './ExamSubmissions.scss';
 
-const ExamSubmission = () => {
+const ExamSubmissions = () => {
     const { url: currentURL } = useRouteMatch();
     const { currentExam } = useExamContext();
     const { examId } = useParams();
@@ -86,4 +86,4 @@ const ExamSubmission = () => {
     </div>
 }
 
-export default ExamSubmission;
+export default ExamSubmissions;

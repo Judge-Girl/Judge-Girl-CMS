@@ -3,11 +3,12 @@ import {AiOutlineSetting, FaUserGraduate} from "react-icons/all";
 
 const GroupInPageNavigationBar = function ({currentURL, groupName, groupId}) {
 
+    // TODO: a better way to implement InPageNavigationBar
     const onBreadcrumbClickAtIndex = (index) => {
-        const BACK_TO_EXAM_LIST = 0;
+        const BACK_TO_GROUP_LIST = 0;
         switch (index) {
-            case BACK_TO_EXAM_LIST:
-                console.log("Nothing to do")
+            case BACK_TO_GROUP_LIST:
+                console.log("nothing")
                 break;
             default:
                 console.log("WARNING: onBreadcrumbClickAtIndex index out of range.")

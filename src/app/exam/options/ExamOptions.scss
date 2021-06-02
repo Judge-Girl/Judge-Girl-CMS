@@ -1,8 +1,4 @@
 .exam-options {
-  section {
-    margin-bottom: 45px;
-  }
-
   .tag-item {
     color: #1273BA;
     padding-left: 10px;
@@ -24,18 +20,4 @@
     display: flex;
     align-items: center;
   }
-
-  .delete-icon {
-    position: absolute;
-    width: 10px;
-    height: 10px;
-    float: right;
-    left: 360px;
-  }
-}
-
-.danger-zone {
-  border: 2px solid #E34137;
-  padding: 10px 0 10px 15px;
-  border-radius: 10px;
 }

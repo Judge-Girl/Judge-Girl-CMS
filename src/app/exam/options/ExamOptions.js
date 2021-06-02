@@ -11,6 +11,7 @@ import {formatDate} from "../../../utils/utils";
 import {useExamContext} from "../questions/ExamContext";
 import {Spinner} from "../../commons/Spinner";
 import './ExamOptions.scss';
+import {DangerZone} from "../../commons/dangerZone/DangerZone";
 
 
 const ExamOptions = () => {
@@ -41,8 +42,8 @@ const ExamOptions = () => {
         })
     };
 
-    const onDeleteExamButtonClicked = () => {
-
+    const deleteExam = () => {
+        console.log("delete exam")
     };
 
     if (!currentExam) {
@@ -84,24 +85,10 @@ const ExamOptions = () => {
                         <div className="column right">
                         </div>
 
-                        <TitleLine title={"Danger Zone"}/>
-                        <section>
-                            <div className="danger-zone">
-                                <div className="columns">
-                                    <div className="column">
-                                        <p className="title is-spaced is-5">Delete this exam</p>
-                                        Once you delete an exam, there is no going back. Please be certain.
-                                    </div>
-                                    <div className="column is-narrow mt-1 mr-5">
-                                        <button
-                                            className="button is-danger"
-                                            onClick={onDeleteExamButtonClicked}
-                                        >Delete Exam
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
+                        <DangerZone onDangerButtonClicked={() => deleteExam()}
+                                    title={'Delete this exam'}
+                                    description={'Once you delete an exam, there is no going back. Please be certain.'}
+                                    buttonName={'Delete Exam'}/>
                     </div>
                 </div>
             </div>

@@ -24,7 +24,7 @@ const GroupInPageNavigationBar = function ({currentURL, groupName, groupId}) {
                              tabContents={[
                                  {
                                      to: `/groups/${groupId}/members`,
-                                     name: 'Students',
+                                     name: 'Members',
                                      icon: FaUserGraduate
                                  },
                                  {

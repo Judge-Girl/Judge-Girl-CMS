@@ -5,8 +5,10 @@ import {CreateGroupModal} from "./CreateGroupModal";
 import {CreateButton} from "../commons/buttons/CreateButton";
 import {Link, Route, Switch} from "react-router-dom";
 import {GroupMembers} from "./GroupMembers";
+import {GroupOptions} from "./GroupOptions";
+import {GroupContext} from "./GroupContext";
 
-const useExamList = function () {
+const useGroupList = function () {
     const [groups, setGroups] = useState(undefined);
     const addGroup = (group) => groups.push(group);
     return {groups, addGroup, setGroups};
@@ -14,7 +16,8 @@ const useExamList = function () {
 
 const GroupList = () => {
     const [showCreateGroupModal, setShowCreateGroupModal] = useState(false);
-    const {groups, addGroup, setGroups} = useExamList();
+    const [currentGroup, setCurrentGroup] = useState(null);
+    const {groups, addGroup, setGroups} = useGroupList();
 
     useEffect(() => {
         if (!groups) {
@@ -35,7 +38,9 @@ const GroupList = () => {
                                       list: groups,
                                       key: (group) => group.name,
                                       data: (group) => [
-                                          <Link to={`/groups/${group.id}/members`}>{group.name}</Link>
+                                          <Link to={`/groups/${group.id}/members`}
+                                                onClick={() => setCurrentGroup(group)}
+                                          >{group.name}</Link>
                                       ]
                                   }}
                                   tableDataStyle={{textAlign: "left"}}/>
@@ -46,14 +51,16 @@ const GroupList = () => {
                 </div>
             </Route>
 
-            <Switch>
-                <Route path="/groups/:groupId/members">
-                    <GroupMembers/>
-                </Route>
-                <Route path="/groups/:groupId/options">
-                    <GroupMembers/>
-                </Route>
-            </Switch>
+            <GroupContext.Provider value={{currentGroup, setCurrentGroup, groups, setGroups}}>
+                <Switch>
+                    <Route path="/groups/:groupId/members">
+                        <GroupMembers/>
+                    </Route>
+                    <Route path="/groups/:groupId/options">
+                        <GroupOptions/>
+                    </Route>
+                </Switch>
+            </GroupContext.Provider>
         </>
     )
 };

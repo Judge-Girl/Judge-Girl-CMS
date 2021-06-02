@@ -33,12 +33,12 @@ const ExamSubmissions = () => {
             <>
                 <span className={summaryStatus}>
                     {summaryStatus}&nbsp;</span>
-                {renderStatus({ verdict })}
+                {renderStatus(verdict)}
             </>
         );
     }
 
-    function renderStatus({ verdict }) {
+    function renderStatus(verdict) {
         switch (verdict?.summaryStatus) {
             case 'AC':
                 return <span>({verdict.maximumRuntime}&nbsp;ms,&nbsp;{verdict?.maximumMemoryUsage}&nbsp;KB)</span>

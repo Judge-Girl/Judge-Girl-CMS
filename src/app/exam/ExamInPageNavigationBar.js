@@ -5,7 +5,7 @@ import {useExamContext} from "./questions/ExamContext";
 const ExamInPageNavigationBar = function ({currentURL, examName, examId}) {
     const {setCurrentExam, setShouldRedirect} = useExamContext();
 
-    // TODO: a better way to implement InPageNavigationBar
+    // TODO: a better design for InPageNavigationBar
     const onBreadcrumbClickAtIndex = (index) => {
         const BACK_TO_EXAM_LIST = 0;
         switch (index) {

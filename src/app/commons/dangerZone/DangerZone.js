@@ -10,11 +10,11 @@ const DangerZone = function ({onDangerButtonClicked, title, description, buttonN
                 <div className="danger-box">
                     <div className="columns">
                         <div className="column">
-                            <p className="title is-spaced is-5">{title}</p>
+                            <p className="danger-zone-title">{title}</p>
                             <p className="description">{description}</p>
                         </div>
                         <div className="column is-narrow mt-1 mr-5">
-                            <button className="button danger-btn" onClick={onDangerButtonClicked}>
+                            <button className="button" onClick={onDangerButtonClicked}>
                                 {buttonName}
                             </button>
                         </div>

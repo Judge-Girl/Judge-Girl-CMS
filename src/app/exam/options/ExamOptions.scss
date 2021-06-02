@@ -1,4 +1,11 @@
+$update-blue: #0F7ED0;
+$update-dark-blue: #0E6FB7;
+
 .exam-options {
+  section {
+    margin-bottom: 45px;
+  }
+
   .tag-item {
     color: #1273BA;
     padding-left: 10px;
@@ -19,5 +26,30 @@
 
     display: flex;
     align-items: center;
+  }
+
+  .update-button {
+    width: 300px;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: 500;
+    border: 2px solid $update-blue;
+    background: $update-blue;
+    color: white;
+    align-content: center;
+    justify-content: center;
+
+    &:focus {
+      color: white;
+      background: $update-dark-blue;
+      box-shadow: 0 0 0 0 $update-dark-blue;
+      border-color: $update-dark-blue;
+    }
+
+    &:hover {
+      color: white;
+      background: $update-dark-blue;
+      border: 2px solid $update-dark-blue;
+    }
   }
 }

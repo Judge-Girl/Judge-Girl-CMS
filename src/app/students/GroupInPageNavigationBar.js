@@ -3,7 +3,7 @@ import {AiOutlineSetting, FaUserGraduate} from "react-icons/all";
 
 const GroupInPageNavigationBar = function ({currentURL, groupName, groupId}) {
 
-    // TODO: a better way to implement InPageNavigationBar
+    // TODO: a better design for InPageNavigationBar
     const onBreadcrumbClickAtIndex = (index) => {
         const BACK_TO_GROUP_LIST = 0;
         switch (index) {

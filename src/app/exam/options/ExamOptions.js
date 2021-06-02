@@ -5,7 +5,6 @@ import {TitleLine} from "../../commons/titles/TitleLine";
 import ExamName from "./ExamName";
 import ExamSchedule from "./ExamSchedule";
 import ExamWhiteList from "./ExamWhiteList";
-import {UpdateChangeButton} from "./UpdateChangeButton";
 import {examService} from "../../../services/services";
 import {formatDate} from "../../../utils/utils";
 import {useExamContext} from "../questions/ExamContext";
@@ -79,8 +78,10 @@ const ExamOptions = () => {
                                 <ExamWhiteList/>
                             </section>
                             <section>
-                                <UpdateChangeButton
-                                    onUpdateChangeButtonClick={onButtonUpdateChangeClicked}/>
+                                <button className="button update-button"
+                                        onClick={onButtonUpdateChangeClicked}>
+                                    Update Change
+                                </button>
                             </section>
                         </div>
                         <div className="column right">

@@ -27,24 +27,21 @@ const ExamSubmission = () => {
         return <Spinner />
     }
 
-    const VerdictDescription = ({ children }) => {
-        var verdictIssuedEvent = children;
-        var verdict = verdictIssuedEvent?.verdict;
+    const VerdictSummary = ({ verdict }) => {
         var summaryStatus = verdict?.summaryStatus;
         return (
             <>
                 <span className={summaryStatus}>
                     {summaryStatus}&nbsp;</span>
-                <VerdictRemark>{verdict}</VerdictRemark>
+                {renderStatus({ verdict })}
             </>
         );
     }
 
-    const VerdictRemark = ({ children }) => {
-        var verdict = children;
+    function renderStatus({ verdict }) {
         switch (verdict?.summaryStatus) {
             case 'AC':
-                return <span>({verdict.maximumRuntime}&nbsp;ms,&nbsp;{verdict.maximumMemoryUsage}&nbsp;KB)</span>
+                return <span>({verdict.maximumRuntime}&nbsp;ms,&nbsp;{verdict?.maximumMemoryUsage}&nbsp;KB)</span>
             case 'WA':
             case 'TLE':
             case 'RE':
@@ -79,7 +76,7 @@ const ExamSubmission = () => {
                             <FakeLink>{verdictIssuedEvent?.problemTitle}</FakeLink>,
                             <TableCell>{verdictIssuedEvent?.studentId}</TableCell>,
                             <TableCell>
-                                <VerdictDescription>{verdictIssuedEvent}</VerdictDescription>
+                                <VerdictSummary verdict={verdictIssuedEvent.verdict} />
                             </TableCell>,
                             <TableCell>{displayDate(verdictIssuedEvent?.submissionTime)}</TableCell>
                         ]

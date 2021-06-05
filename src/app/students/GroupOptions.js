@@ -41,9 +41,9 @@ const GroupOptions = withRouter(({history}) => {
                                       groupName={currentGroup.name}
                                       groupId={currentGroup.id}/>
 
-            <div style={{width: "80%", alignItems: "center", margin: "auto"}}>
+            <div style={{width: "80%", alignItems: "center", margin: "auto", marginTop: "40px"}}>
                 <DangerZone onDangerButtonClicked={() => setShowDeleteGroupModal(true)}
-                            title={'Delete this group'}
+                            header={'Delete this group'}
                             description={'Once you delete a group, there is no going back. Please be certain.'}
                             buttonName={'Delete Group'}
                 />
@@ -56,7 +56,7 @@ const GroupOptions = withRouter(({history}) => {
                                      }]}
                                      show={showDeleteGroupModal}
                                      onClose={() => setShowDeleteGroupModal(false)}
-                                     onSubmit={() => deleteGroup()}/>
+                                     onSubmit={deleteGroup}/>
         </div>
     )
 });

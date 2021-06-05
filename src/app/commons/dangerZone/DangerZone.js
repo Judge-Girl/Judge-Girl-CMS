@@ -2,7 +2,7 @@ import './DangerZone.scss'
 import {TitleLine} from "../titles/TitleLine";
 import React from "react";
 
-const DangerZone = function ({onDangerButtonClicked, title, description, buttonName}) {
+const DangerZone = function ({onDangerButtonClicked, header, description, buttonName}) {
     return (
         <div className="danger-zone">
             <TitleLine title={"Danger Zone"}/>
@@ -10,7 +10,7 @@ const DangerZone = function ({onDangerButtonClicked, title, description, buttonN
                 <div className="danger-box">
                     <div className="columns">
                         <div className="column">
-                            <p className="danger-zone-title">{title}</p>
+                            <p className="danger-zone-title">{header}</p>
                             <p className="description">{description}</p>
                         </div>
                         <div className="column is-narrow mt-1 mr-5">

@@ -6,14 +6,10 @@ import {TitleLine} from "../titles/TitleLine";
 const FilterSearchBar = ({filterItems, Button}) => {
     return (
         <div className="is-flex is-justify-content-center">
-            <div>
-                <div className="select" id="filter">
-                    <select>
-                        {
-                            filterItems?.map(name => <option key={name}>{name}</option>)
-                        }
-                    </select>
-                </div>
+            <div className="select" id="filter">
+                <select>
+                    {filterItems?.map(name => <option key={name}>{name}</option>)}
+                </select>
             </div>
             <input style={{flexGrow: "1"}} type="text" id="searchBar"/>
             <Button/>
@@ -48,9 +44,10 @@ const ItemListPage = ({
                 <thead style={{whiteSpace: "nowrap"}}>
                 <tr>
                     {
-                        tableHeaders?.map((header, index) => <th key={index}
-                                                                 scope="col"
-                                                                 style={{verticalAlign: "middle"}}>{header}</th>)
+                        tableHeaders?.map((header, index) =>
+                            <th key={index}
+                                scope="col"
+                                style={{verticalAlign: "middle"}}>{header}</th>)
                     }
                 </tr>
                 </thead>

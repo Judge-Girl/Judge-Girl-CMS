@@ -7,8 +7,7 @@ import {Login} from "./Login";
 import {ProblemList} from "./problem/list/ProblemList";
 import {StudentList} from "./students/StudentList";
 import {AdminList} from "./admins/AdminList";
-import {GroupList} from "./students/GroupList";
-import {GroupMembers} from "./students/GroupMembers";
+import {GroupList} from "./group/GroupList";
 import {ExamList} from "./exam/ExamList";
 import 'bulma';
 import './App.css';
@@ -27,8 +26,7 @@ function App() {
                         <PrivateRoute path="/problems" component={ProblemList}/>
                         <PrivateRoute path="/exams" component={ExamList}/>
                         <PrivateRoute path="/students" component={StudentList}/>
-                        <PrivateRoute path="/groups" exact component={GroupList}/>
-                        <PrivateRoute path="/groups/:groupId/students" component={GroupMembers}/>
+                        <PrivateRoute path="/groups" component={GroupList}/>
                         <PrivateRoute path="/admins" component={AdminList}/>
                         <Route path="*">
                             <Redirect to="/"/>

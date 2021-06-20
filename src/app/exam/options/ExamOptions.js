@@ -5,12 +5,12 @@ import {TitleLine} from "../../commons/titles/TitleLine";
 import ExamName from "./ExamName";
 import ExamSchedule from "./ExamSchedule";
 import ExamWhiteList from "./ExamWhiteList";
-import {UpdateChangeButton} from "./UpdateChangeButton";
 import {examService} from "../../../services/services";
 import {formatDate} from "../../../utils/utils";
 import {useExamContext} from "../questions/ExamContext";
 import {Spinner} from "../../commons/Spinner";
 import './ExamOptions.scss';
+import {DangerZone} from "../../commons/dangerZone/DangerZone";
 
 
 const ExamOptions = () => {
@@ -22,6 +22,7 @@ const ExamOptions = () => {
     const [endTime, setEndTime] = useState(formatDate(currentExam?.endTime));
 
     useEffect(() => {
+        // TODO: if examId doesn't exist, it will call refetchExam() infinitely.
         if (!currentExam) {
             refetchExam(examId)
         }
@@ -41,8 +42,8 @@ const ExamOptions = () => {
         })
     };
 
-    const onDeleteExamButtonClicked = () => {
-
+    const deleteExam = () => {
+        console.log("delete exam")
     };
 
     if (!currentExam) {
@@ -77,31 +78,20 @@ const ExamOptions = () => {
                                 <ExamWhiteList/>
                             </section>
                             <section>
-                                <UpdateChangeButton
-                                    onUpdateChangeButtonClick={onButtonUpdateChangeClicked}/>
+                                <button className="button update-button"
+                                        onClick={onButtonUpdateChangeClicked}>
+                                    Update Change
+                                </button>
                             </section>
                         </div>
                         <div className="column right">
                         </div>
 
                         <TitleLine title={"Danger Zone"}/>
-                        <section>
-                            <div className="danger-zone">
-                                <div className="columns">
-                                    <div className="column">
-                                        <p className="title is-spaced is-5">Delete this exam</p>
-                                        Once you delete an exam, there is no going back. Please be certain.
-                                    </div>
-                                    <div className="column is-narrow mt-1 mr-5">
-                                        <button
-                                            className="button is-danger"
-                                            onClick={onDeleteExamButtonClicked}
-                                        >Delete Exam
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
+                        <DangerZone onDangerButtonClick={() => deleteExam()}
+                                    header={'Delete this exam'}
+                                    description={'Once you delete an exam, there is no going back. Please be certain.'}
+                                    buttonName={'Delete Exam'}/>
                     </div>
                 </div>
             </div>

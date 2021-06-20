@@ -1,37 +1,36 @@
-import {withRouter} from "react-router";
+import React, {useEffect, useState} from "react";
+import {useParams, useRouteMatch} from "react-router-dom";
+import {AiOutlineMail} from "react-icons/ai";
+import {studentService} from "../../services/services";
 import {GroupInPageNavigationBar} from "./GroupInPageNavigationBar";
 import {ItemListPage} from "../commons/ItemListPage/ItemListPage";
 import {CreateButton} from "../commons/buttons/CreateButton";
 import FakeLink from "../commons/FakeLink";
-import React, {useEffect, useState} from "react";
 import {ThreeDotsButton} from "../commons/buttons/ThreeDotsButton";
-import {studentService} from "../../services/services";
 import {Spinner} from "../commons/Spinner";
-import {AiOutlineMail} from "react-icons/ai";
 import {RemoveConfirmationModal} from "../commons/modals/RemoveConfirmationModal";
 import {removeIf} from "../../utils/array";
 import {TextareaModal} from "../commons/modals/TextareaModal";
+import {useGroupContext} from "./GroupContext";
 
-const GroupMembers = withRouter(({history, match}) => {
-    const currentPathName = history.location.pathname;
-    const [group, setGroup] = useState(undefined);
+const GroupMembers = () => {
+    const {url: currentURL} = useRouteMatch()
+    const {groupId} = useParams();
+    const {currentGroup, setCurrentGroup} = useGroupContext()
     const [members, setMembers] = useState(undefined);
     const [selectedMember, setSelectedMember] = useState(undefined);
     const [showRemoveMemberModal, setShowRemoveMemberModal] = useState(undefined);
     const [showAddMemberModal, setShowAddMemberModal] = useState(undefined);
 
-    const groupId = match.params.groupId;
-
-    const actionItemsButton = (selectedMember) => new ThreeDotsButton({
-        dropDownItems: [{
+    const actionItemsButton = (selectedMember) =>
+        <ThreeDotsButton dropDownItems={[{
             name: "Remove",
             dangerous: true,
             onClick: () => {
                 setSelectedMember(selectedMember.member);
                 setShowRemoveMemberModal(true);
             }
-        }]
-    });
+        }]}/>;
 
     const addMembersByEmails = (emails) => {
         studentService.addMembersInToGroupByEmails(groupId, emails)
@@ -63,35 +62,39 @@ const GroupMembers = withRouter(({history, match}) => {
             .then(members => setMembers(members));
     };
 
+
     useEffect(() => {
-        if (!group) {
+        if (!currentGroup) {
             studentService.getGroupById(groupId)
-                .then(group => setGroup(group));
+                .then(group => setCurrentGroup(group));
         }
-        if (!members && group) {
+
+        if (!members && currentGroup) {
             fetchMembers();
         }
     });
 
+    if (!currentGroup) {
+        return (<Spinner/>)
+    }
+
     return (
         <div>
-            {group ? <GroupInPageNavigationBar currentPathName={currentPathName}
-                                               groupName={group.name}
-                                               groupId={group.id}/> : <Spinner/>}
+            <GroupInPageNavigationBar currentURL={currentURL}
+                                      groupName={currentGroup.name}
+                                      groupId={currentGroup.id}/>
 
             <div style={{padding: "40px 15rem 20px 15rem"}}>
                 <ItemListPage title="Group Members"
                               filterItems={["Filter", "Name", "Email"]}
-                              Button={() => new CreateButton({
-                                  onCreateButtonClick: () => setShowAddMemberModal(true)
-                              })}
+                              Button={() => <CreateButton onClick={() => setShowAddMemberModal(true)}/>}
                               tableHeaders={["Name", "Email", " "]}
                               members={members}
                               tableRowGenerator={{
                                   list: members,
                                   key: (member) => member.id,
                                   data: (member) => [
-                                      (<FakeLink content={member.name}/>),
+                                      <FakeLink>{member.name}</FakeLink>,
                                       member.email,
                                       actionItemsButton({member})
                                   ]
@@ -126,6 +129,6 @@ const GroupMembers = withRouter(({history, match}) => {
                                      onSubmit={() => deleteMembersFormGroup(selectedMember)}/>
         </div>
     )
-});
+}
 
 export {GroupMembers};

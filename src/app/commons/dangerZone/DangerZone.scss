@@ -1,0 +1,47 @@
+$danger-red: #E26C65;
+$danger-dark-red: #D95950;
+
+.danger-zone {
+  section {
+    margin-bottom: 45px;
+  }
+
+  .danger-zone-title {
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  .description {
+    font-size: 15px;
+    color: #6D6E7D;
+  }
+
+  .danger-box {
+    border: 2px solid $danger-red;
+    padding: 10px 0 10px 15px;
+    border-radius: 10px;
+    align-content: center;
+
+    .button {
+      border-radius: 10px;
+      font-weight: 600;
+      border: 2px solid $danger-red;
+      background: transparent;
+      color: $danger-red;
+      align-content: center;
+      justify-content: center;
+
+      &:focus {
+        color: white;
+        background: $danger-dark-red;
+        box-shadow: 0 0 0 0 $danger-dark-red;
+        border-color: $danger-dark-red;
+      }
+
+      &:hover {
+        color: white;
+        background: $danger-red;
+      }
+    }
+  }
+}

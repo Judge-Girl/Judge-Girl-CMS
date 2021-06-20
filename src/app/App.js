@@ -7,7 +7,7 @@ import {Login} from "./Login";
 import {ProblemList} from "./problem/list/ProblemList";
 import {StudentList} from "./students/StudentList";
 import {AdminList} from "./admins/AdminList";
-import {GroupList} from "./students/GroupList";
+import {GroupList} from "./group/GroupList";
 import {ExamList} from "./exam/ExamList";
 import 'bulma';
 import './App.css';

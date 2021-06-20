@@ -1,15 +1,15 @@
 import React, {useEffect, useState} from "react";
-import {Redirect, useParams} from "react-router-dom";
-import {withRouter} from "react-router";
+import {Redirect, useParams, useRouteMatch} from "react-router-dom";
 import {Spinner} from "../commons/Spinner";
 import {RemoveConfirmationModal} from "../commons/modals/RemoveConfirmationModal";
 import {DangerZone} from "../commons/dangerZone/DangerZone";
 import {useGroupContext} from "./GroupContext";
 import {GroupInPageNavigationBar} from "./GroupInPageNavigationBar";
 import {studentService} from "../../services/services";
+import {TitleLine} from "../commons/titles/TitleLine";
 
-const GroupOptions = withRouter(({history}) => {
-    const currentURL = history.location.pathname;
+const GroupOptions =() => {
+    const {url: currentURL} = useRouteMatch()
     const {groupId} = useParams();
     const {currentGroup, setCurrentGroup, groups, setGroups} = useGroupContext()
     const [shouldRedirect, setShouldRedirect] = useState(false);
@@ -42,6 +42,7 @@ const GroupOptions = withRouter(({history}) => {
                                       groupId={currentGroup.id}/>
 
             <div style={{width: "80%", alignItems: "center", margin: "auto", marginTop: "40px"}}>
+                <TitleLine title={"Danger Zone"}/>
                 <DangerZone onDangerButtonClicked={() => setShowDeleteGroupModal(true)}
                             header={'Delete this group'}
                             description={'Once you delete a group, there is no going back. Please be certain.'}
@@ -59,6 +60,6 @@ const GroupOptions = withRouter(({history}) => {
                                      onSubmit={deleteGroup}/>
         </div>
     )
-});
+}
 
 export {GroupOptions};

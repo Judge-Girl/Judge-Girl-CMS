@@ -87,6 +87,7 @@ const ExamOptions = () => {
                         <div className="column right">
                         </div>
 
+                        <TitleLine title={"Danger Zone"}/>
                         <DangerZone onDangerButtonClicked={() => deleteExam()}
                                     header={'Delete this exam'}
                                     description={'Once you delete an exam, there is no going back. Please be certain.'}

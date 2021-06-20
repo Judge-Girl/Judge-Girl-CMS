@@ -14,11 +14,9 @@ const CreateGroupModal = ({show, onClose, onGroupCreated}) => {
     const handleSubmit = e => {
         e.preventDefault();
         studentService.createGroupWithName(name)
-            .then(group => {
-                closeIconRef.current.click();
-                setName("");
-                onGroupCreated(group);
-            });
+            .then(group => onGroupCreated(group));
+        closeIconRef.current.click();
+        setName("");
     };
 
     return renderModal({

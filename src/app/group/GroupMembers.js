@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {withRouter} from "react-router";
-import {useParams} from "react-router-dom";
+import {useParams, useRouteMatch} from "react-router-dom";
 import {AiOutlineMail} from "react-icons/ai";
 import {studentService} from "../../services/services";
 import {GroupInPageNavigationBar} from "./GroupInPageNavigationBar";
@@ -14,8 +13,8 @@ import {removeIf} from "../../utils/array";
 import {TextareaModal} from "../commons/modals/TextareaModal";
 import {useGroupContext} from "./GroupContext";
 
-const GroupMembers = withRouter(({history, match}) => {
-    const currentURL = history.location.pathname;
+const GroupMembers = () => {
+    const {url: currentURL} = useRouteMatch()
     const {groupId} = useParams();
     const {currentGroup, setCurrentGroup} = useGroupContext()
     const [members, setMembers] = useState(undefined);
@@ -95,7 +94,7 @@ const GroupMembers = withRouter(({history, match}) => {
                                   list: members,
                                   key: (member) => member.id,
                                   data: (member) => [
-                                      (<FakeLink>{member.name}</FakeLink>),
+                                      <FakeLink>{member.name}</FakeLink>,
                                       member.email,
                                       actionItemsButton({member})
                                   ]
@@ -130,6 +129,6 @@ const GroupMembers = withRouter(({history, match}) => {
                                      onSubmit={() => deleteMembersFormGroup(selectedMember)}/>
         </div>
     )
-});
+}
 
 export {GroupMembers};

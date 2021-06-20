@@ -1,11 +1,9 @@
 import './DangerZone.scss'
-import {TitleLine} from "../titles/TitleLine";
 import React from "react";
 
 const DangerZone = function ({onDangerButtonClicked, header, description, buttonName}) {
     return (
         <div className="danger-zone">
-            <TitleLine title={"Danger Zone"}/>
             <section>
                 <div className="danger-box">
                     <div className="columns">

@@ -1,7 +1,7 @@
 import './DangerZone.scss'
 import React from "react";
 
-const DangerZone = function ({onDangerButtonClicked, header, description, buttonName}) {
+const DangerZone = function ({onDangerButtonClick, header, description, buttonName}) {
     return (
         <div className="danger-zone">
             <section>
@@ -12,7 +12,7 @@ const DangerZone = function ({onDangerButtonClicked, header, description, button
                             <p className="description">{description}</p>
                         </div>
                         <div className="column is-narrow mt-1 mr-5">
-                            <button className="button" onClick={onDangerButtonClicked}>
+                            <button className="button" onClick={onDangerButtonClick}>
                                 {buttonName}
                             </button>
                         </div>

@@ -43,7 +43,7 @@ const GroupOptions =() => {
 
             <div style={{width: "80%", alignItems: "center", margin: "auto", marginTop: "40px"}}>
                 <TitleLine title={"Danger Zone"}/>
-                <DangerZone onDangerButtonClicked={() => setShowDeleteGroupModal(true)}
+                <DangerZone onDangerButtonClick={() => setShowDeleteGroupModal(true)}
                             header={'Delete this group'}
                             description={'Once you delete a group, there is no going back. Please be certain.'}
                             buttonName={'Delete Group'}

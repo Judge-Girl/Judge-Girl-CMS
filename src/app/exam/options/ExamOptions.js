@@ -1,25 +1,26 @@
-import React, {useEffect, useState} from "react";
-import {useParams, useRouteMatch} from 'react-router-dom'
-import {ExamInPageNavigationBar} from "../ExamInPageNavigationBar";
-import {TitleLine} from "../../commons/titles/TitleLine";
+import React, { useEffect, useState, useRef } from "react";
+import { useParams, useRouteMatch } from 'react-router-dom'
+import { ExamInPageNavigationBar } from "../ExamInPageNavigationBar";
+import { TitleLine } from "../../commons/titles/TitleLine";
 import ExamName from "./ExamName";
 import ExamSchedule from "./ExamSchedule";
 import ExamWhiteList from "./ExamWhiteList";
-import {examService} from "../../../services/services";
-import {formatDate} from "../../../utils/utils";
-import {useExamContext} from "../questions/ExamContext";
-import {Spinner} from "../../commons/Spinner";
+import { examService } from "../../../services/services";
+import { formatDate } from "../../../utils/utils";
+import { useExamContext } from "../questions/ExamContext";
+import { Spinner } from "../../commons/Spinner";
 import './ExamOptions.scss';
-import {DangerZone} from "../../commons/dangerZone/DangerZone";
+import { DangerZone } from "../../commons/dangerZone/DangerZone";
 
 
 const ExamOptions = () => {
-    const {url: currentURL} = useRouteMatch();
-    const {currentExam, refetchExam} = useExamContext();
-    const {examId} = useParams();
-    const [newExamName, setNewExamName] = useState(undefined);
+    const { url: currentURL } = useRouteMatch();
+    const { currentExam, refetchExam } = useExamContext();
+    const { examId } = useParams();
+    const [newExamName, setNewExamName] = useState(currentExam?.name);
     const [startTime, setStartTime] = useState(formatDate(currentExam?.startTime));
     const [endTime, setEndTime] = useState(formatDate(currentExam?.endTime));
+    const examScheduleRef = useRef();
 
     useEffect(() => {
         // TODO: if examId doesn't exist, it will call refetchExam() infinitely.
@@ -29,17 +30,19 @@ const ExamOptions = () => {
     });
 
     const onButtonUpdateChangeClicked = () => {
-        examService.updateExam(examId, {
-            examId: examId,
-            name: newExamName,
-            startTime: startTime,
-            endTime: endTime,
-            description: "",
-        }).then(res => {
-            console.log("new:", res);
-            console.log("old:", currentExam);
-            refetchExam(examId)
-        })
+        if (examScheduleRef.current?.validateTimes(startTime, endTime)) {
+            examService.updateExam(examId, {
+                examId: examId,
+                name: newExamName,
+                startTime: startTime,
+                endTime: endTime,
+                description: "",
+            }).then(res => {
+                console.log("new:", res);
+                console.log("old:", currentExam);
+                refetchExam(examId)
+            })
+        }
     };
 
     const deleteExam = () => {
@@ -47,7 +50,7 @@ const ExamOptions = () => {
     };
 
     if (!currentExam) {
-        return <Spinner/>
+        return <Spinner />
     }
 
     return (
@@ -55,49 +58,49 @@ const ExamOptions = () => {
             <ExamInPageNavigationBar
                 currentURL={currentURL}
                 examName={currentExam.name}
-                examId={examId}/>
-            <div className="font-poppins" style={{paddingTop: "20px", paddingBottom: "150px"}}>
-                <div style={{display: "flex", justifyContent: "flex-start"}}>
+                examId={examId} />
+            <div className="font-poppins" style={{ paddingTop: "20px", paddingBottom: "150px" }}>
+                <div style={{ display: "flex", justifyContent: "flex-start" }}>
                     <div style={{
                         display: "flex", flexDirection: "column", alignItems: "flex-start",
                         paddingLeft: "150px"
                     }}>
-                        <TitleLine title={"Options"}/>
-                        <div className="column is-narrow" style={{width: "450px"}}>
+                        <TitleLine title={"Options"} />
+                        <div className="column is-narrow" style={{ width: "450px" }}>
                             <section>
-                                <ExamName examName={currentExam.name} setter={setNewExamName}/>
+                                <ExamName examName={currentExam.name} setter={setNewExamName} />
                             </section>
                             <section>
                                 <ExamSchedule
+                                    scheduleRef={examScheduleRef}
                                     startTime={startTime}
                                     endTime={endTime}
                                     setStartTime={setStartTime}
-                                    setEndTime={setEndTime}/>
+                                    setEndTime={setEndTime} />
                             </section>
                             <section>
-                                <ExamWhiteList/>
+                                <ExamWhiteList />
                             </section>
                             <section>
                                 <button className="button update-button"
-                                        onClick={onButtonUpdateChangeClicked}>
+                                    onClick={onButtonUpdateChangeClicked}>
                                     Update Change
                                 </button>
                             </section>
                         </div>
                         <div className="column right">
                         </div>
-
-                        <TitleLine title={"Danger Zone"}/>
+                        <TitleLine title={"Danger Zone"} />
                         <DangerZone onDangerButtonClick={() => deleteExam()}
-                                    header={'Delete this exam'}
-                                    description={'Once you delete an exam, there is no going back. Please be certain.'}
-                                    buttonName={'Delete Exam'}/>
+                            header={'Delete this exam'}
+                            description={'Once you delete an exam, there is no going back. Please be certain.'}
+                            buttonName={'Delete Exam'} />
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     )
 };
 
 
-export {ExamOptions}
+export { ExamOptions }

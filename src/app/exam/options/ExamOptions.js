@@ -29,17 +29,15 @@ const ExamOptions = () => {
         }
     });
 
-    const onButtonUpdateChangeClicked = () => {
+    const onButtonUpdateChangeClick = () => {
         if (examScheduleRef.current?.validateTimes(startTime, endTime)) {
             examService.updateExam(examId, {
-                examId: examId,
+                examId,
                 name: newExamName,
-                startTime: startTime,
-                endTime: endTime,
+                startTime,
+                endTime,
                 description: "",
-            }).then(res => {
-                console.log("new:", res);
-                console.log("old:", currentExam);
+            }).then(() => {
                 refetchExam(examId)
             })
         }
@@ -83,7 +81,7 @@ const ExamOptions = () => {
                             </section>
                             <section>
                                 <button className="button update-button"
-                                    onClick={onButtonUpdateChangeClicked}>
+                                    onClick={onButtonUpdateChangeClick}>
                                     Update Change
                                 </button>
                             </section>

@@ -15,7 +15,7 @@ const ExamSchedule = ({ scheduleRef, startTime, endTime, setStartTime, setEndTim
     };
 
     useImperativeHandle(scheduleRef, () => ({
-        validateTimes: validateTimes
+        validateTimes
     }));
 
     const validateTimes = (startTime, endTime) => {

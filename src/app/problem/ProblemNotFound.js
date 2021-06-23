@@ -10,11 +10,9 @@ const ProblemNotFound = () => {
     }
 
     return (
-        <>
-            <NotFoundPage
-                errorMsg={['We can not find this problem !', 'If you find this wrong, please contact the admin.']}
-                onGoBackClick={() => setShouldRedirect(true)}/>
-        </>
+        <NotFoundPage
+            errorMsg={['We can not find this problem !', 'If you find this wrong, please contact the admin.']}
+            onGoBackClick={() => setShouldRedirect(true)}/>
     )
 }
 

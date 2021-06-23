@@ -6,6 +6,7 @@ import NavigationBar from "./NavigationBar";
 import {Login} from "./Login";
 import {ProblemList} from "./problem/list/ProblemList";
 import {StudentList} from "./students/StudentList";
+import {HomeworkList} from './homework/HomeworkList';
 import {AdminList} from "./admins/AdminList";
 import {GroupList} from "./group/GroupList";
 import {ExamList} from "./exam/ExamList";
@@ -26,7 +27,9 @@ function App() {
                         <PrivateRoute path="/problems" component={ProblemList}/>
                         <PrivateRoute path="/exams" component={ExamList}/>
                         <PrivateRoute path="/students" component={StudentList}/>
-                        <PrivateRoute path="/groups" component={GroupList}/>
+                        <PrivateRoute path="/homework" component={HomeworkList}/>
+                        <PrivateRoute path="/groups" exact component={GroupList}/>
+                        <PrivateRoute path="/groups/:groupId/students" component={GroupMembers}/>
                         <PrivateRoute path="/admins" component={AdminList}/>
                         <Route path="*">
                             <Redirect to="/"/>

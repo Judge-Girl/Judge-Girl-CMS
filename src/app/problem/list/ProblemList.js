@@ -7,7 +7,6 @@ import {Spinner} from "../../commons/Spinner";
 import {ProblemEditor} from "../ProblemEditor";
 import {Link, Redirect, Route, Switch} from "react-router-dom";
 import {TableCell} from "../../../utils/TableCell";
-import ProblemNotFound from "../ProblemNotFound";
 
 const ProblemList = () => {
     const [showCreateProblemModal, setShowCreateProblemModal] = useState(false);
@@ -35,6 +34,12 @@ const ProblemList = () => {
     if (!problems) {
         return <Spinner/>
     }
+
+    /* TODO: The commented code below is problematic, error message: "a component is changing an uncontrolled input to be controlled"
+    if (shouldRedirect) {
+        return (<Redirect to={`problems/${currentProblemId}/edit`}/>);
+    }
+     */
 
     return (
         <>
@@ -81,9 +86,6 @@ const ProblemList = () => {
             <Switch>
                 <Route path="/problems/:problemId/edit">
                     <ProblemEditor/>
-                </Route>
-                <Route path="/problems/:problemId/*">
-                    <ProblemNotFound/>
                 </Route>
             </Switch>
         </>

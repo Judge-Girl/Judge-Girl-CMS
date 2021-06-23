@@ -20,16 +20,16 @@ import {problemService} from "../../services/services";
 const ProblemEditor = () => {
     const {problemId} = useParams()
     const [shouldRedirect, setShouldRedirect] = useState(false)
-    const [problemIdNotFound, setProblemIdNotFound] = useState(false)
+    const [problemNotFound, setProblemNotFound] = useState(false)
     const [currentProblem, setCurrentProblem] = useState(undefined)
 
     const fetchProblem = (problemId) => {
         problemService.getProblemById(problemId)
             .then(problem => setCurrentProblem(problem))
-            .catch(reason => setProblemIdNotFound(true));
+            .catch(reason => setProblemNotFound(true));
     }
 
-    const onSaveProblem = () => {
+    const onProblemSaved = () => {
         setShouldRedirect(true)
     }
 
@@ -39,7 +39,7 @@ const ProblemEditor = () => {
         }
     }, [currentProblem, problemId])
 
-    if (problemIdNotFound) {
+    if (problemNotFound) {
         return <ProblemNotFound/>
     } else if (shouldRedirect) {
         return <Redirect to="/problems"/>
@@ -85,7 +85,7 @@ const ProblemEditor = () => {
                             </section>
                             <section>
                                 <EditorButton text={"Save Change"} buttonColor={"#96D745"} fontColor={"#FFFFFF"}
-                                              onClick={onSaveProblem}/>
+                                              onClick={onProblemSaved}/>
                                 <EditorButton text={"Delete Problem"} buttonColor={"#FFFFFF"} fontColor={"#A2A3B1"}/>
                             </section>
                         </div>

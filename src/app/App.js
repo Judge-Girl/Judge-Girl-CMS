@@ -13,6 +13,7 @@ import {ExamList} from "./exam/ExamList";
 import 'bulma';
 import './App.css';
 import {ScrollToTop} from "./commons/control/ScrollToTop";
+import {GroupMembers} from "./group/GroupMembers";
 
 function App() {
     const [admin, setAdmin] = useState(null);

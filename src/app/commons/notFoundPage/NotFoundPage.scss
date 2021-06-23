@@ -1,0 +1,47 @@
+$yellow: #F2B311;
+
+.not-found-page {
+  background-image: url("notFoundPageBackground.png");
+  background-size: 60%;
+  background-position: center center;
+  padding-bottom: 150px;
+  padding-top: 150px;
+  background-repeat: no-repeat;
+  text-align: center;
+  color: #1273BA;
+  margin-right: 200px;
+  margin-left: 200px;
+
+  .error-title {
+    font-weight: 800;
+    font-size: 35px;
+    margin-bottom: 10px;
+  }
+
+  .error-msg {
+    font-weight: 500;
+    font-size: 20px;
+  }
+
+  .go-back-btn {
+    cursor: pointer;
+    background: transparent;
+    border: 2px solid #F2B311;
+    border-radius: 50px;
+    color: $yellow;
+    width: fit-content;
+
+    font-size: 17px;
+    font-weight: 600;
+    align-content: center;
+    justify-content: center;
+
+    padding: 7px 20px 7px 20px;
+    margin-top: 17px;
+
+    &:hover {
+      color: white;
+      background: $yellow;
+    }
+  }
+}

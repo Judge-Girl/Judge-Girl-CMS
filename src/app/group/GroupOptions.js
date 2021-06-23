@@ -7,6 +7,7 @@ import {useGroupContext} from "./GroupContext";
 import {GroupInPageNavigationBar} from "./GroupInPageNavigationBar";
 import {studentService} from "../../services/services";
 import {TitleLine} from "../commons/titles/TitleLine";
+import GroupNotFound from "./GroupNotFound";
 
 const GroupOptions =() => {
     const {url: currentURL} = useRouteMatch()
@@ -14,6 +15,7 @@ const GroupOptions =() => {
     const {currentGroup, setCurrentGroup, groups, setGroups} = useGroupContext()
     const [shouldRedirect, setShouldRedirect] = useState(false);
     const [showDeleteGroupModal, setShowDeleteGroupModal] = useState(false);
+    const [groupIdNotFound, setGroupIdNotFound] = useState(false);
 
     const deleteGroup = () => {
         studentService.deleteGroupById(currentGroup.id)
@@ -26,12 +28,15 @@ const GroupOptions =() => {
     useEffect(() => {
         if (!currentGroup) {
             studentService.getGroupById(groupId)
-                .then(group => setCurrentGroup(group));
+                .then(group => setCurrentGroup(group))
+                .catch(reason => setGroupIdNotFound(true));
         }
     })
 
-    if (!currentGroup) {
-        return (<Spinner/>)
+    if (groupIdNotFound) {
+        return <GroupNotFound/>
+    } else if (!currentGroup) {
+        return <Spinner/>
     }
 
     return (

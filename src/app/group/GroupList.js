@@ -16,7 +16,7 @@ const useGroupList = function () {
 
 const GroupList = () => {
     const [showCreateGroupModal, setShowCreateGroupModal] = useState(false);
-    const [currentGroup, setCurrentGroup] = useState(null);
+    const [currentGroup, setCurrentGroup] = useState(undefined);
     const [shouldRedirect, setShouldRedirect] = useState(false);
     const {groups, addGroup, setGroups} = useGroupList();
 
@@ -64,6 +64,9 @@ const GroupList = () => {
                     </Route>
                     <Route path="/groups/:groupId/options">
                         <GroupOptions/>
+                    </Route>
+                    <Route path="/groups/:groupId/*">
+                        <Redirect to="/groups/:groupId/members"/>
                     </Route>
                 </Switch>
             </GroupContext.Provider>

@@ -24,7 +24,8 @@ const ThreeDotsButton = ({dropDownItems}) => {
                 <div className="dropdown-content">
                     {
                         dropDownItems?.map(item =>
-                            <p className={"dropdown-item" + (item.dangerous ? " is-dangerous" : "")}
+                            <p key={item.name}
+                               className={`dropdown-item ${item.dangerous ? " is-dangerous" : ""}`}
                                onMouseDown={item.onClick}>{item.name}</p>)
                     }
                 </div>

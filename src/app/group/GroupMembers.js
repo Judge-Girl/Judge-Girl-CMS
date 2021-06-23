@@ -38,10 +38,6 @@ const GroupMembers = () => {
             // TODO: the error should be handled in the future
             .then(errorList => {
                 console.log(errorList);
-                // TODO: currently, to avoid "render more hooks than expected" error thrown from React,
-                //  setting an empty array is a effective trick, but we need to know the root cause
-                //  and use the more proper way instead.
-                setMembers([]);
                 fetchMembers();
             })
     };
@@ -49,10 +45,6 @@ const GroupMembers = () => {
     const deleteMembersFormGroup = (selectedMember) => {
         studentService.deleteMembersFromGroup(groupId, selectedMember.id)
             .then(() => {
-                // TODO: currently, to avoid "render fewer hooks than expected" error thrown from React,
-                //  setting an empty array is a effective trick, but we need to know the root cause
-                //  and use the more proper way instead.
-                setMembers([])
                 setMembers(members.filter(member => member.id !== selectedMember.id))
             });
     };
@@ -67,13 +59,9 @@ const GroupMembers = () => {
         if (!currentGroup) {
             studentService.getGroupById(groupId)
                 .then(group => setCurrentGroup(group))
-                .catch(reason => {
-                    setGroupIdNotFound(true)
-                });
+                .catch(reason => setGroupIdNotFound(true));
         }
-
         if (!members && currentGroup) {
-            console.log("currentGroup", currentGroup)
             fetchMembers();
         }
     });
@@ -90,7 +78,7 @@ const GroupMembers = () => {
                                       groupName={currentGroup.name}
                                       groupId={currentGroup.id}/>
 
-            <div style={{padding: "40px 15rem 20px 15rem"}}>
+            <div style={{paddingTop: "20px", width:"70%", marginLeft:"auto", marginRight:"auto"}}>
                 <ItemListPage title="Group Members"
                               filterItems={["Filter", "Name", "Email"]}
                               Button={() => <CreateButton onClick={() => setShowAddMemberModal(true)}/>}

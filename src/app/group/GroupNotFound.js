@@ -2,7 +2,6 @@ import NotFoundPage from "../commons/notFoundPage/NotFoundPage";
 import React, {useState} from "react";
 import {Redirect} from "react-router-dom";
 
-
 const GroupNotFound = () => {
     const [shouldRedirect, setShouldRedirect] = useState(false)
 

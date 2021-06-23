@@ -23,7 +23,7 @@ const GroupList = () => {
     useEffect(() => {
         if (!groups) {
             studentService.getGroups()
-                .then(groups => setGroups(groups))
+                .then(groups => setGroups(groups));
         }
     });
 

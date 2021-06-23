@@ -11,7 +11,7 @@ const ScheduleItem = ({inputRef, label, inputName, timeValue, setTime, minTime})
             <input className="ml-4" type="datetime-local"
                    name={inputName} value={formatDate(timeValue)}
                    onChange={e => setTime(new Date(e.target.value))}
-                   min={formatDate(minTime)} ref={inputRef}
+                   min={formatDate(minTime)} ref={inputRef} required
             />
         </div>
     )

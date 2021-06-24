@@ -14,27 +14,37 @@ import TestCase from "./edit/testCase/TestCasesList";
 import React, {useEffect, useState} from "react";
 import './ProblemEditor.css';
 import {Spinner} from "../commons/Spinner";
-import {useProblemContext} from "./list/ProblemContext";
+import ProblemNotFound from "./ProblemNotFound";
+import {problemService} from "../../services/services";
 
 const ProblemEditor = () => {
     const {problemId} = useParams()
-    const {currentProblem, setCurrentProblem, refetchProblem, setShouldRedirect} = useProblemContext()
-    const [problemSaved, setProblemSaved] = useState(false)
+    const [shouldRedirect, setShouldRedirect] = useState(false)
+    const [problemNotFound, setProblemNotFound] = useState(false)
+    const [currentProblem, setCurrentProblem] = useState(undefined)
+
+    const fetchProblem = (problemId) => {
+        problemService.getProblemById(problemId)
+            .then(problem => setCurrentProblem(problem))
+            .catch(reason => setProblemNotFound(true));
+    }
+
+    const onProblemSaved = () => {
+        setShouldRedirect(true)
+    }
 
     useEffect(() => {
         if (!currentProblem) {
-            refetchProblem(problemId)
+            fetchProblem(problemId)
         }
-    }, [currentProblem, refetchProblem, problemId])
+    }, [currentProblem, problemId])
 
-    if (!currentProblem) {
-        return <Spinner/>
-    }
-
-    if (problemSaved) {
-        setCurrentProblem(null)
-        setShouldRedirect(false)
+    if (problemNotFound) {
+        return <ProblemNotFound/>
+    } else if (shouldRedirect) {
         return <Redirect to="/problems"/>
+    } else if (!currentProblem) {
+        return <Spinner/>
     }
 
     return (
@@ -75,7 +85,7 @@ const ProblemEditor = () => {
                             </section>
                             <section>
                                 <EditorButton text={"Save Change"} buttonColor={"#96D745"} fontColor={"#FFFFFF"}
-                                              onClick={() => setProblemSaved(true)}/>
+                                              onClick={onProblemSaved}/>
                                 <EditorButton text={"Delete Problem"} buttonColor={"#FFFFFF"} fontColor={"#A2A3B1"}/>
                             </section>
                         </div>

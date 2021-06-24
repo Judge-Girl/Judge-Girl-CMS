@@ -8,7 +8,7 @@ import {CreateButton} from "../commons/buttons/CreateButton";
 import FakeLink from "../commons/FakeLink";
 import {ThreeDotsButton} from "../commons/buttons/ThreeDotsButton";
 import {Spinner} from "../commons/Spinner";
-import {RemoveConfirmationModal} from "../commons/modals/RemoveConfirmationModal";
+import {DeleteConfirmationModal} from "../commons/modals/DeleteConfirmationModal";
 import {TextareaModal} from "../commons/modals/TextareaModal";
 import {useGroupContext} from "./GroupContext";
 import GroupNotFound from "./GroupNotFound";
@@ -108,7 +108,7 @@ const GroupMembers = () => {
                            onClose={() => setShowAddMemberModal(false)}
                            onSubmit={(emails) => addMembersByEmails(emails)}/>
 
-            <RemoveConfirmationModal title={"Remove the Student"}
+            <DeleteConfirmationModal title={"Remove the Student"}
                                      data={[
                                          {
                                              title: "Name",

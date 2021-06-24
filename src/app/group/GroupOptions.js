@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {Redirect, useParams, useRouteMatch} from "react-router-dom";
 import {Spinner} from "../commons/Spinner";
-import {RemoveConfirmationModal} from "../commons/modals/RemoveConfirmationModal";
+import {DeleteConfirmationModal} from "../commons/modals/DeleteConfirmationModal";
 import {DangerZone} from "../commons/dangerZone/DangerZone";
 import {useGroupContext} from "./GroupContext";
 import {GroupInPageNavigationBar} from "./GroupInPageNavigationBar";
@@ -55,7 +55,7 @@ const GroupOptions =() => {
                 />
             </div>
 
-            <RemoveConfirmationModal title={"Delete the Group"}
+            <DeleteConfirmationModal title={"Delete the Group"}
                                      data={[{
                                          title: "Group Name",
                                          value: currentGroup.name

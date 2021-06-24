@@ -1,4 +1,4 @@
-import './RemoveConfirmationModal.scss'
+import './DeleteConfirmationModal.scss'
 import React, {createRef} from "react";
 import {renderModal} from "./modal";
 import {ModalHeader} from "./ModalHeader";

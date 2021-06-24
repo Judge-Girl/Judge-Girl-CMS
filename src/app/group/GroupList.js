@@ -24,7 +24,7 @@ const GroupList = () => {
         if (!groups) {
             studentService.getGroups()
                 .then(groups => setGroups(groups))
-                .catch(reason => console.log("group list", reason));
+                .catch(err => console.error("Error: ", err.getMessage()));
         }
     });
 

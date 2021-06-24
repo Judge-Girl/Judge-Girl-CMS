@@ -10,7 +10,6 @@ import {TextareaModal} from "../../commons/modals/TextareaModal";
 import {ThreeDotsButton} from "../../commons/buttons/ThreeDotsButton";
 import {DeleteConfirmationModal} from "../../commons/modals/DeleteConfirmationModal";
 import {Spinner} from "../../commons/Spinner";
-import {removeIf} from "../../../utils/array";
 import {useExamContext} from "../questions/ExamContext";
 import {EmptyCell, TableCell} from "../../../utils/TableCell";
 
@@ -23,16 +22,19 @@ const Examinees = () => {
     const [selectedExaminee, setSelectedExaminee] = useState(undefined);
     const [showAddStudentModal, setShowAddStudentModal] = useState(false);
     const [showAddGroupModal, setShowAddGroupModal] = useState(false);
-
     const [showRemoveExamineeConfirmationModal, setShowRemoveExamineeConfirmationModal] = useState(false);
+
+    const fetchExaminees = (examId) => {
+        examService.getExaminees(examId)
+            .then(students => setExaminees(students));
+    }
 
     useEffect(() => {
         if (!currentExam) {
             refetchExam(examId)
         }
         if (!examinees && currentExam) {
-            examService.getExaminees(examId)
-                .then(students => setExaminees(students));
+            fetchExaminees(examId)
         }
     }, [currentExam, examId, examinees, refetchExam]);
 
@@ -48,34 +50,24 @@ const Examinees = () => {
             },
         ]}/>
 
-    const addExaminees = async (emails) => {
-        await examService.addExaminees(currentExam.id, emails)
+    const addExamineesByEmails = async (emails) => {
+        await examService.addExaminees(examId, emails)
             .then(errorList => {
                 // TODO: the error should be handled in the future
                 console.log(`errorList=${errorList}`);
             })
-        examService.getExaminees(examId)
-            .then(examinees => {
-                // TODO: currently, to avoid "render more hooks than expected" error thrown from React,
-                //  setting an empty array is a effective trick, but we need to know the root cause
-                //  and use the more proper way instead.
-                setExaminees([])
-                setExaminees(examinees)
-            });
+        fetchExaminees(examId);
+    }
+
+    const addExamineesByGroups = async (groupNames) => {
+        await examService.addGroupsOfExaminees(examId, groupNames)
+            .then(res => console.log("res in addGroupsOfExaminees", res));
+        fetchExaminees(examId);
     }
 
     const removeExaminee = (email) => {
         examService.deleteExaminees(examId, email)
-            .then(() => removeExamineeByEmail(email));
-    }
-
-    function removeExamineeByEmail(email) {
-        removeIf(examinees, examinee => examinee.email === email)
-        // TODO: currently, to avoid "render fewer hooks than expected" error thrown from React,
-        //  setting an empty array is a effective trick, but we need to know the root cause
-        //  and use the more proper way instead.
-        setExaminees([])
-        setExaminees(examinees)
+            .then(() => setExaminees(examinees.filter(examinee => examinee.email !== email)));
     }
 
     if (!currentExam) {
@@ -131,7 +123,7 @@ const Examinees = () => {
                                }}
                                show={showAddStudentModal}
                                onClose={() => setShowAddStudentModal(false)}
-                               onSubmit={emails => addExaminees(emails)}/>
+                               onSubmit={emails => addExamineesByEmails(emails)}/>
 
                 <TextareaModal title={"Add Students By Groups"}
                                body={{
@@ -142,7 +134,8 @@ const Examinees = () => {
                                    buttonName: "Add"
                                }}
                                show={showAddGroupModal}
-                               onClose={() => setShowAddGroupModal(false)}/>
+                               onClose={() => setShowAddGroupModal(false)}
+                               onSubmit={groupNames => addExamineesByGroups(groupNames)}/>
 
                 <DeleteConfirmationModal title={"Remove the Student"}
                                          data={[

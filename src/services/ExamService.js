@@ -49,6 +49,11 @@ export class ExamService extends AbstractService {
             .then(res => res.data);
     }
 
+    async addGroupsOfExaminees(examId, groupNames) {
+        const names = groupNames.split("\n");
+        return this.axios.post(`/api/exams/${examId}/groups`, {examId, names});
+    }
+
     async deleteExaminees(examId, emails) {
         const emailList = emails.split("\n");
         return this.axios.delete(`/api/exams/${examId}/students`, {data: emailList})

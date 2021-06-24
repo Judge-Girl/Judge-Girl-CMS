@@ -5,13 +5,13 @@ export class HomeworkService extends AbstractService {
 
     constructor(studentService) {
         super({
-            baseURL: process.env.REACT_APP_HOMEWORK_SVC_BASE_URL,
+            baseURL: process.env.REACT_APP_ACADEMY_SVC_BASE_URL,
             timeout: 10000,
             tokenSupplier: studentService.currentToken
         });
     }
 
-    async getHomework(homeworkId) {
+    async getHomeworkById(homeworkId) {
         return this.axios.get(`/api/homework/${homeworkId}`)
             .then(res => new Homework(res.data));
     }
@@ -27,7 +27,6 @@ export class HomeworkService extends AbstractService {
     }
 
     async deleteEHomework(homeworkId) {
-        return this.axios.delete(`/api/homework/${homeworkId}`)
-            .then(res => res);
+        return this.axios.delete(`/api/homework/${homeworkId}`);
     }
 }

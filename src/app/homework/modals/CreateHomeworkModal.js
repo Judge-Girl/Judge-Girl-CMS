@@ -3,22 +3,19 @@ import '../../commons/modals/TextareaModal.scss'
 import {createRef, useState} from "react";
 import {renderModal} from "../../commons/modals/modal";
 import {ModalInput} from "../../commons/modals/ModalInput";
-import "../../homework/modals/CreateHomeworkModel.css";
 import {ModalHeader} from "../../commons/modals/ModalHeader";
 
 
 const CreateHomeworkModal = ({show, onClose}) => {
-    const [name, setName] = useState(null);
+    const [name, setName] = useState(undefined);
     const nameInputRef = createRef();
     const closeIconRef = createRef();
+    const [content, setContent] = useState();
+    let formRef;
 
     const handleSubmit = e => {
         e.preventDefault();
     };
-
-    let formRef;
-
-    const [content, setContent] = useState();
 
     return renderModal({
         modalClassName: "textarea-modal",

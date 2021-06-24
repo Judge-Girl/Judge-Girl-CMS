@@ -13,7 +13,6 @@ import {ExamList} from "./exam/ExamList";
 import 'bulma';
 import './App.css';
 import {ScrollToTop} from "./commons/control/ScrollToTop";
-import {GroupMembers} from "./group/GroupMembers";
 
 function App() {
     const [admin, setAdmin] = useState(null);
@@ -30,7 +29,6 @@ function App() {
                         <PrivateRoute path="/students" component={StudentList}/>
                         <PrivateRoute path="/homework" component={HomeworkList}/>
                         <PrivateRoute path="/groups" exact component={GroupList}/>
-                        <PrivateRoute path="/groups/:groupId/students" component={GroupMembers}/>
                         <PrivateRoute path="/admins" component={AdminList}/>
                         <Route path="*">
                             <Redirect to="/"/>

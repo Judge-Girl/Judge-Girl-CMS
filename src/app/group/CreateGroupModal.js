@@ -3,21 +3,30 @@ import {createRef, useState} from "react";
 import {renderModal} from "../commons/modals/modal";
 import {ModalHeader} from "../commons/modals/ModalHeader";
 import {studentService} from "../../services/services";
-import './CreateGroupModal.css';
+import './CreateGroupModal.scss';
 import {ModalInput} from "../commons/modals/ModalInput";
 
 
-const CreateGroupModal = ({show, onClose, onGroupCreated}) => {
+const CreateGroupModal = ({show, onModalClosed, onGroupCreated}) => {
     const [name, setName] = useState('');
+    const [duplicateGroup, setDuplicateGroup] = useState(false);
     const closeIconRef = createRef(), formRef = createRef();
 
     const handleSubmit = e => {
         e.preventDefault();
         studentService.createGroupWithName(name)
-            .then(group => onGroupCreated(group));
-        closeIconRef.current.click();
-        setName("");
+            .then(group => {
+                closeIconRef.current.click();
+                onGroupCreated(group)
+            })
+            .catch(reason => setDuplicateGroup(true));
     };
+
+    const onClose = () => {
+        onModalClosed()
+        setName("");
+        setDuplicateGroup(false)
+    }
 
     return renderModal({
         modalClassName: "create-group-modal",
@@ -34,7 +43,8 @@ const CreateGroupModal = ({show, onClose, onGroupCreated}) => {
                                 placeholder="Group Name" placeholderTextAlign="center"
                                 height="54px" fontSize="25px"
                                 onChange={e => setName(e.target.value)} required={true}/>
-                    <button className="button mt-4 my-green-btn" id="create-btn">Create</button>
+                    {duplicateGroup ? <p className="error-msg">Group name has already existed</p>: ""}
+                    <button className={`button ${duplicateGroup ? "is-error": ""}`} id="create-btn">Create</button>
                 </div>
             </form>
         )

@@ -23,7 +23,8 @@ const GroupList = () => {
     useEffect(() => {
         if (!groups) {
             studentService.getGroups()
-                .then(groups => setGroups(groups));
+                .then(groups => setGroups(groups))
+                .catch(reason => console.log("group list", reason));
         }
     });
 
@@ -48,7 +49,7 @@ const GroupList = () => {
                                   tableDataStyle={{textAlign: "left"}}/>
 
                     <CreateGroupModal show={showCreateGroupModal}
-                                      onClose={() => setShowCreateGroupModal(false)}
+                                      onModalClosed={() => setShowCreateGroupModal(false)}
                                       onGroupCreated={group => {
                                           addGroup(group);
                                           setCurrentGroup(group);

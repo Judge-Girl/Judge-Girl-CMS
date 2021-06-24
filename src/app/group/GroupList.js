@@ -49,7 +49,7 @@ const GroupList = () => {
                                   tableDataStyle={{textAlign: "left"}}/>
 
                     <CreateGroupModal show={showCreateGroupModal}
-                                      onModalClosed={() => setShowCreateGroupModal(false)}
+                                      onModalClose={() => setShowCreateGroupModal(false)}
                                       onGroupCreated={group => {
                                           addGroup(group);
                                           setCurrentGroup(group);
@@ -65,9 +65,6 @@ const GroupList = () => {
                     </Route>
                     <Route path="/groups/:groupId/options">
                         <GroupOptions/>
-                    </Route>
-                    <Route path="/groups/:groupId/*">
-                        <Redirect to="/groups/:groupId/members"/>
                     </Route>
                 </Switch>
             </GroupContext.Provider>

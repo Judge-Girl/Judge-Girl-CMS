@@ -1,24 +1,35 @@
 import AbstractService from "./AbstractService";
+import LiveSubmissionEvent from "../models/LiveSubmissionEvent";
+import VerdictIssuedEvent from "../models/VerdictIssuedEvent";
 
 export class LiveSubmissionsService extends AbstractService {
 
-    constructor(studentService, stompClient) {
+    constructor(studentService, problemService, stompClient) {
         super({
             baseURL: process.env.REACT_APP_PROBLEM_SVC_BASE_URL,
             timeout: 10000,
             tokenSupplier: studentService.currentToken
         });
+        this.studentService = studentService;
+        this.problemService = problemService;
         this.stompClient = stompClient;
     }
 
-    subscribeToSubmitCompletion(examId, submitSubscriber) {
-        console.log(`Subscribe to submitCompletion (examId=${examId}).`);
-        return this.stompClient.subscribe(`/topic/exams/${examId}/submissions`, submitSubscriber);
+    subscribeToLiveSubmissionEvent(examId, subscriber) {
+        return this.stompClient.subscribe(`/topic/exams/${examId}/submissions`,
+            message => this.completeLiveSubmissionFields(new LiveSubmissionEvent(JSON.parse(message.body)))
+                .then(event => subscriber(event)));
     }
 
-    subscribeToVerdictCompletion(examId, verdictSubscriber) {
-        console.log(`Subscribe to verdictCompletion (examId=${examId}).`);
-        return this.stompClient.subscribe(`/topic/exams/${examId}/verdicts`, verdictSubscriber);
+    async completeLiveSubmissionFields(liveSubmissionEvent) {
+        liveSubmissionEvent.problemTitle = (await this.problemService.getProblemById(liveSubmissionEvent.problemId)).title;
+        liveSubmissionEvent.studentName = (await this.studentService.getStudentById(liveSubmissionEvent.studentId)).name;
+        return Promise.resolve(liveSubmissionEvent);
+    }
+
+    subscribeToVerdictIssuedEvent(examId, subscriber) {
+        return this.stompClient.subscribe(`/topic/exams/${examId}/verdicts`,
+            message => subscriber(new VerdictIssuedEvent(JSON.parse(message.body))));
     }
 
 }

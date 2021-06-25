@@ -1,34 +1,49 @@
 .exam-submissions {
-    .header {
-        color: #676877;
-    }
-    
-    .status {
-        font-weight: 600;
-    }
-    
-    .AC { 
-        @extend .status;
-        color: #91CB46;
-    }
-    
-    .WA {
-        @extend .status;
-        color: #F82727;
-    }
-    
-    .TLE {
-        @extend .status;
-        color: #1273BA;
-    }
-    
-    .CE {
-        @extend .status;
-        color: #F2B311;
-    }
-    
-    .RE {
-        @extend .status;
-        color: #A846CB;
-    }
+  .header {
+    color: #676877;
+  }
+
+  .status {
+    font-weight: bold;
+  }
+
+  .AC {
+    @extend .status;
+    color: #91CB46;
+  }
+
+  .WA {
+    @extend .status;
+    color: #F82727;
+  }
+
+  .TLE {
+    @extend .status;
+    color: #1273BA;
+  }
+
+  .CE {
+    @extend .status;
+    color: #F2B311;
+  }
+
+  .RE {
+    @extend .status;
+    color: #A846CB;
+  }
+
+  .MLE {
+    @extend .status;
+    color: #FF8C22;
+  }
+
+  .OLE {
+    @extend .status;
+    color: #3EBDD9;
+  }
+
+  .SYSTEM_ERR {
+    @extend .status;
+    color: #FF518F;
+  }
 }

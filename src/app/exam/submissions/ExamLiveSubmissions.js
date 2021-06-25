@@ -1,85 +1,61 @@
-import { ExamInPageNavigationBar } from "../ExamInPageNavigationBar";
-import { ItemListPage } from "../../commons/ItemListPage/ItemListPage";
-import { useParams, useRouteMatch } from "react-router-dom";
-import React, { useState, useEffect } from "react";
-import { useExamContext } from "../questions/ExamContext";
-import { TableCell } from "../../../utils/TableCell";
-import { displayDate } from "../../../utils/utils";
+import {ExamInPageNavigationBar} from "../ExamInPageNavigationBar";
+import {ItemListPage} from "../../commons/ItemListPage/ItemListPage";
+import {useParams, useRouteMatch} from "react-router-dom";
+import React, {useEffect, useState} from "react";
+import {useExamContext} from "../questions/ExamContext";
+import {TableCell} from "../../../utils/TableCell";
+import {displayDate} from "../../../utils/utils";
 import FakeLink from "../../commons/FakeLink";
-import VerdictIssuedEvent from "../../../models/VerdictIssuedEvent";
-import LiveSubmissionEvent from "../../../models/LiveSubmissionEvent";
-import { studentService, problemService, liveSubmissionsService } from "../../../services/services";
+import {liveSubmissionsService} from "../../../services/services";
 import './ExamLiveSubmissions.scss';
 
-var examSubscriptions = {};
+const ExamLiveSubmissions = function () {
+    const {url: currentURL} = useRouteMatch();
+    const {currentExam, refetchExam} = useExamContext();
+    const {examId} = useParams();
+    const [liveSubmissionsState, setLiveSubmissionsState] = useState([]) // {...LiveSubmissionEvent, verdict?, studentName, problemTitle}[]```
+    let subscriptions = [];
+    let liveSubmissions = [];
 
-const ExamLiveSubmissions = () => {
-    const { url: currentURL } = useRouteMatch();
-    const { currentExam, refetchExam } = useExamContext();
-    const { examId } = useParams();
-    const [verdictIssuedEvents, setVerdictIssuedEvents] = useState([])
-    var events = {};
-    var eventSubscriptions = [];
-    
     useEffect(() => {
         if (!currentExam) {
             refetchExam(examId);
         }
-        subscribeEvents();
     });
 
+    useEffect(() => {
+        subscribeEvents();
+        return () => {
+            unsubscribeEvents();
+        };
+        // TODO: figure out the best practice.
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
     function subscribeEvents() {
-        if (!examSubscriptions[examId]) {
-            examSubscriptions[examId] = examId;
-            eventSubscriptions.push(liveSubmissionsService.subscribeToSubmitCompletion(examId, submitSubscriber));
-            eventSubscriptions.push(liveSubmissionsService.subscribeToVerdictCompletion(examId, verdictSubscriber));
+        subscriptions.push(liveSubmissionsService.subscribeToLiveSubmissionEvent(examId, onNewLiveSubmission));
+        subscriptions.push(liveSubmissionsService.subscribeToVerdictIssuedEvent(examId, onVerdictIssuedEvent));
+    }
+
+    function unsubscribeEvents() {
+        subscriptions.forEach(subscription => subscription.unsubscribe());
+    }
+
+    function onNewLiveSubmission(liveSubmission) {
+        liveSubmissions.unshift(liveSubmission);
+        setLiveSubmissionsState(liveSubmissions);
+    }
+
+    function onVerdictIssuedEvent(verdictIssuedEvent) {
+        let liveSubmission = liveSubmissions.find(s => s.submissionId === verdictIssuedEvent.submissionId);
+        if (liveSubmission) {
+            liveSubmission.verdict = verdictIssuedEvent.verdict;
+            setLiveSubmissionsState([...liveSubmissions]);
         }
     }
 
-    function submitSubscriber(message) {
-        var liveSubmissionEvent = new LiveSubmissionEvent(JSON.parse(message.body));
-        var submissionId = liveSubmissionEvent.submissionId;
-        events[submissionId] = liveSubmissionEvent;
-        updateSubmissionEventProblemTitle(submissionId, liveSubmissionEvent);
-        updateSubmissionEventStudentName(submissionId, liveSubmissionEvent);
-    }
-
-    function updateSubmissionEventProblemTitle(submissionId, liveSubmissionEvent) {
-        problemService.getProblemById(liveSubmissionEvent.problemId)
-            .then(problem => {
-                events[submissionId]["problemTitle"] = problem.title;
-                updateSubmissionEvent();
-            });
-    }
-
-    function updateSubmissionEventStudentName(submissionId, liveSubmissionEvent) {
-        studentService.getStudentById(liveSubmissionEvent.studentId)
-            .then(student => {
-                events[submissionId]["studentName"] = student.name;
-                updateSubmissionEvent();
-            });
-    }
-
-    function verdictSubscriber(message) {
-        var verdictIssuedEvent = new VerdictIssuedEvent(JSON.parse(message.body));
-        updateSubmissionEventVerdict(verdictIssuedEvent);
-    }
-
-    function updateSubmissionEventVerdict(verdictIssuedEvent) {
-        var submissionId = verdictIssuedEvent.submissionId;
-        var liveSubmissionEvent = events[submissionId];
-        if (liveSubmissionEvent) {
-            liveSubmissionEvent["verdict"] = verdictIssuedEvent.verdict;
-            updateSubmissionEvent();
-        }
-    }
-
-    function updateSubmissionEvent() {
-        setVerdictIssuedEvents(Object.values(events).reverse());
-    }
-
-    const VerdictSummary = ({ verdict }) => {
-        var summaryStatus = verdict?.summaryStatus;
+    const VerdictSummary = ({verdict}) => {
+        let summaryStatus = verdict?.summaryStatus;
         return (
             <>
                 <span className={summaryStatus}>
@@ -92,14 +68,17 @@ const ExamLiveSubmissions = () => {
     function renderStatus(verdict) {
         switch (verdict?.summaryStatus) {
             case 'AC':
-                return <span>({verdict.maximumRuntime}&nbsp;ms,&nbsp;{verdict?.maximumMemoryUsage}&nbsp;KB)</span>
+                return <span>{'(' + verdict.maximumRuntime}&nbsp;ms,&nbsp;{verdict?.maximumMemoryUsage}&nbsp;KB{')'}</span>
             case 'WA':
             case 'TLE':
             case 'RE':
-                return <span>(score:&nbsp;{verdict?.totalGrade})</span>
+                return <span>{'('}score:&nbsp;{verdict?.totalGrade + ')'}</span>
             case 'CE':
+            case 'MLE':
+            case 'OLE':
+            case 'SYSTEM_ERR':
             default:
-                return <span />;
+                return <span/>;
         }
     }
 
@@ -107,31 +86,31 @@ const ExamLiveSubmissions = () => {
         <ExamInPageNavigationBar
             currentURL={currentURL}
             examName={currentExam?.name}
-            examId={examId} />
-        <div className="font-poppins" style={{ paddingTop: "20px", paddingBottom: "150px" }}>
-            <div style={{ display: "flex", justifyContent: "center" }}>
+            examId={examId}/>
+        <div className="font-poppins" style={{paddingTop: "20px", paddingBottom: "150px"}}>
+            <div style={{display: "flex", justifyContent: "center"}}>
                 <ItemListPage width="1200px"
-                    showFilterSearchBar={false}
-                    tableHeaders={[
-                        <TableCell className={"header"}>#</TableCell>,
-                        <TableCell className={"header"}>Problem Title</TableCell>,
-                        <TableCell className={"header"}>User Name</TableCell>,
-                        <TableCell className={"header"}>Verdict</TableCell>,
-                        <TableCell className={"header"}>Submit Time</TableCell>
-                    ]}
-                    tableRowGenerator={{
-                        list: verdictIssuedEvents,
-                        key: (verdictIssuedEvent) => verdictIssuedEvent.submissionId,
-                        data: (verdictIssuedEvent) => [
-                            <TableCell>{verdictIssuedEvent?.problemId}</TableCell>,
-                            <FakeLink>{verdictIssuedEvent?.problemTitle}</FakeLink>,
-                            <TableCell>{verdictIssuedEvent?.studentName}</TableCell>,
-                            <TableCell>
-                                <VerdictSummary verdict={verdictIssuedEvent?.verdict} />
-                            </TableCell>,
-                            <TableCell>{displayDate(verdictIssuedEvent?.submissionTime)}</TableCell>
-                        ]
-                    }} />
+                              showFilterSearchBar={false}
+                              tableHeaders={[
+                                  <TableCell className={"header"}>#</TableCell>,
+                                  <TableCell className={"header"}>Problem Title</TableCell>,
+                                  <TableCell className={"header"}>User Name</TableCell>,
+                                  <TableCell className={"header"}>Verdict</TableCell>,
+                                  <TableCell className={"header"}>Submit Time</TableCell>
+                              ]}
+                              tableRowGenerator={{
+                                  list: liveSubmissionsState,
+                                  key: liveSubmissions => liveSubmissions.submissionId,
+                                  data: liveSubmissions => [
+                                      <TableCell>{liveSubmissions?.problemId}</TableCell>,
+                                      <FakeLink>{liveSubmissions?.problemTitle}</FakeLink>,
+                                      <TableCell>{liveSubmissions?.studentName}</TableCell>,
+                                      <TableCell>
+                                          <VerdictSummary verdict={liveSubmissions?.verdict}/>
+                                      </TableCell>,
+                                      <TableCell>{displayDate(liveSubmissions?.submissionTime)}</TableCell>
+                                  ]
+                              }}/>
             </div>
         </div>
     </div>

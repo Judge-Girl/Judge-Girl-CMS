@@ -13,7 +13,7 @@ import {Spinner} from "../commons/Spinner";
 import {ExamContext} from "./questions/ExamContext";
 import ExamScore from "./score/ExamScore";
 import {TableCell} from "../../utils/TableCell";
-import ExamSubmissions from "./submissions/ExamSubmissions";
+import ExamLiveSubmissions from "./submissions/ExamLiveSubmissions";
 import './ExamList.css';
 
 export const useExamList = () => {
@@ -105,7 +105,7 @@ const ExamList = () => {
                         <Examinees/>
                     </Route>
                     <Route path="/exams/:examId/submissions">
-                        <ExamSubmissions/>
+                        <ExamLiveSubmissions/>
                     </Route>
                     <Route path="/exams/:examId/options">
                         <ExamOptions/>

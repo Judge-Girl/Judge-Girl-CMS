@@ -85,6 +85,11 @@ export default class StudentService extends AbstractService {
         });
     }
 
+    async getStudentById(studentId) {
+        return this.axios.get(`/api/students/${studentId}`)
+            .then(res => new Student(res.data));
+    }
+
     async getStudents({skip = 0, size = 50}) {
         return this.axios.get(`/api/students?skip=${skip}&&size=${size}`)
             .then(res => res.data.map(obj => new Student(obj)));

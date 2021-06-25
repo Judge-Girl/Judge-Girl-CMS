@@ -26,7 +26,7 @@ export class HomeworkService extends AbstractService {
             .then(res => new Homework(res.data));
     }
 
-    async deleteEHomework(homeworkId) {
+    async deleteHomework(homeworkId) {
         return this.axios.delete(`/api/homework/${homeworkId}`);
     }
 }

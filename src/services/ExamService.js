@@ -11,7 +11,7 @@ export class ExamService extends AbstractService {
 
     constructor(studentService) {
         super({
-            baseURL: process.env.REACT_APP_EXAM_SVC_BASE_URL,
+            baseURL: process.env.REACT_APP_ACADEMY_SVC_BASE_URL,
             timeout: 10000,
             tokenSupplier: studentService.currentToken
         });

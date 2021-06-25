@@ -8,9 +8,9 @@ import {ModalHeader} from "../../commons/modals/ModalHeader";
 
 const CreateHomeworkModal = ({show, onClose}) => {
     const [name, setName] = useState(undefined);
+    const [content, setContent] = useState();
     const nameInputRef = createRef();
     const closeIconRef = createRef();
-    const [content, setContent] = useState();
     let formRef;
 
     const handleSubmit = e => {

@@ -16,9 +16,7 @@ const HomeworkList = () => {
     const [showDeleteHomeworkConfirmationModal, setShowDeleteHomeworkConfirmationModal] = useState(false);
     const refetchHomework = useCallback(() => {
         homeworkService.getAllHomework()
-            .then(homeworkList => {
-                setHomeworkList(homeworkList);
-            })
+            .then(setHomeworkList)
     }, [setHomeworkList]);
 
     useEffect(() => {
@@ -28,7 +26,7 @@ const HomeworkList = () => {
     }, [homeworkList, refetchHomework]);
 
     const onHomeworkCreated = () => {
-        //todo here mapping issue " [UI] Create Homework Dialog And Delete Homework Dialog #139 "
+        // TODO: here mapping issue " [UI] Create Homework Dialog And Delete Homework Dialog #139 "
     };
 
     if (!homeworkList) {

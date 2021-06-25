@@ -26,7 +26,7 @@ const Examinees = () => {
 
     const fetchExaminees = (examId) => {
         examService.getExaminees(examId)
-            .then(students => setExaminees(students));
+            .then(examineeStudents => setExaminees(examineeStudents));
     }
 
     useEffect(() => {

@@ -90,7 +90,7 @@ const ProblemEditor = () => {
                         <div style={{width: "950px"}}>
                             <section>
                                 <SubtitleLine title={"Description"}/>
-                                <MarkdownEditor problemId={problemId}/>
+                                <MarkdownEditor problemId={problemId} style={{backgroundColor: "var(--backgroundDim)"}}/>
                             </section>
                             <section>
                                 <TestCase/>

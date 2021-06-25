@@ -1,7 +1,7 @@
 import {useState} from "react";
 import './TextInputForm.css';
 
-const TextInputForm = ({placeholder, onSubmit}) => {
+const TextInputForm = ({placeholder, onSubmit, style}) => {
     const [input, setInput] = useState('');
     const [tagId, setTagId] = useState(0);
 
@@ -23,7 +23,7 @@ const TextInputForm = ({placeholder, onSubmit}) => {
     return (
         <div className="text-input-form">
             <form className="tag-form" onSubmit={handleSubmit} style={{display: "table"}}>
-                <p style={{display: "table-cell", width: "234px"}}>
+                <p style={{display: "table-cell", ...style}}>
                     <input
                         type='text'
                         placeholder={placeholder}

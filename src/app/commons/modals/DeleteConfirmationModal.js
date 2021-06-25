@@ -1,4 +1,4 @@
-import './RemoveConfirmationModal.scss'
+import './DeleteConfirmationModal.scss'
 import React, {createRef} from "react";
 import {renderModal} from "./modal";
 import {ModalHeader} from "./ModalHeader";
@@ -12,7 +12,7 @@ import {ModalHeader} from "./ModalHeader";
  * @param onSubmit, the callback function when submit the form
  */
 
-const RemoveConfirmationModal = ({title, data, show, onClose, onSubmit}) => {
+const DeleteConfirmationModal = ({title, data, show, onClose, onSubmit}) => {
     const closeIconRef = createRef(), formRef = createRef();
 
     const handleSubmit = e => {
@@ -42,4 +42,4 @@ const RemoveConfirmationModal = ({title, data, show, onClose, onSubmit}) => {
 };
 
 
-export {RemoveConfirmationModal}
+export {DeleteConfirmationModal}

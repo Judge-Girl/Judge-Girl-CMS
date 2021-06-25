@@ -8,7 +8,7 @@ import {DropDownBtn} from "../../commons/buttons/DropDownButton";
 import {AiOutlineMail, AiOutlineUsergroupAdd} from "react-icons/ai";
 import {TextareaModal} from "../../commons/modals/TextareaModal";
 import {ThreeDotsButton} from "../../commons/buttons/ThreeDotsButton";
-import {RemoveConfirmationModal} from "../../commons/modals/RemoveConfirmationModal";
+import {DeleteConfirmationModal} from "../../commons/modals/DeleteConfirmationModal";
 import {Spinner} from "../../commons/Spinner";
 import {removeIf} from "../../../utils/array";
 import {useExamContext} from "../questions/ExamContext";
@@ -144,7 +144,7 @@ const Examinees = () => {
                                show={showAddGroupModal}
                                onClose={() => setShowAddGroupModal(false)}/>
 
-                <RemoveConfirmationModal title={"Remove the Student"}
+                <DeleteConfirmationModal title={"Remove the Student"}
                                          data={[
                                              {
                                                  title: "Name",

@@ -13,7 +13,7 @@ import {Spinner} from "../../commons/Spinner";
 import {TableCell} from "../../../utils/TableCell";
 import ExamDescriptionEditor from "./ExamDescriptionEditor";
 import "./ExamQuestions.scss";
-import {RemoveConfirmationModal} from "../../commons/modals/RemoveConfirmationModal";
+import {DeleteConfirmationModal} from "../../commons/modals/DeleteConfirmationModal";
 
 const toCharacterIndex = i => {
     return String.fromCharCode(i + 65);
@@ -183,7 +183,7 @@ const ExamQuestions = () => {
 
 
             {showDeleteQuestionModal ?
-                <RemoveConfirmationModal title={"Delete the Question?"}
+                <DeleteConfirmationModal title={"Delete the Question?"}
                                          data={[
                                              {
                                                  title: "Question Title",

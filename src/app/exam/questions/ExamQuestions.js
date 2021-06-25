@@ -145,13 +145,13 @@ const ExamQuestions = () => {
                                                 {rejudgingProblemId === question.problemId ?
                                                     <span className="tag"
                                                           style={{backgroundColor: "#FFBB00", color: "white"}}>
-                                                    Rejudging
-                                                    <span className="waitingForConnection">.</span>
-                                                    <span className="waitingForConnection2">.</span>
-                                                    <span className="waitingForConnection3">.</span>
-                                                </span>
+                                                        Rejudging
+                                                        <span className="waitingForConnection">.</span>
+                                                        <span className="waitingForConnection2">.</span>
+                                                        <span className="waitingForConnection3">.</span>
+                                                    </span>
                                                     :
-                                                    <div className="text-center">
+                                                    <div className="text-center" style={{width: "120px"}}>
                                                         <ThreeDotsButton dropDownItems={dropDownItems(question)}/>
                                                     </div>
                                                 }

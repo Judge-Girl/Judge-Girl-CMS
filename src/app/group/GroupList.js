@@ -23,7 +23,8 @@ const GroupList = () => {
     useEffect(() => {
         if (!groups) {
             studentService.getGroups()
-                .then(groups => setGroups(groups));
+                .then(groups => setGroups(groups))
+                .catch(err => console.error("Error: ", err.getMessage()));
         }
     });
 
@@ -48,7 +49,7 @@ const GroupList = () => {
                                   tableDataStyle={{textAlign: "left"}}/>
 
                     <CreateGroupModal show={showCreateGroupModal}
-                                      onClose={() => setShowCreateGroupModal(false)}
+                                      onModalClose={() => setShowCreateGroupModal(false)}
                                       onGroupCreated={group => {
                                           addGroup(group);
                                           setCurrentGroup(group);
@@ -64,9 +65,6 @@ const GroupList = () => {
                     </Route>
                     <Route path="/groups/:groupId/options">
                         <GroupOptions/>
-                    </Route>
-                    <Route path="/groups/:groupId/*">
-                        <Redirect to="/groups/:groupId/members"/>
                     </Route>
                 </Switch>
             </GroupContext.Provider>

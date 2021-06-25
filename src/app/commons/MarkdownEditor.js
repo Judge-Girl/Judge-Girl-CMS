@@ -107,7 +107,7 @@ const MarkdownEditor = ({style}) => {
 
 
     return (
-        <div className="markdown-editor font-poppins" style={style}>
+        <div className="markdown-editor font-poppins">
             <Tabs textareaVal={textareaVal} setTextareaVal={setTextareaVal}/>
             <div className="field is-grouped is-align-items-center is-pulled-right is-paddingless">
                 <EditorButton

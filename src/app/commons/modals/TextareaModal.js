@@ -43,7 +43,7 @@ const TextareaModal = ({title, body, show, onClose, onSubmit}) => {
                             <p className="remark">{body.remark}</p>
                         </div>
                         <div className="column">
-                            <button className="button mt-5" id="add-btn">{body.buttonName}</button>
+                            <button className="button mt-5 add-btn">{body.buttonName}</button>
                         </div>
                     </div>
                 </div>

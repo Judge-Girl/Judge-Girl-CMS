@@ -31,10 +31,10 @@ const Examinees = () => {
 
     useEffect(() => {
         if (!currentExam) {
-            refetchExam(examId)
+            refetchExam(examId);
         }
         if (!examinees && currentExam) {
-            fetchExaminees(examId)
+            fetchExaminees(examId);
         }
     }, [currentExam, examId, examinees, refetchExam]);
 
@@ -44,25 +44,25 @@ const Examinees = () => {
                 name: "Remove",
                 dangerous: true,
                 onClick: () => {
-                    setShowRemoveExamineeConfirmationModal(true)
-                    setSelectedExaminee(examinee)
+                    setShowRemoveExamineeConfirmationModal(true);
+                    setSelectedExaminee(examinee);
                 }
             },
         ]}/>
 
     const addExamineesByEmails = async (emails) => {
-        await examService.addExaminees(examId, emails)
+        examService.addExaminees(examId, emails)
             .then(errorList => {
                 // TODO: the error should be handled in the future
                 console.log(`errorList=${errorList}`);
+                fetchExaminees(examId);
             })
-        fetchExaminees(examId);
+
     }
 
     const addExamineesByGroups = async (groupNames) => {
-        await examService.addGroupsOfExaminees(examId, groupNames)
-            .then(res => console.log("res in addGroupsOfExaminees", res));
-        fetchExaminees(examId);
+        examService.addGroupsOfExaminees(examId, groupNames)
+            .then(res => fetchExaminees(examId));
     }
 
     const removeExaminee = (email) => {
@@ -123,7 +123,7 @@ const Examinees = () => {
                                }}
                                show={showAddStudentModal}
                                onClose={() => setShowAddStudentModal(false)}
-                               onSubmit={emails => addExamineesByEmails(emails)}/>
+                               onSubmit={addExamineesByEmails}/>
 
                 <TextareaModal title={"Add Students By Groups"}
                                body={{
@@ -135,7 +135,7 @@ const Examinees = () => {
                                }}
                                show={showAddGroupModal}
                                onClose={() => setShowAddGroupModal(false)}
-                               onSubmit={groupNames => addExamineesByGroups(groupNames)}/>
+                               onSubmit={addExamineesByGroups}/>
 
                 <DeleteConfirmationModal title={"Remove the Student"}
                                          data={[

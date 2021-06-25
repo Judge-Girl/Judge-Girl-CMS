@@ -19,7 +19,7 @@ const Login = withRouter(({history, location}) => {
                     history.push(referer);
                 }).catch(err => console.log(`Auth failed: ${err}`));
         }
-        return function cleanup () { document.body.style.backgroundColor = "rgb(255, 255, 255)" }
+        return function cleanup () { document.body.style.backgroundColor = "var(--background)" }
     }, [hasTriedAuth, history, setAdmin, referer]);
 
     const onSubmit = (e) => {

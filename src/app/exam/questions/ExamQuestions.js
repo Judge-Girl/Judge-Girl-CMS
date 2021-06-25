@@ -144,14 +144,14 @@ const ExamQuestions = () => {
                                             <TableCell>
                                                 {rejudgingProblemId === question.problemId ?
                                                     <span className="tag"
-                                                          style={{backgroundColor: "#FFBB00", color: "white"}}>
+                                                          style={{backgroundColor: "#FFBB00", color: "white", width: "75px"}}>
                                                         Rejudging
                                                         <span className="waitingForConnection">.</span>
                                                         <span className="waitingForConnection2">.</span>
                                                         <span className="waitingForConnection3">.</span>
                                                     </span>
                                                     :
-                                                    <div className="text-center" style={{width: "120px"}}>
+                                                    <div className="text-center" style={{width: "75px"}}>
                                                         <ThreeDotsButton dropDownItems={dropDownItems(question)}/>
                                                     </div>
                                                 }

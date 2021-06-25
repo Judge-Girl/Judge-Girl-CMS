@@ -23,7 +23,7 @@ const TextInputForm = ({placeholder, onSubmit}) => {
     return (
         <div className="text-input-form">
             <form className="tag-form" onSubmit={handleSubmit} style={{display: "table"}}>
-                <p style={{display: "table-cell", width: "100%"}}>
+                <p style={{display: "table-cell", width: "234px"}}>
                     <input
                         type='text'
                         placeholder={placeholder}

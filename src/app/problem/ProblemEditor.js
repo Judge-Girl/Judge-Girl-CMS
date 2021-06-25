@@ -57,11 +57,8 @@ const ProblemEditor = () => {
                     <div className="pt-2">
                         <ProblemEditorTitle problem={currentProblem}/>
                     </div>
-                    <div style={{
-                        display: "flex", flexDirection: "row",
-                        justifyContent: "space-between", alignItems: "flex-start",
-                    }}>
-                        <div style={{width: "25%"}}>
+                    <div style={{display: "flex", flexDirection: "row", justifyContent: "space-around", alignItems: "flex-start",}}>
+                        <div style={{width: "350px"}}>
                             <section>
                                 <TagList/>
                             </section>
@@ -89,7 +86,8 @@ const ProblemEditor = () => {
                                 <EditorButton text={"Delete Problem"} buttonColor={"#FFFFFF"} fontColor={"#A2A3B1"}/>
                             </section>
                         </div>
-                        <div style={{width: "65%"}}>
+                        <div style={{width: "100px"}}/>
+                        <div style={{width: "950px"}}>
                             <section>
                                 <SubtitleLine title={"Description"}/>
                                 <MarkdownEditor problemId={problemId}/>

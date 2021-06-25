@@ -26,6 +26,7 @@ const ProblemEditor = () => {
     const [problemDescription, setProblemDescription] = useState(undefined);
     const [lastProblemDescription, setLastProblemDescription] = useState(problemDescription);
     const [isProblemArchived, setIsProblemArchived] = useState(false);
+    const [problemAttributes, setProblemAttributes] = useState('');
 
     const fetchProblem = (problemId) => {
         problemService.getProblemById(problemId)
@@ -47,11 +48,19 @@ const ProblemEditor = () => {
         }
     }, [currentProblem, problemId])
 
+    useEffect(() => {
+        problemService.getProblemById(problemId)
+            .then(problemAttributes => {
+                setProblemAttributes(problemAttributes)
+                console.log("The attributes of the problem is obtained.", problemAttributes)
+            })
+    }, [problemId])
+
     if (problemNotFound) {
         return <ProblemNotFound/>
     } else if (shouldRedirect) {
         return <Redirect to="/problems"/>
-    } else if (!currentProblem) {
+    } else if (!currentProblem || !problemAttributes) {
         return <Spinner/>
     }
 
@@ -174,25 +183,25 @@ const ProblemEditor = () => {
                     }}>
                         <div style={{width: "350px"}}>
                             <section>
-                                <TagList/>
+                                <TagList problemAttributes={problemAttributes}/>
                             </section>
                             <section>
                                 <ProvidedCodeList/>
                             </section>
                             <section>
-                                <SubmittedCodeList/>
+                                <SubmittedCodeList problemAttributes={problemAttributes}/>
                             </section>
                             <section>
-                                <ResourceSpec/>
+                                <ResourceSpec problemAttributes={problemAttributes}/>
                             </section>
                             <section>
-                                <CompilationScript/>
+                                <CompilationScript problemAttributes={problemAttributes}/>
                             </section>
                             <section>
-                                <OutputMatchPolicyList/>
+                                <OutputMatchPolicyList problemAttributes={problemAttributes}/>
                             </section>
                             <section>
-                                <Visible/>
+                                <Visible problemAttributes={problemAttributes}/>
                             </section>
                             <section>
                                 <EditorButton text={"Save Change"} buttonColor={"#96D745"}
@@ -206,6 +215,7 @@ const ProblemEditor = () => {
                             <section>
                                 <SubtitleLine title={"Description"}/>
                                 <MarkdownEditor text={problemDescription}
+                                                problemAttributes={problemAttributes}
                                                 onTextChanged={setProblemDescription}
                                                 editingState={editingState}
                                                 editorButtons={editingState ?

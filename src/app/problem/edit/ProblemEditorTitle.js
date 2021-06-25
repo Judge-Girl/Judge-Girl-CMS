@@ -5,7 +5,6 @@ import {EditorButton} from "./EditorButton";
 import {problemService} from "../../../services/services";
 
 function ProblemEditorTitle({problem}) {
-    // TODO: problemService.getProblemTitle
     const [problemNameInput, setProblemNameInput] = useState(problem.title);
     const [lastProblemNameInput, setLastProblemNameInput] = useState(problemNameInput);
     const [editingState, setEditingState] = useState(false);
@@ -20,7 +19,7 @@ function ProblemEditorTitle({problem}) {
         setEditingState(false);
 
         problemService.modifyProblemTitle(problem.problemId, problemNameInput)
-            .then(() => console.log("The problem's title has been modified"));
+            .then(() => console.log("The problem's title has been modified."));
     };
 
     if (editingState) {

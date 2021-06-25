@@ -1,6 +1,7 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import ReactMarkdown from "react-markdown";
 import './MarkdwonEditor.scss';
+import {text} from "@fortawesome/fontawesome-svg-core";
 
 function Tabs({textareaVal, setTextareaVal}) {
     const [toggleState, setToggleState] = useState(1);
@@ -39,7 +40,6 @@ function Tabs({textareaVal, setTextareaVal}) {
 }
 
 const MarkdownEditor = ({text, editingState, onTextChanged, editorButtons, style}) => {
-
     if (!editingState) {
         return (
             <div className="markdown-editor font-poppins">

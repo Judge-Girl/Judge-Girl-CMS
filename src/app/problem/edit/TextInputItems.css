@@ -18,11 +18,13 @@
     line-height: 22px;
 
     display: flex;
+    justify-content: space-between;
     align-items: center;
 }
 
 .problem-editor .delete-icon {
-    position: absolute;
+    position: relative;
+    box-sizing: content-box;
     width: 10px;
     height: 10px;
     right: 10px;

@@ -8,8 +8,7 @@ function CompilationScript() {
         <div>
             <SubtitleLine title={"Compilation Script"}/>
             <button className="button compile-script-button">Auto Generate</button>
-            <textarea className="compile-script-text-area" cols="40" rows="5"/>
-
+            <textarea className="compile-script-text-area" cols="40" rows="5" style={{resize: "vertical"}}/>
         </div>
     )
 }

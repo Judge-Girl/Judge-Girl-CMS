@@ -9,6 +9,9 @@ const Login = withRouter(({history, location}) => {
     const referer = location?.state?.referer || '/problems';
 
     useEffect(() => {
+        // TODO: Find a better way rather than hard-coded.
+        //       Reason: Currently only login page will have backgroundDim color.
+        document.body.style.backgroundColor = "var(--backgroundDim)"
         if (!hasTriedAuth) {
             setHasTriedAuth(true);
 
@@ -18,6 +21,7 @@ const Login = withRouter(({history, location}) => {
                     history.push(referer);
                 }).catch(err => console.log(`Auth failed: ${err}`));
         }
+        return function cleanup () { document.body.style.backgroundColor = "var(--background)" }
     }, [hasTriedAuth, history, setAdmin, referer]);
 
     const onSubmit = (e) => {

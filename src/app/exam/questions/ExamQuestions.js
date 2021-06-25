@@ -112,66 +112,59 @@ const ExamQuestions = () => {
                 examId={examId}/>
             <div className="font-poppins" style={{paddingTop: "20px", paddingBottom: "150px"}}>
                 <div style={{display: "flex", justifyContent: "center"}}>
-                    <div style={{
-                        display: "flex", flexDirection: "column",
-                        justifyContent: "flex-start", alignItems: "center",
-                    }}>
-                        <div style={{
-                            display: "flex", flexDirection: "column",
-                            justifyContent: "flex-start", alignItems: "flex-end",
-                        }}>
-                            <ItemListPage
-                                width="1200px"
-                                title="Questions"
-                                tableHeaders={[
-                                    <TableCell>#</TableCell>,
-                                    <TableCell>Question ID</TableCell>,
-                                    <TableCell>Question Title</TableCell>,
-                                    <TableCell>Score Percentage</TableCell>,
-                                    <TableCell>Submission Quota</TableCell>,
-                                    " "]}
-                                tableDataStyle={{height: "60px"}}
-                                tableRowGenerator={{
-                                    list: questions,
-                                    key: question => `${question.questionOrder}-${question.problemId}`,
-                                    data: (question) => {
-                                        return [
-                                            <TableCell>{toCharacterIndex(question.questionOrder)}</TableCell>,
-                                            <FakeLink>{question.problemId}</FakeLink>,
-                                            <FakeLink>{question.problemTitle}</FakeLink>,
-                                            <TableCell>{question.maxScore}</TableCell>,
-                                            <TableCell>{question.quota}</TableCell>,
-                                            <TableCell>
-                                                {rejudgingProblemId === question.problemId ?
-                                                    <span className="tag"
-                                                          style={{backgroundColor: "#FFBB00", color: "white", width: "75px"}}>
-                                                        Rejudging
-                                                        <span className="waitingForConnection">.</span>
-                                                        <span className="waitingForConnection2">.</span>
-                                                        <span className="waitingForConnection3">.</span>
-                                                    </span>
-                                                    :
-                                                    <div className="text-center" style={{width: "75px"}}>
-                                                        <ThreeDotsButton dropDownItems={dropDownItems(question)}/>
-                                                    </div>
-                                                }
-                                                <RejudgeQuestionModal
-                                                    show={showRejudgeQuestionModal === question.problemId}
-                                                    title="Rejudge The Problem?"
-                                                    question={question}
-                                                    onClose={() => setShowRejudgeQuestionModal(NOT_SET)}
-                                                    onConfirmRejudge={rejudgeQuestion}/>
-                                            </TableCell>
-                                        ]
-                                    },
-                                }}
-                                showFilterSearchBar={false}/>
-                            <div className="add-question-btn"
-                                 onClick={() => setShowAddQuestionModal(true)}>
-                                <span>Add New Question</span>
-                            </div>
+                    <div style={{display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "center",}}>
+                        <ItemListPage
+                            width="1200px"
+                            title="Questions"
+                            tableHeaders={[
+                                <TableCell>#</TableCell>,
+                                <TableCell>Question ID</TableCell>,
+                                <TableCell>Question Title</TableCell>,
+                                <TableCell>Score Percentage</TableCell>,
+                                <TableCell>Submission Quota</TableCell>,
+                                " "]}
+                            tableDataStyle={{height: "60px"}}
+                            tableRowGenerator={{
+                                list: questions,
+                                key: question => `${question.questionOrder}-${question.problemId}`,
+                                data: (question) => {
+                                    return [
+                                        <TableCell>{toCharacterIndex(question.questionOrder)}</TableCell>,
+                                        <FakeLink>{question.problemId}</FakeLink>,
+                                        <FakeLink>{question.problemTitle}</FakeLink>,
+                                        <TableCell>{question.maxScore}</TableCell>,
+                                        <TableCell>{question.quota}</TableCell>,
+                                        <TableCell>
+                                            {rejudgingProblemId === question.problemId ?
+                                                <span className="tag"
+                                                      style={{backgroundColor: "#FFBB00", color: "white", width: "75px"}}>
+                                                    Rejudging
+                                                    <span className="waitingForConnection">.</span>
+                                                    <span className="waitingForConnection2">.</span>
+                                                    <span className="waitingForConnection3">.</span>
+                                                </span>
+                                                :
+                                                <div className="text-center" style={{width: "75px"}}>
+                                                    <ThreeDotsButton dropDownItems={dropDownItems(question)}/>
+                                                </div>
+                                            }
+                                            <RejudgeQuestionModal
+                                                show={showRejudgeQuestionModal === question.problemId}
+                                                title="Rejudge The Problem?"
+                                                question={question}
+                                                onClose={() => setShowRejudgeQuestionModal(NOT_SET)}
+                                                onConfirmRejudge={rejudgeQuestion}/>
+                                        </TableCell>
+                                    ]
+                                },
+                            }}
+                            showFilterSearchBar={false}/>
+                        <div className="add-question-btn"
+                             onClick={() => setShowAddQuestionModal(true)}
+                             style={{alignSelf: "flex-end"}}>
+                            <span>Add New Question</span>
                         </div>
-                        <ExamDescriptionEditor style={{backgroundColor: "var(--background)", width: "1200px"}}/>
+                        <ExamDescriptionEditor style={{backgroundColor: "var(--backgroundDim)", width: "1200px"}}/>
                     </div>
                 </div>
             </div>

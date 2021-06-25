@@ -77,9 +77,9 @@ const MarkdownEditor = ({style}) => {
 
     if (!editingState) {
         return (
-            <div className="markdown-editor font-poppins" style={style}>
+            <div className="markdown-editor font-poppins">
                 <div className="content-tabs">
-                    <div className="active-markdown">
+                    <div className="active-markdown" style={style}>
                         <ReactMarkdown>
                             {textareaVal}
                         </ReactMarkdown>

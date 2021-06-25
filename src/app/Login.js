@@ -9,7 +9,7 @@ const Login = withRouter(({history, location}) => {
     const referer = location?.state?.referer || '/problems';
 
     useEffect(() => {
-        document.body.style.backgroundColor = "rgb(247, 247, 247)"
+        document.body.style.backgroundColor = "var(--backgroundDim)"
         if (!hasTriedAuth) {
             setHasTriedAuth(true);
 

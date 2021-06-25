@@ -27,7 +27,8 @@ const DropDownBtn = function ({buttonName, dropDownItems, Icon}) {
                     <div className="dropdown-content">
                         {
                             dropDownItems?.map(item =>
-                                <p className="dropdown-item" onMouseDown={item.onClick}>{item.name}</p>)
+                                <p key={item.name}
+                                   className="dropdown-item" onMouseDown={item.onClick}>{item.name}</p>)
                         }
                     </div>
                 </div>

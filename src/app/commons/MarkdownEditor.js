@@ -1,7 +1,6 @@
 import React, {useState} from "react";
 import ReactMarkdown from "react-markdown";
 import {EditorButton} from "../problem/edit/EditorButton";
-import {problemService} from "../../services/services";
 import './MarkdwonEditor.scss';
 
 function Tabs({textareaVal, setTextareaVal}) {
@@ -18,48 +17,32 @@ function Tabs({textareaVal, setTextareaVal}) {
             <div className="tabs is-boxed">
                 <ul>
                     <li className={toggleState === TAB_WRITE ? "is-active active-tabs" : ""}>
-                        <p className="tab-write"
-                           onClick={() => setToggleState(TAB_WRITE)}
-                        >
-                            Write
-                        </p>
+                        <p className="tab-write" onClick={() => setToggleState(TAB_WRITE)}>Write</p>
                     </li>
                     <li className={toggleState === TAB_PREVIEW ? "is-active active-tabs" : ""}>
-                        <p className="tab-preview"
-                           onClick={() => setToggleState(TAB_PREVIEW)}
-                        >
-                            Preview
-                        </p>
+                        <p className="tab-preview" onClick={() => setToggleState(TAB_PREVIEW)}>Preview</p>
                     </li>
                 </ul>
             </div>
-
             <div className="content-tabs">
                 <div className={(toggleState === TAB_WRITE ? "active-textarea" : "hide")}>
-                    <textarea
-                        className="description-textarea"
-                        value={textareaVal}
-                        onChange={handleTextareaChange}
-                        style={{backgroundColor: "white"}}
-                    />
+                    <textarea className="description-textarea"
+                              value={textareaVal}
+                              onChange={handleTextareaChange}
+                              style={{backgroundColor: "white"}}/>
                 </div>
-
-                <div className={(toggleState === TAB_PREVIEW ? "active-markdown" : "hide")}
-
-                >
-                    <ReactMarkdown>
-                        {textareaVal}
-                    </ReactMarkdown>
+                <div className={(toggleState === TAB_PREVIEW ? "active-markdown" : "hide")}>
+                    <ReactMarkdown>{textareaVal}</ReactMarkdown>
                 </div>
             </div>
         </div>
     );
 }
 
-const MarkdownEditor = ({style}) => {
+const MarkdownEditor = ({text, onSaved, style}) => {
     // TODO: problemService.getProblemDescription
     const [editingState, setEditingState] = useState(false);
-    const [textareaVal, setTextareaVal] = useState('Press Edit Description to start writing the description. Styling with Markdown is supported.\n');
+    const [textareaVal, setTextareaVal] = useState(text ? text : 'Press Edit Description to start writing the description. Styling with Markdown is supported.\n');
     const [lastTextareaVal, setLastTextareaVal] = useState(textareaVal);
 
     const handleDescription = e => {
@@ -68,11 +51,9 @@ const MarkdownEditor = ({style}) => {
         if (textareaVal.length === 0) {
             return;
         }
+        onSaved(textareaVal);
 
         setEditingState(false);
-
-        problemService.modifyProblemDescription(0, textareaVal)
-            .then(() => console.log("The problem's description has been modified"));
     };
 
     if (!editingState) {
@@ -80,9 +61,7 @@ const MarkdownEditor = ({style}) => {
             <div className="markdown-editor font-poppins">
                 <div className="content-tabs">
                     <div className="active-markdown" style={style}>
-                        <ReactMarkdown>
-                            {textareaVal}
-                        </ReactMarkdown>
+                        <ReactMarkdown>{textareaVal}</ReactMarkdown>
                     </div>
                     <div className="is-pulled-right">
                         <EditorButton
@@ -97,8 +76,7 @@ const MarkdownEditor = ({style}) => {
                             onClick={() => {
                                 setEditingState(true);
                                 setLastTextareaVal(textareaVal);
-                            }}
-                        />
+                            }}/>
                     </div>
                 </div>
             </div>
@@ -118,8 +96,7 @@ const MarkdownEditor = ({style}) => {
                     fontSize={15}
                     borderRadius={20}
                     marginTop={15} marginRight={4}
-                    onClick={e => handleDescription(e)}
-                />
+                    onClick={e => handleDescription(e)}/>
                 <EditorButton
                     text={"Cancel"}
                     buttonColor={"#FFFFFF"}

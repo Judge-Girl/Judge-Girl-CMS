@@ -11,9 +11,9 @@ import {RejudgeQuestionModal} from "../modals/RejudgeQuestionModal";
 import {useExamContext} from "./ExamContext";
 import {Spinner} from "../../commons/Spinner";
 import {TableCell} from "../../../utils/TableCell";
-import ExamDescriptionEditor from "./ExamDescriptionEditor";
 import "./ExamQuestions.scss";
 import {DeleteConfirmationModal} from "../../commons/modals/DeleteConfirmationModal";
+import MarkdownEditor from "../../commons/MarkdownEditor";
 
 const toCharacterIndex = i => {
     return String.fromCharCode(i + 65);
@@ -43,10 +43,10 @@ const ExamQuestions = () => {
 
     useEffect(() => {
         if (!currentExam) {
-            refetchExam(examId)
+            refetchExam(examId);
         }
         if (!questions) {
-            fetchExam()
+            fetchExam();
         }
     }, [currentExam, examId, refetchExam, questions, fetchExam]);
 
@@ -69,13 +69,13 @@ const ExamQuestions = () => {
         dangerous: false,
         onClick: () => {
             setEditingQuestion(question);
-            setShowEditQuestionModal(true)
+            setShowEditQuestionModal(true);
         }
     }, {
         name: "Rejudge",
         dangerous: false,
         onClick: () => {
-            setShowRejudgeQuestionModal(question.problemId)
+            setShowRejudgeQuestionModal(question.problemId);
         }
     }, {
         name: "Delete",
@@ -90,7 +90,7 @@ const ExamQuestions = () => {
         submissionService.rejudge({examId, problemId})
             .then(res => {
                 console.log("Calling Rejudge API: and get result:", res);
-                setRejudgeProblemId(NOT_SET)
+                setRejudgeProblemId(NOT_SET);
             })
     };
 
@@ -99,6 +99,18 @@ const ExamQuestions = () => {
         question.questionOrder = questions.length;
         return examService.addExamQuestion(question).then(fetchExam);
     };
+
+    const onExamDescriptionSaved = (description) => {
+        if (currentExam.description !== description) {
+            examService.updateExam(examId, {
+                examId: examId,
+                name: currentExam.name,
+                startTime: currentExam.startTime,
+                endTime: currentExam.endTime,
+                description
+            }).then(() => refetchExam(examId));
+        }
+    }
 
     if (!currentExam) {
         return <Spinner/>
@@ -164,7 +176,9 @@ const ExamQuestions = () => {
                              style={{alignSelf: "flex-end"}}>
                             <span>Add New Question</span>
                         </div>
-                        <ExamDescriptionEditor style={{backgroundColor: "var(--backgroundDim)", width: "1200px"}}/>
+                        <MarkdownEditor text={currentExam.description}
+                                        onSaved={onExamDescriptionSaved}
+                                        style={{backgroundColor: "var(--backgroundDim)", width: "1200px"}}/>
                     </div>
                 </div>
             </div>

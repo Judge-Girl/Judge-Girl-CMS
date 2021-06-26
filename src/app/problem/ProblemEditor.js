@@ -18,10 +18,10 @@ import ProblemNotFound from "./ProblemNotFound";
 import {problemService} from "../../services/services";
 
 const ProblemEditor = () => {
-    const {problemId} = useParams()
-    const [shouldRedirect, setShouldRedirect] = useState(false)
-    const [problemNotFound, setProblemNotFound] = useState(false)
-    const [currentProblem, setCurrentProblem] = useState(undefined)
+    const {problemId} = useParams();
+    const [shouldRedirect, setShouldRedirect] = useState(false);
+    const [problemNotFound, setProblemNotFound] = useState(false);
+    const [currentProblem, setCurrentProblem] = useState(undefined);
 
     const fetchProblem = (problemId) => {
         problemService.getProblemById(problemId)
@@ -30,12 +30,12 @@ const ProblemEditor = () => {
     }
 
     const onProblemSaved = () => {
-        setShouldRedirect(true)
+        setShouldRedirect(true);
     }
 
     useEffect(() => {
         if (!currentProblem) {
-            fetchProblem(problemId)
+            fetchProblem(problemId);
         }
     }, [currentProblem, problemId])
 
@@ -45,6 +45,13 @@ const ProblemEditor = () => {
         return <Redirect to="/problems"/>
     } else if (!currentProblem) {
         return <Spinner/>
+    }
+
+    const onProblemDescriptionSaved = (description) => {
+        if (currentProblem.description !== description) {
+            problemService.modifyProblemDescription(problemId, description)
+                .then(() => fetchProblem(problemId));
+        }
     }
 
     return (
@@ -90,7 +97,9 @@ const ProblemEditor = () => {
                         <div style={{width: "950px"}}>
                             <section>
                                 <SubtitleLine title={"Description"}/>
-                                <MarkdownEditor problemId={problemId} style={{backgroundColor: "var(--backgroundDim)"}}/>
+                                <MarkdownEditor text={currentProblem.description}
+                                                onSaved={onProblemDescriptionSaved}
+                                                style={{backgroundColor: "var(--backgroundDim)"}}/>
                             </section>
                             <section>
                                 <TestCase/>

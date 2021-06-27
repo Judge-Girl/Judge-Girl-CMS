@@ -39,10 +39,10 @@ function Tabs({textareaVal, setTextareaVal}) {
     );
 }
 
-const MarkdownEditor = ({text, onSaved, style}) => {
+const MarkdownEditor = ({text, onTextChanged, style}) => {
     // TODO: problemService.getProblemDescription
     const [editingState, setEditingState] = useState(false);
-    const [textareaVal, setTextareaVal] = useState(text ? text : 'Press Edit Description to start writing the description. Styling with Markdown is supported.\n');
+    const [textareaVal, setTextareaVal] = useState(text || 'Press Edit Description to start writing the description. Styling with Markdown is supported.\n');
     const [lastTextareaVal, setLastTextareaVal] = useState(textareaVal);
 
     const handleDescription = e => {
@@ -51,7 +51,7 @@ const MarkdownEditor = ({text, onSaved, style}) => {
         if (textareaVal.length === 0) {
             return;
         }
-        onSaved(textareaVal);
+        onTextChanged(textareaVal);
 
         setEditingState(false);
     };

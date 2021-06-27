@@ -100,10 +100,10 @@ const ExamQuestions = () => {
         return examService.addExamQuestion(question).then(fetchExam);
     };
 
-    const onExamDescriptionSaved = (description) => {
+    const onExamDescriptionChanged = (description) => {
         if (currentExam.description !== description) {
             examService.updateExam(examId, {
-                examId: examId,
+                examId,
                 name: currentExam.name,
                 startTime: currentExam.startTime,
                 endTime: currentExam.endTime,
@@ -177,7 +177,7 @@ const ExamQuestions = () => {
                             <span>Add New Question</span>
                         </div>
                         <MarkdownEditor text={currentExam.description}
-                                        onSaved={onExamDescriptionSaved}
+                                        onTextChanged={onExamDescriptionChanged}
                                         style={{backgroundColor: "var(--backgroundDim)", width: "1200px"}}/>
                     </div>
                 </div>

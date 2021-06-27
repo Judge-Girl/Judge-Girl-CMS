@@ -47,7 +47,7 @@ const ProblemEditor = () => {
         return <Spinner/>
     }
 
-    const onProblemDescriptionSaved = (description) => {
+    const onProblemDescriptionChanged = (description) => {
         if (currentProblem.description !== description) {
             problemService.modifyProblemDescription(problemId, description)
                 .then(() => fetchProblem(problemId));
@@ -98,7 +98,7 @@ const ProblemEditor = () => {
                             <section>
                                 <SubtitleLine title={"Description"}/>
                                 <MarkdownEditor text={currentProblem.description}
-                                                onSaved={onProblemDescriptionSaved}
+                                                onTextChanged={onProblemDescriptionChanged}
                                                 style={{backgroundColor: "var(--backgroundDim)"}}/>
                             </section>
                             <section>

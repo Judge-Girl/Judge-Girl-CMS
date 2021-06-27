@@ -26,11 +26,16 @@ const HomeworkList = () => {
     }, [homeworkList, refetchHomework]);
 
     const onHomeworkCreated = () => {
-        // TODO: here mapping issue " [UI] Create Homework Dialog And Delete Homework Dialog #139 "
+        refetchHomework();
     };
 
     if (!homeworkList) {
         return <Spinner/>
+    }
+
+    const deleteHomework = (homeworkId) => {
+        homeworkService.deleteHomework(homeworkId)
+            .then(() => setHomeworkList(homeworkList.filter(homework => homework.id !== homeworkId)));
     }
 
     const actionItemsButton = ({homework}) =>
@@ -83,6 +88,7 @@ const HomeworkList = () => {
                                          ]}
                                          show={showDeleteHomeworkConfirmationModal}
                                          onClose={() => setShowDeleteHomeworkConfirmationModal(false)}
+                                         onSubmit={() => deleteHomework(selectedHomework.id)}
                 />
 
             </div>

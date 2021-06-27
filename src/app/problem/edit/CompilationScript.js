@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import './CompilationScript.css';
 
-function CompilationScript({problemAttributes}) {
-    console.log(problemAttributes.languageEnvs)
-    const [script, setScript] = useState(problemAttributes.languageEnvs[0].compilation.script)
+function CompilationScript({currentProblem}) {
+    console.log(currentProblem.languageEnvs)
+    const [script, setScript] = useState(currentProblem.languageEnvs[0].compilation.script)
     return (
         <div>
             <div className={`mt-2 has-text-left`} style={{width: "100%"}}>

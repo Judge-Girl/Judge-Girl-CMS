@@ -3,8 +3,8 @@ import '../ProblemEditor.css';
 import {SubtitleLine} from "../../commons/titles/TitleLine";
 import './Visible.css';
 
-function Visible({problemAttributes}) {
-    const [visible, setVisible] = useState(problemAttributes.visible === true)
+function Visible({currentProblem}) {
+    const [visible, setVisible] = useState(currentProblem.visible === true)
 
     return (
         <div>

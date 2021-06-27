@@ -5,16 +5,24 @@ import {SubtitleLine} from "../../commons/titles/TitleLine";
 import {TextInputForm} from "../../commons/TextInputForm/TextInputForm";
 import {TextInputItems} from "./TextInputItems";
 
-function TagList({problemAttributes}) {
+function TagList({currentProblem, handleTagsChange}) {
     const {tags, setTags, addTags, removeTag} = useTags();
 
     useEffect(() => {
         const oldTags = [];
-        for (let i = 0; problemAttributes && i < problemAttributes.tags.length; i++) {
-            oldTags.push({id: 1000+i, text: problemAttributes.tags[i]})
+        for (let i = 0; currentProblem && i < currentProblem.tags.length; i++) {
+            oldTags.push({id: 1000+i, text: currentProblem.tags[i]})
         }
         setTags(oldTags);
-    }, [problemAttributes, setTags])
+    }, [currentProblem, setTags])
+
+    useEffect(() => {
+        const newTags = []
+        for (const tag of tags) {
+            newTags.push(tag.text)
+        }
+        handleTagsChange(newTags)
+    }, [tags, handleTagsChange])
 
     return (
         <div>

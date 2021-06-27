@@ -5,16 +5,16 @@ import {SubtitleLine} from "../../commons/titles/TitleLine";
 import {TextInputForm} from "../../commons/TextInputForm/TextInputForm";
 import {TextInputItems} from "./TextInputItems";
 
-function SubmittedCodeList({problemAttributes}) {
+function SubmittedCodeList({currentProblem}) {
     const {tags, setTags, addTags, removeTag} = useTags();
 
-    useEffect(() => {
-        const oldFiles = [];
-        for (let i = 0; i < problemAttributes.languageEnvs[0].submittedCodeSpecs[0].fileName.length; i++) {
-            oldFiles.push({id: 1000+i, text: problemAttributes.languageEnvs[0].submittedCodeSpecs[0].fileName})
-        }
-        setTags(oldFiles);
-    }, [problemAttributes, setTags])
+    // useEffect(() => {
+    //     const oldFiles = [];
+    //     for (let i = 0; i < problemAttributes.languageEnvs[0].submittedCodeSpecs[0].fileName.length; i++) {
+    //         oldFiles.push({id: 1000+i, text: problemAttributes.languageEnvs[0].submittedCodeSpecs[0].fileName})
+    //     }
+    //     setTags(oldFiles);
+    // }, [problemAttributes, setTags])
 
     return (
         <div>

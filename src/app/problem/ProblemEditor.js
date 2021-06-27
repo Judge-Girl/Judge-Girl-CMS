@@ -39,7 +39,10 @@ const ProblemEditor = () => {
     }
 
     const onProblemSaved = () => {
-        setShouldRedirect(true);
+        setShouldRedirect(true)
+        // TODO: modify more attributes
+        problemService.modifyProblemTags(problemId, currentProblem.tags)
+            .then(() => console.log("The problem's tags have been modified."));
     }
 
     useEffect(() => {
@@ -48,19 +51,25 @@ const ProblemEditor = () => {
         }
     }, [currentProblem, problemId])
 
-    useEffect(() => {
-        problemService.getProblemById(problemId)
-            .then(problemAttributes => {
-                setProblemAttributes(problemAttributes)
-                console.log("The attributes of the problem is obtained.", problemAttributes)
-            })
-    }, [problemId])
+    const handleTagsChange = (tags) => {
+        setCurrentProblem((prevState) => {
+            prevState.tags = tags
+            return prevState
+        })
+    }
+
+    const handleMatchPolicy = (e) => {
+        setCurrentProblem((prevState) => {
+            prevState.judgeMatchPolicyPluginTag.name = e.target.value
+            return prevState
+        })
+    }
 
     if (problemNotFound) {
         return <ProblemNotFound/>
     } else if (shouldRedirect) {
         return <Redirect to="/problems"/>
-    } else if (!currentProblem || !problemAttributes) {
+    } else if (!currentProblem) {
         return <Spinner/>
     }
 
@@ -183,25 +192,25 @@ const ProblemEditor = () => {
                     }}>
                         <div style={{width: "350px"}}>
                             <section>
-                                <TagList problemAttributes={problemAttributes}/>
+                                <TagList currentProblem={currentProblem} handleTagsChange={handleTagsChange}/>
                             </section>
                             <section>
                                 <ProvidedCodeList/>
                             </section>
                             <section>
-                                <SubmittedCodeList problemAttributes={problemAttributes}/>
+                                <SubmittedCodeList currentProblem={currentProblem}/>
                             </section>
                             <section>
-                                <ResourceSpec problemAttributes={problemAttributes}/>
+                                <ResourceSpec currentProblem={currentProblem}/>
                             </section>
                             <section>
-                                <CompilationScript problemAttributes={problemAttributes}/>
+                                <CompilationScript currentProblem={currentProblem}/>
                             </section>
                             <section>
-                                <OutputMatchPolicyList problemAttributes={problemAttributes}/>
+                                <OutputMatchPolicyList currentProblem={currentProblem} handleMatchPolicy={handleMatchPolicy}/>
                             </section>
                             <section>
-                                <Visible problemAttributes={problemAttributes}/>
+                                <Visible currentProblem={currentProblem}/>
                             </section>
                             <section>
                                 <EditorButton text={"Save Change"} buttonColor={"#96D745"}
@@ -215,7 +224,7 @@ const ProblemEditor = () => {
                             <section>
                                 <SubtitleLine title={"Description"}/>
                                 <MarkdownEditor text={problemDescription}
-                                                problemAttributes={problemAttributes}
+                                                currentProblem={currentProblem}
                                                 onTextChanged={setProblemDescription}
                                                 editingState={editingState}
                                                 editorButtons={editingState ?

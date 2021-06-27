@@ -3,9 +3,9 @@ import '../ProblemEditor.css';
 import {SubtitleLine} from "../../commons/titles/TitleLine";
 import {InlineInputBox} from "./InlineInputBox";
 
-function ResourceSpec({problemAttributes}) {
-    const [cpu, setCpu] = useState(problemAttributes.languageEnvs[0].resourceSpec.cpu)
-    const [gpu, setGpu] = useState(problemAttributes.languageEnvs[0].resourceSpec.gpu)
+function ResourceSpec({currentProblem}) {
+    const [cpu, setCpu] = useState(currentProblem.languageEnvs[0].resourceSpec.cpu)
+    const [gpu, setGpu] = useState(currentProblem.languageEnvs[0].resourceSpec.gpu)
 
     return (
         <div>

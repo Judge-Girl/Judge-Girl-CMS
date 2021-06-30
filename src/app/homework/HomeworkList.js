@@ -88,8 +88,8 @@ const HomeworkList = () => {
                                          ]}
                                          show={showDeleteHomeworkConfirmationModal}
                                          onClose={() => setShowDeleteHomeworkConfirmationModal(false)}
-                                         onSubmit={() => deleteHomework(selectedHomework.id)}
-                />
+                                         onSubmit={() => deleteHomework(selectedHomework.id)}/>
+
 
             </div>
         </div>

@@ -21,8 +21,7 @@ export class HomeworkService extends AbstractService {
             .then(res => res.data.map(obj => new Homework(obj)));
     }
 
-    async createHomework(name, problemList) {
-        const problemIds = problemList.split("\n");
+    async createHomework(name, problemIds) {
         return this.axios.post('/api/homework', {name, problemIds})
             .then(res => new Homework(res.data));
     }

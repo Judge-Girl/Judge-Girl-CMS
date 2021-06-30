@@ -10,19 +10,20 @@ import {homeworkService} from "../../../services/services";
 const CreateHomeworkModal = ({show, onClose, onHomeworkCreated}) => {
 
     const [name, setName] = useState(undefined);
-    const [content, setContent] = useState();
+    const [content, setContent] = useState(undefined);
 
     const nameInputRef = createRef();
     const closeIconRef = createRef();
     let formRef;
 
     const handleSubmit = e => {
-        homeworkService.createHomework(name, content)
+        e.preventDefault()
+        const problemIds = content.split("\n");
+        homeworkService.createHomework(name, problemIds)
             .then(homework => onHomeworkCreated(homework));
         closeIconRef.current.click();
         setName('');
         setContent('');
-        e.preventDefault()
     };
 
     return renderModal({

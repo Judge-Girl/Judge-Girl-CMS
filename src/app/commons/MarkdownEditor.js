@@ -1,7 +1,5 @@
 import React, {useState} from "react";
 import ReactMarkdown from "react-markdown";
-import {EditorButton} from "../problem/edit/EditorButton";
-import {problemService} from "../../services/services";
 import './MarkdwonEditor.scss';
 
 function Tabs({textareaVal, setTextareaVal}) {
@@ -18,122 +16,50 @@ function Tabs({textareaVal, setTextareaVal}) {
             <div className="tabs is-boxed">
                 <ul>
                     <li className={toggleState === TAB_WRITE ? "is-active active-tabs" : ""}>
-                        <p className="tab-write"
-                           onClick={() => setToggleState(TAB_WRITE)}
-                        >
-                            Write
-                        </p>
+                        <p className="tab-write" onClick={() => setToggleState(TAB_WRITE)}>Write</p>
                     </li>
                     <li className={toggleState === TAB_PREVIEW ? "is-active active-tabs" : ""}>
-                        <p className="tab-preview"
-                           onClick={() => setToggleState(TAB_PREVIEW)}
-                        >
-                            Preview
-                        </p>
+                        <p className="tab-preview" onClick={() => setToggleState(TAB_PREVIEW)}>Preview</p>
                     </li>
                 </ul>
             </div>
-
             <div className="content-tabs">
                 <div className={(toggleState === TAB_WRITE ? "active-textarea" : "hide")}>
-                    <textarea
-                        className="description-textarea"
-                        value={textareaVal}
-                        onChange={handleTextareaChange}
-                        style={{backgroundColor: "white"}}
-                    />
+                    <textarea className="description-textarea"
+                              value={textareaVal}
+                              onChange={handleTextareaChange}
+                              style={{backgroundColor: "white"}}/>
                 </div>
-
-                <div className={(toggleState === TAB_PREVIEW ? "active-markdown" : "hide")}
-
-                >
-                    <ReactMarkdown>
-                        {textareaVal}
-                    </ReactMarkdown>
+                <div className={(toggleState === TAB_PREVIEW ? "active-markdown" : "hide")}>
+                    <ReactMarkdown>{textareaVal}</ReactMarkdown>
                 </div>
             </div>
         </div>
     );
 }
 
-const MarkdownEditor = ({style}) => {
-    // TODO: problemService.getProblemDescription
-    const [editingState, setEditingState] = useState(false);
-    const [textareaVal, setTextareaVal] = useState('Press Edit Description to start writing the description. Styling with Markdown is supported.\n');
-    const [lastTextareaVal, setLastTextareaVal] = useState(textareaVal);
-
-    const handleDescription = e => {
-        e.preventDefault();
-        // TODO: empty description notification
-        if (textareaVal.length === 0) {
-            return;
-        }
-
-        setEditingState(false);
-
-        problemService.modifyProblemDescription(0, textareaVal)
-            .then(() => console.log("The problem's description has been modified"));
-    };
+const MarkdownEditor = ({text, editingState, onTextChanged, editorButtons, style}) => {
 
     if (!editingState) {
         return (
             <div className="markdown-editor font-poppins">
                 <div className="content-tabs">
                     <div className="active-markdown" style={style}>
-                        <ReactMarkdown>
-                            {textareaVal}
-                        </ReactMarkdown>
+                        <ReactMarkdown>{text}</ReactMarkdown>
                     </div>
                     <div className="is-pulled-right">
-                        <EditorButton
-                            text={"Edit Description"}
-                            buttonColor={"#F2B311"}
-                            fontColor={"#FFFFFF"}
-                            width={209} height={33}
-                            fontSize={15}
-                            borderRadius={20}
-                            borderColor={"#F2B311"}
-                            marginTop={15}
-                            onClick={() => {
-                                setEditingState(true);
-                                setLastTextareaVal(textareaVal);
-                            }}
-                        />
+                        {editorButtons}
                     </div>
                 </div>
             </div>
         )
     }
 
-
     return (
         <div className="markdown-editor font-poppins">
-            <Tabs textareaVal={textareaVal} setTextareaVal={setTextareaVal}/>
+            <Tabs textareaVal={text} setTextareaVal={onTextChanged}/>
             <div className="field is-grouped is-align-items-center is-pulled-right is-paddingless">
-                <EditorButton
-                    text={"Save"}
-                    buttonColor={"#96D745"}
-                    fontColor={"#FFFFFF"}
-                    width={83} height={33}
-                    fontSize={15}
-                    borderRadius={20}
-                    marginTop={15} marginRight={4}
-                    onClick={e => handleDescription(e)}
-                />
-                <EditorButton
-                    text={"Cancel"}
-                    buttonColor={"#FFFFFF"}
-                    fontColor={"#A2A3B1"}
-                    width={83} height={33}
-                    fontSize={15}
-                    borderRadius={20}
-                    borderColor={"#A2A3B1"}
-                    marginTop={15} marginLeft={4}
-                    onClick={() => {
-                        setEditingState(false);
-                        setTextareaVal(lastTextareaVal);
-                    }}
-                />
+                {editorButtons}
             </div>
         </div>
     )

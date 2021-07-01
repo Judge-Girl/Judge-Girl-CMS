@@ -1,9 +1,9 @@
 export default class Question {
-    constructor({examId, problemId, quota, score, questionOrder}) {
+    constructor({examId, problemId, quota, maxScore, questionOrder}) {
         this.examId = examId;
         this.problemId = problemId;
         this.quota = quota;
-        this.score = score;
+        this.maxScore = maxScore;
         this.questionOrder = questionOrder;
     }
 }

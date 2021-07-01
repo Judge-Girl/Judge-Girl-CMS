@@ -18,24 +18,30 @@ import ProblemNotFound from "./ProblemNotFound";
 import {problemService} from "../../services/services";
 
 const ProblemEditor = () => {
-    const {problemId} = useParams()
-    const [shouldRedirect, setShouldRedirect] = useState(false)
-    const [problemNotFound, setProblemNotFound] = useState(false)
-    const [currentProblem, setCurrentProblem] = useState(undefined)
+    const {problemId} = useParams();
+    const [shouldRedirect, setShouldRedirect] = useState(false);
+    const [problemNotFound, setProblemNotFound] = useState(false);
+    const [currentProblem, setCurrentProblem] = useState(undefined);
+    const [editingState, setEditingState] = useState(false);
+    const [problemDescription, setProblemDescription] = useState(undefined);
+    const [lastProblemDescription, setLastProblemDescription] = useState(problemDescription);
 
     const fetchProblem = (problemId) => {
         problemService.getProblemById(problemId)
-            .then(problem => setCurrentProblem(problem))
+            .then(problem => {
+                setCurrentProblem(problem);
+                setProblemDescription(problem.description || 'Press Edit Description to start writing the description. Styling with Markdown is supported.\n');
+            })
             .catch(reason => setProblemNotFound(true));
     }
 
     const onProblemSaved = () => {
-        setShouldRedirect(true)
+        setShouldRedirect(true);
     }
 
     useEffect(() => {
         if (!currentProblem) {
-            fetchProblem(problemId)
+            fetchProblem(problemId);
         }
     }, [currentProblem, problemId])
 
@@ -45,6 +51,72 @@ const ProblemEditor = () => {
         return <Redirect to="/problems"/>
     } else if (!currentProblem) {
         return <Spinner/>
+    }
+
+    const HandleDescriptionButtons = () => {
+        return (
+            <>
+                <EditorButton
+                    text={"Save"}
+                    buttonColor={"#96D745"}
+                    fontColor={"#FFFFFF"}
+                    width={83} height={33}
+                    fontSize={15}
+                    borderRadius={20}
+                    marginTop={15} marginRight={4}
+                    onClick={e => handleDescription(e)}/>
+                <EditorButton
+                    text={"Cancel"}
+                    buttonColor={"#FFFFFF"}
+                    fontColor={"#A2A3B1"}
+                    width={83} height={33}
+                    fontSize={15}
+                    borderRadius={20}
+                    borderColor={"#A2A3B1"}
+                    marginTop={15} marginLeft={4}
+                    onClick={() => {
+                        setEditingState(false);
+                        setProblemDescription(lastProblemDescription);
+                    }}/>
+            </>
+        )
+    }
+
+    const EditDescriptionButton = () => {
+        return (
+            <EditorButton
+                text={"Edit Description"}
+                buttonColor={"#F2B311"}
+                fontColor={"#FFFFFF"}
+                width={209} height={33}
+                fontSize={15}
+                borderRadius={20}
+                borderColor={"#F2B311"}
+                marginTop={15}
+                onClick={() => {
+                    setEditingState(true);
+                    setLastProblemDescription(problemDescription);
+                }}/>
+        )
+    }
+
+    const handleDescription = e => {
+        e.preventDefault();
+        // TODO: empty description notification
+        if (problemDescription.length === 0) {
+            return;
+        }
+
+        onProblemDescriptionChanged(problemDescription);
+
+        setEditingState(false);
+    };
+
+    const onProblemDescriptionChanged = (description) => {
+        if (currentProblem.description !== description) {
+            problemService.modifyProblemDescription(problemId, description)
+                .then(() => fetchProblem(problemId));
+        }
     }
 
     return (
@@ -90,7 +162,13 @@ const ProblemEditor = () => {
                         <div style={{width: "950px"}}>
                             <section>
                                 <SubtitleLine title={"Description"}/>
-                                <MarkdownEditor problemId={problemId} style={{backgroundColor: "var(--backgroundDim)"}}/>
+                                <MarkdownEditor text={problemDescription}
+                                                onTextChanged={setProblemDescription}
+                                                editingState={editingState}
+                                                editorButtons={editingState ?
+                                                    <HandleDescriptionButtons/> : <EditDescriptionButton/>
+                                                }
+                                                style={{backgroundColor: "var(--backgroundDim)"}}/>
                             </section>
                             <section>
                                 <TestCase/>

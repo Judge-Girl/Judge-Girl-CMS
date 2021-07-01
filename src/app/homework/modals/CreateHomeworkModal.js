@@ -17,7 +17,7 @@ const CreateHomeworkModal = ({show, onClose, onHomeworkCreated}) => {
     let formRef;
 
     const handleSubmit = e => {
-        e.preventDefault()
+        e.preventDefault();
         const problemIds = content.split("\n");
         homeworkService.createHomework(name, problemIds)
             .then(homework => onHomeworkCreated(homework));

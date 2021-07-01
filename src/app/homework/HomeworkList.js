@@ -30,13 +30,13 @@ const HomeworkList = () => {
     };
 
     if (!homeworkList) {
-        return <Spinner/>
+        return <Spinner/>;
     }
 
     const deleteHomework = (homeworkId) => {
         homeworkService.deleteHomework(homeworkId)
             .then(() => setHomeworkList(homeworkList.filter(homework => homework.id !== homeworkId)));
-    }
+    };
 
     const actionItemsButton = ({homework}) =>
         <ThreeDotsButton dropDownItems={[
@@ -89,8 +89,6 @@ const HomeworkList = () => {
                                          show={showDeleteHomeworkConfirmationModal}
                                          onClose={() => setShowDeleteHomeworkConfirmationModal(false)}
                                          onSubmit={() => deleteHomework(selectedHomework.id)}/>
-
-
             </div>
         </div>
     );

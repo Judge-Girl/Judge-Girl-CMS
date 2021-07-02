@@ -11,21 +11,21 @@ export class ProblemService extends AbstractService {
     }
 
     async modifyProblemTitle(problemId, title) {
-        return this.axios.patch(`/api/problems/${problemId}`, {problemId, title})
+        return this.axios.patch(`/api/problems/${problemId}`, {problemId, title});
     }
 
     async modifyProblemDescription(problemId, description) {
-        return this.axios.patch(`/api/problems/${problemId}`, {problemId, description})
+        return this.axios.patch(`/api/problems/${problemId}`, {problemId, description});
     }
 
     async getProblemById(problemId) {
         return this.axios.get(`/api/problems/${problemId}`)
-            .then(res => res.data)
+            .then(res => res.data);
     }
 
     async getProblemByIds(problemIds) {
         return this.axios.get(`/api/problems?ids=${problemIds.join(',')}`)
-            .then(res => res.data)
+            .then(res => res.data);
     }
 
     async createProblem(problemTitle) {
@@ -34,11 +34,11 @@ export class ProblemService extends AbstractService {
                 headers: {
                     'Content-Type': 'text/plain'
                 }
-            }).then(res => res.data)
+            }).then(res => res.data);
     }
 
     async getAllProblems() {
-        return this.axios.get(`/api/problems`).then(res => res.data)
+        return this.axios.get(`/api/problems`).then(res => res.data);
     }
 
 }

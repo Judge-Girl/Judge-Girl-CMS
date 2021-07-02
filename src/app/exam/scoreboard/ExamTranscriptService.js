@@ -24,8 +24,8 @@ class ExamTranscriptService extends AbstractService {
             const ids = examOverview.questions.map(question => question.problemId);
             await this.problemService.getProblemByIds(ids)
                 .then(problems => problems
-                    .forEach(problem => totalTestCasesOf[problem.id] = problem.testcases.length))
-            return {examinees, examOverview, examTranscript, totalTestCasesOf}
+                    .forEach(problem => totalTestCasesOf[problem.id] = problem.testcases.length));
+            return {examinees, examOverview, examTranscript, totalTestCasesOf};
         }).then(data => new ExamScoreboard({...data}));
     }
 }

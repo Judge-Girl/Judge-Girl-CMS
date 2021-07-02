@@ -23,6 +23,11 @@ export class ProblemService extends AbstractService {
             .then(res => res.data)
     }
 
+    async getProblemByIds(problemIds) {
+        return this.axios.get(`/api/problems?ids=${problemIds.join(',')}`)
+            .then(res => res.data)
+    }
+
     async createProblem(problemTitle) {
         return this.axios.post(`/api/problems`, problemTitle,
             {

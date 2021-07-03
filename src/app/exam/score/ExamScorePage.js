@@ -44,8 +44,7 @@ const ExamScorePage = () => {
                         <ExamSummary vertical
                                      averageScore={presenter.crossAverage}
                                      maxScore={presenter.sumOfMaxScores}
-                                     totalExaminees={presenter.totalExaminees}
-                        />
+                                     totalExaminees={presenter.totalExaminees}/>
                     </div>
                     <ItemListPage
                         width="1000px"

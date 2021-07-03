@@ -23,7 +23,7 @@ export class ProblemService extends AbstractService {
             .then(res => res.data);
     }
 
-    async getProblemByIds(problemIds) {
+    async getProblemsByIds(problemIds) {
         return this.axios.get(`/api/problems?ids=${problemIds.join(',')}`)
             .then(res => res.data);
     }

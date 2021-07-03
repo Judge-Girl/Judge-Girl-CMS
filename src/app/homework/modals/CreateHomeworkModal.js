@@ -4,17 +4,26 @@ import {createRef, useState} from "react";
 import {renderModal} from "../../commons/modals/modal";
 import {ModalInput} from "../../commons/modals/ModalInput";
 import {ModalHeader} from "../../commons/modals/ModalHeader";
+import {homeworkService} from "../../../services/services";
 
 
-const CreateHomeworkModal = ({show, onClose}) => {
+const CreateHomeworkModal = ({show, onClose, onHomeworkCreated}) => {
+
     const [name, setName] = useState(undefined);
-    const [content, setContent] = useState();
+    const [content, setContent] = useState(undefined);
+
     const nameInputRef = createRef();
     const closeIconRef = createRef();
     let formRef;
 
     const handleSubmit = e => {
         e.preventDefault();
+        const problemIds = content.split("\n");
+        homeworkService.createHomework(name, problemIds)
+            .then(homework => onHomeworkCreated(homework));
+        closeIconRef.current.click();
+        setName('');
+        setContent('');
     };
 
     return renderModal({

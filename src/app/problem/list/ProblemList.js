@@ -16,7 +16,7 @@ const ProblemList = () => {
 
     const onProblemCreated = (problemId) => {
         fetchProblems();
-        setCurrentProblemId(problemId)
+        setCurrentProblemId(problemId);
         setShouldRedirect(true);
     };
 
@@ -27,7 +27,7 @@ const ProblemList = () => {
 
     useEffect(() => {
         if (!problems) {
-            fetchProblems()
+            fetchProblems();
         }
     });
 

@@ -25,12 +25,14 @@ const ProblemEditor = () => {
     const [editingState, setEditingState] = useState(false);
     const [problemDescription, setProblemDescription] = useState(undefined);
     const [lastProblemDescription, setLastProblemDescription] = useState(problemDescription);
+    const [problemArchived, setProblemArchived] = useState(false);
 
     const fetchProblem = (problemId) => {
         problemService.getProblemById(problemId)
             .then(problem => {
                 setCurrentProblem(problem);
                 setProblemDescription(problem.description || 'Press Edit Description to start writing the description. Styling with Markdown is supported.\n');
+                setProblemArchived(problem.archived);
             })
             .catch(reason => setProblemNotFound(true));
     }
@@ -51,6 +53,41 @@ const ProblemEditor = () => {
         return <Redirect to="/problems"/>
     } else if (!currentProblem) {
         return <Spinner/>
+    }
+
+    const ArchiveProblemButton = () => {
+        return (
+            <EditorButton text={"Archive this problem"}
+                          marginTop={10}
+                          borderColor={"#A2A3B1"}
+                          buttonColor={"#FFFFFF"} fontColor={"#A2A3B1"}
+                          onClick={() => {
+                              problemService.archiveOrDeleteProblem(problemId)
+                                  .then(() => fetchProblem(problemId));
+                          }}/>
+        )
+    }
+
+    const RestoreAndDeleteProblemButtons = () => {
+        return (
+            <>
+                <EditorButton text={"Restore the problem"}
+                              marginTop={10}
+                              buttonColor={"#FFE7AB"} fontColor={"#F1960D"}
+                              onClick={() => {
+                                  problemService.restoreProblem(problemId)
+                                      .then(() => fetchProblem(problemId));
+                              }}/>
+                <EditorButton text={"Delete this problem"}
+                              marginTop={10}
+                              borderColor={"#A2A3B1"}
+                              buttonColor={"#FFFFFF"} fontColor={"#A2A3B1"}
+                              onClick={() => {
+                                  problemService.archiveOrDeleteProblem(problemId)
+                                      .then(() => setShouldRedirect(true));
+                              }}/>
+            </>
+        )
     }
 
     const HandleDescriptionButtons = () => {
@@ -129,7 +166,12 @@ const ProblemEditor = () => {
                     <div className="pt-2">
                         <ProblemEditorTitle problem={currentProblem}/>
                     </div>
-                    <div style={{display: "flex", flexDirection: "row", justifyContent: "space-around", alignItems: "flex-start",}}>
+                    <div style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        justifyContent: "space-around",
+                        alignItems: "flex-start",
+                    }}>
                         <div style={{width: "350px"}}>
                             <section>
                                 <TagList/>
@@ -153,9 +195,10 @@ const ProblemEditor = () => {
                                 <Visible/>
                             </section>
                             <section>
-                                <EditorButton text={"Save Change"} buttonColor={"#96D745"} fontColor={"#FFFFFF"}
+                                <EditorButton text={"Save Change"} buttonColor={"#96D745"}
+                                              fontColor={"#FFFFFF"}
                                               onClick={onProblemSaved}/>
-                                <EditorButton text={"Delete Problem"} buttonColor={"#FFFFFF"} fontColor={"#A2A3B1"}/>
+                                {problemArchived ? <RestoreAndDeleteProblemButtons/> : <ArchiveProblemButton/>}
                             </section>
                         </div>
                         <div style={{width: "100px"}}/>

@@ -36,7 +36,7 @@ const ExamOptions = () => {
                 name: newExamName,
                 startTime,
                 endTime,
-                description: "",
+                description: currentExam.description
             }).then(() => {
                 refetchExam(examId)
             })

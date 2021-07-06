@@ -186,7 +186,7 @@ const ExamQuestions = () => {
                 examId={examId}/>
             <div className="font-poppins" style={{paddingTop: "20px", paddingBottom: "150px"}}>
                 <div style={{display: "flex", justifyContent: "center"}}>
-                    <div style={{display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "center",}}>
+                    <div style={{display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "center"}}>
                         <ItemListPage
                             width="1200px"
                             title="Questions"

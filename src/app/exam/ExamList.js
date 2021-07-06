@@ -11,10 +11,11 @@ import ExamQuestions from "./questions/ExamQuestions";
 import {ExamOptions} from "./options/ExamOptions";
 import {Spinner} from "../commons/Spinner";
 import {ExamContext} from "./questions/ExamContext";
-import ExamScore from "./score/ExamScore";
 import {TableCell} from "../../utils/TableCell";
-import ExamLiveSubmissions from "./submissions/ExamLiveSubmissions";
 import './ExamList.css';
+import ExamLiveSubmissions from "./submissions/ExamLiveSubmissions";
+import ExamScoreboardPage from "./scoreboard/ExamScoreboardPage";
+import ExamScorePage from "./score/ExamScorePage";
 
 export const useExamList = () => {
     const [exams, setExams] = useState();
@@ -98,14 +99,17 @@ const ExamList = () => {
                     <Route path="/exams/:examId/problems">
                         <ExamQuestions/>
                     </Route>
-                    <Route path="/exams/:examId/score">
-                        <ExamScore/>
-                    </Route>
                     <Route path="/exams/:examId/students">
                         <Examinees/>
                     </Route>
                     <Route path="/exams/:examId/submissions">
                         <ExamLiveSubmissions/>
+                    </Route>
+                    <Route path="/exams/:examId/scoreboard">
+                        <ExamScoreboardPage/>
+                    </Route>
+                    <Route path="/exams/:examId/score">
+                        <ExamScorePage/>
                     </Route>
                     <Route path="/exams/:examId/options">
                         <ExamOptions/>

@@ -27,6 +27,11 @@ export class ExamService extends AbstractService {
             .then(res => new Exam(res.data));
     }
 
+    async getExamTranscript(examId) {
+        return this.axios.get(`/api/exams/${examId}/transcript`)
+            .then(res => res.data);
+    }
+
     async getExams({status, skip = 0, size = 50}) {
         return this.axios.get(`/api/exams?status=${status}&&skip=${skip}&&size=${size}`)
             .then(res => res.data.map(obj => new Exam(obj)));

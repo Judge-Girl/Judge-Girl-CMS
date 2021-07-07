@@ -1,4 +1,5 @@
 import AbstractService from "./AbstractService";
+import Problem from "../models/Problem";
 
 export class ProblemService extends AbstractService {
 
@@ -20,12 +21,12 @@ export class ProblemService extends AbstractService {
 
     async getProblemById(problemId) {
         return this.axios.get(`/api/problems/${problemId}`)
-            .then(res => res.data);
+            .then(res => new Problem(res.data));
     }
 
     async getProblemsByIds(problemIds) {
         return this.axios.get(`/api/problems?ids=${problemIds.join(',')}`)
-            .then(res => res.data);
+            .then(res => res.data.map(obj => new Problem(obj)));
     }
 
     async createProblem(problemTitle) {
@@ -38,7 +39,15 @@ export class ProblemService extends AbstractService {
     }
 
     async getAllProblems() {
-        return this.axios.get(`/api/problems`).then(res => res.data);
+        return this.axios.get(`/api/problems`)
+            .then(res => res.data.map(obj => new Problem(obj)));
     }
 
+    async archiveOrDeleteProblem(problemId) {
+        return this.axios.delete(`/api/problems/${problemId}`);
+    }
+
+    async restoreProblem(problemId) {
+        return this.axios.patch(`/api/problems/${problemId}/restore`);
+    }
 }

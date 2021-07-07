@@ -25,14 +25,14 @@ const ProblemEditor = () => {
     const [editingState, setEditingState] = useState(false);
     const [problemDescription, setProblemDescription] = useState(undefined);
     const [lastProblemDescription, setLastProblemDescription] = useState(problemDescription);
-    const [problemArchived, setProblemArchived] = useState(false);
+    const [isProblemArchived, setIsProblemArchived] = useState(false);
 
     const fetchProblem = (problemId) => {
         problemService.getProblemById(problemId)
             .then(problem => {
                 setCurrentProblem(problem);
                 setProblemDescription(problem.description || 'Press Edit Description to start writing the description. Styling with Markdown is supported.\n');
-                setProblemArchived(problem.archived);
+                setIsProblemArchived(problem.archived);
             })
             .catch(reason => setProblemNotFound(true));
     }
@@ -198,7 +198,7 @@ const ProblemEditor = () => {
                                 <EditorButton text={"Save Change"} buttonColor={"#96D745"}
                                               fontColor={"#FFFFFF"}
                                               onClick={onProblemSaved}/>
-                                {problemArchived ? <RestoreAndDeleteProblemButtons/> : <ArchiveProblemButton/>}
+                                {isProblemArchived ? <RestoreAndDeleteProblemButtons/> : <ArchiveProblemButton/>}
                             </section>
                         </div>
                         <div style={{width: "100px"}}/>

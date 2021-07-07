@@ -39,7 +39,8 @@ export class ProblemService extends AbstractService {
     }
 
     async getAllProblems() {
-        return this.axios.get(`/api/problems`).then(res => res.data.map(obj => new Problem(obj)));
+        return this.axios.get(`/api/problems`)
+            .then(res => res.data.map(obj => new Problem(obj)));
     }
 
     async archiveOrDeleteProblem(problemId) {

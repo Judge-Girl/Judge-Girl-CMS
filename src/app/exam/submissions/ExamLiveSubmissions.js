@@ -24,7 +24,7 @@ const ExamLiveSubmissions = function () {
     });
 
     useEffect(() => {
-        fetchLiveSubmissions(examId);
+        queryLatestExamSubmissions(examId);
         subscribeEvents();
         return () => {
             unsubscribeEvents();
@@ -33,8 +33,8 @@ const ExamLiveSubmissions = function () {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    function fetchLiveSubmissions(examId) {
-        liveSubmissionsService.queryExamLatestSubmissions(examId)
+    function queryLatestExamSubmissions(examId) {
+        liveSubmissionsService.queryLatestExamSubmissions(examId)
             .then(submissions => {
                 liveSubmissions = submissions;
                 setLiveSubmissionsState(liveSubmissions);

@@ -6,7 +6,7 @@ export class LiveSubmissionsService extends AbstractService {
 
     constructor(studentService, problemService, submissionService, stompClient) {
         super({
-            baseURL: process.env.REACT_APP_PROBLEM_SVC_BASE_URL,
+            baseURL: process.env.REACT_APP_SUBMISSION_SVC_BASE_URL,
             timeout: 10000,
             tokenSupplier: studentService.currentToken
         });
@@ -16,10 +16,10 @@ export class LiveSubmissionsService extends AbstractService {
         this.stompClient = stompClient;
     }
 
-    async queryExamLatestSubmissions(examId) {
+    async queryLatestExamSubmissions(examId) {
         let queryParameters = {examId, sortBy: 'submissionTime', ascending: false};
-        return await this.submissionService.getSubmissions(queryParameters)
-            .then(submissions => Promise.all(submissions.map(submission => this.completeLiveSubmissionFields(submission))));
+        const submissions = await this.submissionService.getSubmissions(queryParameters);
+        return Promise.all(submissions.map(submission => this.completeLiveSubmissionFields(submission)));
     }
 
     subscribeToLiveSubmissionEvent(examId, subscriber) {

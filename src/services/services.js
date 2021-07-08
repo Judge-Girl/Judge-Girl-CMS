@@ -12,7 +12,7 @@ const studentService = new StudentService();
 const examService = new ExamService(studentService);
 const problemService = new ProblemService(studentService);
 const submissionService = new SubmissionService(studentService);
-const liveSubmissionsService = new LiveSubmissionsService(studentService, problemService, stompClient);
+const liveSubmissionsService = new LiveSubmissionsService(studentService, problemService, submissionService, stompClient);
 const homeworkService = new HomeworkService(studentService);
 const examTranscriptService = new ExamTranscriptService(studentService, examService, problemService);
 

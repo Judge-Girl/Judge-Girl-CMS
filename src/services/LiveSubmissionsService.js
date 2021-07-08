@@ -4,7 +4,7 @@ import VerdictIssuedEvent from "../models/VerdictIssuedEvent";
 
 export class LiveSubmissionsService extends AbstractService {
 
-    constructor(studentService, problemService, stompClient) {
+    constructor(studentService, problemService, submissionService, stompClient) {
         super({
             baseURL: process.env.REACT_APP_PROBLEM_SVC_BASE_URL,
             timeout: 10000,
@@ -12,7 +12,14 @@ export class LiveSubmissionsService extends AbstractService {
         });
         this.studentService = studentService;
         this.problemService = problemService;
+        this.submissionService = submissionService;
         this.stompClient = stompClient;
+    }
+
+    async queryExamLatestSubmissions(examId) {
+        let queryParameters = {examId, sortBy: 'submissionTime', ascending: false};
+        return await this.submissionService.getSubmissions(queryParameters)
+            .then(submissions => Promise.all(submissions.map(submission => this.completeLiveSubmissionFields(submission))));
     }
 
     subscribeToLiveSubmissionEvent(examId, subscriber) {

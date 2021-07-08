@@ -24,6 +24,7 @@ const ExamLiveSubmissions = function () {
     });
 
     useEffect(() => {
+        fetchLiveSubmissions(examId);
         subscribeEvents();
         return () => {
             unsubscribeEvents();
@@ -31,6 +32,14 @@ const ExamLiveSubmissions = function () {
         // TODO: figure out the best practice.
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    function fetchLiveSubmissions(examId) {
+        liveSubmissionsService.queryExamLatestSubmissions(examId)
+            .then(submissions => {
+                liveSubmissions = submissions;
+                setLiveSubmissionsState(liveSubmissions);
+            });
+    }
 
     function subscribeEvents() {
         subscriptions.push(liveSubmissionsService.subscribeToLiveSubmissionEvent(examId, onNewLiveSubmission));

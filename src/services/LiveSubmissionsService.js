@@ -1,6 +1,7 @@
 import AbstractService from "./AbstractService";
 import LiveSubmissionEvent from "../models/LiveSubmissionEvent";
 import VerdictIssuedEvent from "../models/VerdictIssuedEvent";
+import {distinct} from "../utils/array";
 
 export class LiveSubmissionsService extends AbstractService {
 
@@ -18,20 +19,36 @@ export class LiveSubmissionsService extends AbstractService {
 
     async queryLatestExamSubmissions(examId) {
         let queryParameters = {examId, sortBy: 'submissionTime', ascending: false};
-        const submissions = await this.submissionService.getSubmissions(queryParameters);
-        return Promise.all(submissions.map(submission => this.completeLiveSubmissionFields(submission)));
+        const liveSubmissions = await this.submissionService.getSubmissions(queryParameters)
+            .then(submissions => submissions.map(submission => this.toLiveSubmission(submission)));
+        return await this.completeLiveSubmissionsFields(liveSubmissions);
+    }
+
+    toLiveSubmission(submission) {
+        let liveSubmissionEvent = new LiveSubmissionEvent(submission);
+        liveSubmissionEvent.submissionId = submission.id;
+        liveSubmissionEvent.verdict = submission.verdict;
+        return liveSubmissionEvent;
     }
 
     subscribeToLiveSubmissionEvent(examId, subscriber) {
         return this.stompClient.subscribe(`/topic/exams/${examId}/submissions`,
-            message => this.completeLiveSubmissionFields(new LiveSubmissionEvent(JSON.parse(message.body)))
-                .then(event => subscriber(event)));
+            message => this.completeLiveSubmissionsFields([new LiveSubmissionEvent(JSON.parse(message.body))])
+                .then(events => subscriber(events[0])));
     }
 
-    async completeLiveSubmissionFields(liveSubmissionEvent) {
-        liveSubmissionEvent.problemTitle = (await this.problemService.getProblemById(liveSubmissionEvent.problemId)).title;
-        liveSubmissionEvent.studentName = (await this.studentService.getStudentById(liveSubmissionEvent.studentId)).name;
-        return Promise.resolve(liveSubmissionEvent);
+    async completeLiveSubmissionsFields(liveSubmissions) {
+        const problemIds = distinct(liveSubmissions.map(liveSubmission => liveSubmission.problemId));
+        const problems = await this.problemService.getProblemsByIds(problemIds);
+
+        const studentIds = distinct(liveSubmissions.map(liveSubmission => liveSubmission.studentId));
+        const students = await this.studentService.getStudentsByIds(studentIds);
+
+        liveSubmissions.forEach(liveSubmission => {
+            liveSubmission.problemTitle = problems.find(problem => problem.id === liveSubmission.problemId).title;
+            liveSubmission.studentName = students.find(student => student.id === liveSubmission.studentId).name;
+        });
+        return liveSubmissions;
     }
 
     subscribeToVerdictIssuedEvent(examId, subscriber) {

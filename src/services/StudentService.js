@@ -95,6 +95,11 @@ export default class StudentService extends AbstractService {
             .then(res => res.data.map(obj => new Student(obj)));
     }
 
+    async getStudentsByIds(studentIds) {
+        return this.axios.get(`/api/students?ids=${studentIds.join(',')}`)
+            .then(res => res.data.map(obj => new Student(obj)));
+    }
+
     async getAdmins({skip = 0, size = 50}) {
         return this.axios.get(`/api/admins?skip=${skip}&&size=${size}`)
             .then(res => res.data.map(obj => new Student(obj)));

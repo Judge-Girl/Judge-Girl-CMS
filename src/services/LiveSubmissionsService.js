@@ -20,7 +20,7 @@ export class LiveSubmissionsService extends AbstractService {
         let queryParameters = {examId, sortBy: 'submissionTime', ascending: false};
         const liveSubmissions = await this.submissionService.getSubmissions(queryParameters)
             .then(submissions => submissions.map(submission => this.toLiveSubmission(submission)));
-        return Promise.all(liveSubmissions.map(liveSubmission => this.completeLiveSubmissionFields(liveSubmission)));
+        return await this.completeLiveSubmissionsFields(liveSubmissions);
     }
 
     toLiveSubmission(submission) {
@@ -32,14 +32,24 @@ export class LiveSubmissionsService extends AbstractService {
 
     subscribeToLiveSubmissionEvent(examId, subscriber) {
         return this.stompClient.subscribe(`/topic/exams/${examId}/submissions`,
-            message => this.completeLiveSubmissionFields(new LiveSubmissionEvent(JSON.parse(message.body)))
-                .then(event => subscriber(event)));
+            message => this.completeLiveSubmissionsFields([new LiveSubmissionEvent(JSON.parse(message.body))])
+                .then(events => subscriber(events[0])));
     }
 
-    async completeLiveSubmissionFields(liveSubmissionEvent) {
-        liveSubmissionEvent.problemTitle = (await this.problemService.getProblemById(liveSubmissionEvent.problemId)).title;
-        liveSubmissionEvent.studentName = (await this.studentService.getStudentById(liveSubmissionEvent.studentId)).name;
-        return Promise.resolve(liveSubmissionEvent);
+    async completeLiveSubmissionsFields(liveSubmissions) {
+        const problemIds = liveSubmissions.map(liveSubmission => liveSubmission.problemId)
+            .filter((value, index, self) => self.indexOf(value) === index);
+        const problems = await this.problemService.getProblemsByIds(problemIds);
+
+        const studentIds = liveSubmissions.map(liveSubmission => liveSubmission.studentId)
+            .filter((value, index, self) => self.indexOf(value) === index);
+        const students = await this.studentService.getStudentsByIds(studentIds);
+
+        liveSubmissions.forEach(liveSubmission => {
+            liveSubmission.problemTitle = problems.find(problem => problem.id === liveSubmission.problemId).title;
+            liveSubmission.studentName = students.find(student => student.id === liveSubmission.studentId).name;
+        });
+        return liveSubmissions;
     }
 
     subscribeToVerdictIssuedEvent(examId, subscriber) {

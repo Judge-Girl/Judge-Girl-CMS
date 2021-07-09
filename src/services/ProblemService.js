@@ -19,8 +19,30 @@ export class ProblemService extends AbstractService {
         return this.axios.patch(`/api/problems/${problemId}`, {problemId, description});
     }
 
-    async modifyProblemTags(problemId, tags) {
-        return this.axios.patch(`/api/problems/${problemId}`, {problemId, tags})
+    async modifyProblem(problemId, tags, visible, judgeMatchPolicyPluginTag) {
+        return this.axios.patch(`/api/problems/${problemId}`, {problemId, tags, visible, judgeMatchPolicyPluginTag})
+    }
+
+    async modifyProblemLanguageEnvs(problemId, languageEnvName, languageEnv) {
+        return this.axios.put(`/api/problems/${problemId}/langEnv/${languageEnvName}`, languageEnv,
+            {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(res => console.log(res))
+    }
+
+    async getJudgeMatchPolicyPluginTag() {
+        return this.axios.get(`/api/plugins?type=OUTPUT_MATCH_POLICY`)
+    }
+
+    async updateProblemProvidedCodes(problemId, languageEnvName, providedCodes) {
+        return this.axios.put(`/api/problems/${problemId}/${languageEnvName}/providedCodes`, providedCodes,
+            {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            }).then(res => console.log(res))
     }
 
     async getProblemById(problemId) {

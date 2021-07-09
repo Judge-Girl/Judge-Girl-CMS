@@ -1,12 +1,23 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {SubtitleLine} from "../../../commons/titles/TitleLine";
 import ProvidedCodeItem from "./ProvidedCodeItem";
 import {UploadFileButton} from "../UploadFileButton";
 import './ProvidedCodeList.css';
 import {useUploads} from "../../../usecases/UploadFilesUseCase";
 
-function ProvidedCodeList() {
-    const {files, addFile, removeFile} = useUploads();
+function ProvidedCodeList({currentProblem, handleProvidedCodesFilesChange}) {
+    const {files, setFiles, addFile, removeFile} = useUploads();
+
+    useEffect(() => {
+        if (currentProblem.languageEnvs[0].providedCodesFileId) {
+            const oldFile = {name: currentProblem.languageEnvs[0].providedCodesFileId}
+            setFiles([oldFile])
+        }
+    }, [currentProblem, setFiles])
+
+    useEffect(() => {
+        handleProvidedCodesFilesChange(files)
+    }, [files, handleProvidedCodesFilesChange])
 
     return (
         <div>

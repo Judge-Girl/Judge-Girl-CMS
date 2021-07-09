@@ -15,7 +15,7 @@ const useUploads = function () {
         setFiles(removeAttr);
     };
 
-    return {files, addFile, removeFile};
+    return {files, setFiles, addFile, removeFile};
 };
 
 export {useUploads}

@@ -1,9 +1,15 @@
 import React, {useState} from 'react';
 import './CompilationScript.css';
 
-function CompilationScript({currentProblem}) {
-    console.log(currentProblem.languageEnvs)
+function CompilationScript({currentProblem, handleCompilationScript}) {
     const [script, setScript] = useState(currentProblem.languageEnvs[0].compilation.script)
+
+    const handleCompilationScriptChange = (e) => {
+        handleCompilationScript(e.target.value)
+        setScript(e.target.value)
+        console.log(e.target.value)
+    }
+
     return (
         <div>
             <div className={`mt-2 has-text-left`} style={{width: "100%"}}>
@@ -16,7 +22,7 @@ function CompilationScript({currentProblem}) {
                 <hr className={`my-1`} style={{backgroundColor: '#A2A3B1', height: 1}}/>
             </div>
             <textarea value={script}
-                      onChange={(e) => setScript(e.target.value)}
+                      onChange={handleCompilationScriptChange}
                       className="compile-script-text-area" cols="40" rows="5"
                       style={{resize: "vertical"}}
             />

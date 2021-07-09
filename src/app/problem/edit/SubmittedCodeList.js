@@ -5,16 +5,28 @@ import {SubtitleLine} from "../../commons/titles/TitleLine";
 import {TextInputForm} from "../../commons/TextInputForm/TextInputForm";
 import {TextInputItems} from "./TextInputItems";
 
-function SubmittedCodeList({currentProblem}) {
+function SubmittedCodeList({currentProblem, handleSubmittedCodesChange}) {
     const {tags, setTags, addTags, removeTag} = useTags();
 
-    // useEffect(() => {
-    //     const oldFiles = [];
-    //     for (let i = 0; i < problemAttributes.languageEnvs[0].submittedCodeSpecs[0].fileName.length; i++) {
-    //         oldFiles.push({id: 1000+i, text: problemAttributes.languageEnvs[0].submittedCodeSpecs[0].fileName})
-    //     }
-    //     setTags(oldFiles);
-    // }, [problemAttributes, setTags])
+    useEffect(() => {
+        const oldFiles = [];
+        for (let i = 0; i < currentProblem.languageEnvs[0].submittedCodeSpecs.length; i++) {
+            oldFiles.push({id: 1000+i, text: currentProblem.languageEnvs[0].submittedCodeSpecs[i].fileName})
+        }
+        setTags(oldFiles);
+    }, [currentProblem, setTags])
+
+    useEffect(() => {
+        const newTags = []
+        for (const tag of tags) {
+            const fileName = tag.text
+            newTags.push({
+                "format": "C",
+                "fileName": fileName
+            })
+        }
+        handleSubmittedCodesChange(newTags)
+    }, [tags, handleSubmittedCodesChange])
 
     return (
         <div>

@@ -27,6 +27,8 @@ const ProblemEditor = () => {
     const [lastProblemDescription, setLastProblemDescription] = useState(problemDescription);
     const [isProblemArchived, setIsProblemArchived] = useState(false);
     const [problemAttributes, setProblemAttributes] = useState('');
+    const [matchPolicyList, setMatchPolicyList] = useState(undefined);
+    const [providedCodesFiles, setProvidedCodesFiles] = useState(undefined);
 
     const fetchProblem = (problemId) => {
         problemService.getProblemById(problemId)
@@ -34,22 +36,68 @@ const ProblemEditor = () => {
                 setCurrentProblem(problem);
                 setProblemDescription(problem.description || 'Press Edit Description to start writing the description. Styling with Markdown is supported.\n');
                 setIsProblemArchived(problem.archived);
+
+                if (problem.languageEnvs.length === 0) {
+                    problem.languageEnvs.push({
+                        "name":"C",
+                        "language":"C",
+                        "compilation":{"script":"gcc -std=c99 -O2 a.c -lm"},
+                        "resourceSpec":{"cpu":1.0,"gpu":0.0},
+                        "submittedCodeSpecs":[
+                            {
+                                "format":"C",
+                                "fileName":"a.c"
+                            }
+                        ],
+                        "providedCodesFileId":""
+                    })
+                }
             })
             .catch(reason => setProblemNotFound(true));
     }
 
     const onProblemSaved = () => {
         setShouldRedirect(true)
-        // TODO: modify more attributes
-        problemService.modifyProblemTags(problemId, currentProblem.tags)
-            .then(() => console.log("The problem's tags have been modified."));
+
+        problemService.modifyProblem(problemId, currentProblem.tags, currentProblem.visible, currentProblem.judgeMatchPolicyPluginTag)
+            .then((res) => console.log(res));
+
+        for (let i = 0; i < currentProblem.languageEnvs.length; i++) {
+            const requestBody = {
+                "language": currentProblem.languageEnvs[i].language,
+                "compilation": currentProblem.languageEnvs[i].compilation,
+                "compilationScript": currentProblem.languageEnvs[i].compilation.script,
+                "resourceSpecCpu": currentProblem.languageEnvs[i].resourceSpec.cpu,
+                "resourceSpecGpu": currentProblem.languageEnvs[i].resourceSpec.gpu,
+                "submittedCodeSpecs": currentProblem.languageEnvs[i].submittedCodeSpecs
+            }
+            // console.log('requestBody', requestBody)
+            problemService.modifyProblemLanguageEnvs(problemId, currentProblem.languageEnvs[i].name, requestBody)
+
+            if (providedCodesFiles.length > 1 || (providedCodesFiles.length === 1 && providedCodesFiles[0] instanceof File)) {
+                const data = new FormData()
+                for (let j = 0; j < providedCodesFiles.length; j++) {
+                    if (providedCodesFiles[j] instanceof File) {
+                        console.log(providedCodesFiles[j])
+                        data.append('file', providedCodesFiles[j])
+                    }
+                }
+                problemService.updateProblemProvidedCodes(problemId, currentProblem.languageEnvs[i].name, data)
+            }
+        }
     }
 
     useEffect(() => {
         if (!currentProblem) {
             fetchProblem(problemId);
         }
-    }, [currentProblem, problemId])
+        if (!matchPolicyList) {
+            problemService.getJudgeMatchPolicyPluginTag()
+                .then((res) => {
+                    setMatchPolicyList(Object.values(res.data))
+                })
+        }
+    }, [currentProblem, matchPolicyList, problemId])
 
     const handleTagsChange = (tags) => {
         setCurrentProblem((prevState) => {
@@ -58,10 +106,43 @@ const ProblemEditor = () => {
         })
     }
 
-    const handleMatchPolicy = (e) => {
-        setCurrentProblem((prevState) => {
-            prevState.judgeMatchPolicyPluginTag.name = e.target.value
-            return prevState
+    const handleProvidedCodesFilesChange = (files) => {
+        setProvidedCodesFiles(files)
+        console.log(files[0] instanceof File)
+    }
+
+    const handleSubmittedCodesChange = (tags) => {
+        setCurrentProblem((state) => {
+            state.languageEnvs[0].submittedCodeSpecs = tags
+            return state
+        })
+    }
+
+    const handleVisible = (visible) => {
+        setCurrentProblem((state) => {
+            state.visible = visible
+            return state
+        })
+    }
+
+    const handleResourceSpecCPU = (cpu) => {
+        setCurrentProblem((state) => {
+            state.languageEnvs[0].resourceSpec.cpu = cpu
+            return state
+        })
+    }
+
+    const handleResourceSpecGPU = (gpu) => {
+        setCurrentProblem((state) => {
+            state.languageEnvs[0].resourceSpec.gpu = gpu
+            return state
+        })
+    }
+
+    const handleCompilationScript = (script) => {
+        setCurrentProblem((state) => {
+            state.languageEnvs[0].compilation.script = script
+            return state
         })
     }
 
@@ -69,7 +150,7 @@ const ProblemEditor = () => {
         return <ProblemNotFound/>
     } else if (shouldRedirect) {
         return <Redirect to="/problems"/>
-    } else if (!currentProblem) {
+    } else if (!currentProblem || !matchPolicyList) {
         return <Spinner/>
     }
 
@@ -195,22 +276,22 @@ const ProblemEditor = () => {
                                 <TagList currentProblem={currentProblem} handleTagsChange={handleTagsChange}/>
                             </section>
                             <section>
-                                <ProvidedCodeList/>
+                                <ProvidedCodeList currentProblem={currentProblem} handleProvidedCodesFilesChange={handleProvidedCodesFilesChange}/>
                             </section>
                             <section>
-                                <SubmittedCodeList currentProblem={currentProblem}/>
+                                <SubmittedCodeList currentProblem={currentProblem} handleSubmittedCodesChange={handleSubmittedCodesChange}/>
                             </section>
                             <section>
-                                <ResourceSpec currentProblem={currentProblem}/>
+                                <ResourceSpec currentProblem={currentProblem} handleResourceSpecCPU={handleResourceSpecCPU} handleResourceSpecGPU={handleResourceSpecGPU}/>
                             </section>
                             <section>
-                                <CompilationScript currentProblem={currentProblem}/>
+                                <CompilationScript currentProblem={currentProblem} handleCompilationScript={handleCompilationScript}/>
                             </section>
                             <section>
-                                <OutputMatchPolicyList currentProblem={currentProblem} handleMatchPolicy={handleMatchPolicy}/>
+                                <OutputMatchPolicyList currentProblem={currentProblem} setCurrentProblem={setCurrentProblem} matchPolicyList={matchPolicyList}/>
                             </section>
                             <section>
-                                <Visible currentProblem={currentProblem}/>
+                                <Visible currentProblem={currentProblem} handleVisible={handleVisible} setCurrentProblem={setCurrentProblem}/>
                             </section>
                             <section>
                                 <EditorButton text={"Save Change"} buttonColor={"#96D745"}

@@ -5,7 +5,7 @@
     padding-bottom: 5px;
     margin-top: 10px;
     margin-bottom: 10px;
-    width: 284px;
+    width: 209px;
     height: 33px;
     border: 1px solid #E4E1E1;
     box-sizing: border-box;
@@ -17,6 +17,7 @@
     line-height: 22px;
 
     display: flex;
+    justify-content: space-between;
     align-items: center;
 }
 

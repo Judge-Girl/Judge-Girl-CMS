@@ -18,8 +18,16 @@ export class LiveSubmissionsService extends AbstractService {
 
     async queryLatestExamSubmissions(examId) {
         let queryParameters = {examId, sortBy: 'submissionTime', ascending: false};
-        const submissions = await this.submissionService.getSubmissions(queryParameters);
-        return Promise.all(submissions.map(submission => this.completeLiveSubmissionFields(submission)));
+        const liveSubmissions = await this.submissionService.getSubmissions(queryParameters)
+            .then(submissions => submissions.map(submission => this.toLiveSubmission(submission)));
+        return Promise.all(liveSubmissions.map(liveSubmission => this.completeLiveSubmissionFields(liveSubmission)));
+    }
+
+    toLiveSubmission(submission) {
+        let liveSubmissionEvent = new LiveSubmissionEvent(submission);
+        liveSubmissionEvent.submissionId = submission.id;
+        liveSubmissionEvent.verdict = submission.verdict;
+        return liveSubmissionEvent;
     }
 
     subscribeToLiveSubmissionEvent(examId, subscriber) {

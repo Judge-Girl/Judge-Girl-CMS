@@ -51,7 +51,7 @@ const ExamLiveSubmissions = function () {
     }
 
     function onNewLiveSubmission(liveSubmission) {
-        liveSubmissions.unshift(liveSubmission);
+        liveSubmissions = [liveSubmission, ...liveSubmissions];
         setLiveSubmissionsState(liveSubmissions);
     }
 

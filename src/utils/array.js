@@ -9,3 +9,7 @@ export function removeIf(array, predicate) {
         }
     }
 }
+
+export function distinct(array) {
+    return array.filter((value, index, self) => self.indexOf(value) === index);
+}

@@ -1,6 +1,7 @@
 import AbstractService from "./AbstractService";
 import LiveSubmissionEvent from "../models/LiveSubmissionEvent";
 import VerdictIssuedEvent from "../models/VerdictIssuedEvent";
+import {distinct} from "../utils/array";
 
 export class LiveSubmissionsService extends AbstractService {
 
@@ -37,12 +38,10 @@ export class LiveSubmissionsService extends AbstractService {
     }
 
     async completeLiveSubmissionsFields(liveSubmissions) {
-        const problemIds = liveSubmissions.map(liveSubmission => liveSubmission.problemId)
-            .filter((value, index, self) => self.indexOf(value) === index);
+        const problemIds = distinct(liveSubmissions.map(liveSubmission => liveSubmission.problemId));
         const problems = await this.problemService.getProblemsByIds(problemIds);
 
-        const studentIds = liveSubmissions.map(liveSubmission => liveSubmission.studentId)
-            .filter((value, index, self) => self.indexOf(value) === index);
+        const studentIds = distinct(liveSubmissions.map(liveSubmission => liveSubmission.studentId));
         const students = await this.studentService.getStudentsByIds(studentIds);
 
         liveSubmissions.forEach(liveSubmission => {

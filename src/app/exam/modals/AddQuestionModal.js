@@ -14,12 +14,12 @@ const InputField = ({id, type, labelText, value, placeholder, onChange}) => (
 const AddQuestionModal = ({title, show, onClose, onSubmitQuestion}) => {
     const closeIconRef = createRef(), formRef = createRef();
     const [problemId, setProblemId] = useState('');
-    const [scorePercentage, setScorePercentage] = useState('');
     const [submissionQuota, setSubmissionQuota] = useState('');
+    const [maxScore, setMaxScore] = useState('');
 
     const clearFields = () => {
         setProblemId('');
-        setScorePercentage('');
+        setMaxScore('');
         setSubmissionQuota('');
     };
 
@@ -30,8 +30,8 @@ const AddQuestionModal = ({title, show, onClose, onSubmitQuestion}) => {
         if (form.checkValidity()) {
             const question = new Question({
                 problemId,
-                score: scorePercentage,
-                quota: submissionQuota
+                quota: submissionQuota,
+                score: maxScore,
             });
             onSubmitQuestion(question).then(clearFields);
             closeIconRef.current.click();
@@ -52,9 +52,9 @@ const AddQuestionModal = ({title, show, onClose, onSubmitQuestion}) => {
                         <InputField labelText="Problem ID"
                                     type="number" id="input-problem-id" value={problemId}
                                     onChange={e => setProblemId(e.target.value)}/>
-                        <InputField labelText="Score Percentage"
-                                    type="number" id="input-score-percentage" value={scorePercentage}
-                                    onChange={e => setScorePercentage(e.target.value)}/>
+                        <InputField labelText="Max Score"
+                                    type="number" id="input-max-score" value={maxScore}
+                                    onChange={e => setMaxScore(e.target.value)}/>
                         <InputField labelText="Submission Quota"
                                     type="number" id="input-submission-quota" value={submissionQuota}
                                     onChange={e => setSubmissionQuota(e.target.value)}/>

@@ -19,11 +19,11 @@ const NoInputField = ({text}) => (
 
 const EditQuestionModal = ({title, show, onClose, onSubmitQuestion, question}) => {
     const closeIconRef = createRef(), formRef = createRef();
-    const [scorePercentage, setScorePercentage] = useState(question?.maxScore);
+    const [maxScore, setMaxScore] = useState(question?.maxScore);
     const [submissionQuota, setSubmissionQuota] = useState(question?.quota);
 
     const clearFields = () => {
-        setScorePercentage('');
+        setMaxScore('');
         setSubmissionQuota('');
     };
 
@@ -32,7 +32,7 @@ const EditQuestionModal = ({title, show, onClose, onSubmitQuestion, question}) =
         const form = formRef.current;
 
         if (form.checkValidity()) {
-            question.score = scorePercentage;
+            question.score = maxScore;
             question.quota = submissionQuota;
             onSubmitQuestion(question)
                 .then(closeIconRef.current.click())
@@ -43,7 +43,7 @@ const EditQuestionModal = ({title, show, onClose, onSubmitQuestion, question}) =
     };
 
     useEffect(() => {
-        setScorePercentage(question?.maxScore);
+        setMaxScore(question?.maxScore);
         setSubmissionQuota(question?.quota);
     }, [question]);
 
@@ -58,9 +58,9 @@ const EditQuestionModal = ({title, show, onClose, onSubmitQuestion, question}) =
                         <ModalHeader className="header" title={title}
                                      style={{textAlign: "left"}}/>
                         <NoInputField text={"Problem: " + question.problemId + " " + question.problemTitle}/>
-                        <InputField id="input-score-percentage" type="number" labelText="Score Percentage"
-                                    value={scorePercentage} placeholder=""
-                                    onChange={e => setScorePercentage(e.target.value)}/>
+                        <InputField id="input-max-score" type="number" labelText="Max Score"
+                                    value={maxScore} placeholder=""
+                                    onChange={e => setMaxScore(e.target.value)}/>
                         <InputField id="input-submission-quota" type="number" labelText="Submission Quota"
                                     value={submissionQuota} placeholder=""
                                     onChange={e => setSubmissionQuota(e.target.value)}/>

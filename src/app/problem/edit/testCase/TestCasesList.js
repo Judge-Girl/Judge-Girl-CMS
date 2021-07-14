@@ -3,7 +3,7 @@ import React, {useState} from "react";
 import {EditorButton} from "../EditorButton";
 import TestCases from "./TestCases";
 
-function TestCasesList() {
+function TestCasesList({testcases}) {
     const [testCasesId, setTestCasesId] = useState(0);
     const [testCasesList, setTestCasesList] = useState([]);
 

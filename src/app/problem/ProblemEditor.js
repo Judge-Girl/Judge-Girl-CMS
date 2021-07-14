@@ -10,7 +10,7 @@ import Visible from "./edit/Visible";
 import {EditorButton} from "./edit/EditorButton";
 import {SubtitleLine} from "../commons/titles/TitleLine";
 import MarkdownEditor from "../commons/MarkdownEditor";
-import TestCase from "./edit/testCase/TestCasesList";
+import TestCaseesList from "./edit/testCase/TestCasesList";
 import React, {useEffect, useState} from "react";
 import './ProblemEditor.css';
 import {Spinner} from "../commons/Spinner";
@@ -108,7 +108,6 @@ const ProblemEditor = () => {
 
     const handleProvidedCodesFilesChange = (files) => {
         setProvidedCodesFiles(files)
-        console.log(files[0] instanceof File)
     }
 
     const handleSubmittedCodesChange = (tags) => {
@@ -314,7 +313,7 @@ const ProblemEditor = () => {
                                                 style={{backgroundColor: "var(--backgroundDim)"}}/>
                             </section>
                             <section>
-                                <TestCase/>
+                                <TestCaseesList testcases={currentProblem.testcases}/>
                             </section>
                         </div>
                     </div>

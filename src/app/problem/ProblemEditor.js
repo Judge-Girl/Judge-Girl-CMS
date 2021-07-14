@@ -10,7 +10,7 @@ import Visible from "./edit/Visible";
 import {EditorButton} from "./edit/EditorButton";
 import {SubtitleLine} from "../commons/titles/TitleLine";
 import MarkdownEditor from "../commons/MarkdownEditor";
-import TestCaseesList from "./edit/testCase/TestCasesList";
+import TestCasesList from "./edit/testCase/TestCasesList";
 import React, {useEffect, useState} from "react";
 import './ProblemEditor.css';
 import {Spinner} from "../commons/Spinner";
@@ -313,7 +313,7 @@ const ProblemEditor = () => {
                                                 style={{backgroundColor: "var(--backgroundDim)"}}/>
                             </section>
                             <section>
-                                <TestCaseesList testcases={currentProblem.testcases}/>
+                                <TestCasesList testcases={currentProblem.testcases}/>
                             </section>
                         </div>
                     </div>

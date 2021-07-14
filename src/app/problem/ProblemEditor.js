@@ -26,14 +26,12 @@ const ProblemEditor = () => {
     const [problemDescription, setProblemDescription] = useState(undefined);
     const [lastProblemDescription, setLastProblemDescription] = useState(problemDescription);
     const [isProblemArchived, setIsProblemArchived] = useState(false);
-    const [problemAttributes, setProblemAttributes] = useState('');
     const [matchPolicyList, setMatchPolicyList] = useState(undefined);
     const [providedCodesFiles, setProvidedCodesFiles] = useState(undefined);
 
     const fetchProblem = (problemId) => {
         problemService.getProblemById(problemId)
             .then(problem => {
-                setCurrentProblem(problem);
                 setProblemDescription(problem.description || 'Press Edit Description to start writing the description. Styling with Markdown is supported.\n');
                 setIsProblemArchived(problem.archived);
 
@@ -52,6 +50,8 @@ const ProblemEditor = () => {
                         "providedCodesFileId":""
                     })
                 }
+
+                setCurrentProblem(problem);
             })
             .catch(reason => setProblemNotFound(true));
     }
@@ -71,8 +71,9 @@ const ProblemEditor = () => {
                 "resourceSpecGpu": currentProblem.languageEnvs[i].resourceSpec.gpu,
                 "submittedCodeSpecs": currentProblem.languageEnvs[i].submittedCodeSpecs
             }
-            // console.log('requestBody', requestBody)
+            console.log('requestBody', requestBody)
             problemService.modifyProblemLanguageEnvs(problemId, currentProblem.languageEnvs[i].name, requestBody)
+                .then((res) => console.log(res));
 
             if (providedCodesFiles.length > 1 || (providedCodesFiles.length === 1 && providedCodesFiles[0] instanceof File)) {
                 const data = new FormData()
@@ -100,9 +101,10 @@ const ProblemEditor = () => {
     }, [currentProblem, matchPolicyList, problemId])
 
     const handleTagsChange = (tags) => {
-        setCurrentProblem((prevState) => {
-            prevState.tags = tags
-            return prevState
+        setCurrentProblem((state) => {
+            state.tags = tags
+            console.log(tags)
+            return state
         })
     }
 

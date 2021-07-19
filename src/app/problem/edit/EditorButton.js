@@ -17,7 +17,8 @@ const EditorButton = ({
                     borderRadius: borderRadius, padding: 10, color: fontColor,
                     display: "flex", borderColor: borderColor,
                     borderWidth: 2, marginTop: marginTop, marginRight: marginRight,
-                    marginBottom: marginBottom, marginLeft: marginLeft
+                    marginBottom: marginBottom, marginLeft: marginLeft,
+                    outline: "none", boxShadow: "none"
                 }}>
                 {text}
             </button>

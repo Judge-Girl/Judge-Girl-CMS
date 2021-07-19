@@ -7,6 +7,7 @@ import {Spinner} from "../../commons/Spinner";
 import {ProblemEditor} from "../ProblemEditor";
 import {Link, Redirect, Route, Switch} from "react-router-dom";
 import {TableCell} from "../../../utils/TableCell";
+import ProblemEditor2 from "../../problem2/ProblemEditor2";
 
 const ProblemList = () => {
     const [showCreateProblemModal, setShowCreateProblemModal] = useState(false);
@@ -86,6 +87,9 @@ const ProblemList = () => {
             <Switch>
                 <Route path="/problems/:problemId/edit">
                     <ProblemEditor/>
+                </Route>
+                <Route path="/problems/:problemId/edit2">
+                    <ProblemEditor2/>
                 </Route>
             </Switch>
         </>

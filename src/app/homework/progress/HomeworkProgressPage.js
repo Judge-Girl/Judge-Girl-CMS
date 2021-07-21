@@ -46,7 +46,7 @@ const HomeworkProgressPage = () => {
                             <button className="import-groups-button button mt-2"
                                     onClick={() => setShowAddGroupModal(true)}>Import Groups
                             </button>
-                            <button className="button export-csv-button" >Export CSV
+                            <button className="button export-csv-button">Export CSV
                             </button>
                         </div>
                     </div>
@@ -58,10 +58,9 @@ const HomeworkProgressPage = () => {
                             ...currentHomework.problemIds.map(problemId => <TableCell>{problemId}</TableCell>),
                             <TableCell>Table Score</TableCell>
                         ]}
-
                         showFilterSearchBar={false}
                     />
-                    <TextareaModal title={"Import Students"}
+                    <TextareaModal title="Import Students"
                                    body={{
                                        description: "To see the homework progress for each students.",
                                        Icon: AiOutlineMail,
@@ -72,7 +71,7 @@ const HomeworkProgressPage = () => {
                                    show={showAddStudentModal}
                                    onClose={() => setShowAddStudentModal(false)}
                     />
-                    <TextareaModal title={"Import Groups"}
+                    <TextareaModal title="Import Groups"
                                    body={{
                                        description: "To see the homework progress for students in groups.",
                                        Icon: AiOutlineUsergroupAdd,

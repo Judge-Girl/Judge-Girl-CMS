@@ -24,7 +24,7 @@ const HomeworkList = () => {
             .then(homeworkList => {
                 setHomeworkList(homeworkList);
                 setCurrentHomework(homeworkList.find(homework => parseInt(homework.id) === parseInt(homeworkId)));
-            })
+            });
     }, [setHomeworkList,setCurrentHomework]);
 
     useEffect(() => {

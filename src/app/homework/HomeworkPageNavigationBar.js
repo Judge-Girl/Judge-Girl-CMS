@@ -1,7 +1,7 @@
 import {InPageNavigationBar} from "../commons/IndexBanner/InPageNavigationBar";
 import {AiFillYoutube} from "react-icons/all";
 
-const HomeworkPageNavigationBar = function ({currentURL, homeworkName, homeworkId}) {
+const HomeworkPageNavigationBar = ({currentURL, homeworkName, homeworkId}) => {
     return (
         <InPageNavigationBar currentURL={currentURL}
                              path={{

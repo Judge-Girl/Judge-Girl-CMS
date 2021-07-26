@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from "react";
-import {Redirect, useParams, useRouteMatch} from 'react-router-dom'
+import {Redirect, useParams, useRouteMatch} from "react-router-dom"
 import {ExamInPageNavigationBar} from "../ExamInPageNavigationBar";
 import {TitleLine} from "../../commons/titles/TitleLine";
 import ExamName from "./ExamName";
@@ -9,7 +9,7 @@ import {examService} from "../../../services/services";
 import {formatDate} from "../../../utils/utils";
 import {useExamContext} from "../questions/ExamContext";
 import {Spinner} from "../../commons/Spinner";
-import './ExamOptions.scss';
+import "./ExamOptions.scss";
 import {DangerZone} from "../../commons/dangerZone/DangerZone";
 import {DeleteConfirmationModal} from "../../commons/modals/DeleteConfirmationModal";
 
@@ -47,11 +47,12 @@ const ExamOptions = () => {
     };
 
     const deleteExam = () => {
-        examService.deleteExam(examId).then(() => {
-                setShouldRedirect(true);
-                setExams(exams.filter(g => g !== currentExam));
-            }
-        )
+        examService.deleteExam(examId)
+            .then(() => {
+                    setShouldRedirect(true);
+                    setExams(exams.filter(g => g !== currentExam));
+                }
+            )
     };
 
     if (!currentExam) {
@@ -60,7 +61,7 @@ const ExamOptions = () => {
 
     return (
         <>
-            {shouldRedirect ? <Redirect to={`/exams`}/> : ""}
+            {shouldRedirect ? <Redirect to="/exams"/> : ""}
             <div className="exam-options">
                 <ExamInPageNavigationBar
                     currentURL={currentURL}
@@ -72,7 +73,7 @@ const ExamOptions = () => {
                             display: "flex", flexDirection: "column", alignItems: "flex-start",
                             paddingLeft: "150px"
                         }}>
-                            <TitleLine title={"Options"}/>
+                            <TitleLine title="Options"/>
                             <div className="column is-narrow" style={{width: "450px"}}>
                                 <section>
                                     <ExamName examName={currentExam.name} setter={setNewExamName}/>
@@ -97,16 +98,16 @@ const ExamOptions = () => {
                             </div>
                             <div className="column right">
                             </div>
-                            <TitleLine title={"Danger Zone"}/>
+                            <TitleLine title="Danger Zone"/>
                             <DangerZone onDangerButtonClick={() => setShowDeleteExamModal(true)}
-                                        header={'Delete this exam'}
-                                        description={'Once you delete an exam, there is no going back. Please be certain.'}
-                                        buttonName={'Delete Exam'}/>
+                                        header="Delete this exam"
+                                        description="Once you delete an exam, there is no going back. Please be certain."
+                                        buttonName="Delete Exam"/>
                         </div>
                     </div>
                 </div>
 
-                <DeleteConfirmationModal title={"Delete the Exam?"}
+                <DeleteConfirmationModal title="Delete the Exam"
                                          data={[
                                              {
                                                  title: "Exam Name",

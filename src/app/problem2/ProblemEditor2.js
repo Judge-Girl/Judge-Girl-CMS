@@ -1,13 +1,11 @@
 import React, {useEffect, useState} from "react";
 import LeftBar from "./left/LeftBar";
-import {useParams} from "react-router-dom";
 import {problemService} from "../../services/services";
 import {Spinner} from "../commons/Spinner";
 import RightBar from "./right/RightBar";
 
 
 const ProblemEditor2 = () => {
-    const {problemId} = useParams();
     const [currentProblem, setCurrentProblem] = useState(undefined);
 
     const fetchProblem = (problemId) => {
@@ -16,12 +14,6 @@ const ProblemEditor2 = () => {
                 setCurrentProblem(problem);
             });
     };
-
-    useEffect(() => {
-        if (!currentProblem) {
-            fetchProblem(problemId);
-        }
-    }, [currentProblem, problemId]);
 
     if (!currentProblem) {
         return <Spinner/>;

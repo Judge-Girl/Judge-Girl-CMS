@@ -6,7 +6,9 @@ const Block = ({title, id, titleButton, children}) => {
                 <div className="block-title-item" style={{fontSize: "21px", fontWeight: "700"}}>
                     {title}
                 </div>
-                <div className="block-title-item">{titleButton}</div>
+                <div className="block-title-item">
+                    {titleButton}
+                </div>
             </div>
             <div>
                 {children}

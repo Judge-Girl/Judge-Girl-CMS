@@ -1,4 +1,3 @@
-import * as React from "react";
 
 const EditorButton = ({
                           text, buttonColor, width = 356,

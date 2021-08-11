@@ -1,6 +1,6 @@
 import "./rightbar.scss"
 import ProblemEditorTitle from "../../problem/edit/ProblemEditorTitle";
-import React, {useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import {problemService} from "../../../services/services";
 import {Spinner} from "../../commons/Spinner";
@@ -47,7 +47,7 @@ const RightBar = () => {
             <OutputMatchPolicy/><hr/>
             <Visible/><hr/>
             <Description/><hr/>
-            <TestCases/><hr/>
+            <TestCases/>
             <Actions/>
         </div>
     </>;

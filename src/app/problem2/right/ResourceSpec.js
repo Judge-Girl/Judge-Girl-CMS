@@ -11,8 +11,8 @@ const ResourceSpec = () => {
                                           height="36px"
                                           borderRadius="50px"
                                           fontColor="rgba(124,124,124,1)"
-                                          borderColor="#D2D2D2"
-               />}>
+                                          borderColor="#D2D2D2" />
+               }>
             CPU: 1<br/>
             GPU: 1
         </Block>

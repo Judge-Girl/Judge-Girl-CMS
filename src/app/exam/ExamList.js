@@ -94,7 +94,7 @@ const ExamList = () => {
                     </div>
                 </div>
             </Route>
-            <ExamContext.Provider value={{currentExam, setCurrentExam, refetchExam, setShouldRedirect}}>
+            <ExamContext.Provider value={{currentExam, setCurrentExam, refetchExam, setShouldRedirect, exams, setExams}}>
                 <Switch>
                     <Route path="/exams/:examId/problems">
                         <ExamQuestions/>

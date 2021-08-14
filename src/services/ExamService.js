@@ -43,6 +43,10 @@ export class ExamService extends AbstractService {
             .then(res => new Exam(res.data));
     }
 
+    async deleteExam(examId) {
+        return this.axios.delete(`/api/exams/${examId}`);
+    }
+
     async getExaminees(examId) {
         return this.axios.get(`/api/exams/${examId}/students`)
             .then(res => res.data.map(obj => new Student(obj)));

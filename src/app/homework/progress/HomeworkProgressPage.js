@@ -41,10 +41,12 @@ const HomeworkProgressPage = () => {
                     <div className="mt-4 mr-3" style={{width: "fit-content", textAlign: "center"}}>
                         <div className="homework-button">
                             <button className="import-students-button button mt-2"
-                                    onClick={() => setShowAddStudentModal(true)}>Import Students
+                                    onClick={() => setShowAddStudentModal(true)}>
+                                Import Students
                             </button>
                             <button className="import-groups-button button mt-2"
-                                    onClick={() => setShowAddGroupModal(true)}>Import Groups
+                                    onClick={() => setShowAddGroupModal(true)}>
+                                Import Groups
                             </button>
                             <button className="button export-csv-button">Export CSV
                             </button>
@@ -58,8 +60,8 @@ const HomeworkProgressPage = () => {
                             ...currentHomework.problemIds.map(problemId => <TableCell>{problemId}</TableCell>),
                             <TableCell>Table Score</TableCell>
                         ]}
-                        showFilterSearchBar={false}
-                    />
+                        showFilterSearchBar={false}/>
+
                     <TextareaModal title="Import Students"
                                    body={{
                                        description: "To see the homework progress for each students.",
@@ -69,8 +71,8 @@ const HomeworkProgressPage = () => {
                                        buttonName: "Import"
                                    }}
                                    show={showAddStudentModal}
-                                   onClose={() => setShowAddStudentModal(false)}
-                    />
+                                   onClose={() => setShowAddStudentModal(false)}/>
+
                     <TextareaModal title="Import Groups"
                                    body={{
                                        description: "To see the homework progress for students in groups.",
@@ -80,8 +82,7 @@ const HomeworkProgressPage = () => {
                                        buttonName: "Import"
                                    }}
                                    show={showAddGroupModal}
-                                   onClose={() => setShowAddGroupModal(false)}
-                    />
+                                   onClose={() => setShowAddGroupModal(false)}/>
                 </div>
             </div>
         </div>

@@ -15,8 +15,9 @@ const NewMarkdownEditorWriteTab = ({rawText = defaultLines.join("  \n")}) => {
     return <>
         <textarea className="main"
                   value={rawText}
+                  style={{width: "100%", height: "300px"}}
                   onChange={handleTextareaChange}/>
     </>;
-}
+};
 
 export default NewMarkdownEditorWriteTab;

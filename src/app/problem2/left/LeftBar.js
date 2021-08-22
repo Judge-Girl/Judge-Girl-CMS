@@ -23,7 +23,7 @@ const LeftBar = () => {
         <div className="problem-editor-leftbar" style={{
             display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-end",
             position: "fixed", width: "200px"}}>
-            <a key="#" href="#" onClick={backToTop}>
+            <a key="#" href={`/problems/${problemId}/edit2`} onClick={backToTop}>
                 ID: {problemId}
             </a>
         {SECTIONS.map(section =>

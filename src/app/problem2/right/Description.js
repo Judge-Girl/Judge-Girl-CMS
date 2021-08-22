@@ -1,28 +1,28 @@
-import {EditorButton} from "../../problem/edit/EditorButton";
 import Block from "./Block";
 import {useState} from "react";
 import NewMarkdownEditor from "../commons/NewMarkdownEditor";
 import NewMarkdownEditorWriteTab from "../commons/NewMarkdownEditorWriteTab";
 import NewMarkdownEditorPreviewTab from "../commons/NewMarkdownEditorPreviewTab";
 import {EditorContext} from "../commons/NewMarkdownEditorContext";
+import {ESCButton} from "../commons/ESCButton";
 
 
 const Description = () => {
-    const [onEdit, setOnEdit] = useState(false);
+    const [isEditing, setIsEditing] = useState(false);
     const [draftRawText, setDraftRawText] = useState(undefined);
     const [finalRawText, setFinalRawText] = useState(undefined);
 
-    const onEditButtonClicked = () => {
-        setOnEdit(true);
+    const onClickEdit = () => {
+        setIsEditing(true);
     }
 
-    const onSaveButtonClicked = () => {
-        setOnEdit(false);
+    const onClickSave = () => {
+        setIsEditing(false);
         // TODO: call API to save to DB.
     }
 
-    const onCancelButtonClicked = () => {
-        setOnEdit(false);
+    const onClickCancel = () => {
+        setIsEditing(false);
         setDraftRawText(undefined);
         setFinalRawText(undefined);
     }
@@ -30,31 +30,12 @@ const Description = () => {
     return <>
         <Block title="Description"
                id="problem-editor-description"
-               titleButton={!onEdit?
-                   <EditorButton text="Edit"
-                                 width="70px"
-                                 height="36px"
-                                 borderRadius="50px"
-                                 fontColor="rgba(124,124,124,1)"
-                                 borderColor="#D2D2D2"
-                                 onClick={onEditButtonClicked}/>
-                   :
-                   <div style={{display: "flex", flexDirection: "row"}}>
-                       <EditorButton text="Save"
-                                     buttonColor="rgba(88, 214, 141, 1)"
-                                     fontColor="#FFF"
-                                     width="70px"
-                                     height="36px"
-                                     borderRadius="50px"
-                                     onClick={onSaveButtonClicked}/>
-                       <EditorButton text="Cancel"
-                                     fontColor="rgba(124,124,124,1)"
-                                     width="87px"
-                                     height="36px"
-                                     borderRadius="50px"
-                                     marginLeft="10px"
-                                     onClick={onCancelButtonClicked}/>
-                   </div>
+               titleButton={
+                   <ESCButton
+                       isEditing={isEditing}
+                       onClickEdit={onClickEdit}
+                       onClickSave={onClickSave}
+                       onClickCancel={onClickCancel}/>
                }>
             <EditorContext.Provider value={{draftRawText, setDraftRawText,
                 finalRawText, setFinalRawText}}>
@@ -64,11 +45,11 @@ const Description = () => {
                         {title: "Preview", component: <NewMarkdownEditorPreviewTab/>}
                     ]}
                     defaultIndex={1}
-                    onEdit={onEdit}/>
+                    onEdit={setIsEditing}/>
             </EditorContext.Provider>
             <br/>
         </Block>
     </>;
-}
+};
 
 export default Description;

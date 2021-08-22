@@ -17,23 +17,5 @@ const SECTIONS = [
     new SectionObject("Actions", "problem-editor-actions")
 ];
 
-{/*    {isProblemArchived ? <RestoreAndDeleteProblemButtons/> : <ArchiveProblemButton/>}*/}
-{/*</div>*/}
-{/*    <div style={{width: "950px"}}>*/}
-{/*        <section>*/}
-{/*            <SubtitleLine title={"Description"}/>*/}
-{/*            /!*<MarkdownEditor text={problemDescription}*!/*/}
-{/*            /!*                onTextChanged={setProblemDescription}*!/*/}
-{/*            /!*                editingState={editingState}*!/*/}
-{/*            /!*                editorButtons={editingState ?*!/*/}
-{/*            /!*                    <HandleDescriptionButtons/> : <EditDescriptionButton/>*!/*/}
-{/*            /!*                }*!/*/}
-{/*            /!*                style={{backgroundColor: "var(--backgroundDim)"}}/>*!/*/}
-{/*        </section>*/}
-{/*        <section>*/}
-{/*            <TestCase/>*/}
-{/*        </section>*/}
-{/*    </div>*/}
-{/*</div>*/}
 
 export {SECTIONS};

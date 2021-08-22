@@ -1,106 +1,102 @@
 
 export class ExamScoreboard {
-    #examinees
-    #examQuestions
-    #examTranscript
-    #totalTestCasesOf
-    #studentRecords = {}
-    #questionRecords = {}
 
     constructor({examinees, examOverview, examTranscript, totalTestCasesOf}) {
-        this.#examinees = examinees;
-        this.#examQuestions = examOverview.questions.sort((q1, q2) => q1.questionOrder - q2.questionOrder);
-        this.#examTranscript = examTranscript;
-        this.#totalTestCasesOf = totalTestCasesOf;
-        this.#buildStudentRecordsTotalScore();
-        this.#buildStudentRecordsScores();
-        this.#buildQuestionRecordsTestCases();
-        this.#buildQuestionRecordsTotalPass();
-        this.#buildQuestionRecordsAverage();
-        this.#buildQuestionRecordsNoSubmission();
+        this.examinees = examinees;
+        this.examQuestions = examOverview.questions.sort((q1, q2) => q1.questionOrder - q2.questionOrder);
+        this.examTranscript = examTranscript;
+        this.totalTestCasesOf = totalTestCasesOf;
+        this.studentRecords = {};
+        this.questionRecords = {};
+        this.buildStudentRecordsTotalScore();
+        this.buildStudentRecordsScores();
+        this.buildQuestionRecordsTestCases();
+        this.buildQuestionRecordsTotalPass();
+        this.buildQuestionRecordsAverage();
+        this.buildQuestionRecordsNoSubmission();
     }
 
-    #buildStudentRecordsTotalScore() {
+    buildStudentRecordsTotalScore() {
         this.examinees.forEach(examinee => {
-            this.#studentRecords[examinee.id] = {};
-            this.#studentRecords[examinee.id].totalScore = this.#studentTotalScore(examinee.id);
+            this.studentRecords[examinee.id] = {};
+            this.studentRecords[examinee.id].totalScore = this.studentTotalScore(examinee.id);
         })
     }
 
-    #buildStudentRecordsScores() {
+    buildStudentRecordsScores() {
         this.examinees.forEach(examinee => {
-            if (!this.#studentRecords[examinee.id]) {
-                this.#studentRecords[examinee.id] = {};
+            if (!this.studentRecords[examinee.id]) {
+                this.studentRecords[examinee.id] = {};
             }
-            this.#studentRecords[examinee.id].scores = this.#studentScores(examinee.id);
+            this.studentRecords[examinee.id].scores = this.studentScores(examinee.id);
         });
     }
 
-    #buildQuestionRecordsTestCases() {
+    buildQuestionRecordsTestCases() {
         this.examQuestions.forEach(problem => {
-            if (!this.#questionRecords[problem.problemId]) {
-                this.#questionRecords[problem.problemId] = {};
+            if (!this.questionRecords[problem.problemId]) {
+                this.questionRecords[problem.problemId] = {};
             }
-            this.#questionRecords[problem.problemId].testCases = this.#testCasesDataByOneProblemId(problem.problemId);
+            this.questionRecords[problem.problemId].testCases = this.testCasesDataByOneProblemId(problem.problemId);
         });
     }
 
-    #buildQuestionRecordsTotalPass() {
+    buildQuestionRecordsTotalPass() {
         this.examQuestions.forEach(problem => {
-            if (!this.#questionRecords[problem.problemId]) {
-                this.#questionRecords[problem.problemId] = {};
+            if (!this.questionRecords[problem.problemId]) {
+                this.questionRecords[problem.problemId] = {};
             }
-            this.#questionRecords[problem.problemId].totalPass = this.#totalPassDataByOneProblemId(problem.problemId);
+            this.questionRecords[problem.problemId].totalPass = this.totalPassDataByOneProblemId(problem.problemId);
         });
     }
 
-    #buildQuestionRecordsAverage() {
+    buildQuestionRecordsAverage() {
         this.examQuestions.forEach(problem => {
-            if (!this.#questionRecords[problem.problemId]) {
-                this.#questionRecords[problem.problemId] = {};
+            if (!this.questionRecords[problem.problemId]) {
+                this.questionRecords[problem.problemId] = {};
             }
-            this.#questionRecords[problem.problemId].average = this.#questionAverageByOneProblemId(problem.problemId);
+            this.questionRecords[problem.problemId].average = this.questionAverageByOneProblemId(problem.problemId);
         });
     }
 
-    #buildQuestionRecordsNoSubmission() {
+    buildQuestionRecordsNoSubmission() {
         this.examQuestions.forEach(question => {
-            if (!this.#questionRecords[question.problemId]) {
-                this.#questionRecords[question.problemId] = {};
+            if (!this.questionRecords[question.problemId]) {
+                this.questionRecords[question.problemId] = {};
             }
-            this.#questionRecords[question.problemId].noSubmission = this.#countNoSubmissionByProblemId(question.problemId);
+            this.questionRecords[question.problemId].noSubmission = this.countNoSubmissionByProblemId(question.problemId);
         });
     }
 
-    #studentTotalScore(studentId) {
-        return this.#submissionsByStudentId(studentId)
+    studentTotalScore(studentId) {
+        return this.submissionsByStudentId(studentId)
             .reduce((sum, submission) => sum + submission.verdict.totalGrade, 0);
     }
 
-    #studentScores(studentId) {
+    studentScores(studentId) {
         const scores = Array(this.totalProblems).fill(0);
-        const submissions = this.#submissionsByStudentId(studentId);
+        const submissions = this.submissionsByStudentId(studentId);
         for (let i = 0; i < this.totalProblems; i++) {
-            const find = submissions.filter(submission => submission.problemId === this.#examQuestions[i].problemId);
+            const find = submissions.filter(submission => submission.problemId === this.examQuestions[i].problemId);
             scores[i] = find.length > 0 ? find[0].verdict.totalGrade : 0;
         }
         return scores;
     }
 
-    #testCasesDataByOneProblemId(problemId) {
+    testCasesDataByOneProblemId(problemId) {
         const totalTestCases = this.totalTestCasesOf[problemId];
         const testCasesData = Array(totalTestCases).fill(0);
-        this.#submissionsByProblemId(problemId)
+        this.submissionsByProblemId(problemId)
             .forEach(submission => submission.verdict.judges
                 .forEach(judge => testCasesData[parseInt(judge.testcaseName)] += judge.grade === judge.maxGrade ? 1 : 0)
             );
         return testCasesData;
     }
 
-    #totalPassDataByOneProblemId(problemId) {
+    totalPassDataByOneProblemId(problemId) {
         const totalTestCases = this.totalTestCasesOf[problemId];
         const totalPassData = Array(totalTestCases + 1).fill(0);
-        this.#submissionsByProblemId(problemId)
+        this.submissionsByProblemId(problemId)
             .forEach(submission => {
                 let totalPass = submission.verdict.judges
                     .reduce((sum, judge) => sum + (judge.grade === judge.maxGrade ? 1 : 0), 0);
@@ -109,62 +105,38 @@ export class ExamScoreboard {
         return totalPassData;
     }
 
-    #questionAverageByOneProblemId(problemId) {
-        const sumOfGrades = this.#submissionsByProblemId(problemId)
+    questionAverageByOneProblemId(problemId) {
+        const sumOfGrades = this.submissionsByProblemId(problemId)
             .reduce((sum, submission) => sum + parseFloat(submission.verdict.totalGrade), 0);
         return parseFloat((sumOfGrades / this.totalExaminees).toFixed(2));
     }
 
-    #countNoSubmissionByProblemId(problemId) {
-        return this.totalExaminees - this.#submissionsByProblemId(problemId).length;
+    countNoSubmissionByProblemId(problemId) {
+        return this.totalExaminees - this.submissionsByProblemId(problemId).length;
     }
 
-    #submissionsByProblemId(problemId) {
+    submissionsByProblemId(problemId) {
         return this.submissions.filter(submission => submission.problemId === problemId);
-    }
-
-    get examinees() {
-        return this.#examinees;
     }
 
     get totalExaminees() {
         return this.examinees.length;
     }
 
-    get examQuestions() {
-        return this.#examQuestions;
-    }
-
     get totalProblems() {
         return this.examQuestions.length;
-    }
-
-    get examTranscript() {
-        return this.#examTranscript;
-    }
-
-    get totalTestCasesOf() {
-        return this.#totalTestCasesOf;
-    }
-
-    get studentRecords() {
-        return this.#studentRecords
-    }
-
-    get questionRecords() {
-        return this.#questionRecords
     }
 
     get submissions() {
         return this.examTranscript.records.map(record => record.submission);
     }
 
-    #submissionsByStudentId(studentId) {
+    submissionsByStudentId(studentId) {
         return this.submissions.filter(submission => submission.studentId === studentId);
     }
 
     get crossAverage() {
-        const sumOfStudentTotalScore = this.examinees.reduce((sum, e) => sum + this.#studentTotalScore(e.id), 0);
+        const sumOfStudentTotalScore = this.examinees.reduce((sum, e) => sum + this.studentTotalScore(e.id), 0);
         return parseFloat((sumOfStudentTotalScore / this.totalExaminees).toFixed(2));
     }
 

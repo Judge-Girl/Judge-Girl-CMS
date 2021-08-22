@@ -6,9 +6,9 @@ const NewMarkdownEditorPreviewTab = () => {
 
     return <>
         <ReactMarkdown className="main">
-            {draftRawText}
+            {draftRawText? draftRawText : "1233333333333333333333333"}
         </ReactMarkdown>
     </>;
-}
+};
 
 export default NewMarkdownEditorPreviewTab;

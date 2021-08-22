@@ -9,12 +9,10 @@ const TextInputForm = ({placeholder, onSubmit, style}) => {
         setInput(e.target.value);
     };
 
-    const handleSubmit = e => {
+    const onFormSubmit = e => {
         e.preventDefault();
 
-        onSubmit({
-            id: tagId, text: input
-        });
+        onSubmit({id: tagId, text: input});
 
         setInput('');
         setTagId(tagId + 1);
@@ -22,7 +20,7 @@ const TextInputForm = ({placeholder, onSubmit, style}) => {
 
     return (
         <div className="text-input-form">
-            <form className="tag-form" onSubmit={handleSubmit} style={{display: "table"}}>
+            <form className="tag-form" onSubmit={onFormSubmit} style={{display: "table"}}>
                 <p style={{display: "table-cell", ...style}}>
                     <input
                         type='text'

@@ -1,22 +1,42 @@
-import {EditorButton} from "../../problem/edit/EditorButton";
 import Block from "./Block";
-import React from "react";
+import {useState} from "react";
+import {ESCButton} from "../commons/ESCButton";
 
 const ResourceSpec = () => {
+    const [isEditing, setIsEditing] = useState(false);
+
+    const onClickEdit = () => {
+        setIsEditing(true);
+    }
+
+    const onClickSave = () => {
+        setIsEditing(false);
+    }
+
+    const onClickCancel = () => {
+        setIsEditing(false);
+    }
     return <>
         <Block title="Resource Spec"
                id="problem-editor-resource-spec"
-               titleButton={<EditorButton text="Edit"
-                                          width="70px"
-                                          height="36px"
-                                          borderRadius="50px"
-                                          fontColor="rgba(124,124,124,1)"
-                                          borderColor="#D2D2D2" />
+               titleButton={
+               <ESCButton
+                   isEditing={isEditing}
+                   onClickEdit={onClickEdit}
+                   onClickSave={onClickSave}
+                   onClickCancel={onClickCancel}/>
                }>
+            {!isEditing?
+                <>
+                </>
+                :
+                <>
+                </>
+            }
             CPU: 1<br/>
             GPU: 1
         </Block>
     </>;
-}
+};
 
 export default ResourceSpec;

@@ -10,7 +10,7 @@ const ProblemTitle = () => {
     const [problemTitle, setProblemTitle] = useState(currentProblem.title);
     const [isEditing, setIsEditing] = useState(false);
 
-    const onSaveClick = () => {
+    const onClickSave = () => {
         if (problemTitle.length === 0) {
             return;
         }
@@ -22,7 +22,7 @@ const ProblemTitle = () => {
         setIsEditing(false);
     };
 
-    const onCancelClick = () => {
+    const onClickCancel = () => {
         setProblemTitle(currentProblem.title);
         setIsEditing(false);
     }
@@ -38,20 +38,23 @@ const ProblemTitle = () => {
                     onChange={e => setProblemTitle(e.target.value)}
                     required
                 />
-                <EditorButton text="Save"
-                              buttonColor={"#96D745"}
-                              width={75} height={33}
-                              fontSize={15}  fontColor={"#FFFFFF"}
-                              marginLeft={7} marginBottom={20}
-                              borderRadius={20}
-                              onClick={onSaveClick}/>
-                <EditorButton text="Cancel"
-                              buttonColor={"#FFFFFF"}
-                              width={75} height={33}
-                              fontSize={15} fontColor={"#A2A3B1"}
-                              marginLeft={7} marginBottom={20}
-                              borderRadius={20} borderColor={"#A2A3B1"}
-                              onClick={onCancelClick}/>
+                {/* TODO: Vertical Centering. */}
+                <div style={{display: "flex", flexDirection: "row", alignItems: "center"}}>
+                    <EditorButton text="Save"
+                                  buttonColor="rgba(88, 214, 141, 1)"
+                                  fontColor="#FFF"
+                                  width="70px"
+                                  height="36px"
+                                  borderRadius="50px"
+                                  onClick={onClickSave}/>
+                    <EditorButton text="Cancel"
+                                  fontColor="rgba(124,124,124,1)"
+                                  width="87px"
+                                  height="36px"
+                                  borderRadius="50px"
+                                  marginLeft="10px"
+                                  onClick={onClickCancel}/>
+                </div>
             </form>
             :
             <div className="problem-name-title">
@@ -64,6 +67,6 @@ const ProblemTitle = () => {
         }
         </div>
     </>;
-}
+};
 
 export default ProblemTitle;

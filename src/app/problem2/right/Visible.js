@@ -5,6 +5,19 @@ import {useState} from "react";
 
 const Visible = () => {
     const [isOnClicked, setIsOnClicked] = useState(false);
+    const [isEditing, setIsEditing] = useState(false);
+
+    const onClickEdit = () => {
+        setIsEditing(true);
+    }
+
+    const onClickSave = () => {
+        setIsEditing(false);
+    }
+
+    const onClickCancel = () => {
+        setIsEditing(false);
+    }
 
     return <>
         <Block title="Visible"
@@ -31,8 +44,9 @@ const Visible = () => {
                        />
                    </div>
                }>
+            *The problem for exam used should be unvisible
         </Block>
     </>;
-}
+};
 
 export default Visible;

@@ -5,22 +5,18 @@ import CreateProblemModal from "../Modal/CreateProblemModal";
 import {problemService} from "../../../services/services";
 import {Spinner} from "../../commons/Spinner";
 import {ProblemEditor} from "../ProblemEditor";
-import {Link, Redirect, Route, Switch} from "react-router-dom";
+import {Link, Route, useHistory} from "react-router-dom";
 import {TableCell} from "../../../utils/TableCell";
 import ProblemEditor2 from "../../problem2/ProblemEditor2";
 
+
 const ProblemList = () => {
-    const [showCreateProblemModal, setShowCreateProblemModal] = useState(false);
+    const history = useHistory();
     const [problems, setProblems] = useState(undefined);
-    // TODO: The currentProblemId is not reset to undefined when in ProblemEditor2.
-    const [currentProblemId, setCurrentProblemId] = useState(undefined);
-    const fetchProblems = useCallback(problemId => {
-        problemService.getAllProblems()
-            .then(problems => {
-                setProblems(problems);
-                setCurrentProblemId(problemId);
-            });
-    }, [setProblems, setCurrentProblemId]);
+    const [showCreateProblemModal, setShowCreateProblemModal] = useState(false);
+    const fetchProblems = useCallback(() => {
+        problemService.getAllProblems().then(setProblems);
+    }, [setProblems]);
 
     useEffect(() => {
         if (!problems || problems.length === 0) {
@@ -36,61 +32,61 @@ const ProblemList = () => {
     This should be deleted after review.
     */
 
+    const onProblemCreated = problemId => {
+        fetchProblems();
+        history.push(`/problems/${problemId}/edit2`);
+    }
+
     if (!problems) {
         return <Spinner/>;
     }
 
-    return (
-        <>{currentProblemId?
-            <Redirect to={`problems/${currentProblemId}/edit2`}/>: ""}
-            <Switch>
-                <Route path="/problems" exact>
-                    <div className="problem-list font-poppins">
-                        <div style={{paddingTop: "20px", paddingBottom: "150px"}}>
-                            <div style={{display: "flex", justifyContent: "center"}}>
-                                <ItemListPage title="Problem List"
-                                              width="1000px"
-                                              filterItems={["Filter", "Id", "tags"]}
-                                              Button={() =>
-                                                  <CreateButton onClick={() => setShowCreateProblemModal(true)}/>}
-                                              tableHeaders={[
-                                                  <TableCell>#</TableCell>,
-                                                  <TableCell>Problem Title</TableCell>,
-                                                  <TableCell>Tags</TableCell>
-                                              ]}
-                                              tableRowGenerator={{
-                                                  list: problems,
-                                                  key: (problem) => problem.id,
-                                                  data: (problem) => [
-                                                      <TableCell>
-                                                          <p>{problem.id}</p>
-                                                      </TableCell>,
-                                                      <TableCell>
-                                                          <Link to={`problems/${problem.id}/edit2`}>
-                                                              {problem.title}</Link>
-                                                      </TableCell>,
-                                                      <TableCell>
-                                                          <span className="tag is-link">Functions</span>
-                                                      </TableCell>,
-                                                  ]
-                                              }}
-                                              tableDataStyle={{textAlign: "left"}}/>
-                                <CreateProblemModal show={showCreateProblemModal}
-                                                    onClose={() => setShowCreateProblemModal(false)}
-                                                    onProblemCreated={problemId => fetchProblems(problemId)}/>
-                            </div>
-                        </div>
+    return <>
+        <Route path="/problems" exact>
+            <div className="problem-list font-poppins">
+                <div style={{paddingTop: "20px", paddingBottom: "150px"}}>
+                    <div style={{display: "flex", justifyContent: "center"}}>
+                        <ItemListPage title="Problem List"
+                                      width="1000px"
+                                      filterItems={["Filter", "Id", "tags"]}
+                                      Button={() =>
+                                          <CreateButton onClick={() => setShowCreateProblemModal(true)}/>}
+                                      tableHeaders={[
+                                          <TableCell>#</TableCell>,
+                                          <TableCell>Problem Title</TableCell>,
+                                          <TableCell>Tags</TableCell>
+                                      ]}
+                                      tableRowGenerator={{
+                                          list: problems,
+                                          key: (problem) => problem.id,
+                                          data: (problem) => [
+                                              <TableCell>
+                                                  <p>{problem.id}</p>
+                                              </TableCell>,
+                                              <TableCell>
+                                                  <Link to={`problems/${problem.id}/edit2`}>
+                                                      {problem.title}</Link>
+                                              </TableCell>,
+                                              <TableCell>
+                                                  <span className="tag is-link">Functions</span>
+                                              </TableCell>,
+                                          ]
+                                      }}
+                                      tableDataStyle={{textAlign: "left"}}/>
+                        <CreateProblemModal show={showCreateProblemModal}
+                                            onClose={() => setShowCreateProblemModal(false)}
+                                            onProblemCreated={onProblemCreated}/>
                     </div>
-                </Route>
-                <Route path="/problems/:problemId/edit">
-                    <ProblemEditor/>
-                </Route>
-                <Route path="/problems/:problemId/edit2">
-                    <ProblemEditor2 clearParentFlag/>
-                </Route>
-            </Switch>
-        </>
-    )
+                </div>
+            </div>
+        </Route>
+        <Route path="/problems/:problemId/edit">
+            <ProblemEditor/>
+        </Route>
+        <Route path="/problems/:problemId/edit2">
+            <ProblemEditor2/>
+        </Route>
+    </>
 };
 
 

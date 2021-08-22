@@ -8,6 +8,7 @@ import {ProblemEditor} from "../ProblemEditor";
 import {Link, Route, useHistory} from "react-router-dom";
 import {TableCell} from "../../../utils/TableCell";
 import ProblemEditor2 from "../../problem2/ProblemEditor2";
+import {ProblemEditorContext} from "../../problem2/ProblemEditorContext";
 
 
 const ProblemList = () => {
@@ -17,6 +18,7 @@ const ProblemList = () => {
     const fetchProblems = useCallback(() => {
         problemService.getAllProblems().then(setProblems);
     }, [setProblems]);
+    const [currentProblem, setCurrentProblem] = useState(undefined);
 
     useEffect(() => {
         if (!problems || problems.length === 0) {
@@ -64,7 +66,8 @@ const ProblemList = () => {
                                                   <p>{problem.id}</p>
                                               </TableCell>,
                                               <TableCell>
-                                                  <Link to={`problems/${problem.id}/edit2`}>
+                                                  <Link to={`problems/${problem.id}/edit2`}
+                                                        onClick={setCurrentProblem(undefined)}>
                                                       {problem.title}</Link>
                                               </TableCell>,
                                               <TableCell>
@@ -84,9 +87,12 @@ const ProblemList = () => {
             <ProblemEditor/>
         </Route>
         <Route path="/problems/:problemId/edit2">
-            <ProblemEditor2/>
+            <ProblemEditorContext.Provider
+                value={{fetchProblems, currentProblem, setCurrentProblem}}>
+                <ProblemEditor2/>
+            </ProblemEditorContext.Provider>
         </Route>
-    </>
+    </>;
 };
 
 

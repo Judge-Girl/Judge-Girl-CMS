@@ -1,19 +1,24 @@
-import React, {useEffect, useState} from "react";
+import React, {useCallback, useEffect} from "react";
 import LeftBar from "./left/LeftBar";
 import {problemService} from "../../services/services";
 import {Spinner} from "../commons/Spinner";
 import RightBar from "./right/RightBar";
+import {useParams} from "react-router-dom";
+import {useProblemEditorContext} from "./ProblemEditorContext";
 
 
 const ProblemEditor2 = () => {
-    const [currentProblem, setCurrentProblem] = useState(undefined);
+    const {problemId} = useParams();
+    const {currentProblem, setCurrentProblem} = useProblemEditorContext();
+    const fetchProblem = useCallback(() => {
+        problemService.getProblemById(problemId).then(setCurrentProblem);
+    }, [problemId, setCurrentProblem]);
 
-    const fetchProblem = (problemId) => {
-        problemService.getProblemById(problemId)
-            .then(problem => {
-                setCurrentProblem(problem);
-            });
-    };
+    useEffect(() => {
+        if (!currentProblem) {
+            fetchProblem();
+        }
+    }, [currentProblem, fetchProblem]);
 
     if (!currentProblem) {
         return <Spinner/>;
@@ -29,9 +34,10 @@ const ProblemEditor2 = () => {
                     <LeftBar/>
                 </div>
                 <div style={{width: "50px", flexShrink: "0"}}/>
-                <div style={{width: "900px", flexShrink: "0"}}>
+                <div style={{width: "850px", flexShrink: "0"}}>
                     <RightBar/>
                 </div>
+                <div style={{width: "120px", flexShrink: "0"}}/>
             </div>
         </div>
     </>;

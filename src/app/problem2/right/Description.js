@@ -39,15 +39,18 @@ const Description = () => {
                }>
             <EditorContext.Provider value={{draftRawText, setDraftRawText,
                 finalRawText, setFinalRawText}}>
-                <NewMarkdownEditor
-                    tabObjects={[
-                        {title: "Write", component: <NewMarkdownEditorWriteTab/>},
-                        {title: "Preview", component: <NewMarkdownEditorPreviewTab/>}
-                    ]}
-                    defaultIndex={1}
-                    onEdit={setIsEditing}/>
+                {!isEditing?
+                    <NewMarkdownEditorPreviewTab/>
+                    :
+                    <NewMarkdownEditor
+                        tabObjects={[
+                            {title: "Write", component: <NewMarkdownEditorWriteTab/>},
+                            {title: "Preview", component: <NewMarkdownEditorPreviewTab/>}
+                        ]}
+                        defaultIndex={1}
+                        onEdit={setIsEditing}/>
+                }
             </EditorContext.Provider>
-            <br/>
         </Block>
     </>;
 };

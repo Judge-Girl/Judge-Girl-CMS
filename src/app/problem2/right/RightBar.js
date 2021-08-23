@@ -15,7 +15,7 @@ import ProblemTitle from "./ProblemTitle";
 const RightBar = () => {
     return <>
         <div className="problem-editor-rightbar">
-            <ProblemTitle/><hr/>
+            <ProblemTitle/><hr style={{marginTop: "1rem"}}/>
             <Tags/><hr/>
             <ProvidedCode/><hr/>
             <SubmittedCodeSpec/><hr/>

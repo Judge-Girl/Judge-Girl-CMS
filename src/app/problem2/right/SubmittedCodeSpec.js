@@ -1,15 +1,15 @@
 import Block from "./Block";
 import {useState} from "react";
 import {useTags} from "../../usecases/TagUseCase";
-import {TextInputForm} from "../../commons/TextInputForm/TextInputForm";
+import {TextInputField} from "../../commons/TextInputForm/TextInputField";
 import {TextInputItems} from "../../problem/edit/TextInputItems";
 import {ESCButton} from "../commons/ESCButton";
 import TagWithIconList from "../commons/TagWithIconList";
-import {AiOutlinePaperClip, BsTag} from "react-icons/all";
+import {AiOutlinePaperClip} from "react-icons/all";
 
 const SubmittedCodeSpec = () => {
     const [isEditing, setIsEditing] = useState(false);
-    const {tags, addTags, removeTag} = useTags();
+    const {tags, addTag, removeTag} = useTags();
 
     const onClickEdit = () => {
         setIsEditing(true);
@@ -35,12 +35,12 @@ const SubmittedCodeSpec = () => {
             {!isEditing?
                 <>
                     <TagWithIconList icon={<AiOutlinePaperClip/>} style={{color: "rgba(18, 115, 186, 1)"}}
-                                     items={tags.map(tag => tag.text)}/>
+                                     items={tags.map(tag => tag.name)}/>
                 </>
                 :
                 <>
-                    <TextInputForm placeholder={"Add New Tags"} onSubmit={addTags} style={{width: "234px"}}/>
-                    <TextInputItems items={tags} removeItems={removeTag}/>
+                    <TextInputField placeholder={"Add New Tags"} onSubmit={addTag} style={{width: "234px"}}/>
+                    <TextInputItems items={tags} removeItem={removeTag}/>
                 </>
             }
         </Block>

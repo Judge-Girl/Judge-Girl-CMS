@@ -1,16 +1,20 @@
 
 
-
-const TagWithIconList = ({icon, items, style}) => {
+const TagWithIconList = ({
+    icon, items,
+    placeholder="Empty.",
+    style,
+}) => {
     return <>
-        <div>
-        {items.map(item =>
-            <div style={{
-                display: "flex", flexDirection: "row", alignItems: "center",
-                height: "1.5em"}}>
-                {icon}<span style={{marginLeft: "5px", ...style}}>{item}</span>
-            </div>
-        )}
+        <div className="tag-with-icon-list">
+        {items.length === 0?
+            <span className="placeholder">{placeholder}</span>: ""
+        }
+        {items.map((item, i) =>
+            <div key={i} className="item">
+                <div>{icon}</div><span style={style}>{item}</span>
+            </div>)
+        }
         </div>
     </>;
 };

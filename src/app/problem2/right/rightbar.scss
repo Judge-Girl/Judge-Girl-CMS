@@ -1,6 +1,12 @@
 .problem-editor-rightbar {
-  .problem-name-title {
-    margin-bottom: 14px !important;
+  .problem-editor-title {
+    min-height: 70px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    .problem-name-title {
+      margin: 0;
+    }
   }
 
   .block-title {
@@ -8,6 +14,11 @@
     .block-title-item {
       margin-top: 4.5rem;
     }
+  }
+  .block-content {
+    margin-top: 9px;
+    min-height: 90px;
+    margin-right: 75px;
   }
 
   hr {
@@ -60,6 +71,26 @@
       border-radius: 10px;
       margin-top: 11px;
       padding: 25px 20px;
+    }
+  }
+
+  .tag-with-icon-list {
+    .placeholder {
+      color: rgba(164,164,164,1);
+    }
+    .item {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      min-height: 1.5em;
+      div {
+        padding-top: 2.2px;
+      }
+      span {
+        margin-left: 5px;
+        overflow-wrap: anywhere;
+      }
+
     }
   }
 }

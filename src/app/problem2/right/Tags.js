@@ -1,18 +1,21 @@
 import Block from "./Block";
 import {ESCButton} from "../commons/ESCButton";
 import {useTags} from "../../usecases/TagUseCase";
-import {TextInputForm} from "../../commons/TextInputForm/TextInputForm";
+import {TextInputField} from "../../commons/TextInputForm/TextInputField";
 import {TextInputItems} from "../../problem/edit/TextInputItems";
 import {useState} from "react";
 import TagWithIconList from "../commons/TagWithIconList";
-import {BsTag, FaTag} from "react-icons/all";
+import {BsTag} from "react-icons/all";
+
 
 const Tags = () => {
     const [isEditing, setIsEditing] = useState(false);
-    const {tags, addTags, removeTag} = useTags();
+    const [tagsBackUp, setTagsBackUp] = useState(undefined);
+    const {tags, setTags, addTag, removeTag} = useTags();
 
     const onClickEdit = () => {
         setIsEditing(true);
+        setTagsBackUp(tags);
     }
 
     const onClickSave = () => {
@@ -21,6 +24,7 @@ const Tags = () => {
 
     const onClickCancel = () => {
         setIsEditing(false);
+        setTags(tagsBackUp);
     }
 
     return <>
@@ -34,14 +38,13 @@ const Tags = () => {
                    onClickCancel={onClickCancel}/>
                }>
             {!isEditing?
-                <>
-                    <TagWithIconList icon={<BsTag/>} style={{color: "rgba(18, 115, 186, 1)"}}
-                                     items={tags.map(tag => tag.text)}/>
-                </>
+                <TagWithIconList icon={<BsTag size={21}/>} style={{color: "rgba(18, 115, 186, 1)"}}
+                                 items={tags.map(tag => tag.name)}/>
                 :
                 <>
-                    <TextInputForm placeholder={"Add New Tags"} onSubmit={addTags} style={{width: "234px"}}/>
-                    <TextInputItems items={tags} removeItems={removeTag}/>
+                    <TextInputField placeholder={"Add New Tags"} style={{width: "234px"}}
+                                    onSubmit={addTag}/>
+                    <TextInputItems items={tags} removeItem={removeTag}/>
                 </>
             }
         </Block>

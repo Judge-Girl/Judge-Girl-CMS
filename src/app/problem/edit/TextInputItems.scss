@@ -7,7 +7,7 @@
     margin-top: 10px;
     margin-bottom: 10px;
     width: 267px;
-    height: 33px;
+    min-height: 33px;
     border: 1px solid #E4E1E1;
     box-sizing: border-box;
 
@@ -19,11 +19,12 @@
 
     display: flex;
     align-items: center;
+    div {
+        overflow-wrap: anywhere;
+    }
 }
 
 .problem-editor .delete-icon {
     position: absolute;
-    width: 10px;
-    height: 10px;
     right: 10px;
 }

@@ -1,18 +1,17 @@
-import React from 'react';
 import '../ProblemEditor.css';
 import {useTags} from "../../usecases/TagUseCase";
 import {SubtitleLine} from "../../commons/titles/TitleLine";
-import {TextInputForm} from "../../commons/TextInputForm/TextInputForm";
+import {TextInputField} from "../../commons/TextInputForm/TextInputField";
 import {TextInputItems} from "./TextInputItems";
 
 function TagList() {
-    const {tags, addTags, removeTag} = useTags();
+    const {tags, addTag, removeTag} = useTags();
 
     return (
         <div>
             <SubtitleLine title={"Tags"}/>
-            <TextInputForm placeholder={"Add New Tags"} onSubmit={addTags} style={{width: "234px"}}/>
-            <TextInputItems items={tags} removeItems={removeTag}/>
+            <TextInputField placeholder={"Add New Tags"} onSubmit={addTag} style={{width: "234px"}}/>
+            <TextInputItems items={tags} removeItem={removeTag}/>
         </div>
     )
 }

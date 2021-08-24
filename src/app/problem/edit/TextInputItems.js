@@ -1,18 +1,15 @@
 import {AiOutlineClose} from "react-icons/ai";
-import './TextInputItems.css';
+import './TextInputItems.scss';
 
-const TextInputItems = ({items, removeItems}) => {
-    return items.map((tag, index) => (
+
+const TextInputItems = ({items, removeItem}) => {
+    return items.map((tag) => (
         <div key={tag.id} className="tag-item">
-            <div key={tag.id}>
-                {tag.text}
-            </div>
-            <AiOutlineClose
-                onClick={() => removeItems(tag.id)}
-                className='delete-icon'
-            />
+            <div style={{marginRight: "25px"}}>{tag.name}</div>
+            <AiOutlineClose className='delete-icon' size={15}
+                            style={{height: "100%"}}
+                            onClick={() => removeItem(tag)}/>
         </div>
-
     ));
 };
 

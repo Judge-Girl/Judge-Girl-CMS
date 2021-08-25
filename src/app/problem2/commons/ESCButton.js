@@ -19,7 +19,7 @@ export const ESCButton = ({
                           onClick={onClickEdit}/>
             :
             <>
-                <EditorButton text="Save"
+                <EditorButton text="Save" noBorder
                               buttonColor="rgba(88, 214, 141, 1)"
                               fontColor="#FFF"
                               width="70px"

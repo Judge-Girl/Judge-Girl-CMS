@@ -1,4 +1,3 @@
-import "./rightbar.scss"
 import Tags from "./Tags";
 import ProvidedCode from "./ProvidedCode";
 import SubmittedCodeSpec from "./SubmittedCodeSpec";
@@ -10,20 +9,21 @@ import Description from "./Description";
 import TestCases from "./TestCases";
 import Actions from "./Actions";
 import ProblemTitle from "./ProblemTitle";
+import {Hr} from "./Hr";
 
 
 const RightBar = () => {
     return <>
-        <div className="problem-editor-rightbar">
+        <div className="right-bar">
             <ProblemTitle/>
-            <Tags/><hr/>
-            <ProvidedCode/><hr/>
-            <SubmittedCodeSpec/><hr/>
-            <ResourceSpec/><hr/>
-            <CompilationScript/><hr/>
-            <OutputMatchPolicy/><hr/>
-            <Visible/><hr/>
-            <Description/><hr/>
+            <Tags/><Hr/>
+            <ProvidedCode/><Hr/>
+            <SubmittedCodeSpec/><Hr/>
+            <ResourceSpec/><Hr/>
+            <CompilationScript/><Hr/>
+            <OutputMatchPolicy/><Hr/>
+            <Visible/><Hr/>
+            <Description/><Hr/>
             <TestCases/>
             <Actions/>
         </div>

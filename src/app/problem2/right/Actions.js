@@ -17,26 +17,6 @@ const Actions = () => {
         setIsEditing(false);
     }
 
-    const saved = () => {
-        // {isProblemArchived ? <RestoreAndDeleteProblemButtons/> : <ArchiveProblemButton/>}
-
-        return <>
-            <div style={{width: "950px"}}>
-                <section>
-                    {/*
-                        <MarkdownEditor text={problemDescription}
-                                        onTextChanged={setProblemDescription}
-                                        editingState={editingState}
-                                        editorButtons={editingState ?
-                                            <HandleDescriptionButtons/> : <EditDescriptionButton/>
-                                        }
-                                        style={{backgroundColor: "var(--backgroundDim)"}}/>
-                    */}
-                </section>
-            </div>
-        </>
-    }
-
     return <>
         <Block title="Actions"
                id="problem-editor-actions"

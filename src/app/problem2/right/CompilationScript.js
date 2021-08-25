@@ -34,6 +34,7 @@ const CompilationScript = () => {
                 </>
                 :
                 <>
+                    {/* TODO: some attributes should be moved to .scss. */}
                     <textarea
                         cols="40" rows="5"
                         className="compile-script-text-area" style={{resize: "vertical"}}

@@ -1,21 +1,20 @@
 import {useState} from "react"
 
-const useUploads = function () {
+
+const useUploads = () => {
     const [files, setFiles] = useState([]);
 
-    const addFile = (event) => {
+    const addFile = e => {
         // Cancel button makes event undefined.
-        if (!event.target.files[0]) return;
-        const newFiles = [event.target.files[0], ...files];
-        setFiles(newFiles);
+        if (!e.target.files[0]) return;
+        setFiles(files => [e.target.files[0], ...files]);
     };
 
-    const removeFile = fileName => {
-        const removeAttr = [...files].filter(file => file.name !== fileName);
-        setFiles(removeAttr);
+    const removeFile = file => {
+        setFiles(files => files.filter(_file => _file.name !== file.name));
     };
 
-    return {files, addFile, removeFile};
+    return {files, setFiles, addFile, removeFile};
 };
 
-export {useUploads}
+export {useUploads};

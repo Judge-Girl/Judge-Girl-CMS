@@ -1,6 +1,6 @@
 import React from 'react';
 import {SubtitleLine} from "../../../commons/titles/TitleLine";
-import ProvidedCodeItem from "./ProvidedCodeItem";
+import ProvidedCodeItems from "./ProvidedCodeItems";
 import {UploadFileButton} from "../UploadFileButton";
 import './ProvidedCodeList.css';
 import {useUploads} from "../../../usecases/UploadFilesUseCase";
@@ -11,7 +11,7 @@ function ProvidedCodeList() {
     return (
         <div>
             <SubtitleLine title={"Provided Code"}/>
-            <ProvidedCodeItem files={files} removeFile={removeFile}/>
+            <ProvidedCodeItems files={files} removeFile={removeFile}/>
             <UploadFileButton
                 title={"Upload Provided Code +"}
                 onChange={addFile}

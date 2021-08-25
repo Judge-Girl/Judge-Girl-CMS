@@ -1,11 +1,12 @@
 import Block from "./Block";
 import {useState} from "react";
 import {ESCButton} from "../commons/ESCButton";
-import ProvidedCodeItem from "../../problem/edit/providedCode/ProvidedCodeItem";
-import {UploadFileButton} from "../../problem/edit/UploadFileButton";
+import ProvidedCodeItems from "../../problem/edit/providedCode/ProvidedCodeItems";
 import {useUploads} from "../../usecases/UploadFilesUseCase";
 import TagWithIconList from "../commons/TagWithIconList";
-import {BsTag, VscFileCode} from "react-icons/all";
+import {FiUpload, VscFileCode} from "react-icons/all";
+import {EditorButton} from "../../problem/edit/EditorButton";
+
 
 const ProvidedCode = () => {
     const [isEditing, setIsEditing] = useState(false);
@@ -34,25 +35,21 @@ const ProvidedCode = () => {
                    onClickCancel={onClickCancel}/>
                }>
             {!isEditing?
-                <>
-                    <TagWithIconList icon={<VscFileCode/>} style={{color: "rgba(18, 115, 186, 1)"}}
-                                     items={files.map(file => file.name)}/>
-                </>
+                <TagWithIconList icon={<VscFileCode/>} style={{color: "rgba(18, 115, 186, 1)"}}
+                                 items={files.map(file => file.name)}/>
                 :
                 <>
-                    <ProvidedCodeItem files={files} removeFile={removeFile}/>
-                    <UploadFileButton
-                        title={"Upload Provided Code +"}
-                        onChange={addFile}
-                        width={215} height={33}
-                        buttonColor={"#3EBDD9"}
-                        borderRadius={10}
-                        fontWeight={600}
-                        fontSize={15}
-                        lineHeight={22}
-                        fontColor={"white"}
-                        display={"flex"}
-                    />
+                    <ProvidedCodeItems files={files} removeFile={removeFile}/>
+                    <EditorButton
+                        text={<div>{"Upload Code"} <FiUpload/></div>}
+                        type="file"
+                        buttonColor="rgba(241, 196, 15, 1)"
+                        fontSize="16px"
+                        fontColor="#fff"
+                        width="11em"
+                        height="36px"
+                        borderRadius="50px"
+                        onClick={addFile} />
                 </>
             }
         </Block>

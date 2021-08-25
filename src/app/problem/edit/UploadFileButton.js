@@ -1,5 +1,5 @@
 import './UploadFileButton.css';
-import * as React from "react";
+
 
 const UploadFileButton = ({
                               title = "title", onChange = "onChange",
@@ -14,11 +14,11 @@ const UploadFileButton = ({
                 width: width, height: height, background: buttonColor, borderRadius: borderRadius,
                 fontWeight: fontWeight, fontSize: fontSize, lineHeight: lineHeight, color: fontColor,
                 display: "flex", flexDirection: "row", justifyContent: "center",
-                alignItems: "center", padding: "5 10",
+                alignItems: "center", padding: "5 10", fontFamily: "Poppins"
             }}
             className={className}
         >
-            <i>{title}</i>
+            <span>{title}</span>
             <input
                 type="file"
                 name="file"

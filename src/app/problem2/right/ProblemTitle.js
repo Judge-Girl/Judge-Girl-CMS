@@ -34,29 +34,23 @@ const ProblemTitle = () => {
     }
 
     return <>
-        <div className="problem-editor-title">
-        {isEditing?
-            <form style={{display: "flex", flexDirection:"row", alignItems:"center"}}>
-                <input className="save-problem-name-btn"
+        <div className="problem-title">
+        {!isEditing?
+            <div className="not-on-edit">
+                <div>{problemTitle}</div><FaEdit className="edit-icon" onClick={onClickEdit} />
+            </div>
+            :
+            <form className="on-edit">
+                <input className="input-field"
                        type="text"
-                       value={problemTitle}
-                       onChange={e => setProblemTitle(e.target.value)}
-                       style={{marginBottom: 0}}
-                       required/>
+                       required value={problemTitle}
+                       onChange={e => setProblemTitle(e.target.value)}/>
                 <div style={{width: "20px"}}/>
                 <ESCButton
                     isEditing={isEditing}
                     onClickSave={onClickSave}
                     onClickCancel={onClickCancel}/>
             </form>
-            :
-            <div className="problem-name-title">
-                <div>
-                    {problemTitle}
-                </div>
-                <FaEdit className="problem-name-editor-btn"
-                        onClick={onClickEdit} />
-            </div>
         }
         </div>
     </>;

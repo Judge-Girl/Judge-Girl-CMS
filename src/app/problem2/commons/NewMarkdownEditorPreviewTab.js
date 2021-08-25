@@ -6,7 +6,7 @@ const NewMarkdownEditorPreviewTab = () => {
 
     return <>
         <ReactMarkdown className="main">
-            {draftRawText? draftRawText : "1233333333333333333333333"}
+            {draftRawText? draftRawText : "Empty."}
         </ReactMarkdown>
     </>;
 };

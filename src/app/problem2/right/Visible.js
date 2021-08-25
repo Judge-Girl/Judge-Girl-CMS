@@ -3,27 +3,16 @@ import Block from "./Block";
 import {useState} from "react";
 
 
+// TODO: This feature has low priority. Please see the related issue#180.
 const Visible = () => {
     const [isOnClicked, setIsOnClicked] = useState(false);
-    const [isEditing, setIsEditing] = useState(false);
-
-    const onClickEdit = () => {
-        setIsEditing(true);
-    }
-
-    const onClickSave = () => {
-        setIsEditing(false);
-    }
-
-    const onClickCancel = () => {
-        setIsEditing(false);
-    }
 
     return <>
         <Block title="Visible"
                id="problem-editor-visible"
                titleButton={
                    <div style={{display: "flex", flexDirection: "row"}}>
+                       {/* TODO: Should be refactored into a component. */}
                        <EditorButton text="ON"
                                      buttonColor={isOnClicked? "rgba(51, 155, 231, 1)": null}
                                      fontColor={isOnClicked? "#FFF": "rgba(124,124,124,1)"}

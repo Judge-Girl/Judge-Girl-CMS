@@ -9,7 +9,10 @@ const useTags = () => {
             console.log(`[addTag] tag ${tag} not added.`);
             return;
         }
-        // See: https://stackoverflow.com/a/26254086/5290519.
+        /**
+         *  This is used to resolve the bug pointed out in issue#172.
+         *  See: https://stackoverflow.com/a/26254086/5290519.
+         */
         setTags(tags => [tag, ...tags]);
     };
 

@@ -34,9 +34,9 @@ const TestCases = () => {
                 </>
                 :
                 <>
+                    <TestCaseList/>
                 </>
             }
-            <TestCaseList/>
         </Block>
     </>;
 };

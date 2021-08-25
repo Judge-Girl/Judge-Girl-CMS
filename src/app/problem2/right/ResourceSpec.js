@@ -1,7 +1,6 @@
 import Block from "./Block";
 import {useState} from "react";
 import {ESCButton} from "../commons/ESCButton";
-import {InlineInputBox, InputBox} from "../../problem/edit/InlineInputBox";
 import {FiCpu} from "react-icons/all";
 
 const ResourceSpec = () => {

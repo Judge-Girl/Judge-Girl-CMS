@@ -14,12 +14,13 @@ const Tags = () => {
     const {tags, setTags, addTag, removeTag} = useTags();
 
     const onClickEdit = () => {
-        setIsEditing(true);
         setTagsBackUp(tags);
+        setIsEditing(true);
     }
 
     const onClickSave = () => {
         setIsEditing(false);
+        // TODO: API connection, save to DB.
     }
 
     const onClickCancel = () => {
@@ -37,16 +38,16 @@ const Tags = () => {
                    onClickSave={onClickSave}
                    onClickCancel={onClickCancel}/>
                }>
-            {!isEditing?
-                <TagWithIconList icon={<BsTag size={21}/>} style={{color: "rgba(18, 115, 186, 1)"}}
-                                 items={tags.map(tag => tag.name)}/>
-                :
-                <>
-                    <TextInputField placeholder={"Add New Tags"} style={{width: "234px"}}
-                                    onSubmit={addTag}/>
-                    <TextInputItems items={tags} removeItem={removeTag}/>
-                </>
-            }
+        {!isEditing?
+            <TagWithIconList icon={<BsTag size={21}/>} style={{color: "rgba(18, 115, 186, 1)"}}
+                             items={tags.map(tag => tag.name)}/>
+            :
+            <>
+                <TextInputField placeholder={"Add New Tags"} style={{width: "234px"}}
+                                onSubmit={addTag}/>
+                <TextInputItems items={tags} removeItem={removeTag}/>
+            </>
+        }
         </Block>
     </>;
 };

@@ -1,20 +1,22 @@
 import {useEditorContext} from "./NewMarkdownEditorContext";
 
+
 const defaultLines = [
     `Press Edit Description to start writing the description. :smile:`,
     `Styling with Markdown is supported. :+1:`
 ];
 
-const NewMarkdownEditorWriteTab = ({rawText = defaultLines.join("  \n")}) => {
-    const {setDraftRawText} = useEditorContext();
+const NewMarkdownEditorWriteTab = () => {
+    const {markdownText, setMarkdownText} = useEditorContext();
 
     const handleTextareaChange = e => {
-        setDraftRawText(e.target.value);
+        setMarkdownText(e.target.value);
     };
 
     return <>
         <textarea className="main"
-                  value={rawText}
+                  value={markdownText}
+                  placeholder={defaultLines.join("  \n")}
                   style={{width: "100%", height: "300px"}}
                   onChange={handleTextareaChange}/>
     </>;

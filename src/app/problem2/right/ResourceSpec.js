@@ -1,6 +1,6 @@
 import Block from "./Block";
 import {useState} from "react";
-import {ESCButton} from "../commons/ESCButton";
+import {EditSaveCancelButton} from "../commons/EditSaveCancelButton";
 import {FiCpu} from "react-icons/all";
 
 const ResourceSpec = () => {
@@ -23,7 +23,7 @@ const ResourceSpec = () => {
         <Block title="Resource Spec"
                id="problem-editor-resource-spec"
                titleButton={
-               <ESCButton
+               <EditSaveCancelButton
                    isEditing={isEditing}
                    onClickEdit={onClickEdit}
                    onClickSave={onClickSave}

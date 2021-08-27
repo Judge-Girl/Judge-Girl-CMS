@@ -1,6 +1,6 @@
 import Block from "./Block";
 import {useState} from "react";
-import {ESCButton} from "../commons/ESCButton";
+import {EditSaveCancelButton} from "../commons/EditSaveCancelButton";
 
 const CompilationScript = () => {
     const [isEditing, setIsEditing] = useState(false);
@@ -22,7 +22,7 @@ const CompilationScript = () => {
         <Block title="Compilation Script"
                id="problem-editor-compilation-script"
                titleButton={
-               <ESCButton
+               <EditSaveCancelButton
                    isEditing={isEditing}
                    onClickEdit={onClickEdit}
                    onClickSave={onClickSave}

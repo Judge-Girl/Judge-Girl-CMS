@@ -1,5 +1,5 @@
 import Block from "./Block";
-import {ESCButton} from "../commons/ESCButton";
+import {EditSaveCancelButton} from "../commons/EditSaveCancelButton";
 import {useTags} from "../../usecases/TagUseCase";
 import {TextInputField} from "../../commons/TextInputForm/TextInputField";
 import {TextInputItems} from "../../problem/edit/TextInputItems";
@@ -32,7 +32,7 @@ const Tags = () => {
         <Block title="Tags"
                id="problem-editor-tags"
                titleButton={
-               <ESCButton
+               <EditSaveCancelButton
                    isEditing={isEditing}
                    onClickEdit={onClickEdit}
                    onClickSave={onClickSave}

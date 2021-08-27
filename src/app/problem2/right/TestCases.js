@@ -1,6 +1,6 @@
 import Block from "./Block";
 import {useState} from "react";
-import {ESCButton} from "../commons/ESCButton";
+import {EditSaveCancelButton} from "../commons/EditSaveCancelButton";
 import TestCaseList from "./TestCaseList";
 
 const TestCases = () => {
@@ -23,7 +23,7 @@ const TestCases = () => {
                id="problem-editor-testcases"
                style={{marginBottom: "50px"}}
                titleButton={
-                   <ESCButton
+                   <EditSaveCancelButton
                        isEditing={isEditing}
                        onClickEdit={onClickEdit}
                        onClickSave={onClickSave}

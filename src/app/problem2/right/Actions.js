@@ -1,5 +1,5 @@
 import Block from "./Block";
-import {ESCButton} from "../commons/ESCButton";
+import {EditSaveCancelButton} from "../commons/EditSaveCancelButton";
 import {useState} from "react";
 
 const Actions = () => {
@@ -21,7 +21,7 @@ const Actions = () => {
         <Block title="Actions"
                id="problem-editor-actions"
                titleButton={
-                   <ESCButton
+                   <EditSaveCancelButton
                        isEditing={isEditing}
                        onClickEdit={onClickEdit}
                        onClickSave={onClickSave}

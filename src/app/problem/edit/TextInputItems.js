@@ -1,5 +1,4 @@
 import {AiOutlineClose} from "react-icons/ai";
-import './TextInputItems.scss';
 
 
 const TextInputItems = ({items, removeItem}) => {

@@ -1,6 +1,6 @@
 import Block from "./Block";
 import {useState} from "react";
-import {ESCButton} from "../commons/ESCButton";
+import {EditSaveCancelButton} from "../commons/EditSaveCancelButton";
 import ProvidedCodeItems from "../../problem/edit/providedCode/ProvidedCodeItems";
 import {useUploads} from "../../usecases/UploadFilesUseCase";
 import TagWithIconList from "../commons/TagWithIconList";
@@ -28,7 +28,7 @@ const ProvidedCode = () => {
         <Block title="Provided Code"
                id="problem-editor-provided-code"
                titleButton={
-               <ESCButton
+               <EditSaveCancelButton
                    isEditing={isEditing}
                    onClickEdit={onClickEdit}
                    onClickSave={onClickSave}

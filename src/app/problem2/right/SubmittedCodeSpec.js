@@ -3,7 +3,7 @@ import {useState} from "react";
 import {useTags} from "../../usecases/TagUseCase";
 import {TextInputField} from "../../commons/TextInputForm/TextInputField";
 import {TextInputItems} from "../../problem/edit/TextInputItems";
-import {ESCButton} from "../commons/ESCButton";
+import {EditSaveCancelButton} from "../commons/EditSaveCancelButton";
 import TagWithIconList from "../commons/TagWithIconList";
 import {AiOutlinePaperClip} from "react-icons/all";
 
@@ -26,7 +26,7 @@ const SubmittedCodeSpec = () => {
         <Block title="Submitted Code Spec"
                id="problem-editor-submitted-code-spec"
                titleButton={
-                   <ESCButton
+                   <EditSaveCancelButton
                        isEditing={isEditing}
                        onClickEdit={onClickEdit}
                        onClickSave={onClickSave}

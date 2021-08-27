@@ -4,7 +4,7 @@ import NewMarkdownEditor from "../commons/NewMarkdownEditor";
 import NewMarkdownEditorWriteTab from "../commons/NewMarkdownEditorWriteTab";
 import NewMarkdownEditorPreviewTab from "../commons/NewMarkdownEditorPreviewTab";
 import {EditorContext} from "../commons/NewMarkdownEditorContext";
-import {ESCButton} from "../commons/ESCButton";
+import {EditSaveCancelButton} from "../commons/EditSaveCancelButton";
 
 
 const Description = () => {
@@ -31,7 +31,7 @@ const Description = () => {
         <Block title="Description"
                id="problem-editor-description"
                titleButton={
-                   <ESCButton
+                   <EditSaveCancelButton
                        isEditing={isEditing}
                        onClickEdit={onClickEdit}
                        onClickSave={onClickSave}

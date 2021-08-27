@@ -1,7 +1,7 @@
 import {EditorButton} from "../../problem/edit/EditorButton";
 
 
-export const ESCButton = ({
+export const EditSaveCancelButton = ({
     isEditing,
     onClickEdit,
     onClickSave,

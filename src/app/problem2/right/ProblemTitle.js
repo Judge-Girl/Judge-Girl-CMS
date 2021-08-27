@@ -2,7 +2,7 @@ import {useProblemEditorContext} from "../ProblemEditorContext";
 import {useState} from "react";
 import {problemService} from "../../../services/services";
 import {FaEdit} from "react-icons/all";
-import {ESCButton} from "../commons/ESCButton";
+import {EditSaveCancelButton} from "../commons/EditSaveCancelButton";
 
 
 const ProblemTitle = () => {
@@ -46,7 +46,7 @@ const ProblemTitle = () => {
                        required value={problemTitle}
                        onChange={e => setProblemTitle(e.target.value)}/>
                 <div style={{width: "20px"}}/>
-                <ESCButton
+                <EditSaveCancelButton
                     isEditing={isEditing}
                     onClickSave={onClickSave}
                     onClickCancel={onClickCancel}/>

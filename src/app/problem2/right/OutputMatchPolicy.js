@@ -1,6 +1,6 @@
 import Block from "./Block";
 import {useState} from "react";
-import {ESCButton} from "../commons/ESCButton";
+import {EditSaveCancelButton} from "../commons/EditSaveCancelButton";
 import {useTags} from "../../usecases/TagUseCase";
 import {TextInputField} from "../../commons/TextInputForm/TextInputField";
 import {TextInputItems} from "../../problem/edit/TextInputItems";
@@ -27,7 +27,7 @@ const OutputMatchPolicy = () => {
         <Block title="Output Match Policy"
                id="problem-editor-output-match-policy"
                titleButton={
-                   <ESCButton
+                   <EditSaveCancelButton
                        isEditing={isEditing}
                        onClickEdit={onClickEdit}
                        onClickSave={onClickSave}

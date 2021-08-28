@@ -1,5 +1,5 @@
 import "./ExamQuestions.scss";
-import "../../problem2/ProblemEditor.scss";
+import "../../problem/ProblemEditor.scss";
 import React, {useCallback, useEffect, useState} from "react";
 import {useParams, useRouteMatch} from "react-router-dom";
 import {examService, submissionService} from "../../../services/services.js";
@@ -14,11 +14,11 @@ import {useExamContext} from "./ExamContext";
 import {Spinner} from "../../commons/Spinner";
 import {TableCell} from "../../../utils/TableCell";
 import {DeleteConfirmationModal} from "../../commons/modals/DeleteConfirmationModal";
-import {EditorButton} from "../../problem/edit/EditorButton";
-import MarkdownEditor from "../../problem2/commons/MarkdownEditor";
-import NewMarkdownEditorWriteTab from "../../problem2/commons/NewMarkdownEditorWriteTab";
-import NewMarkdownEditorPreviewTab from "../../problem2/commons/NewMarkdownEditorPreviewTab";
-import {EditorContext} from "../../problem2/commons/NewMarkdownEditorContext";
+import {EditorButton} from "../../problem-old/edit/EditorButton";
+import MarkdownEditor from "../../problem/commons/MarkdownEditor";
+import NewMarkdownEditorWriteTab from "../../problem/commons/NewMarkdownEditorWriteTab";
+import NewMarkdownEditorPreviewTab from "../../problem/commons/NewMarkdownEditorPreviewTab";
+import {EditorContext} from "../../problem/commons/NewMarkdownEditorContext";
 
 const toCharacterIndex = i => {
     return String.fromCharCode(i + 65);

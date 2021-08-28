@@ -1,4 +1,5 @@
 /* to hide original upload button */
+/* TODO: Should be moved to ProblemEditor.scss */
 .problem-editor-old .original-upload-button {
     position: absolute;
     width: 1px;

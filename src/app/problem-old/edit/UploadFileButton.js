@@ -2,12 +2,12 @@ import './UploadFileButton.css';
 
 
 const UploadFileButton = ({
-                              title = "title", onChange = "onChange",
-                              width, height, buttonColor = "buttonColor",
-                              borderRadius, fontWeight,
-                              fontSize, lineHeight,
-                              fontColor = "white", className
-                          }) => {
+    title = "title", onChange = "onChange",
+    width, height, buttonColor = "buttonColor",
+    borderRadius, fontWeight,
+    fontSize, lineHeight,
+    fontColor = "white", className
+}) => {
     return (
         <label
             style={{

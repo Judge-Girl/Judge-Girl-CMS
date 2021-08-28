@@ -6,8 +6,8 @@ import {problemService} from "../../../services/services";
 import {Spinner} from "../../commons/Spinner";
 import {Link, Route, useHistory} from "react-router-dom";
 import {TableCell} from "../../../utils/TableCell";
-import ProblemEditor from "../../problem2/ProblemEditor";
-import {ProblemEditorContext} from "../../problem2/ProblemEditorContext";
+import ProblemEditor from "../../problem/ProblemEditor";
+import {ProblemEditorContext} from "../../problem/ProblemEditorContext";
 
 
 const ProblemList = () => {

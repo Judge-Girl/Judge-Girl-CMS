@@ -7,8 +7,7 @@ const TextInputItems = ({items, removeItem}) => {
             <div className="tag-content">{tag.name}</div>
             <div className="tag-button"
                  onClick={() => removeItem(tag)}>
-                <AiOutlineClose size={15}
-                                style={{alignSelf: "center"}}/>
+                <AiOutlineClose size={15}/>
             </div>
         </div>
     ));

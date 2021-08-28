@@ -1,7 +1,7 @@
 import {SubtitleLine} from "../../commons/titles/TitleLine";
 import {useTags} from "../../usecases/TagUseCase";
 import {TextInputField} from "../../commons/TextInputForm/TextInputField";
-import {TextInputItems} from "../../problem/edit/TextInputItems";
+import {TextInputItems} from "../../problem-old/edit/TextInputItems";
 import './ExamOptions.scss';
 
 const ExamWhiteList = () => {

@@ -4,7 +4,7 @@ import PrivateRoute from "./commons/access-control/PrivateRoute";
 import {AuthContext} from "./commons/access-control/auth";
 import NavigationBar from "./NavigationBar";
 import {Login} from "./Login";
-import {ProblemList} from "./problem/list/ProblemList";
+import {ProblemList} from "./problem-old/list/ProblemList";
 import {StudentList} from "./students/StudentList";
 import {HomeworkList} from './homework/HomeworkList';
 import {AdminList} from "./admins/AdminList";

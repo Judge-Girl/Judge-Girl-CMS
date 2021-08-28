@@ -1,11 +1,11 @@
 import Block from "./Block";
 import {useState} from "react";
 import {EditSaveCancelButton} from "../commons/EditSaveCancelButton";
-import ProvidedCodeItems from "../../problem/edit/providedCode/ProvidedCodeItems";
+import ProvidedCodeItems from "../../problem-old/edit/providedCode/ProvidedCodeItems";
 import {useUploads} from "../../usecases/UploadFilesUseCase";
 import TagWithIconList from "../commons/TagWithIconList";
 import {FiUpload, VscFileCode} from "react-icons/all";
-import {EditorButton} from "../../problem/edit/EditorButton";
+import {EditorButton} from "../../problem-old/edit/EditorButton";
 
 
 const ProvidedCode = () => {
@@ -41,7 +41,7 @@ const ProvidedCode = () => {
                 <>
                     <ProvidedCodeItems files={files} removeFile={removeFile}/>
                     <EditorButton
-                        text={<div>{"Upload Code"} <FiUpload/></div>}
+                        text={<div>Upload Code <FiUpload/></div>}
                         type="file"
                         buttonColor="rgba(241, 196, 15, 1)"
                         fontSize="16px"

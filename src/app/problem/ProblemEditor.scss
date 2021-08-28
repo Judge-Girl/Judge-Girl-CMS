@@ -78,6 +78,7 @@
           width: 100%;
           padding: 6px 0;
           border: none; outline: none;
+          margin-right: 20px;
         }
       }
     }
@@ -129,11 +130,12 @@
         overflow-wrap: anywhere;
       }
       .tag-button {
+        cursor: pointer;
         width: 15%;
         display: flex;
-        cursor: pointer;
         flex-direction: row;
         justify-content: center;
+        align-items: center;
         position: absolute;
         top: 0;
         right: 0;
@@ -223,5 +225,75 @@
       }
     }
 
+    .input-box {
+      /* Input Box - small */
+      /* Auto Layout */
+      flex-direction: row;
+      align-items: center;
+      padding: 2px 5px 2px 10px;
+
+      position: static;
+      width: 75px;
+      height: 24px;
+      left: 51px;
+      top: 0;
+
+      background: #F3F3F3;
+      border: 1px solid #C4C4C4;
+      box-sizing: border-box;
+      border-radius: 5px;
+
+      /* Inside Auto Layout */
+      flex: none;
+      order: 1;
+      flex-grow: 0;
+      margin: 0 7px;
+    }
+
+    .testcases {
+      .test-case-box-out {
+        height: 336px;
+        background: #F9F9F9;
+        border: 1px solid #A2A3B1;
+        box-sizing: border-box;
+        border-radius: 10px;
+        margin: 17px;
+      }
+
+      .test-case-name {
+        font-style: normal;
+        font-weight: bold;
+        font-size: 17px;
+        color: #6D6E7D;
+      }
+
+      .text-case-name-input {
+        height: 28px;
+        width: 150px;
+        border: 1px solid #E4E1E1;
+      }
+
+      .test-case-box-in {
+        height: 240px;
+        width: inherit;
+        background: #FFFFFF;
+        border: 1px solid #E4E1E1;
+        box-sizing: border-box;
+        border-radius: 2px;
+        margin: 2px;
+      }
+
+      .test-case-left {
+        flex-grow: 1;
+      }
+
+      .test-case-mid {
+        flex-grow: 1;
+      }
+
+      .test-case-right {
+        flex-grow: 1;
+      }
+    }
   }
 }

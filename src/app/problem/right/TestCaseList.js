@@ -1,6 +1,6 @@
-import TestCases from "../../problem/edit/testCase/TestCases";
-import {EditorButton} from "../../problem/edit/EditorButton";
-import React, {useState} from "react";
+import {useState} from "react";
+import TestCases from "../../problem-old/edit/testCase/TestCases";
+import {EditorButton} from "../../problem-old/edit/EditorButton";
 
 
 const TestCaseList = () => {
@@ -8,14 +8,12 @@ const TestCaseList = () => {
     const [testCasesList, setTestCasesList] = useState([]);
 
     const addNewTestCase = () => {
-        const newId = testCasesId;
-        setTestCasesList([...testCasesList, newId]);
-        setTestCasesId(newId + 1);
+        setTestCasesList([...testCasesList, testCasesId]);
+        setTestCasesId(testCasesId => testCasesId + 1);
     };
 
     const deleteTestCase = deleteId => {
-        const removeAttr = [...testCasesList].filter(testCaseId => testCaseId !== deleteId);
-        setTestCasesList(removeAttr);
+        setTestCasesList(testCasesList => testCasesList.filter(testCaseId => testCaseId !== deleteId));
     };
 
     return <>

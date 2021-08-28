@@ -2,7 +2,7 @@ import Block from "./Block";
 import {EditSaveCancelButton} from "../commons/EditSaveCancelButton";
 import {useTags} from "../../usecases/TagUseCase";
 import {TextInputField} from "../../commons/TextInputForm/TextInputField";
-import {TextInputItems} from "../../problem/edit/TextInputItems";
+import {TextInputItems} from "../../problem-old/edit/TextInputItems";
 import {useState} from "react";
 import TagWithIconList from "../commons/TagWithIconList";
 import {BsTag} from "react-icons/all";

@@ -1,4 +1,4 @@
-import {EditorButton} from "../../problem/edit/EditorButton";
+import {EditorButton} from "../../problem-old/edit/EditorButton";
 import Block from "./Block";
 import {useState} from "react";
 

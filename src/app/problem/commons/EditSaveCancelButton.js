@@ -1,12 +1,7 @@
-import {EditorButton} from "../../problem/edit/EditorButton";
+import {EditorButton} from "../../problem-old/edit/EditorButton";
 
 
-export const EditSaveCancelButton = ({
-    isEditing,
-    onClickEdit,
-    onClickSave,
-    onClickCancel,
-}) => {
+export const EditSaveCancelButton = ({isEditing, onClickEdit, onClickSave, onClickCancel}) => {
     return <>
         <div style={{display: "flex", flexDirection: "row"}}>
         {!isEditing?

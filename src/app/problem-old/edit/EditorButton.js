@@ -1,5 +1,5 @@
 
-
+/* TODO: Should be refactored for cleanness. */
 const EditorButton = ({
     text,
     fontSize, fontColor,
@@ -26,7 +26,7 @@ const EditorButton = ({
             <label style={{cursor: "pointer", ...style}}>
                 <input type="file"
                        className="original-upload-button"
-                       style={{cursor: "pointer"}}
+                       style={{cursor: "pointer", display: "none"}}
                        onChange={onClick}/>
                 {text}
             </label>

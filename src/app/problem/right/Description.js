@@ -37,19 +37,18 @@ const Description = () => {
                        onClickSave={onClickSave}
                        onClickCancel={onClickCancel}/>
                }>
-            <EditorContext.Provider value={{draftRawText, setDraftRawText,
-                finalRawText, setFinalRawText}}>
-                {!isEditing?
-                    <NewMarkdownEditorPreviewTab/>
-                    :
-                    <MarkdownEditor
-                        tabObjects={[
-                            {title: "Write", component: <NewMarkdownEditorWriteTab/>},
-                            {title: "Preview", component: <NewMarkdownEditorPreviewTab/>}
-                        ]}
-                        defaultIndex={1}
-                        onEdit={setIsEditing}/>
-                }
+            <EditorContext.Provider value={{draftRawText, setDraftRawText, finalRawText, setFinalRawText}}>
+            {!isEditing?
+                <NewMarkdownEditorPreviewTab/>
+                :
+                <MarkdownEditor
+                    tabObjects={[
+                        {title: "Write", component: <NewMarkdownEditorWriteTab/>},
+                        {title: "Preview", component: <NewMarkdownEditorPreviewTab/>}
+                    ]}
+                    defaultIndex={1}
+                    isEditing={setIsEditing}/>
+            }
             </EditorContext.Provider>
         </Block>
     </>;

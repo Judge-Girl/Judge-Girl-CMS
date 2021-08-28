@@ -1,13 +1,13 @@
 import Block from "./Block";
 import {useState} from "react";
+import {EditSaveCancelButton} from "../commons/EditSaveCancelButton";
 import {useTags} from "../../usecases/TagUseCase";
 import {TextInputField} from "../../commons/TextInputForm/TextInputField";
-import {TextInputItems} from "../../problem/edit/TextInputItems";
-import {EditSaveCancelButton} from "../commons/EditSaveCancelButton";
+import {TextInputItems} from "../../problem-old/edit/TextInputItems";
 import TagWithIconList from "../commons/TagWithIconList";
-import {AiOutlinePaperClip} from "react-icons/all";
+import {GoTriangleDown, RiRulerLine} from "react-icons/all";
 
-const SubmittedCodeSpec = () => {
+const OutputMatchPolicy = () => {
     const [isEditing, setIsEditing] = useState(false);
     const {tags, addTag, removeTag} = useTags();
 
@@ -22,9 +22,10 @@ const SubmittedCodeSpec = () => {
     const onClickCancel = () => {
         setIsEditing(false);
     }
+
     return <>
-        <Block title="Submitted Code Spec"
-               id="problem-editor-submitted-code-spec"
+        <Block title="Output Match Policy"
+               id="problem-editor-output-match-policy"
                titleButton={
                    <EditSaveCancelButton
                        isEditing={isEditing}
@@ -34,12 +35,14 @@ const SubmittedCodeSpec = () => {
                }>
             {!isEditing?
                 <>
-                    <TagWithIconList icon={<AiOutlinePaperClip/>} style={{color: "rgba(18, 115, 186, 1)"}}
+                    <TagWithIconList icon={<RiRulerLine/>} style={{color: "rgba(18, 115, 186, 1)"}}
                                      items={tags.map(tag => tag.name)}/>
                 </>
                 :
                 <>
-                    <TextInputField placeholder={"Add New Tags"} onSubmit={addTag} style={{width: "234px"}}/>
+                    <TextInputField placeholder={"Add New Tags"}
+                                    buttonTitle={<GoTriangleDown/>}
+                                    onSubmit={addTag} style={{width: "234px"}}/>
                     <TextInputItems items={tags} removeItem={removeTag}/>
                 </>
             }
@@ -47,4 +50,4 @@ const SubmittedCodeSpec = () => {
     </>;
 };
 
-export default SubmittedCodeSpec;
+export default OutputMatchPolicy;

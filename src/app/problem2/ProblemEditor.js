@@ -1,4 +1,4 @@
-import "./ProblemEditor2.scss"
+import "./ProblemEditor.scss"
 import React, {useCallback, useEffect} from "react";
 import LeftBar from "./left/LeftBar";
 import {problemService} from "../../services/services";
@@ -8,7 +8,7 @@ import {useParams} from "react-router-dom";
 import {useProblemEditorContext} from "./ProblemEditorContext";
 
 
-const ProblemEditor2 = () => {
+const ProblemEditor = () => {
     const {problemId} = useParams();
     const {currentProblem, setCurrentProblem} = useProblemEditorContext();
     const fetchProblem = useCallback(() => {
@@ -26,11 +26,11 @@ const ProblemEditor2 = () => {
     }
 
     return <>
-        <div id="problem-editor-2" className="problem-editor-2">
+        <div id="problem-editor" className="problem-editor">
             <LeftBar/>
             <RightBar/>
         </div>
     </>;
 }
 
-export default ProblemEditor2;
+export default ProblemEditor;

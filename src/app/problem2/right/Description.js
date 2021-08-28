@@ -1,6 +1,6 @@
 import Block from "./Block";
 import {useState} from "react";
-import NewMarkdownEditor from "../commons/NewMarkdownEditor";
+import MarkdownEditor from "../commons/MarkdownEditor";
 import NewMarkdownEditorWriteTab from "../commons/NewMarkdownEditorWriteTab";
 import NewMarkdownEditorPreviewTab from "../commons/NewMarkdownEditorPreviewTab";
 import {EditorContext} from "../commons/NewMarkdownEditorContext";
@@ -9,11 +9,10 @@ import {EditSaveCancelButton} from "../commons/EditSaveCancelButton";
 
 const Description = () => {
     const [isEditing, setIsEditing] = useState(false);
-    const [markdownText, setMarkdownText] = useState(undefined);
-    const [markdownTextBackUp, setMarkdownTextBackUp] = useState(undefined);
+    const [draftRawText, setDraftRawText] = useState(undefined);
+    const [finalRawText, setFinalRawText] = useState(undefined);
 
     const onClickEdit = () => {
-        setMarkdownTextBackUp(markdownText);
         setIsEditing(true);
     }
 
@@ -24,7 +23,8 @@ const Description = () => {
 
     const onClickCancel = () => {
         setIsEditing(false);
-        setMarkdownText(markdownTextBackUp);
+        setDraftRawText(undefined);
+        setFinalRawText(undefined);
     }
 
     return <>
@@ -37,18 +37,19 @@ const Description = () => {
                        onClickSave={onClickSave}
                        onClickCancel={onClickCancel}/>
                }>
-            <EditorContext.Provider value={{markdownText, setMarkdownText, markdownTextBackUp, setMarkdownTextBackUp}}>
-            {!isEditing?
-                <NewMarkdownEditorPreviewTab/>
-                :
-                <NewMarkdownEditor
-                    tabObjects={[
-                        {title: "Write", component: <NewMarkdownEditorWriteTab/>},
-                        {title: "Preview", component: <NewMarkdownEditorPreviewTab/>}
-                    ]}
-                    defaultIndex={1}
-                    onEdit={setIsEditing}/>
-            }
+            <EditorContext.Provider value={{draftRawText, setDraftRawText,
+                finalRawText, setFinalRawText}}>
+                {!isEditing?
+                    <NewMarkdownEditorPreviewTab/>
+                    :
+                    <MarkdownEditor
+                        tabObjects={[
+                            {title: "Write", component: <NewMarkdownEditorWriteTab/>},
+                            {title: "Preview", component: <NewMarkdownEditorPreviewTab/>}
+                        ]}
+                        defaultIndex={1}
+                        onEdit={setIsEditing}/>
+                }
             </EditorContext.Provider>
         </Block>
     </>;

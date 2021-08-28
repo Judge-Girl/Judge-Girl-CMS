@@ -1,4 +1,4 @@
-import '../../ProblemEditor.css';
+import '../../ProblemEditorOld.css';
 import {AiOutlineClose} from "react-icons/ai";
 
 // TODO: Moving the style fields into a separate .scss file.

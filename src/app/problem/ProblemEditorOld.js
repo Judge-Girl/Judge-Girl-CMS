@@ -1,3 +1,4 @@
+import './ProblemEditorOld.css';
 import {Redirect, useParams} from "react-router-dom";
 import ProblemEditorTitle from "./edit/ProblemEditorTitle";
 import TagList from "./edit/TagList";
@@ -9,15 +10,15 @@ import OutputMatchPolicyList from "./edit/OutputMatchPolicyList";
 import Visible from "./edit/Visible";
 import {EditorButton} from "./edit/EditorButton";
 import {SubtitleLine} from "../commons/titles/TitleLine";
-import MarkdownEditor from "../commons/MarkdownEditor";
+import MarkdownEditorOld from "../commons/MarkdownEditorOld";
 import TestCase from "./edit/testCase/TestCasesList";
 import React, {useEffect, useState} from "react";
-import './ProblemEditor.css';
 import {Spinner} from "../commons/Spinner";
 import ProblemNotFound from "./ProblemNotFound";
 import {problemService} from "../../services/services";
 
-const ProblemEditor = () => {
+
+const ProblemEditorOld = () => {
     const {problemId} = useParams();
     const [shouldRedirect, setShouldRedirect] = useState(false);
     const [problemNotFound, setProblemNotFound] = useState(false);
@@ -157,7 +158,7 @@ const ProblemEditor = () => {
     }
 
     return (
-        <div className="problem-editor">
+        <div className="problem-editor-old">
             <div style={{padding: "20px 10% 200px 10%", backgroundColor: "#FFFFFF"}}>
                 <div style={{
                     display: "flex", flexDirection: "column",
@@ -205,13 +206,13 @@ const ProblemEditor = () => {
                         <div style={{width: "950px"}}>
                             <section>
                                 <SubtitleLine title={"Description"}/>
-                                <MarkdownEditor text={problemDescription}
-                                                onTextChanged={setProblemDescription}
-                                                editingState={editingState}
-                                                editorButtons={editingState ?
+                                <MarkdownEditorOld text={problemDescription}
+                                                   onTextChanged={setProblemDescription}
+                                                   editingState={editingState}
+                                                   editorButtons={editingState ?
                                                     <HandleDescriptionButtons/> : <EditDescriptionButton/>
                                                 }
-                                                style={{backgroundColor: "var(--backgroundDim)"}}/>
+                                                   style={{backgroundColor: "var(--backgroundDim)"}}/>
                             </section>
                             <section>
                                 <TestCase/>
@@ -223,4 +224,4 @@ const ProblemEditor = () => {
         </div>
     );
 }
-export {ProblemEditor};
+export {ProblemEditorOld};

@@ -1,5 +1,4 @@
-import React from 'react';
-import '../ProblemEditor.css';
+import '../ProblemEditorOld.css';
 import {SubtitleLine} from "../../commons/titles/TitleLine";
 import {InlineInputBox} from "./InlineInputBox";
 

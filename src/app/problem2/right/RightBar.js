@@ -9,22 +9,40 @@ import Description from "./Description";
 import TestCases from "./TestCases";
 import Actions from "./Actions";
 import ProblemTitle from "./ProblemTitle";
-import {Hr} from "./Hr";
+import {Divider} from "./Divider";
 
 
 const RightBar = () => {
     return <>
         <div className="right-bar">
             <ProblemTitle/>
-            <Tags/><Hr/>
-            <ProvidedCode/><Hr/>
-            <SubmittedCodeSpec/><Hr/>
-            <ResourceSpec/><Hr/>
-            <CompilationScript/><Hr/>
-            <OutputMatchPolicy/><Hr/>
-            <Visible/><Hr/>
-            <Description/><Hr/>
+
+            <Tags/>
+            <Divider/>
+
+            <ProvidedCode/>
+            <Divider/>
+
+            <SubmittedCodeSpec/>
+            <Divider/>
+
+            <ResourceSpec/>
+            <Divider/>
+
+            <CompilationScript/>
+            <Divider/>
+
+            <OutputMatchPolicy/>
+            <Divider/>
+
+            <Visible/>
+            <Divider/>
+
+            <Description/>
+            <Divider/>
+
             <TestCases/>
+
             <Actions/>
         </div>
     </>;

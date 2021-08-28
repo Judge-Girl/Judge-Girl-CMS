@@ -6,20 +6,20 @@
     --textLight: rgb(62, 189, 217);
 }
 
-.problem-editor section {
+.problem-editor-old section {
     padding-bottom: 70px;
 }
 
-.problem-editor body {
+.problem-editor-old body {
     background: var(--background);
     height: 100vh;
 }
 
-.problem-editor .field:not(:last-child) {
+.problem-editor-old .field:not(:last-child) {
     margin-bottom: 1rem;
 }
 
-.problem-editor #title {
+.problem-editor-old #title {
     color: white;
     font-weight: 500;
     font-size: 2rem;
@@ -27,15 +27,15 @@
     font-family: 'Nunito Sans', sans-serif;
 }
 
-.problem-editor #title span {
+.problem-editor-old #title span {
     color: var(--brandColor);
 }
 
-.problem-editor .field {
+.problem-editor-old .field {
     padding-left: 0;
 }
 
-.problem-editor input {
+.problem-editor-old input {
     font-size: 1rem;
 }
 

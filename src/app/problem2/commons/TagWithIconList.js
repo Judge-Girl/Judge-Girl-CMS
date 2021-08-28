@@ -12,7 +12,8 @@ const TagWithIconList = ({
         }
         {items.map((item, i) =>
             <div key={i} className="item">
-                <div>{icon}</div><span style={style}>{item}</span>
+                <div>{icon}</div>
+                <span style={style}>{item}</span>
             </div>)
         }
         </div>

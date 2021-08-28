@@ -4,10 +4,9 @@ import {CreateButton} from "../../commons/buttons/CreateButton";
 import CreateProblemModal from "../Modal/CreateProblemModal";
 import {problemService} from "../../../services/services";
 import {Spinner} from "../../commons/Spinner";
-import {ProblemEditor} from "../ProblemEditor";
 import {Link, Route, useHistory} from "react-router-dom";
 import {TableCell} from "../../../utils/TableCell";
-import ProblemEditor2 from "../../problem2/ProblemEditor2";
+import ProblemEditor from "../../problem2/ProblemEditor";
 import {ProblemEditorContext} from "../../problem2/ProblemEditorContext";
 
 
@@ -36,7 +35,7 @@ const ProblemList = () => {
 
     const onProblemCreated = problemId => {
         fetchProblems();
-        history.push(`/problems/${problemId}/edit2`);
+        history.push(`/problems/${problemId}/edit`);
     }
 
     if (!problems) {
@@ -66,7 +65,7 @@ const ProblemList = () => {
                                                   <p>{problem.id}</p>
                                               </TableCell>,
                                               <TableCell>
-                                                  <Link to={`problems/${problem.id}/edit2`}
+                                                  <Link to={`problems/${problem.id}/edit`}
                                                         onClick={setCurrentProblem(undefined)}>
                                                       {problem.title}</Link>
                                               </TableCell>,
@@ -84,12 +83,9 @@ const ProblemList = () => {
             </div>
         </Route>
         <Route path="/problems/:problemId/edit">
-            <ProblemEditor/>
-        </Route>
-        <Route path="/problems/:problemId/edit2">
             <ProblemEditorContext.Provider
                 value={{fetchProblems, currentProblem, setCurrentProblem}}>
-                <ProblemEditor2/>
+                <ProblemEditor/>
             </ProblemEditorContext.Provider>
         </Route>
     </>;

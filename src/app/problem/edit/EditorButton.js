@@ -11,15 +11,15 @@ const EditorButton = ({
 }) => {
     const style = {
         background: buttonColor, color: fontColor,
-        height: height, width: width,
         font: "Poppins", fontSize, fontWeight: 600,
         border: noBorder? "none": undefined,
-        borderRadius: borderRadius, borderWidth: 2, borderColor: borderColor,
+        borderRadius, borderWidth: 2, borderColor,
         outline: "none", boxShadow: "none",
-        marginTop: marginTop, marginRight: marginRight,
-        marginBottom: marginBottom, marginLeft: marginLeft,
         padding: 10,
-        display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center"
+        display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center",
+        height, width,
+        marginTop, marginRight,
+        marginBottom, marginLeft,
     }
     if (type === "file") {
         return <>
@@ -33,11 +33,7 @@ const EditorButton = ({
         </>;
     } else {
         return <>
-            <button
-                className="button"
-                type={type}
-                onClick={onClick}
-                style={style}>
+            <button className="button" type={type} onClick={onClick} style={style}>
                 {text}
             </button>
         </>;

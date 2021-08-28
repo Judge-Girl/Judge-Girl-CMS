@@ -1,5 +1,5 @@
 /* to hide original upload button */
-.problem-editor .original-upload-button {
+.problem-editor-old .original-upload-button {
     position: absolute;
     width: 1px;
     height: 1px;
@@ -10,7 +10,7 @@
     border: 0;
 }
 
-.problem-editor .test-case-upload-button {
+.problem-editor-old .test-case-upload-button {
     width: 110px;
     height: 28px;
 

@@ -38,7 +38,7 @@ function Tabs({textareaVal, setTextareaVal}) {
     );
 }
 
-const MarkdownEditor = ({text, editingState, onTextChanged, editorButtons, style}) => {
+const MarkdownEditorOld = ({text, editingState, onTextChanged, editorButtons, style}) => {
 
     if (!editingState) {
         return (
@@ -65,4 +65,4 @@ const MarkdownEditor = ({text, editingState, onTextChanged, editorButtons, style
     )
 };
 
-export default MarkdownEditor;
+export default MarkdownEditorOld;

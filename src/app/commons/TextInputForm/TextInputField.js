@@ -4,7 +4,8 @@ import './TextInputForm.css';
 
 
 const TextInputField = ({
-    placeholder, onSubmit,
+    placeholder,
+    onSubmit,
     buttonTitle="+",
     style
 }) => {

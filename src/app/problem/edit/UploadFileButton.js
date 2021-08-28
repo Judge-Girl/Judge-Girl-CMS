@@ -11,8 +11,8 @@ const UploadFileButton = ({
     return (
         <label
             style={{
-                width: width, height: height, background: buttonColor, borderRadius: borderRadius,
-                fontWeight: fontWeight, fontSize: fontSize, lineHeight: lineHeight, color: fontColor,
+                width, height, buttonColor, borderRadius,
+                fontWeight, fontSize, lineHeight, color: fontColor,
                 display: "flex", flexDirection: "row", justifyContent: "center",
                 alignItems: "center", padding: "5 10", fontFamily: "Poppins"
             }}

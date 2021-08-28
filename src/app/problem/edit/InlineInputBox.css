@@ -1,4 +1,4 @@
-.problem-editor .input-box {
+.problem-editor-old .input-box {
     /* Input Box - small */
     /* Auto Layout */
     flex-direction: row;
@@ -23,7 +23,7 @@
     margin: 0px 7px;
 }
 
-.problem-editor .inline-input-box {
+.problem-editor-old .inline-input-box {
     color: #1273BA;
     /* Inside Auto Layout */
 
@@ -34,7 +34,7 @@
     padding-bottom: 10px;
 }
 
-.problem-editor li span {
+.problem-editor-old li span {
     position: relative;
     left: -10px;
 }

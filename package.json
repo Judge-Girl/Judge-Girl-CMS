@@ -24,7 +24,7 @@
     "react-chartjs-2": "^3.0.3",
     "react-dom": "^17.0.1",
     "react-icons": "^4.2.0",
-    "react-markdown": "^7.0.0",
+    "react-markdown": "^5.0.3",
     "react-markdown-textarea": "^1.0.1",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",

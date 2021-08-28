@@ -1,4 +1,4 @@
-.problem-editor .provided-code-item {
+.problem-editor-old .provided-code-item {
     color: #1273BA;
     padding-left: 10px;
     padding-top: 5px;
@@ -21,7 +21,7 @@
 }
 
 
-.problem-editor .provided-code-button {
+.problem-editor-old .provided-code-button {
     width: 215px;
     height: 33px;
 
@@ -46,7 +46,7 @@
     color: white;
 }
 
-.problem-editor .provided-code-button:hover {
+.problem-editor-old .provided-code-button:hover {
     color: white;
     font-weight: bold;
     background: rgb(31, 152, 178);

@@ -1,7 +1,6 @@
-import React from 'react';
-import '../ProblemEditor.css';
-import {SubtitleLine} from "../../commons/titles/TitleLine";
+import '../ProblemEditorOld.css';
 import './CompilationScript.css';
+import {SubtitleLine} from "../../commons/titles/TitleLine";
 
 function CompilationScript() {
     return (

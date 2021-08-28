@@ -1,10 +1,6 @@
 
 
-const Block = ({
-    id, title, titleButton,
-    children,
-    style
-}) => {
+const Block = ({id, title, titleButton, children, style}) => {
     return <>
         <div id={id} style={{width: "100%", ...style}}>
             <div className="block-title" style={{

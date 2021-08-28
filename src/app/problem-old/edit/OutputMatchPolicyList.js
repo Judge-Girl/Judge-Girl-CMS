@@ -1,6 +1,6 @@
-import React from 'react';
 import '../ProblemEditorOld.css';
 import {SubtitleLine} from "../../commons/titles/TitleLine";
+
 
 function OutputMatchPolicyList() {
     return (

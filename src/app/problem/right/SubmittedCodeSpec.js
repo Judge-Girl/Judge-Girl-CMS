@@ -7,6 +7,7 @@ import {EditSaveCancelButton} from "../commons/EditSaveCancelButton";
 import TagWithIconList from "../commons/TagWithIconList";
 import {AiOutlinePaperClip} from "react-icons/all";
 
+
 const SubmittedCodeSpec = () => {
     const [isEditing, setIsEditing] = useState(false);
     const {tags, addTag, removeTag} = useTags();
@@ -22,6 +23,7 @@ const SubmittedCodeSpec = () => {
     const onClickCancel = () => {
         setIsEditing(false);
     }
+
     return <>
         <Block title="Submitted Code Spec"
                id="problem-editor-submitted-code-spec"

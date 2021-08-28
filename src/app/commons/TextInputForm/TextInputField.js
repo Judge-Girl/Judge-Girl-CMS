@@ -3,12 +3,7 @@ import {getStringHash} from "../../../utils/utils";
 import './TextInputForm.css';
 
 
-const TextInputField = ({
-    placeholder,
-    onSubmit,
-    buttonTitle="+",
-    style
-}) => {
+const TextInputField = ({placeholder, onSubmit, buttonTitle="+", style}) => {
     const [tagName, setTagName] = useState("");
     const inputRef = useRef();
 

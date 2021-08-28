@@ -5,6 +5,7 @@ const defaultLines = [
     `Styling with Markdown is supported. :+1:`
 ];
 
+/* TODO: this will be refactored in the next PR. */
 const NewMarkdownEditorWriteTab = ({rawText = defaultLines.join("  \n")}) => {
     const {setDraftRawText} = useEditorContext();
 

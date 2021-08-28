@@ -25,14 +25,6 @@ const ProblemList = () => {
         }
     }, [problems, fetchProblems]);
 
-    /* TODO: The commented code below is problematic, error message: "a component is changing an uncontrolled input to be controlled"
-    if (shouldRedirect) {
-        return (<Redirect to={`problems/${currentProblemId}/edit`}/>);
-    }
-    This problem has been resolved by removing the unnecessary flag shouldRedirect.
-    This should be deleted after review.
-    */
-
     const onProblemCreated = problemId => {
         fetchProblems();
         history.push(`/problems/${problemId}/edit`);

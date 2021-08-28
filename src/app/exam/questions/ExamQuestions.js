@@ -260,11 +260,13 @@ const ExamQuestions = () => {
                                     <HandleDescriptionButtons/>
                                 {!editingState?
                                     <div className="markdown">
+                                        {/* TODO: The prefix "New" will be removed in the next PR. */}
                                         <NewMarkdownEditorPreviewTab/>
                                     </div>
                                     :
                                     <MarkdownEditor
                                         tabObjects={[
+                                            /* TODO: The prefix "New" will be removed in the next PR. */
                                             {title: "Write", component: <NewMarkdownEditorWriteTab/>},
                                             {title: "Preview", component: <NewMarkdownEditorPreviewTab/>}
                                         ]}

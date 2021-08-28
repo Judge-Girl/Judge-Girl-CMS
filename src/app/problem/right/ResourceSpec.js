@@ -3,6 +3,7 @@ import {useState} from "react";
 import {EditSaveCancelButton} from "../commons/EditSaveCancelButton";
 import {FiCpu} from "react-icons/all";
 
+
 const ResourceSpec = () => {
     const [isEditing, setIsEditing] = useState(false);
     const [cpuCount, setCpuCount] = useState(1);

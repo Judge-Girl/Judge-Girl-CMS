@@ -18,7 +18,7 @@ const LeftBar = () => {
     return <>
         <div className="left-bar">
             <a key="#"
-               href={`/problems/${problemId}/edit2`}
+               href={`/problems/${problemId}/edit`}
                onClick={backToTop}>
                 ID: {problemId}
             </a>

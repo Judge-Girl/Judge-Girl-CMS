@@ -1,5 +1,5 @@
 
 
-export const Hr = () => {
+export const Divider = () => {
     return <hr className="padding-hr"/>;
 };

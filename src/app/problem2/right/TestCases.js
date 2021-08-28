@@ -30,12 +30,9 @@ const TestCases = () => {
                        onClickCancel={onClickCancel}/>
                }>
             {!isEditing?
-                <>
-                </>
+                <>{/* TODO: Will be announced in the Github Issue. */}</>
                 :
-                <>
-                    <TestCaseList/>
-                </>
+                <TestCaseList/>
             }
         </Block>
     </>;

@@ -1,8 +1,8 @@
 import Block from "./Block";
 import {useState} from "react";
-import NewMarkdownEditor from "../commons/NewMarkdownEditor";
-import NewMarkdownEditorWriteTab from "../commons/NewMarkdownEditorWriteTab";
-import NewMarkdownEditorPreviewTab from "../commons/NewMarkdownEditorPreviewTab";
+import MarkdownEditor from "../commons/MarkdownEditor";
+import MarkdownEditorWriteTab from "../commons/NewMarkdownEditorWriteTab";
+import MarkdownEditorPreviewTab from "../commons/NewMarkdownEditorPreviewTab";
 import {EditorContext} from "../commons/NewMarkdownEditorContext";
 import {EditSaveCancelButton} from "../commons/EditSaveCancelButton";
 
@@ -39,15 +39,15 @@ const Description = () => {
                }>
             <EditorContext.Provider value={{markdownText, setMarkdownText, markdownTextBackUp, setMarkdownTextBackUp}}>
             {!isEditing?
-                <NewMarkdownEditorPreviewTab/>
+                <MarkdownEditorPreviewTab/>
                 :
-                <NewMarkdownEditor
+                <MarkdownEditor
                     tabObjects={[
-                        {title: "Write", component: <NewMarkdownEditorWriteTab/>},
-                        {title: "Preview", component: <NewMarkdownEditorPreviewTab/>}
+                        {title: "Write", component: <MarkdownEditorWriteTab/>},
+                        {title: "Preview", component: <MarkdownEditorPreviewTab/>}
                     ]}
                     defaultIndex={1}
-                    onEdit={setIsEditing}/>
+                    isEditing={setIsEditing}/>
             }
             </EditorContext.Provider>
         </Block>

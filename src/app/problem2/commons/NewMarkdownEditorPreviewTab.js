@@ -25,8 +25,6 @@ const forTesting = [
 const NewMarkdownEditorPreviewTab = () => {
     const {markdownText} = useEditorContext();
 
-    console.log(markdownText, typeof markdownText)
-
     return <>
         <p>
             <ReactMarkdown className="main">

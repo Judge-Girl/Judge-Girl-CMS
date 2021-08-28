@@ -1,16 +1,17 @@
 import {useState} from "react";
 
 
-const NewMarkdownEditor = ({tabObjects, defaultIndex, onEdit}) => {
-    const [currentTabNo, setCurrentTabNo] = useState(0);
+const MarkdownEditor = ({tabObjects, defaultIndex, isEditing}) => {
+    const LEFTMOST_TAB_INDEX = 0;
+    const [currentTabNo, setCurrentTabNo] = useState(LEFTMOST_TAB_INDEX);
 
     return <>
         <div className="markdown">
-            {onEdit?
+            {isEditing?
                 <div className="tabs">
                 {tabObjects.map((tabObject, i) =>
                     <button className={["tab", i === currentTabNo? "current": ""].join(" ")}
-                            style={i !== 0? {marginLeft: "-1px"}: {}}
+                            style={i !== LEFTMOST_TAB_INDEX? {marginLeft: "-1px"}: {}}
                             onClick={() => setCurrentTabNo(i)}>
                         {tabObject.title}
                     </button>
@@ -19,9 +20,9 @@ const NewMarkdownEditor = ({tabObjects, defaultIndex, onEdit}) => {
                 </div>
                 : ""
             }
-            {tabObjects[onEdit? currentTabNo: defaultIndex].component}
+            {tabObjects[isEditing? currentTabNo: defaultIndex].component}
         </div>
     </>;
 }
 
-export default NewMarkdownEditor;
+export default MarkdownEditor;

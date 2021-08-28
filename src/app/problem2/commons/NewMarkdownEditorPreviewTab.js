@@ -1,5 +1,6 @@
-import ReactMarkdown from "react-markdown";
 import {useEditorContext} from "./NewMarkdownEditorContext";
+import { MathJax, MathJaxContext } from "better-react-mathjax";
+import ReactMarkdown from "react-markdown";
 
 const forTesting = [
     `## Testing Header`,
@@ -21,16 +22,37 @@ const forTesting = [
     `[Google](https://google.com.tw)`,
 ]
 
+const config = {
+    loader: { load: ["[tex]/html"] },
+    tex: {
+        packages: { "[+]": ["html"] },
+        inlineMath: [
+            ["$", "$"],
+            ["\\(", "\\)"]
+        ],
+        displayMath: [
+            ["$$", "$$"],
+            ["\\[", "\\]"]
+        ]
+    }
+};
 
 const NewMarkdownEditorPreviewTab = () => {
     const {markdownText} = useEditorContext();
 
+    console.log("0828 markdownText:", markdownText);
+
     return <>
-        <p>
-            <ReactMarkdown className="main">
-                {markdownText? markdownText : forTesting.join("\r\n")}
-            </ReactMarkdown>
-        </p>
+        <MathJaxContext version={3} config={config}>
+            <MathJax hideUntilTypeset={"first"}
+                     inline
+                     dynamic>
+                <ReactMarkdown className="main">
+                    {markdownText?
+                        markdownText.replace(/\\/g, `\\\\`): forTesting.join("\r\n")}
+                </ReactMarkdown>
+            </MathJax>
+        </MathJaxContext>
     </>;
 };
 

@@ -45,7 +45,6 @@ const ProblemTitle = () => {
                        type="text"
                        required value={problemTitle}
                        onChange={e => setProblemTitle(e.target.value)}/>
-                <div style={{width: "20px"}}/>
                 <EditSaveCancelButton
                     isEditing={isEditing}
                     onClickSave={onClickSave}

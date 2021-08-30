@@ -9,22 +9,18 @@ const UploadFileButton = ({
     fontColor = "white", className
 }) => {
     return (
-        <label
-            style={{
-                width, height, buttonColor, borderRadius,
-                fontWeight, fontSize, lineHeight, color: fontColor,
-                display: "flex", flexDirection: "row", justifyContent: "center",
-                alignItems: "center", padding: "5 10", fontFamily: "Poppins"
-            }}
-            className={className}
-        >
+        <label className={className}
+               style={{
+                   width, height, buttonColor, borderRadius,
+                   fontWeight, fontSize, lineHeight, color: fontColor,
+                   display: "flex", flexDirection: "row", justifyContent: "center",
+                   alignItems: "center", padding: "5 10", fontFamily: "Poppins"
+               }}>
             <span>{title}</span>
-            <input
-                type="file"
-                name="file"
-                onChange={onChange}
-                className="original-upload-button"
-            />
+            <input type="file"
+                   name="file"
+                   onChange={onChange}
+                   className="original-upload-button"/>
         </label>
     );
 };

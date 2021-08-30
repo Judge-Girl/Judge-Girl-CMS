@@ -34,9 +34,7 @@ const ResourceSpec = () => {
             {/* TODO: Move css properties to ProblemEditor.scss. */}
             <div style={{display: "flex", flexDirection: "row", alignItems: "center", height: "1.5em"}}>
                 <FiCpu/>
-                <span style={{width: "35px", marginLeft: "5px", color: "rgba(18, 115, 186, 1)"}}>
-                    CPU
-                </span>
+                <span style={{width: "35px", marginLeft: "5px", color: "rgba(18, 115, 186, 1)"}}>CPU</span>
             {!isEditing?
                 <span style={{marginLeft: "5px", color: "rgba(18, 115, 186, 1)"}}>{cpuCount}</span>
                 :
@@ -45,9 +43,7 @@ const ResourceSpec = () => {
             </div>
             <div style={{display: "flex", flexDirection: "row", alignItems: "center", height: "1.5em"}}>
                 <FiCpu/>
-                <span style={{width: "35px", marginLeft: "5px", color: "rgba(18, 115, 186, 1)"}}>
-                    GPU
-                </span>
+                <span style={{width: "35px", marginLeft: "5px", color: "rgba(18, 115, 186, 1)"}}>GPU</span>
             {!isEditing?
                 <span style={{marginLeft: "5px", color: "rgba(18, 115, 186, 1)"}}>{gpuCount}</span>
                 :

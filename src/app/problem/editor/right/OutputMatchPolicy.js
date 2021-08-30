@@ -34,10 +34,8 @@ const OutputMatchPolicy = () => {
                        onClickCancel={onClickCancel}/>
                }>
             {!isEditing?
-                <>
-                    <TagWithIconList icon={<RiRulerLine/>} style={{color: "rgba(18, 115, 186, 1)"}}
-                                     items={tags.map(tag => tag.name)}/>
-                </>
+                <TagWithIconList icon={<RiRulerLine/>} style={{color: "rgba(18, 115, 186, 1)"}}
+                                 items={tags.map(tag => tag.name)}/>
                 :
                 <>
                     <TextInputField placeholder={"Add New Tags"}

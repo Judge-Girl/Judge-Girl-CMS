@@ -27,8 +27,7 @@ const ProblemEditor = () => {
 
     return <>
         <div id="problem-editor" className="problem-editor">
-            <LeftBar/>
-            <RightBar/>
+            <LeftBar/><RightBar/>
         </div>
     </>;
 }

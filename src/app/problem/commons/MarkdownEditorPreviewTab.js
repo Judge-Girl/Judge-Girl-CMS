@@ -5,11 +5,9 @@ import {useEditorContext} from "./MarkdownEditorContext";
 const MarkdownEditorPreviewTab = () => {
     const {draftRawText} = useEditorContext();
 
-    return <>
-        <ReactMarkdown className="main">
-            {draftRawText? draftRawText : "Empty."}
-        </ReactMarkdown>
-    </>;
+    return <ReactMarkdown className="main">
+        {draftRawText? draftRawText : "Empty."}
+    </ReactMarkdown>;
 };
 
 export default MarkdownEditorPreviewTab;

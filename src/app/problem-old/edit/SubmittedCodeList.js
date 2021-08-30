@@ -1,18 +1,18 @@
-import {SubtitleLine} from "../../commons/titles/TitleLine";
+import '../ProblemEditorOld.css';
 import {useTags} from "../../usecases/TagUseCase";
+import {SubtitleLine} from "../../commons/titles/TitleLine";
 import {TextInputField} from "../../commons/TextInputForm/TextInputField";
 import {TextInputItems} from "../../problem/commons/TextInputItems";
-import './ExamOptions.scss';
 
-const ExamWhiteList = () => {
+function SubmittedCodeList() {
     const {tags, addTag, removeTag} = useTags();
     return (
         <div>
-            <SubtitleLine title={"WhiteList"}/>
-            <TextInputField placeholder={'Add IP'} onSubmit={addTag}/>
+            <SubtitleLine title={"Submitted Code Spec"}/>
+            <TextInputField placeholder={"Add Submitted Code File Name"} onSubmit={addTag}/>
             <TextInputItems items={tags} removeItem={removeTag}/>
         </div>
     )
-};
+}
 
-export default ExamWhiteList
+export default SubmittedCodeList

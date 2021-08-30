@@ -1,0 +1,53 @@
+.problem-editor-old .provided-code-item {
+    color: #1273BA;
+    padding-left: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 284px;
+    height: 33px;
+    border: 1px solid #E4E1E1;
+    box-sizing: border-box;
+
+    font-family: Poppins, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 15px;
+    line-height: 22px;
+
+    display: flex;
+    align-items: center;
+}
+
+
+.problem-editor-old .provided-code-button {
+    width: 215px;
+    height: 33px;
+
+    /* Auto Layout */
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 5px 10px;
+
+    background: #3EBDD9;
+    border-radius: 10px;
+
+    /* Button */
+
+    font-family: Poppins, sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 22px;
+    color: white;
+}
+
+.problem-editor-old .provided-code-button:hover {
+    color: white;
+    font-weight: bold;
+    background: rgb(31, 152, 178);
+}

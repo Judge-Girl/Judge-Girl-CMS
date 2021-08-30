@@ -1,3 +1,5 @@
+import "./ExamQuestions.scss";
+import "../../problem/editor/ProblemEditor.scss";
 import React, {useCallback, useEffect, useState} from "react";
 import {useParams, useRouteMatch} from "react-router-dom";
 import {examService, submissionService} from "../../../services/services.js";
@@ -11,14 +13,17 @@ import {RejudgeQuestionModal} from "../modals/RejudgeQuestionModal";
 import {useExamContext} from "./ExamContext";
 import {Spinner} from "../../commons/Spinner";
 import {TableCell} from "../../../utils/TableCell";
-import "./ExamQuestions.scss";
 import {DeleteConfirmationModal} from "../../commons/modals/DeleteConfirmationModal";
-import MarkdownEditor from "../../commons/MarkdownEditor";
-import {EditorButton} from "../../problem/edit/EditorButton";
+import {EditorButton} from "../../problem/commons/EditorButton";
+import MarkdownEditor from "../../problem/commons/MarkdownEditor";
+import MarkdownEditorWriteTab from "../../problem/commons/MarkdownEditorWriteTab";
+import MarkdownEditorPreviewTab from "../../problem/commons/MarkdownEditorPreviewTab";
+import {EditorContext} from "../../problem/commons/MarkdownEditorContext";
 
 const toCharacterIndex = i => {
     return String.fromCharCode(i + 65);
 };
+
 
 const ExamQuestions = () => {
     const {url: currentURL} = useRouteMatch();
@@ -242,13 +247,35 @@ const ExamQuestions = () => {
                              style={{alignSelf: "flex-end"}}>
                             <span>Add New Question</span>
                         </div>
-                        <MarkdownEditor text={examDescription}
-                                        onTextChanged={setExamDescription}
-                                        editingState={editingState}
-                                        editorButtons={editingState ?
-                                            <HandleDescriptionButtons/> : <EditDescriptionButton/>
-                                        }
-                                        style={{backgroundColor: "var(--backgroundDim)", width: "1200px"}}/>
+                        {/* TODO: Refactoring the scss. */}
+                        <div className="problem-editor" style={{padding: "0"}}>
+                            <div className="right-bar" style={{width: "1000px"}}>
+                                <EditorContext.Provider value={{
+                                    markdownText: examDescription,
+                                    setMarkdownText: setExamDescription,
+                                    markdownTextBackUp: lastExamDescription,
+                                    setMarkdownTextBackUp: setLastExamDescription,
+                                }}>
+                                    <EditDescriptionButton/>
+                                    <HandleDescriptionButtons/>
+                                {!editingState?
+                                    <div className="markdown">
+                                        {/* TODO: The prefix "New" will be removed in the next PR. */}
+                                        <MarkdownEditorPreviewTab/>
+                                    </div>
+                                    :
+                                    <MarkdownEditor
+                                        tabObjects={[
+                                            /* TODO: The prefix "New" will be removed in the next PR. */
+                                            {title: "Write", component: <MarkdownEditorWriteTab/>},
+                                            {title: "Preview", component: <MarkdownEditorPreviewTab/>}
+                                        ]}
+                                        defaultIndex={1}
+                                        isEditing={editingState}/>
+                                }
+                                </EditorContext.Provider>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

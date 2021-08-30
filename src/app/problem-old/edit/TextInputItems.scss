@@ -1,0 +1,39 @@
+.problem-editor-old .tag-item {
+    position: relative;
+    color: #1273BA;
+    padding-left: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 267px;
+    min-height: 33px;
+    height: fit-content;
+    border: 1px solid #E4E1E1;
+    box-sizing: border-box;
+
+    font-family: Poppins, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 15px;
+    line-height: 22px;
+
+    display: flex;
+    align-items: center;
+    .tag-content {
+        width: 85%;
+        height: 100%;
+        overflow-wrap: anywhere;
+    }
+    .tag-button {
+        width: 15%;
+        display: flex;
+        cursor: pointer;
+        flex-direction: row;
+        justify-content: center;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+    }
+}

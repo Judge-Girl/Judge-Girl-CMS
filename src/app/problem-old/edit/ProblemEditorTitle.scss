@@ -1,0 +1,39 @@
+%problem-editor-title-style-shared {
+  font-family: Poppins, sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 35px;
+  line-height: 52px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+
+.problem-editor-old .problem-editor-title {
+  .problem-name-title {
+    @extend %problem-editor-title-style-shared;
+    color: #1273BA;
+
+    .problem-name-editor-btn {
+      cursor: pointer;
+      margin-left: 10px;
+      width: 24px;
+      height: 24px;
+      color: #A2A3B1;
+    }
+  }
+
+  .save-problem-name-btn {
+    @extend %problem-editor-title-style-shared;
+    width: 1021px;
+    height: 55px;
+    left: 133px;
+    top: 79px;
+    background: rgba(243, 243, 243, 1);
+    border: none;
+    box-sizing: border-box;
+    padding: 15px;
+    color: #6D6E7D;
+  }
+}

@@ -1,0 +1,40 @@
+.problem-editor-old .input-box {
+    /* Input Box - small */
+    /* Auto Layout */
+    flex-direction: row;
+    align-items: center;
+    padding: 2px 5px 2px 10px;
+
+    position: static;
+    width: 75px;
+    height: 24px;
+    left: 51px;
+    top: 0px;
+
+    background: #F3F3F3;
+    border: 1px solid #C4C4C4;
+    box-sizing: border-box;
+    border-radius: 5px;
+
+    /* Inside Auto Layout */
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+    margin: 0px 7px;
+}
+
+.problem-editor-old .inline-input-box {
+    color: #1273BA;
+    /* Inside Auto Layout */
+
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+    margin: 0px 5px;
+    padding-bottom: 10px;
+}
+
+.problem-editor-old li span {
+    position: relative;
+    left: -10px;
+}

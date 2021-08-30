@@ -31,6 +31,7 @@ const ExamList = () => {
     const [showCreateExamModal, setShowCreateExamModal] = useState(false);
     const {exams, setExams} = useExamList();
     const [currentExam, setCurrentExam] = useState(undefined);
+    // TODO: Refactoring: This flag can be removed.
     const [shouldRedirect, setShouldRedirect] = useState(false);
     const refetchExam = useCallback((examId) => {
         examService.getExams({status: EXAM_STATUSES.ALL})

@@ -1,6 +1,6 @@
-import {SubtitleLine} from "../../../commons/titles/TitleLine";
+import {SubtitleLine} from "../../commons/titles/TitleLine";
 import React, {useState} from "react";
-import {EditorButton} from "../EditorButton";
+import {EditorButton} from "./EditorButton";
 import TestCases from "./TestCases";
 
 function TestCasesList() {

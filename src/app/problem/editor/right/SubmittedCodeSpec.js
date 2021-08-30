@@ -1,10 +1,10 @@
 import Block from "./Block";
 import {useState} from "react";
-import {useTags} from "../../usecases/TagUseCase";
-import {TextInputField} from "../../commons/TextInputForm/TextInputField";
-import {TextInputItems} from "../../problem-old/edit/TextInputItems";
-import {EditSaveCancelButton} from "../commons/EditSaveCancelButton";
-import TagWithIconList from "../commons/TagWithIconList";
+import {useTags} from "../../../usecases/TagUseCase";
+import {TextInputField} from "../../../commons/TextInputForm/TextInputField";
+import {TextInputItems} from "../../commons/TextInputItems";
+import {EditSaveCancelButton} from "../../commons/EditSaveCancelButton";
+import TagWithIconList from "../../commons/TagWithIconList";
 import {AiOutlinePaperClip} from "react-icons/all";
 
 

@@ -1,8 +1,8 @@
 import ReactMarkdown from "react-markdown";
-import {useEditorContext} from "./NewMarkdownEditorContext";
+import {useEditorContext} from "./MarkdownEditorContext";
 
 /* TODO: this will be refactored in the next PR. */
-const NewMarkdownEditorPreviewTab = () => {
+const MarkdownEditorPreviewTab = () => {
     const {draftRawText} = useEditorContext();
 
     return <>
@@ -12,4 +12,4 @@ const NewMarkdownEditorPreviewTab = () => {
     </>;
 };
 
-export default NewMarkdownEditorPreviewTab;
+export default MarkdownEditorPreviewTab;

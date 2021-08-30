@@ -42,6 +42,7 @@ const RightBar = () => {
             <Divider/>
 
             <TestCases/>
+            <Divider/>
 
             <Actions/>
         </div>

@@ -1,5 +1,12 @@
 
 
+/**
+ * @param id, give an id to this block.
+ * @param title, block title that will be shown above the block content.
+ * @param titleButton, a button on the right hand side of the @param title.
+ * @param children, the nested component.
+ * @param style, the style properties for css customization.
+ */
 const Block = ({id, title, titleButton, children, style}) => {
     return <>
         <div id={id} style={{width: "100%", ...style}}>

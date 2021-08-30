@@ -1,5 +1,5 @@
 import "./ExamQuestions.scss";
-import "../../problem/ProblemEditor.scss";
+import "../../problem/editor/ProblemEditor.scss";
 import React, {useCallback, useEffect, useState} from "react";
 import {useParams, useRouteMatch} from "react-router-dom";
 import {examService, submissionService} from "../../../services/services.js";
@@ -14,11 +14,11 @@ import {useExamContext} from "./ExamContext";
 import {Spinner} from "../../commons/Spinner";
 import {TableCell} from "../../../utils/TableCell";
 import {DeleteConfirmationModal} from "../../commons/modals/DeleteConfirmationModal";
-import {EditorButton} from "../../problem-old/edit/EditorButton";
+import {EditorButton} from "../../problem/commons/EditorButton";
 import MarkdownEditor from "../../problem/commons/MarkdownEditor";
-import NewMarkdownEditorWriteTab from "../../problem/commons/NewMarkdownEditorWriteTab";
-import NewMarkdownEditorPreviewTab from "../../problem/commons/NewMarkdownEditorPreviewTab";
-import {EditorContext} from "../../problem/commons/NewMarkdownEditorContext";
+import MarkdownEditorWriteTab from "../../problem/commons/MarkdownEditorWriteTab";
+import MarkdownEditorPreviewTab from "../../problem/commons/MarkdownEditorPreviewTab";
+import {EditorContext} from "../../problem/commons/MarkdownEditorContext";
 
 const toCharacterIndex = i => {
     return String.fromCharCode(i + 65);
@@ -261,14 +261,14 @@ const ExamQuestions = () => {
                                 {!editingState?
                                     <div className="markdown">
                                         {/* TODO: The prefix "New" will be removed in the next PR. */}
-                                        <NewMarkdownEditorPreviewTab/>
+                                        <MarkdownEditorPreviewTab/>
                                     </div>
                                     :
                                     <MarkdownEditor
                                         tabObjects={[
                                             /* TODO: The prefix "New" will be removed in the next PR. */
-                                            {title: "Write", component: <NewMarkdownEditorWriteTab/>},
-                                            {title: "Preview", component: <NewMarkdownEditorPreviewTab/>}
+                                            {title: "Write", component: <MarkdownEditorWriteTab/>},
+                                            {title: "Preview", component: <MarkdownEditorPreviewTab/>}
                                         ]}
                                         defaultIndex={1}
                                         isEditing={editingState}/>

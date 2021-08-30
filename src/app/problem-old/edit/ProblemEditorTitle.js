@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import './ProblemEditorTitle.scss';
 import {FaEdit} from "react-icons/all";
-import {EditorButton} from "./EditorButton";
+import {EditorButton} from "../../problem/commons/EditorButton";
 import {problemService} from "../../../services/services";
 
 function ProblemEditorTitle({problem}) {

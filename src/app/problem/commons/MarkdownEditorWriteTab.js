@@ -1,4 +1,4 @@
-import {useEditorContext} from "./NewMarkdownEditorContext";
+import {useEditorContext} from "./MarkdownEditorContext";
 
 const defaultLines = [
     `Press Edit Description to start writing the description. :smile:`,
@@ -6,7 +6,7 @@ const defaultLines = [
 ];
 
 /* TODO: this will be refactored in the next PR. */
-const NewMarkdownEditorWriteTab = ({rawText = defaultLines.join("  \n")}) => {
+const MarkdownEditorWriteTab = ({rawText = defaultLines.join("  \n")}) => {
     const {setDraftRawText} = useEditorContext();
 
     const handleTextareaChange = e => {
@@ -21,4 +21,4 @@ const NewMarkdownEditorWriteTab = ({rawText = defaultLines.join("  \n")}) => {
     </>;
 };
 
-export default NewMarkdownEditorWriteTab;
+export default MarkdownEditorWriteTab;

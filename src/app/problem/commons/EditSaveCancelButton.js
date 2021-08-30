@@ -1,4 +1,4 @@
-import {EditorButton} from "../../problem-old/edit/EditorButton";
+import {EditorButton} from "./EditorButton";
 
 
 export const EditSaveCancelButton = ({isEditing, onClickEdit, onClickSave, onClickCancel}) => {

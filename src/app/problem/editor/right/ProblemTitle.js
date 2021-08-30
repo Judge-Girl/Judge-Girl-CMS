@@ -1,8 +1,8 @@
 import {useProblemEditorContext} from "../ProblemEditorContext";
 import {useState} from "react";
-import {problemService} from "../../../services/services";
+import {problemService} from "../../../../services/services";
 import {FaEdit} from "react-icons/all";
-import {EditSaveCancelButton} from "../commons/EditSaveCancelButton";
+import {EditSaveCancelButton} from "../../commons/EditSaveCancelButton";
 
 
 const ProblemTitle = () => {

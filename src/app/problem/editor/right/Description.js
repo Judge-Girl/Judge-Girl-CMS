@@ -1,10 +1,10 @@
 import Block from "./Block";
 import {useState} from "react";
-import MarkdownEditor from "../commons/MarkdownEditor";
-import NewMarkdownEditorWriteTab from "../commons/NewMarkdownEditorWriteTab";
-import NewMarkdownEditorPreviewTab from "../commons/NewMarkdownEditorPreviewTab";
-import {EditorContext} from "../commons/NewMarkdownEditorContext";
-import {EditSaveCancelButton} from "../commons/EditSaveCancelButton";
+import MarkdownEditor from "../../commons/MarkdownEditor";
+import MarkdownEditorWriteTab from "../../commons/MarkdownEditorWriteTab";
+import MarkdownEditorPreviewTab from "../../commons/MarkdownEditorPreviewTab";
+import {EditorContext} from "../../commons/MarkdownEditorContext";
+import {EditSaveCancelButton} from "../../commons/EditSaveCancelButton";
 
 
 const Description = () => {
@@ -39,12 +39,12 @@ const Description = () => {
                }>
             <EditorContext.Provider value={{draftRawText, setDraftRawText, finalRawText, setFinalRawText}}>
             {!isEditing?
-                <NewMarkdownEditorPreviewTab/>
+                <MarkdownEditorPreviewTab/>
                 :
                 <MarkdownEditor
                     tabObjects={[
-                        {title: "Write", component: <NewMarkdownEditorWriteTab/>},
-                        {title: "Preview", component: <NewMarkdownEditorPreviewTab/>}
+                        {title: "Write", component: <MarkdownEditorWriteTab/>},
+                        {title: "Preview", component: <MarkdownEditorPreviewTab/>}
                     ]}
                     defaultIndex={1}
                     isEditing={setIsEditing}/>

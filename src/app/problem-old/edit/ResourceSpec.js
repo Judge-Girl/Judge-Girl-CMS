@@ -1,6 +1,6 @@
 import '../ProblemEditorOld.css';
 import {SubtitleLine} from "../../commons/titles/TitleLine";
-import {InlineInputBox} from "./InlineInputBox";
+import {InlineInputBox} from "../../problem/commons/InlineInputBox";
 
 function ResourceSpec() {
     return (

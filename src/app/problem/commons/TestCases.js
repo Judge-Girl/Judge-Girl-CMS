@@ -1,7 +1,7 @@
-import {TestCaseSubtitleLine} from "../../../commons/titles/TitleLine";
-import {InlineInputBox} from "../InlineInputBox";
-import {UploadFileButton} from "../UploadFileButton";
-import {EditorButton} from "../EditorButton";
+import {TestCaseSubtitleLine} from "../../commons/titles/TitleLine";
+import {InlineInputBox} from "./InlineInputBox";
+import {UploadFileButton} from "../editor/right/UploadFileButton";
+import {EditorButton} from "./EditorButton";
 
 /* TODO: This will be fixed in the next PR. */
 function TestCases({testCasesItems, removeTestCase}) {

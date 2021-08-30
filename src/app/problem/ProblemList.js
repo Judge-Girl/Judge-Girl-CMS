@@ -1,13 +1,13 @@
 import React, {useCallback, useEffect, useState} from "react";
-import {ItemListPage} from "../../commons/ItemListPage/ItemListPage";
-import {CreateButton} from "../../commons/buttons/CreateButton";
-import CreateProblemModal from "../Modal/CreateProblemModal";
-import {problemService} from "../../../services/services";
-import {Spinner} from "../../commons/Spinner";
+import {ItemListPage} from "../commons/ItemListPage/ItemListPage";
+import {CreateButton} from "../commons/buttons/CreateButton";
+import CreateProblemModal from "./Modal/CreateProblemModal";
+import {problemService} from "../../services/services";
+import {Spinner} from "../commons/Spinner";
 import {Link, Route, useHistory} from "react-router-dom";
-import {TableCell} from "../../../utils/TableCell";
-import ProblemEditor from "../../problem/ProblemEditor";
-import {ProblemEditorContext} from "../../problem/ProblemEditorContext";
+import {TableCell} from "../../utils/TableCell";
+import ProblemEditor from "./editor/ProblemEditor";
+import {ProblemEditorContext} from "./editor/ProblemEditorContext";
 
 
 const ProblemList = () => {

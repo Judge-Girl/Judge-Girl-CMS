@@ -1,11 +1,11 @@
 import Block from "./Block";
 import {useState} from "react";
-import {EditSaveCancelButton} from "../commons/EditSaveCancelButton";
-import ProvidedCodeItems from "../../problem-old/edit/providedCode/ProvidedCodeItems";
-import {useUploads} from "../../usecases/UploadFilesUseCase";
-import TagWithIconList from "../commons/TagWithIconList";
+import {EditSaveCancelButton} from "../../commons/EditSaveCancelButton";
+import ProvidedCodeItems from "./ProvidedCodeItems";
+import {useUploads} from "../../../usecases/UploadFilesUseCase";
+import TagWithIconList from "../../commons/TagWithIconList";
 import {FiUpload, VscFileCode} from "react-icons/all";
-import {EditorButton} from "../../problem-old/edit/EditorButton";
+import {EditorButton} from "../../commons/EditorButton";
 
 
 const ProvidedCode = () => {

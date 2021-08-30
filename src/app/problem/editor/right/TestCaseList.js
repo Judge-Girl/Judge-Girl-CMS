@@ -1,6 +1,6 @@
 import {useState} from "react";
-import TestCases from "../../problem-old/edit/testCase/TestCases";
-import {EditorButton} from "../../problem-old/edit/EditorButton";
+import TestCases from "../../commons/TestCases";
+import {EditorButton} from "../../commons/EditorButton";
 
 
 const TestCaseList = () => {

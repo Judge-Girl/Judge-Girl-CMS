@@ -1,8 +1,8 @@
 import "./ProblemEditor.scss"
 import React, {useCallback, useEffect} from "react";
 import LeftBar from "./left/LeftBar";
-import {problemService} from "../../services/services";
-import {Spinner} from "../commons/Spinner";
+import {problemService} from "../../../services/services";
+import {Spinner} from "../../commons/Spinner";
 import RightBar from "./right/RightBar";
 import {useParams} from "react-router-dom";
 import {useProblemEditorContext} from "./ProblemEditorContext";

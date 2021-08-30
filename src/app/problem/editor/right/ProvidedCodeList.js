@@ -1,7 +1,7 @@
 import React from 'react';
 import {SubtitleLine} from "../../../commons/titles/TitleLine";
 import ProvidedCodeItems from "./ProvidedCodeItems";
-import {UploadFileButton} from "../UploadFileButton";
+import {UploadFileButton} from "./UploadFileButton";
 import './ProvidedCodeList.css';
 import {useUploads} from "../../../usecases/UploadFilesUseCase";
 

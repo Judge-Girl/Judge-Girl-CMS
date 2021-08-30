@@ -1,7 +1,7 @@
 import Block from "./Block";
 import {useState} from "react";
-import {EditSaveCancelButton} from "../commons/EditSaveCancelButton";
-import {EditorButton} from "../../problem-old/edit/EditorButton";
+import {EditSaveCancelButton} from "../../commons/EditSaveCancelButton";
+import {EditorButton} from "../../commons/EditorButton";
 
 
 const CompilationScript = () => {

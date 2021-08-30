@@ -1,10 +1,10 @@
 import Block from "./Block";
 import {useState} from "react";
-import {EditSaveCancelButton} from "../commons/EditSaveCancelButton";
-import {useTags} from "../../usecases/TagUseCase";
-import {TextInputField} from "../../commons/TextInputForm/TextInputField";
-import {TextInputItems} from "../../problem-old/edit/TextInputItems";
-import TagWithIconList from "../commons/TagWithIconList";
+import {EditSaveCancelButton} from "../../commons/EditSaveCancelButton";
+import {useTags} from "../../../usecases/TagUseCase";
+import {TextInputField} from "../../../commons/TextInputForm/TextInputField";
+import {TextInputItems} from "../../commons/TextInputItems";
+import TagWithIconList from "../../commons/TagWithIconList";
 import {GoTriangleDown, RiRulerLine} from "react-icons/all";
 
 const OutputMatchPolicy = () => {

@@ -1,6 +1,6 @@
 import Block from "./Block";
 import {useState} from "react";
-import {EditSaveCancelButton} from "../commons/EditSaveCancelButton";
+import {EditSaveCancelButton} from "../../commons/EditSaveCancelButton";
 import TestCaseList from "./TestCaseList";
 
 

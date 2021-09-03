@@ -9,22 +9,22 @@ import {EditSaveCancelButton} from "../../commons/EditSaveCancelButton";
 
 const Description = () => {
     const [isEditing, setIsEditing] = useState(false);
-    const [draftRawText, setDraftRawText] = useState(undefined);
-    const [finalRawText, setFinalRawText] = useState(undefined);
+    const [markdownText, setMarkdownText] = useState(undefined);
+    const [markdownTextBackUp, setMarkdownTextBackUp] = useState(undefined);
 
     const onClickEdit = () => {
+        setMarkdownTextBackUp(markdownText);
         setIsEditing(true);
     }
 
     const onClickSave = () => {
         setIsEditing(false);
-        // TODO: call API to save to DB.
+        // TODO: Save markdownText to DB.
     }
 
     const onClickCancel = () => {
         setIsEditing(false);
-        setDraftRawText(undefined);
-        setFinalRawText(undefined);
+        setMarkdownText(markdownTextBackUp);
     }
 
     return <>
@@ -37,7 +37,7 @@ const Description = () => {
                        onClickSave={onClickSave}
                        onClickCancel={onClickCancel}/>
                }>
-            <EditorContext.Provider value={{draftRawText, setDraftRawText, finalRawText, setFinalRawText}}>
+            <EditorContext.Provider value={{markdownText, setMarkdownText}}>
             {!isEditing?
                 <MarkdownEditorPreviewTab/>
                 :

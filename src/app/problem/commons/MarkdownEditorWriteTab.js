@@ -6,16 +6,17 @@ const defaultLines = [
 ];
 
 /* TODO: this will be refactored in the next PR. */
-const MarkdownEditorWriteTab = ({rawText = defaultLines.join("  \n")}) => {
-    const {setDraftRawText} = useEditorContext();
+const MarkdownEditorWriteTab = () => {
+    const {markdownText, setMarkdownText} = useEditorContext();
 
     const handleTextareaChange = e => {
-        setDraftRawText(e.target.value);
+        setMarkdownText(e.target.value);
     };
 
     return <>
         <textarea className="main"
-                  value={rawText}
+                  placeholder={defaultLines.join("\r\n")}
+                  value={markdownText}
                   style={{width: "100%", height: "300px"}}
                   onChange={handleTextareaChange}/>
     </>;

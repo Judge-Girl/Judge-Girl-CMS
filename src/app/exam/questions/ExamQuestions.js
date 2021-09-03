@@ -1,3 +1,4 @@
+import "./ExamQuestions.scss";
 import React, {useCallback, useEffect, useState} from "react";
 import {useParams, useRouteMatch} from "react-router-dom";
 import {examService, submissionService} from "../../../services/services.js";
@@ -11,7 +12,6 @@ import {RejudgeQuestionModal} from "../modals/RejudgeQuestionModal";
 import {useExamContext} from "./ExamContext";
 import {Spinner} from "../../commons/Spinner";
 import {TableCell} from "../../../utils/TableCell";
-import "./ExamQuestions.scss";
 import {DeleteConfirmationModal} from "../../commons/modals/DeleteConfirmationModal";
 import {EditorButton} from "../../problem/commons/EditorButton";
 import MarkdownEditor from "../../problem/commons/MarkdownEditor";

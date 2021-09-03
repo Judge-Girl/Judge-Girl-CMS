@@ -1,13 +1,57 @@
-import ReactMarkdown from "react-markdown";
 import {useEditorContext} from "./MarkdownEditorContext";
+import { MathJax, MathJaxContext } from "better-react-mathjax";
+import ReactMarkdown from "react-markdown";
 
-/* TODO: this will be refactored in the next PR. */
+const forTesting = [
+    `## Testing Header`,
+    ``,
+    `### Testing List`,
+    ``,
+    `1. hi`,
+    `2. \`hello\``,
+    `3. *great*`,
+    "4. __nice__",
+    ``,
+    "```js",
+    `const nicer = () => {`,
+    `  return "123";`,
+    `}`,
+    "```",
+    `---------------`,
+    ``,
+    `[Google](https://google.com.tw)`,
+]
+
+const config = {
+    loader: { load: ["[tex]/html"] },
+    tex: {
+        packages: { "[+]": ["html"] },
+        inlineMath: [
+            ["$", "$"],
+            ["\\(", "\\)"]
+        ],
+        displayMath: [
+            ["$$", "$$"],
+            ["\\[", "\\]"]
+        ]
+    }
+};
+
 const MarkdownEditorPreviewTab = () => {
-    const {draftRawText} = useEditorContext();
+    const {markdownText} = useEditorContext();
 
-    return <ReactMarkdown className="main">
-        {draftRawText? draftRawText : "Empty."}
-    </ReactMarkdown>;
+    return <>
+        <MathJaxContext version={3} config={config}>
+            <MathJax hideUntilTypeset={"first"}
+                     inline
+                     dynamic>
+                <ReactMarkdown className="main">
+                    {markdownText?
+                        markdownText.replace(/\\/g, `\\\\`): forTesting.join("\r\n")}
+                </ReactMarkdown>
+            </MathJax>
+        </MathJaxContext>
+    </>;
 };
 
 export default MarkdownEditorPreviewTab;

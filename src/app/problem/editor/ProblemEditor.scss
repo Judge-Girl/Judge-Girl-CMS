@@ -153,7 +153,6 @@
     .block-content {
       margin-top: 1rem;
       min-height: 90px;
-      margin-right: 75px;
       hr {
         margin: 1rem 0;
       }
@@ -171,11 +170,13 @@
 
     // Description.
     .markdown {
+      h1,h2,h3,h4,h5,h6 {
+        font-family: monospace;
+      }
       .tabs {
         margin: 10px 0 0;
         display: flex;
         justify-content: flex-start;
-        height: 40px;
 
         .tab {
           background-color: transparent;
@@ -187,6 +188,7 @@
           font-size: 17px;
           font-weight: 400;
 
+          height: 40px;
           padding: 7px 19px 3px;
 
           textarea {
@@ -205,16 +207,6 @@
       }
 
       .main {
-        h1,h2,h3,h4,h5,h6 {
-          font-family: monospace !important;
-        }
-        ul {
-          overflow: auto;
-          width: 100%;
-          li {
-            white-space: nowrap;
-          }
-        }
         font-family: monospace;
         box-sizing: border-box;
         background: #FFF;
@@ -222,6 +214,23 @@
         border-radius: 10px;
         margin-top: 11px;
         padding: 25px 20px;
+
+        ul {
+          overflow: auto;
+          width: 100%;
+          li {
+            white-space: nowrap;
+          }
+        }
+
+        textarea {
+          width: 100%;
+          height: 30rem;
+          border: none;
+          outline: none;
+          font-size: 15px;
+          resize: vertical;
+        }
       }
     }
 

@@ -1,10 +1,10 @@
 import Block from "./Block";
 import {useState} from "react";
-import MarkdownEditor from "../../commons/MarkdownEditor";
 import MarkdownEditorWriteTab from "../../commons/MarkdownEditorWriteTab";
 import MarkdownEditorPreviewTab from "../../commons/MarkdownEditorPreviewTab";
 import {EditorContext} from "../../commons/MarkdownEditorContext";
 import {EditSaveCancelButton} from "../../commons/EditSaveCancelButton";
+import MarkdownEditor from "../../commons/MarkdownEditor";
 
 
 const Description = () => {
@@ -31,24 +31,19 @@ const Description = () => {
         <Block title="Description"
                id="problem-editor-description"
                titleButton={
-                   <EditSaveCancelButton
-                       isEditing={isEditing}
-                       onClickEdit={onClickEdit}
-                       onClickSave={onClickSave}
-                       onClickCancel={onClickCancel}/>
+                   <EditSaveCancelButton isEditing={isEditing}
+                                         onClickEdit={onClickEdit}
+                                         onClickSave={onClickSave}
+                                         onClickCancel={onClickCancel}/>
                }>
             <EditorContext.Provider value={{markdownText, setMarkdownText}}>
-            {!isEditing?
-                <MarkdownEditorPreviewTab/>
-                :
-                <MarkdownEditor
-                    tabObjects={[
-                        {title: "Write", component: <MarkdownEditorWriteTab/>},
-                        {title: "Preview", component: <MarkdownEditorPreviewTab/>}
-                    ]}
-                    defaultIndex={1}
-                    isEditing={setIsEditing}/>
-            }
+                <MarkdownEditor className="markdown"
+                                tabObjects={[
+                                    {title: "Write", component: <MarkdownEditorWriteTab/>},
+                                    {title: "Preview", component: <MarkdownEditorPreviewTab/>},
+                                ]}
+                                defaultTabIndex={1}
+                                isEditing={isEditing}/>
             </EditorContext.Provider>
         </Block>
     </>;

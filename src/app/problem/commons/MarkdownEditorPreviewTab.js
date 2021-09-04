@@ -42,12 +42,9 @@ const MarkdownEditorPreviewTab = () => {
 
     return <>
         <MathJaxContext version={3} config={config}>
-            <MathJax hideUntilTypeset={"first"}
-                     inline
-                     dynamic>
-                <ReactMarkdown className="main">
-                    {markdownText?
-                        markdownText.replace(/\\/g, `\\\\`): forTesting.join("\r\n")}
+            <MathJax hideUntilTypeset={"first"} inline dynamic>
+                <ReactMarkdown>
+                    {markdownText? markdownText.replace(/\\/g, `\\\\`): forTesting.join("\r\n")}
                 </ReactMarkdown>
             </MathJax>
         </MathJaxContext>

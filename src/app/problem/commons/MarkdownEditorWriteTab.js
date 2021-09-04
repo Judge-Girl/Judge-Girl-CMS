@@ -14,10 +14,8 @@ const MarkdownEditorWriteTab = () => {
     };
 
     return <>
-        <textarea className="main"
-                  placeholder={defaultLines.join("\r\n")}
+        <textarea placeholder={defaultLines.join("\r\n")}
                   value={markdownText}
-                  style={{width: "100%", height: "300px"}}
                   onChange={handleTextareaChange}/>
     </>;
 };

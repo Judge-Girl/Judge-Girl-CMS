@@ -9,15 +9,18 @@
 }
 
 .problem-editor {
-  padding: 50px 0 200px 380px;
+  display: flex;
+  flex-direction: row;
+  padding-top: 50px;
 
   .left-bar {
     --navigationBarAnchor: rgba(164, 164, 164, 1);
     --navigationBarAnchorHover: rgba(111, 111, 111, 1);
 
     position: fixed;
-    left: 130px;
+    left: 7.5rem;
     width: 200px;
+    font-size: 20px;
 
     display: flex;
     flex-direction: column;
@@ -32,6 +35,7 @@
   .right-bar {
     @extend %problem-editor-markdown;
 
+    padding-left: 23rem;
     width: 80%;
     flex-shrink: 0;
 
@@ -45,6 +49,7 @@
       font-style: normal;
       font-weight: 600;
       min-height: 70px;
+      margin-bottom: 2rem;
 
       .not-on-edit {
         color: var(--problemTitleNotOnEdit);

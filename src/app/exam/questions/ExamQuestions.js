@@ -1,5 +1,4 @@
 import "./ExamQuestions.scss";
-import "../../problem/editor/ProblemEditor.scss";
 import React, {useCallback, useEffect, useState} from "react";
 import {useParams, useRouteMatch} from "react-router-dom";
 import {examService, submissionService} from "../../../services/services.js";

@@ -2,7 +2,7 @@ import {useEditorContext} from "./MarkdownEditorContext";
 import { MathJax, MathJaxContext } from "better-react-mathjax";
 import ReactMarkdown from "react-markdown";
 
-const forTesting = [
+const stub = [
     `## Testing Header`,
     ``,
     `### Testing List`,
@@ -22,7 +22,7 @@ const forTesting = [
     `[Google](https://google.com.tw)`,
 ]
 
-const config = {
+const mathJaxConfig = {
     loader: { load: ["[tex]/html"] },
     tex: {
         packages: { "[+]": ["html"] },
@@ -41,10 +41,10 @@ const MarkdownEditorPreviewTab = () => {
     const {markdownText} = useEditorContext();
 
     return <>
-        <MathJaxContext version={3} config={config}>
+        <MathJaxContext version={3} config={mathJaxConfig}>
             <MathJax hideUntilTypeset={"first"} inline dynamic>
                 <ReactMarkdown>
-                    {markdownText? markdownText.replace(/\\/g, `\\\\`): forTesting.join("\r\n")}
+                    {markdownText? markdownText.replace(/\\/g, `\\\\`): stub.join("\r\n")}
                 </ReactMarkdown>
             </MathJax>
         </MathJaxContext>

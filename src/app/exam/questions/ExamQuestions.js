@@ -13,11 +13,7 @@ import {useExamContext} from "./ExamContext";
 import {Spinner} from "../../commons/Spinner";
 import {TableCell} from "../../../utils/TableCell";
 import {DeleteConfirmationModal} from "../../commons/modals/DeleteConfirmationModal";
-import {EditorButton} from "../../problem/commons/EditorButton";
-import MarkdownEditor from "../../problem/commons/MarkdownEditor";
-import MarkdownEditorWriteTab from "../../problem/commons/MarkdownEditorWriteTab";
-import MarkdownEditorPreviewTab from "../../problem/commons/MarkdownEditorPreviewTab";
-import {EditorContext} from "../../problem/commons/MarkdownEditorContext";
+import Description from "../../problem/editor/right/Description";
 
 const toCharacterIndex = i => {
     return String.fromCharCode(i + 65);
@@ -37,9 +33,6 @@ const ExamQuestions = () => {
     const [rejudgingProblemId, setRejudgeProblemId] = useState(NOT_SET);
     const [showEditQuestionModal, setShowEditQuestionModal] = useState(false);
     const [editingQuestion, setEditingQuestion] = useState(undefined);
-    const [editingState, setEditingState] = useState(false);
-    const [examDescription, setExamDescription] = useState(currentExam?.description || 'Press Edit Description to start writing the description. Styling with Markdown is supported.\n');
-    const [lastExamDescription, setLastExamDescription] = useState(examDescription);
 
     const fetchExam = useCallback(() => {
         examService.getExamOverview(examId).then(exam => {
@@ -107,76 +100,18 @@ const ExamQuestions = () => {
         return examService.addExamQuestion(question).then(fetchExam);
     };
 
-    const HandleDescriptionButtons = () => {
-        return (
-            <>
-                <EditorButton
-                    text={"Save"}
-                    buttonColor={"#96D745"}
-                    fontColor={"#FFFFFF"}
-                    width={83} height={33}
-                    fontSize={15}
-                    borderRadius={20}
-                    marginTop={15} marginRight={4}
-                    onClick={e => handleDescription(e)}/>
-                <EditorButton
-                    text={"Cancel"}
-                    buttonColor={"#FFFFFF"}
-                    fontColor={"#A2A3B1"}
-                    width={83} height={33}
-                    fontSize={15}
-                    borderRadius={20}
-                    borderColor={"#A2A3B1"}
-                    marginTop={15} marginLeft={4}
-                    onClick={() => {
-                        setEditingState(false);
-                        setExamDescription(lastExamDescription);
-                    }}/>
-            </>
-        )
-    }
-
-    const EditDescriptionButton = () => {
-        return (
-            <EditorButton
-                text={"Edit Description"}
-                buttonColor={"#F2B311"}
-                fontColor={"#FFFFFF"}
-                width={209} height={33}
-                fontSize={15}
-                borderRadius={20}
-                borderColor={"#F2B311"}
-                marginTop={15}
-                onClick={() => {
-                    setEditingState(true);
-                    setLastExamDescription(examDescription);
-                }}/>
-        )
-    }
-
-    const handleDescription = e => {
-        e.preventDefault();
-        // TODO: empty description notification
-        if (examDescription.length === 0) {
-            return;
-        }
-
-        onExamDescriptionChanged(examDescription);
-
-        setEditingState(false);
-    };
-
-    const onExamDescriptionChanged = (description) => {
-        if (currentExam.description !== description) {
-            examService.updateExam(examId, {
-                examId,
-                name: currentExam.name,
-                startTime: currentExam.startTime,
-                endTime: currentExam.endTime,
-                description
-            }).then(() => refetchExam(examId));
-        }
-    }
+    // TODO: Should be passed in to the <Description>.
+    // const onExamDescriptionChanged = (description) => {
+    //     if (currentExam.description !== description) {
+    //         examService.updateExam(examId, {
+    //             examId,
+    //             name: currentExam.name,
+    //             startTime: currentExam.startTime,
+    //             endTime: currentExam.endTime,
+    //             description
+    //         }).then(() => refetchExam(examId));
+    //     }
+    // }
 
     if (!currentExam) {
         return <Spinner/>
@@ -243,36 +178,17 @@ const ExamQuestions = () => {
                             showFilterSearchBar={false}/>
                         <div className="add-question-btn"
                              onClick={() => setShowAddQuestionModal(true)}
-                             style={{alignSelf: "flex-end"}}>
+                             style={{
+                                 alignSelf: "flex-end",
+                                 position: "relative"
+                             }}>
                             <span>Add New Question</span>
                         </div>
-                        {/* TODO: Refactoring the scss. */}
-                        <div className="problem-editor" style={{padding: "0"}}>
-                            <div className="right-bar" style={{width: "1000px"}}>
-                                <EditorContext.Provider value={{
-                                    markdownText: examDescription,
-                                    setMarkdownText: setExamDescription,
-                                    markdownTextBackUp: lastExamDescription,
-                                    setMarkdownTextBackUp: setLastExamDescription,
-                                }}>
-                                    <EditDescriptionButton/>
-                                    <HandleDescriptionButtons/>
-                                {!editingState?
-                                    <div className="markdown">
-                                        {/* TODO: The prefix "New" will be removed in the next PR. */}
-                                        <MarkdownEditorPreviewTab/>
-                                    </div>
-                                    :
-                                    <MarkdownEditor
-                                        tabObjects={[
-                                            /* TODO: The prefix "New" will be removed in the next PR. */
-                                            {title: "Write", component: <MarkdownEditorWriteTab/>},
-                                            {title: "Preview", component: <MarkdownEditorPreviewTab/>}
-                                        ]}
-                                        defaultIndex={1}
-                                        isEditing={editingState}/>
-                                }
-                                </EditorContext.Provider>
+                        {/* TODO: Delete the surrounding <div>s here. */}
+                        <div className="problem-editor" style={{width: "100%"}}>
+                            <div className="right-bar" style={{width: "100%", padding: "0"}}>
+                                {/* TODO: Pass the state into <Description> by Context.Provider. */}
+                                <Description/>
                             </div>
                         </div>
                     </div>

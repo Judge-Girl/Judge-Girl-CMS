@@ -85,6 +85,6 @@ export class ExamService extends AbstractService {
 
     async updateExam(examId, data) {
         return this.axios.put(`/api/exams/${examId}`, data)
-            .then(res => res.data)
+            .then(res => new Exam(res.data));
     }
 }

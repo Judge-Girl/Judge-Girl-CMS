@@ -1,27 +1,27 @@
+import './ExamLiveSubmissions.scss';
 import {ExamInPageNavigationBar} from "../ExamInPageNavigationBar";
 import {ItemListPage} from "../../commons/ItemListPage/ItemListPage";
 import {useParams, useRouteMatch} from "react-router-dom";
 import React, {useEffect, useState} from "react";
-import {useExamContext} from "../questions/ExamContext";
 import {TableCell} from "../../../utils/TableCell";
 import {displayDate} from "../../../utils/utils";
 import FakeLink from "../../commons/FakeLink";
-import {liveSubmissionsService} from "../../../services/services";
-import './ExamLiveSubmissions.scss';
+import {Spinner} from "../../commons/Spinner";
+import {examService, liveSubmissionsService} from "../../../services/services";
 
 const ExamLiveSubmissions = function () {
     const {url: currentURL} = useRouteMatch();
-    const {currentExam, refetchExam} = useExamContext();
     const {examId} = useParams();
+    const [exam, setExam] = useState(undefined);
     const [liveSubmissionsState, setLiveSubmissionsState] = useState([]) // {...LiveSubmissionEvent, verdict?, studentName, problemTitle}[]```
     let subscriptions = [];
     let liveSubmissions = [];
 
     useEffect(() => {
-        if (!currentExam) {
-            refetchExam(examId);
-        }
-    });
+        if (!exam)
+            examService.getExam(examId)
+                       .then(setExam);
+    }, [exam, examId, setExam]);
 
     useEffect(() => {
         queryLatestExamSubmissions(examId);
@@ -91,10 +91,13 @@ const ExamLiveSubmissions = function () {
         }
     }
 
+    if (!exam || !liveSubmissions)
+        return <Spinner/>;
+
     return <div className="exam-submissions">
         <ExamInPageNavigationBar
             currentURL={currentURL}
-            examName={currentExam?.name}
+            examName={exam.name}
             examId={examId}/>
         <div className="font-poppins" style={{paddingTop: "20px", paddingBottom: "150px"}}>
             <div style={{display: "flex", justifyContent: "center"}}>

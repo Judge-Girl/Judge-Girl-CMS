@@ -9,7 +9,7 @@ import {useProblemEditorContext} from "../ProblemEditorContext";
 import {problemService} from "../../../../services/services";
 
 
-const Description = () => {
+const Description = ({buttonPos="top"}) => {
     const {currentProblem, fetchProblems} = useProblemEditorContext();
     const [isEditing, setIsEditing] = useState(false);
     const [markdownText, setMarkdownText] = useState(currentProblem.description);
@@ -42,7 +42,8 @@ const Description = () => {
                                          onClickEdit={onClickEdit}
                                          onClickSave={onClickSave}
                                          onClickCancel={onClickCancel}/>
-               }>
+               }
+               buttonPos={buttonPos}>
             <EditorContext.Provider value={{markdownText, setMarkdownText}}>
                 <MarkdownEditor className="markdown"
                                 tabObjects={[

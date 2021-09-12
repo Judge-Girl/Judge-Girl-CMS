@@ -161,7 +161,7 @@ const ExamQuestions = () => {
                         <div className="problem-editor" style={{width: "1200px"}}>
                             <div className="right-bar" style={{width: "100%", padding: "0"}}>
                                 {/* TODO: Pass the state into <Description> by Context.Provider. */}
-                                <Description/>
+                                <Description buttonPos="down"/>
                             </div>
                         </div>
                     </div>

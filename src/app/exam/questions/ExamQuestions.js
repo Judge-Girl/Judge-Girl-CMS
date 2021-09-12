@@ -1,11 +1,10 @@
 import "./ExamQuestions.scss";
 import React, {useCallback, useEffect, useState} from "react";
-import {useParams, useRouteMatch} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import {examService, submissionService} from "../../../services/services.js";
 import {ThreeDotsButton} from "../../commons/buttons/ThreeDotsButton.js";
 import FakeLink from "../../commons/FakeLink.js";
 import {ItemListPage} from "../../commons/ItemListPage/ItemListPage.js";
-import {ExamInPageNavigationBar} from "../ExamInPageNavigationBar";
 import {AddQuestionModal} from "../modals/AddQuestionModal.js";
 import {EditQuestionModal} from "../modals/EditQuestionModal.js";
 import {RejudgeQuestionModal} from "../modals/RejudgeQuestionModal";
@@ -22,7 +21,6 @@ const NOT_SET = -1;
 
 const ExamQuestions = () => {
     const {examId} = useParams();
-    const {url: currentURL} = useRouteMatch();
     const [exam, setExam] = useState(undefined);
     const [questions, setQuestions] = useState(undefined);
     const [showAddQuestionModal, setShowAddQuestionModal] = useState(false);
@@ -97,10 +95,6 @@ const ExamQuestions = () => {
 
     return (
         <div className="exam-questions">
-            <ExamInPageNavigationBar
-                currentURL={currentURL}
-                examName={exam.name}
-                examId={examId}/>
             {/* TODO: refactor into scss. */}
             <div className="font-poppins" style={{paddingTop: "20px", paddingBottom: "150px"}}>
                 <div style={{display: "flex", justifyContent: "center"}}>

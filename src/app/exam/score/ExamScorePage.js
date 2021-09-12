@@ -1,7 +1,6 @@
-import {ExamInPageNavigationBar} from "../ExamInPageNavigationBar";
 import {ItemListPage} from "../../commons/ItemListPage/ItemListPage";
 import FakeLink from "../../commons/FakeLink";
-import {useParams, useRouteMatch} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import {Spinner} from "../../commons/Spinner";
 import {TableCell} from "../../../utils/TableCell";
@@ -11,7 +10,6 @@ import {ExamScorePresenter} from "./ExamScorePresenter";
 
 
 const ExamScorePage = () => {
-    const {url: currentURL} = useRouteMatch();
     const {examId} = useParams();
     const [presenter, setPresenter] = useState(undefined);
     const [exam, setExam] = useState(undefined);
@@ -35,9 +33,6 @@ const ExamScorePage = () => {
 
     return (
         <div className="exam-score">
-            <ExamInPageNavigationBar currentURL={currentURL}
-                                     examName={exam.name}
-                                     examId={examId}/>
             <div className="font-poppins" style={{paddingTop: "20px", paddingBottom: "150px"}}>
                 <div className="mt-2" style={{display: "flex", justifyContent: "center"}}>
                     <div className="mt-4 mr-3" style={{width: "fit-content", textAlign: "center"}}>

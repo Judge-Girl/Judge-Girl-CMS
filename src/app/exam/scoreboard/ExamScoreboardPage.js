@@ -1,7 +1,6 @@
-import {useParams, useRouteMatch} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import {Spinner} from "../../commons/Spinner";
-import {ExamInPageNavigationBar} from "../ExamInPageNavigationBar";
 import {TitleLine} from "../../commons/titles/TitleLine";
 import ExamSummary from "../score/ExamSummary";
 import ChartField from "./ChartField";
@@ -14,7 +13,6 @@ import {ExamScoreboardPresenter} from "./ExamScoreboardPresenter";
 
 const ExamScoreboardPage = () => {
     const {examId} = useParams();
-    const {url: currentURL} = useRouteMatch();
     const [exam, setExam] = useState(undefined);
     const [presenter, setPresenter] = useState(undefined);
 
@@ -36,10 +34,6 @@ const ExamScoreboardPage = () => {
 
     return (
         <div className="exam-scoreboard">
-            <ExamInPageNavigationBar
-                currentURL={currentURL}
-                examName={exam.name}
-                examId={examId}/>
             <div className="font-poppins" style={{paddingTop: "20px", paddingBottom: "150px"}}>
                 <div style={{display: "flex", flexDirection: "row", justifyContent: "center"}}>
                     <div style={{

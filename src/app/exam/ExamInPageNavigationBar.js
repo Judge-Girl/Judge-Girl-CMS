@@ -1,9 +1,22 @@
-import {InPageNavigationBar} from "../commons/IndexBanner/InPageNavigationBar";
 import {AiFillYoutube, AiOutlineSetting, FaClipboardList, FaRegChartBar, FaRegEdit, FaUserFriends} from "react-icons/all";
-import {useHistory} from "react-router-dom";
+import {useEffect, useState} from "react";
+import {useHistory, useParams, useRouteMatch} from "react-router-dom";
+import {InPageNavigationBar} from "../commons/IndexBanner/InPageNavigationBar";
+import {examService} from "../../services/services";
+import {useExamContext} from "./questions/ExamContext";
 
-const ExamInPageNavigationBar = function ({currentURL, examName, examId}) {
+const ExamInPageNavigationBar = () => {
     const history = useHistory();
+    const {url} = useRouteMatch();
+    const {examId} = useParams();
+    const [exam, setExam] = useState(undefined);
+    const {shouldUpdate} = useExamContext();
+
+    useEffect(() => {
+        if (!exam || shouldUpdate)
+            examService.getExam(examId).then(setExam);
+    }, [exam, shouldUpdate, examId, setExam]);
+
 
     // TODO: improve the design for InPageNavigationBar
     const onBreadcrumbClickAtIndex = (index) => {
@@ -17,11 +30,14 @@ const ExamInPageNavigationBar = function ({currentURL, examName, examId}) {
         }
     };
 
+    if (!exam)
+        return <></>;
+
     return (
-        <InPageNavigationBar currentURL={currentURL}
+        <InPageNavigationBar currentURL={url}
                              path={{
                                  head: "Exam",
-                                 tail: examName
+                                 tail: exam.name
                              }}
                              onBreadcrumbClickAtIndex={onBreadcrumbClickAtIndex}
                              tabContents={[

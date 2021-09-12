@@ -16,6 +16,7 @@ import {TableCell} from "../../utils/TableCell";
 import ExamLiveSubmissions from "./submissions/ExamLiveSubmissions";
 import ExamScoreboardPage from "./scoreboard/ExamScoreboardPage";
 import ExamScorePage from "./score/ExamScorePage";
+import {ExamInPageNavigationBar} from "./ExamInPageNavigationBar";
 
 export const useExamList = () => {
     const [exams, setExams] = useState();
@@ -81,7 +82,7 @@ const ExamList = () => {
                                           data: (exam) => [
                                               <TableCell>{exam?.id}</TableCell>,
                                               <TableCell>
-                                                  <Link to={`/exams/${exam?.id}/problems`}>
+                                                  <Link to={`/exams/${exam.id}/problems`}>
                                                       {exam?.name}
                                                   </Link>
                                               </TableCell>,
@@ -97,7 +98,10 @@ const ExamList = () => {
                 </div>
             </div>
         </Route>
-        <ExamContext.Provider value={{exams, updateExams}}>
+        <ExamContext.Provider value={{exams, updateExams, shouldUpdate}}>
+            <Route path="/exams/:examId">
+                <ExamInPageNavigationBar/>
+            </Route>
             <Switch>
                 <Route path="/exams/:examId/problems">
                     <ExamQuestions/>

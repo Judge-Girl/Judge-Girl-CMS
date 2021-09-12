@@ -1,7 +1,6 @@
 import "./ExamOptions.scss";
 import React, {useEffect, useRef, useState} from "react";
-import {useHistory, useParams, useRouteMatch} from "react-router-dom"
-import {ExamInPageNavigationBar} from "../ExamInPageNavigationBar";
+import {useHistory, useParams} from "react-router-dom"
 import {TitleLine} from "../../commons/titles/TitleLine";
 import ExamName from "./ExamName";
 import ExamSchedule from "./ExamSchedule";
@@ -18,7 +17,6 @@ const ExamOptions = () => {
     const history = useHistory();
     const {examId} = useParams();
     const {updateExams} = useExamContext();
-    const {url: currentURL} = useRouteMatch();
     const [exam, setExam] = useState(undefined);
     const [examName, setExamName] = useState(undefined);
     const [startTime, setStartTime] = useState(formatDate(undefined));
@@ -59,10 +57,6 @@ const ExamOptions = () => {
 
     return <>
         <div className="exam-options">
-            <ExamInPageNavigationBar
-                currentURL={currentURL}
-                examName={examName}
-                examId={examId}/>
             <div className="font-poppins" style={{paddingTop: "20px", paddingBottom: "150px"}}>
                 {/* TODO: Refactor into scss. */}
                 <div style={{display: "flex", justifyContent: "flex-start"}}>

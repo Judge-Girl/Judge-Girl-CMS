@@ -1,7 +1,6 @@
 import './ExamLiveSubmissions.scss';
-import {ExamInPageNavigationBar} from "../ExamInPageNavigationBar";
 import {ItemListPage} from "../../commons/ItemListPage/ItemListPage";
-import {useParams, useRouteMatch} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import {TableCell} from "../../../utils/TableCell";
 import {displayDate} from "../../../utils/utils";
@@ -10,7 +9,6 @@ import {Spinner} from "../../commons/Spinner";
 import {examService, liveSubmissionsService} from "../../../services/services";
 
 const ExamLiveSubmissions = function () {
-    const {url: currentURL} = useRouteMatch();
     const {examId} = useParams();
     const [exam, setExam] = useState(undefined);
     const [liveSubmissionsState, setLiveSubmissionsState] = useState([]) // {...LiveSubmissionEvent, verdict?, studentName, problemTitle}[]```
@@ -95,10 +93,6 @@ const ExamLiveSubmissions = function () {
         return <Spinner/>;
 
     return <div className="exam-submissions">
-        <ExamInPageNavigationBar
-            currentURL={currentURL}
-            examName={exam.name}
-            examId={examId}/>
         <div className="font-poppins" style={{paddingTop: "20px", paddingBottom: "150px"}}>
             <div style={{display: "flex", justifyContent: "center"}}>
                 <ItemListPage width="1200px"

@@ -1,6 +1,5 @@
 import React, {useCallback, useEffect, useState} from "react";
-import {useParams, useRouteMatch} from "react-router-dom";
-import {ExamInPageNavigationBar} from "../ExamInPageNavigationBar"
+import {useParams} from "react-router-dom";
 import FakeLink from "../../commons/FakeLink";
 import {examService} from "../../../services/services";
 import {ItemListPage} from "../../commons/ItemListPage/ItemListPage";
@@ -14,7 +13,6 @@ import {EmptyCell, TableCell} from "../../../utils/TableCell";
 
 
 const Examinees = () => {
-    const {url: currentURL} = useRouteMatch();
     const {examId} = useParams();
     const [exam, setExam] = useState(undefined);
     const [examinees, setExaminees] = useState(undefined);
@@ -68,9 +66,6 @@ const Examinees = () => {
 
     return (
         <div className="examinees">
-            <ExamInPageNavigationBar currentURL={currentURL}
-                                     examName={exam.name}
-                                     examId={examId}/>
             <div className="font-poppins" style={{paddingTop: "20px", paddingBottom: "150px"}}>
                 <div style={{display: "flex", justifyContent: "center"}}>
                     <ItemListPage width="1200px"

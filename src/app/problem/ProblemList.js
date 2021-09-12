@@ -14,29 +14,27 @@ const ProblemList = () => {
     const history = useHistory();
     const [problems, setProblems] = useState(undefined);
     const [showCreateProblemModal, setShowCreateProblemModal] = useState(false);
-    const fetchProblems = useCallback(() => {
+    const fetchAllProblems = useCallback(() => {
         problemService.getAllProblems().then(setProblems);
     }, [setProblems]);
-    const [currentProblem, setCurrentProblem] = useState(undefined);
 
     useEffect(() => {
-        if (!problems || problems.length === 0) {
-            fetchProblems();
-        }
-    }, [problems, fetchProblems]);
+        if (!problems || problems.length === 0)
+            fetchAllProblems();
+    }, [problems, fetchAllProblems]);
 
     const onProblemCreated = problemId => {
-        fetchProblems();
+        fetchAllProblems();
         history.push(`/problems/${problemId}/edit`);
     }
 
-    if (!problems) {
+    if (!problems)
         return <Spinner/>;
-    }
 
     return <>
         <Route path="/problems" exact>
             <div className="problem-list font-poppins">
+                { /* TODO: refactor into SCSS. */ }
                 <div style={{paddingTop: "20px", paddingBottom: "150px"}}>
                     <div style={{display: "flex", justifyContent: "center"}}>
                         <ItemListPage title="Problem List"
@@ -57,9 +55,9 @@ const ProblemList = () => {
                                                   <p>{problem.id}</p>
                                               </TableCell>,
                                               <TableCell>
-                                                  <Link to={`problems/${problem.id}/edit`}
-                                                        onClick={setCurrentProblem(undefined)}>
-                                                      {problem.title}</Link>
+                                                  <Link to={`problems/${problem.id}/edit`}>
+                                                      {problem.title}
+                                                  </Link>
                                               </TableCell>,
                                               <TableCell>
                                                   <span className="tag is-link">Functions</span>
@@ -75,8 +73,7 @@ const ProblemList = () => {
             </div>
         </Route>
         <Route path="/problems/:problemId/edit">
-            <ProblemEditorContext.Provider
-                value={{fetchProblems, currentProblem, setCurrentProblem}}>
+            <ProblemEditorContext.Provider value={{problems, fetchAllProblems}}>
                 <ProblemEditor/>
             </ProblemEditorContext.Provider>
         </Route>

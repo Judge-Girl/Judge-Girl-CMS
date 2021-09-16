@@ -5,14 +5,13 @@ import {useProblemEditorContext} from "../ProblemEditorContext";
 import {problemService} from "../../../../services/services";
 
 
-// TODO: This feature has low priority. Please see the related issue#180.
 const Visible = () => {
     const {currentProblem, fetchProblems} = useProblemEditorContext();
     const [isOnClicked, setIsOnClicked] = useState(currentProblem.visible);
 
     const onVisibleButtonClick = (isVisibleButtonClicked) => {
         setIsOnClicked(isVisibleButtonClicked);
-        problemService.modifyProblemVisible(currentProblem.id, isVisibleButtonClicked)
+        problemService.updateProblemVisible(currentProblem.id, isVisibleButtonClicked)
             .then(() => {
                 console.log("The problem's visible has been modified");
                 fetchProblems();

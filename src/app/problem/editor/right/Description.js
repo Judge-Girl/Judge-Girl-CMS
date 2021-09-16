@@ -22,7 +22,7 @@ const Description = () => {
 
     const onClickSave = () => {
         setIsEditing(false);
-        problemService.modifyProblemDescription(currentProblem.id, markdownText)
+        problemService.updateProblemDescription(currentProblem.id, markdownText)
             .then(() => {
                 console.log("The problem's description has been modified");
                 fetchProblems();

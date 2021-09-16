@@ -152,7 +152,7 @@ const ProblemEditorOld = () => {
 
     const onProblemDescriptionChanged = (description) => {
         if (currentProblem.description !== description) {
-            problemService.modifyProblemDescription(problemId, description)
+            problemService.updateProblemDescription(problemId, description)
                 .then(() => fetchProblem(problemId));
         }
     }

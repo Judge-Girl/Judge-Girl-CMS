@@ -11,15 +11,15 @@ export class ProblemService extends AbstractService {
         });
     }
 
-    async modifyProblemTitle(problemId, title) {
+    async updateProblemTitle(problemId, title) {
         return this.axios.patch(`/api/problems/${problemId}`, {problemId, title});
     }
 
-    async modifyProblemDescription(problemId, description) {
+    async updateProblemDescription(problemId, description) {
         return this.axios.patch(`/api/problems/${problemId}`, {problemId, description});
     }
 
-    async modifyProblemVisible(problemId, visible) {
+    async updateProblemVisible(problemId, visible) {
         return this.axios.patch(`/api/problems/${problemId}`, {problemId, visible});
     }
 

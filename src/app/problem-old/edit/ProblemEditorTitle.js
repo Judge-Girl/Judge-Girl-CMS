@@ -19,7 +19,7 @@ function ProblemEditorTitle({problem}) {
 
         setEditingState(false);
 
-        problemService.modifyProblemTitle(problem.problemId, problemNameInput)
+        problemService.updateProblemTitle(problem.problemId, problemNameInput)
             .then(() => console.log("The problem's title has been modified"));
     };
 

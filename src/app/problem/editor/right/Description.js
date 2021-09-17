@@ -5,11 +5,14 @@ import MarkdownEditorPreviewTab from "../../commons/MarkdownEditorPreviewTab";
 import {EditorContext} from "../../commons/MarkdownEditorContext";
 import {EditSaveCancelButton} from "../../commons/EditSaveCancelButton";
 import MarkdownEditor from "../../commons/MarkdownEditor";
+import {useProblemEditorContext} from "../ProblemEditorContext";
+import {problemService} from "../../../../services/services";
 
 
 const Description = () => {
+    const {currentProblem, fetchProblems} = useProblemEditorContext();
     const [isEditing, setIsEditing] = useState(false);
-    const [markdownText, setMarkdownText] = useState(undefined);
+    const [markdownText, setMarkdownText] = useState(currentProblem.description);
     const [markdownTextBackUp, setMarkdownTextBackUp] = useState(undefined);
 
     const onClickEdit = () => {
@@ -19,7 +22,11 @@ const Description = () => {
 
     const onClickSave = () => {
         setIsEditing(false);
-        // TODO: Save markdownText to DB.
+        problemService.updateProblemDescription(currentProblem.id, markdownText)
+            .then(() => {
+                console.log("The problem's description has been modified");
+                fetchProblems();
+            });
     }
 
     const onClickCancel = () => {

@@ -20,7 +20,7 @@ const ProblemTitle = () => {
         if (problemTitle.length === 0) {
             return;
         }
-        problemService.modifyProblemTitle(currentProblem.id, problemTitle)
+        problemService.updateProblemTitle(currentProblem.id, problemTitle)
             .then(() => {
                 console.log("The problem's title has been modified");
                 fetchProblems();

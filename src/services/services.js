@@ -5,7 +5,7 @@ import {SubmissionService} from "./SubmissionService";
 import {LiveSubmissionsService} from "./LiveSubmissionsService";
 import StompClient from "./StompClient";
 import {HomeworkService} from "./HomeworkService";
-import {ExamTranscriptService} from "../app/exam/scoreboard/ExamTranscriptService";
+import {ExamTranscriptService} from "./ExamTranscriptService";
 
 const stompClient = new StompClient();
 const studentService = new StudentService();

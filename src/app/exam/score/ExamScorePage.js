@@ -24,9 +24,13 @@ const ExamScorePage = () => {
     }, [currentExam, refetchExam, examId]);
 
     useEffect(() => {
-        if (currentExam)
-            examTranscriptService.getExamScoreboard(examId)
-                .then(examScoreboard => setPresenter(new ExamScorePresenter(examScoreboard)));
+        if (currentExam) {
+            const subscription = examTranscriptService.pollingExamScoreboard(examId,
+                examScoreboard => setPresenter(new ExamScorePresenter(examScoreboard)));
+            return () => {
+                subscription.unsubscribe();
+            }
+        }
     }, [currentExam, examId]);
 
     if (!currentExam || !presenter) {
@@ -68,6 +72,6 @@ const ExamScorePage = () => {
             </div>
         </div>
     )
-}
+};
 
 export default ExamScorePage

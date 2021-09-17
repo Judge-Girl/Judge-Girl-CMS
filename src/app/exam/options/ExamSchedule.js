@@ -1,11 +1,10 @@
-import { SubtitleLine } from "../../commons/titles/TitleLine";
-import React, { createRef, useImperativeHandle, forwardRef } from "react";
-import { now } from "moment";
+import {SubtitleLine} from "../../commons/titles/TitleLine";
+import React, {createRef, forwardRef, useImperativeHandle} from "react";
 import ScheduleItem from "../../commons/ScheduleItem";
 
 const ExamSchedule = ({ scheduleRef, startTime, endTime, setStartTime, setEndTime }) => {
-    const startTimeInputRef = createRef()
-    const endTimeInputRef = createRef()
+    const startTimeInputRef = createRef();
+    const endTimeInputRef = createRef();
 
     const setStartTimeHandler = () => {
         setStartTime(startTimeInputRef.current.value);
@@ -19,11 +18,7 @@ const ExamSchedule = ({ scheduleRef, startTime, endTime, setStartTime, setEndTim
     }));
 
     const validateTimes = (startTime, endTime) => {
-        if (now() >= startTime) {
-            startTimeInputRef.current.setCustomValidity("The exam's start time must come after the current time.");
-            startTimeInputRef.current.reportValidity();
-            return false;
-        } else if (startTime >= endTime) {
+        if (startTime >= endTime) {
             endTimeInputRef.current.setCustomValidity("The exam's end time must come after the start time.");
             endTimeInputRef.current.reportValidity();
             return false;
@@ -38,12 +33,12 @@ const ExamSchedule = ({ scheduleRef, startTime, endTime, setStartTime, setEndTim
         <>
             <SubtitleLine title={"Schedule"} />
             <ScheduleItem inputRef={startTimeInputRef} label="Start Time" inputName="startTime" timeValue={startTime}
-                setTime={setStartTimeHandler} minTime={new Date()} />
+                setTime={setStartTimeHandler} />
             <ScheduleItem inputRef={endTimeInputRef} label="End Time" inputName="endTime" timeValue={endTime}
                 setTime={setEndTimeHandler} minTime={new Date(startTime)} />
         </>
     )
-}
+};
 
 
 export default forwardRef(ExamSchedule);

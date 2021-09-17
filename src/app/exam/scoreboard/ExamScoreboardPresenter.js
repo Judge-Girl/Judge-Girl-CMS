@@ -1,12 +1,12 @@
 
 export class ExamScoreboardPresenter {
-    #examQuestions
-    #crossAverage
-    #sumOfMaxScores
-    #totalExaminees
-    #totalTestCasesOf
-    #studentRecords
-    #questionRecords
+    #examQuestions;
+    #crossAverage;
+    #sumOfMaxScores;
+    #totalExaminees;
+    #totalTestCasesOf;
+    #studentRecords;
+    #questionRecords;
 
     constructor(examScoreboard) {
         this.#examQuestions = examScoreboard.examQuestions;
@@ -39,6 +39,7 @@ export class ExamScoreboardPresenter {
                 totalExaminees: this.totalExaminees,
                 average: this.#questionRecords[q.problemId].average,
                 chartData: {
+                    problemId: q.problemId,
                     testcasesData: this.#questionRecords[q.problemId].testCases,
                     testcasesLabels: [...Array(totalTestCases).keys()],
                     totalPassData: this.#questionRecords[q.problemId].totalPass,

@@ -9,12 +9,12 @@ export const getStringHash = (str) => {
         hash |= 0;
     }
     return hash;
-}
+};
 
 export const formatDate = (timestamp) => {
     return moment(timestamp).format('YYYY-MM-DDTHH:mm');
-}
+};
 
 export const displayDate = (timestamp) => {
     return moment(timestamp).format('YYYY/MM/DD  hh:mm A')
-}
+};

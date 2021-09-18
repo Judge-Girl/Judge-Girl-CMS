@@ -74,7 +74,7 @@ const CreateExamModal = ({show, onClose, onExamCreated}) => {
                                 onChange={e => setName(e.target.value)}/>
                     <SubtitleLine title="Schedule"/>
                     <ScheduleItem inputRef={startTimeInputRef} label='Start Time' inputName='startTime'
-                                  timeValue={startTime} setTime={setStartTimeHandler} minTime={new Date()}/>
+                                  timeValue={startTime} setTime={setStartTimeHandler} />
                     <ScheduleItem inputRef={endTimeInputRef} label='End Time' inputName='endTime'
                                   timeValue={endTime} setTime={setEndTimeHandler} minTime={new Date(startTime)}/>
                     {/* TODO: white-list */}

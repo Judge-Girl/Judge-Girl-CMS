@@ -8,7 +8,7 @@ import ExamSummary from "../score/ExamSummary";
 import ChartField from "./ChartField";
 import FakeLink from "../../commons/FakeLink";
 import {Bar} from "react-chartjs-2";
-import {optionsTemplate, dataTemplate} from "./ChartConfigTemplates";
+import {dataTemplate, optionsTemplate} from "./ChartConfigTemplates";
 import {examTranscriptService} from "../../../services/services";
 import {ExamScoreboardPresenter} from "./ExamScoreboardPresenter";
 
@@ -26,9 +26,13 @@ const ExamScoreboardPage = () => {
     }, [currentExam, refetchExam, examId]);
 
     useEffect(() => {
-        if (currentExam)
-            examTranscriptService.getExamScoreboard(examId)
-                .then(examScoreboard => setPresenter(new ExamScoreboardPresenter(examScoreboard)));
+        if (currentExam) {
+            const subscription = examTranscriptService.pollingExamScoreboard(examId,
+                examScoreboard => setPresenter(new ExamScoreboardPresenter(examScoreboard)));
+            return () => {
+                subscription.unsubscribe();
+            };
+        }
     }, [currentExam, examId]);
 
 
@@ -56,6 +60,7 @@ const ExamScoreboardPage = () => {
                         <TitleLine title="Bar Charts"/>
                         {presenter.examSummary.map(data =>
                             <ChartField
+                                key={data.problemId}
                                 width={1200}
                                 title={
                                     <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>

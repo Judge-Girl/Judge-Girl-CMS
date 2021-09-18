@@ -1,5 +1,5 @@
-import {ExamScoreboard} from "../model";
-import AbstractService from "../../../services/AbstractService";
+import {ExamScoreboard} from "../app/exam/model";
+import AbstractService from "./AbstractService";
 
 
 class ExamTranscriptService extends AbstractService {
@@ -12,6 +12,20 @@ class ExamTranscriptService extends AbstractService {
         });
         this.examService = examService;
         this.problemService = problemService;
+    }
+
+    pollingExamScoreboard(examId, next) {
+        console.info(`Subscribe the polling of exam's scoreboard.`);
+        this.getExamScoreboard(examId).then(next); // the first call without delay
+        const id = setInterval(() => {
+            this.getExamScoreboard(examId).then(next);
+        }, 300, 8000);
+        return {
+            unsubscribe: () => {
+                console.info(`Unsubscribe the polling of exam's scoreboard.`);
+                clearInterval(id);
+            }
+        };
     }
 
     getExamScoreboard(examId) {

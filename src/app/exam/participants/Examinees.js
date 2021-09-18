@@ -61,11 +61,13 @@ const Examinees = () => {
     };
 
     const removeExaminee = (email) => {
-        examService.deleteExaminees(examId, email).then(fetchExaminees);
+        examService.deleteExaminees(examId, email)
+            .then(fetchExaminees);
     };
 
-    if (!exam || !examinees)
+    if (!exam || !examinees) {
         return <Spinner/>;
+    }
 
     return (
         <div className="examinees">

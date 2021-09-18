@@ -87,7 +87,8 @@ const ExamQuestions = () => {
     const addQuestion = question => {
         question.examId = examId;
         question.questionOrder = questions.length;
-        return examService.addExamQuestion(question).then(fetchExam);
+        return examService.addExamQuestion(question)
+            .then(fetchExam);
     };
 
     if (!exam || !questions)

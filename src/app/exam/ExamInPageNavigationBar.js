@@ -30,8 +30,9 @@ const ExamInPageNavigationBar = () => {
         }
     };
 
-    if (!exam)
+    if (!exam) {
         return <></>;
+    }
 
     return (
         <InPageNavigationBar currentURL={url}

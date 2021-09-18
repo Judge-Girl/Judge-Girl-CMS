@@ -7,7 +7,7 @@ import TestcaseEditor from "./TestcaseEditor";
 import {useProblemEditorContext} from "../../ProblemEditorContext";
 
 const TestCaseList = () => {
-    const {currentProblem, markProblemsDirty} = useProblemEditorContext();
+    const {currentProblem} = useProblemEditorContext();
     const {testcases, setTestcases, addNewTestcase, deleteTestcase} = useTestcaseList();
 
     useEffect(() => {

@@ -2,45 +2,45 @@ import {useState} from "react";
 import {getStringHash} from "../../utils/utils";
 
 
-const useTags = (initialState = []) => {
-    const [tags, setTags] = useState(initialState);
+const useTextInputContent = (initialTextInputContent = []) => {
+    const [textInputContents, setTextInputContents] = useState(initialTextInputContent);
 
-    const addTag = tag => {
-        if (tagAlreadyExists(tag, tags) || isIllegalText(tag)) {
-            console.log(`[addTag] tag ${tag} not added.`);
+    const addTextInputContent = content => {
+        if (contentAlreadyExists(content, textInputContents) || isIllegalText(content)) {
+            console.log(`[addTextInputContent] content ${content} not added.`);
             return;
         }
         /**
          *  This is used to resolve the bug pointed out in issue#172.
          *  See: https://stackoverflow.com/a/26254086/5290519.
          */
-        setTags(tags => [tag, ...tags]);
+        setTextInputContents(contents => [content, ...contents]);
     };
 
-    const replaceTags = newTags => {
-        setTags(newTags)
+    const replaceTextInputContent = newContents => {
+        setTextInputContents(newContents)
     }
 
-    const removeTag = tag => {
-        setTags(tags => tags.filter(_tag => _tag.id !== tag.id));
+    const removeTextInputContent = content => {
+        setTextInputContents(contents => contents.filter(_content => _content.id !== content.id));
     };
 
-    const tagAlreadyExists = (tag) => {
-        return tags.some(_tag => _tag.name === tag.name);
+    const contentAlreadyExists = (content) => {
+        return textInputContents.some(_content => _content.text === content.text);
     };
 
-    const isIllegalText = (tag) => {
-        return !tag.name || /^\s*$/.test(tag.name);
+    const isIllegalText = (content) => {
+        return !content.text || /^\s*$/.test(content.text);
     };
 
-    return {tags, setTags, addTag, removeTag, replaceTags};
+    return {textInputContents, setTextInputContents, addTextInputContent, removeTextInputContent, replaceTextInputContent};
 };
 
-class Tag {
-    constructor(tagName) {
-        this.name = tagName
-        this.id = getStringHash(tagName)
+class TextInputContent {
+    constructor(text) {
+        this.text = text
+        this.id = getStringHash(text)
     }
 }
 
-export {useTags, Tag};
+export {useTextInputContent, TextInputContent};

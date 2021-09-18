@@ -1,15 +1,15 @@
 import Block from "./Block";
 import {useState} from "react";
 import {EditSaveCancelButton} from "../../commons/EditSaveCancelButton";
-import {useTags} from "../../../usecases/TagUseCase";
+import {useTextInputContent} from "../../../usecases/TagUseCase";
 import {TextInputField} from "../../../commons/TextInputForm/TextInputField";
-import {TextInputItems} from "../../commons/TextInputItems";
-import TagWithIconList from "../../commons/TagWithIconList";
+import {TextInputItems} from "../../../commons/TextInputForm/TextInputItems";
+import TextInputItemsPreview from "../../../commons/TextInputForm/TextInputItemsPreview.js";
 import {GoTriangleDown, RiRulerLine} from "react-icons/all";
 
 const OutputMatchPolicy = () => {
     const [isEditing, setIsEditing] = useState(false);
-    const {tags, addTag, removeTag} = useTags();
+    const {textInputContents, addTextInputContent, removeTextInputContent} = useTextInputContent();
 
     const onClickEdit = () => {
         setIsEditing(true);
@@ -34,14 +34,14 @@ const OutputMatchPolicy = () => {
                        onClickCancel={onClickCancel}/>
                }>
             {!isEditing?
-                <TagWithIconList icon={<RiRulerLine/>} style={{color: "rgba(18, 115, 186, 1)"}}
-                                 items={tags.map(tag => tag.name)}/>
+                <TextInputItemsPreview icon={<RiRulerLine/>} style={{color: "rgba(18, 115, 186, 1)"}}
+                                       items={textInputContents.map(content => content.text)}/>
                 :
                 <>
-                    <TextInputField placeholder={"Add New Tags"}
+                    <TextInputField placeholder={"Add Match Policy"}
                                     buttonTitle={<GoTriangleDown/>}
-                                    onSubmit={addTag} style={{width: "234px"}}/>
-                    <TextInputItems items={tags} removeItem={removeTag}/>
+                                    onSubmit={addTextInputContent} style={{width: "234px"}}/>
+                    <TextInputItems items={textInputContents} removeItem={removeTextInputContent}/>
                 </>
             }
         </Block>

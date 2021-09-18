@@ -1,6 +1,4 @@
-
-
-const TagWithIconList = ({
+const TextInputItemsPreview = ({
     icon, items,
     placeholder="Empty.",
     style,
@@ -21,4 +19,4 @@ const TagWithIconList = ({
 };
 
 
-export default TagWithIconList;
+export default TextInputItemsPreview;

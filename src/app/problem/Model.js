@@ -1,5 +1,3 @@
-import {Tag} from "../usecases/TagUseCase";
-
 export class LanguageEnv {
 
     constructor({language, compilation, resourceSpec, submittedCodeSpecs}) {
@@ -10,8 +8,8 @@ export class LanguageEnv {
         this.submittedCodeSpecs = submittedCodeSpecs;
     }
 
-    getSubmittedCodeSpecFileNameTags() {
-        return this.submittedCodeSpecs.map(codeSpec => new Tag(codeSpec.fileName));
+    getSubmittedCodeSpecFileNames() {
+        return this.submittedCodeSpecs.map(codeSpec => codeSpec.fileName);
     }
 
     updateSubmittedCodeSpecs(fileNames) {

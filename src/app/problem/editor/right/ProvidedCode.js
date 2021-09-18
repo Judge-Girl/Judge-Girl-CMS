@@ -3,7 +3,7 @@ import {useState} from "react";
 import {EditSaveCancelButton} from "../../commons/EditSaveCancelButton";
 import ProvidedCodeItems from "./ProvidedCodeItems";
 import {useUploads} from "../../../usecases/UploadFilesUseCase";
-import TagWithIconList from "../../commons/TagWithIconList";
+import TextInputItemsPreview from "../../../commons/TextInputForm/TextInputItemsPreview.js";
 import {FiUpload, VscFileCode} from "react-icons/all";
 import {EditorButton} from "../../commons/EditorButton";
 
@@ -35,8 +35,8 @@ const ProvidedCode = () => {
                    onClickCancel={onClickCancel}/>
                }>
             {!isEditing?
-                <TagWithIconList icon={<VscFileCode/>} style={{color: "rgba(18, 115, 186, 1)"}}
-                                 items={files.map(file => file.name)}/>
+                <TextInputItemsPreview icon={<VscFileCode/>} style={{color: "rgba(18, 115, 186, 1)"}}
+                                  items={files.map(file => file.name)}/>
                 :
                 <>
                     <ProvidedCodeItems files={files} removeFile={removeFile}/>

@@ -1,16 +1,16 @@
 import {SubtitleLine} from "../../commons/titles/TitleLine";
-import {useTags} from "../../usecases/TagUseCase";
+import {useTextInputContent} from "../../usecases/TagUseCase";
 import {TextInputField} from "../../commons/TextInputForm/TextInputField";
-import {TextInputItems} from "../../problem/commons/TextInputItems";
+import {TextInputItems} from "../../commons/TextInputForm/TextInputItems";
 import './ExamOptions.scss';
 
 const ExamWhiteList = () => {
-    const {tags, addTag, removeTag} = useTags();
+    const {textInputContents, addTextInputContent, removeTextInputContent} = useTextInputContent();
     return (
         <div>
             <SubtitleLine title={"WhiteList"}/>
-            <TextInputField placeholder={'Add IP'} onSubmit={addTag}/>
-            <TextInputItems items={tags} removeItem={removeTag}/>
+            <TextInputField placeholder={'Add IP'} onSubmit={addTextInputContent}/>
+            <TextInputItems items={textInputContents} removeItem={removeTextInputContent}/>
         </div>
     )
 };

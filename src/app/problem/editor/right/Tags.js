@@ -1,20 +1,20 @@
 import Block from "./Block";
 import {EditSaveCancelButton} from "../../commons/EditSaveCancelButton";
-import {useTags} from "../../../usecases/TagUseCase";
+import {useTextInputContent} from "../../../usecases/TagUseCase";
 import {TextInputField} from "../../../commons/TextInputForm/TextInputField";
-import {TextInputItems} from "../../commons/TextInputItems";
+import {TextInputItems} from "../../../commons/TextInputForm/TextInputItems";
 import {useState} from "react";
-import TagWithIconList from "../../commons/TagWithIconList";
+import TextInputItemsPreview from "../../../commons/TextInputForm/TextInputItemsPreview.js";
 import {BsTag} from "react-icons/all";
 
 
 const Tags = () => {
     const [isEditing, setIsEditing] = useState(false);
-    const [tagsBackUp, setTagsBackUp] = useState(undefined);
-    const {tags, setTags, addTag, removeTag} = useTags();
+    const [textInputContentsBackUp, setTextInputContentsBackUp] = useState(undefined);
+    const {textInputContents, setTextInputContents, addTextInputContent, removeTextInputContent} = useTextInputContent();
 
     const onClickEdit = () => {
-        setTagsBackUp(tags);
+        setTextInputContentsBackUp(textInputContents);
         setIsEditing(true);
     }
 
@@ -25,29 +25,29 @@ const Tags = () => {
 
     const onClickCancel = () => {
         setIsEditing(false);
-        setTags(tagsBackUp);
+        setTextInputContents(textInputContentsBackUp);
     }
 
     return <>
         <Block title="Tags"
                id="problem-editor-tags"
                titleButton={
-               <EditSaveCancelButton
-                   isEditing={isEditing}
-                   onClickEdit={onClickEdit}
-                   onClickSave={onClickSave}
-                   onClickCancel={onClickCancel}/>
+                   <EditSaveCancelButton
+                       isEditing={isEditing}
+                       onClickEdit={onClickEdit}
+                       onClickSave={onClickSave}
+                       onClickCancel={onClickCancel}/>
                }>
-        {!isEditing?
-            <TagWithIconList icon={<BsTag size={21}/>} style={{color: "rgba(18, 115, 186, 1)"}}
-                             items={tags.map(tag => tag.name)}/>
-            :
-            <>
-                <TextInputField placeholder={"Add New Tags"} style={{width: "234px"}}
-                                onSubmit={addTag}/>
-                <TextInputItems items={tags} removeItem={removeTag}/>
-            </>
-        }
+            {!isEditing ?
+                <TextInputItemsPreview icon={<BsTag size={21}/>} style={{color: "rgba(18, 115, 186, 1)"}}
+                                       items={textInputContents.map(content => content.text)}/>
+                :
+                <>
+                    <TextInputField placeholder={"Add New Tags"} style={{width: "234px"}}
+                                    onSubmit={addTextInputContent}/>
+                    <TextInputItems items={textInputContents} removeItem={removeTextInputContent}/>
+                </>
+            }
         </Block>
     </>;
 };

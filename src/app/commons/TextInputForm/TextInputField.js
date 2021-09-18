@@ -1,20 +1,20 @@
 import {useRef, useState} from "react";
 import './TextInputForm.css';
-import {Tag} from "../../usecases/TagUseCase";
+import {TextInputContent} from "../../usecases/TagUseCase";
 
 
 const TextInputField = ({placeholder, onSubmit, buttonTitle = "+", style}) => {
-    const [tagName, setTagName] = useState("");
+    const [text, setText] = useState("");
     const inputRef = useRef();
 
     const onFormSubmit = e => {
         e.preventDefault();
-        onSubmit(new Tag(tagName));
-        setTagName("");
+        onSubmit(new TextInputContent(text));
+        setText("");
         inputRef.current.focus();
     };
 
-    const onChangeInput = e => setTagName(e.target.value);
+    const onChangeInput = e => setText(e.target.value);
 
     return (
         <div className="text-input-form">
@@ -24,7 +24,7 @@ const TextInputField = ({placeholder, onSubmit, buttonTitle = "+", style}) => {
                     <input type='text' name="text" className="tag-input control"
                            ref={inputRef}
                            placeholder={placeholder}
-                           value={tagName} onChange={onChangeInput}
+                           value={text} onChange={onChangeInput}
                            style={{width: "100%"}}/>
                 </p>
                 <button className="control tag-button"

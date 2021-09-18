@@ -1,4 +1,4 @@
-import './InlineInputBox.scss'
+import './InlineInputBox.scss';
 
 const InlineInputBox = ({title = "title", type = "text", fontSize = "fontSize", value = ""}) => {
     return (

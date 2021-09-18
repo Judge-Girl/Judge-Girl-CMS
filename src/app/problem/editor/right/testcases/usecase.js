@@ -15,7 +15,7 @@ const useTestcaseList = () => {
         setTestcases(testcasesList => testcasesList.filter(testcase => testcase.id !== deletedId));
     };
 
-    return {testcases, setTestcases, addNewTestcase, deleteTestcase}
+    return {testcases, setTestcases, addNewTestcase, deleteTestcase};
 };
 
 export default useTestcaseList;

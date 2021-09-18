@@ -1,18 +1,15 @@
 import {useRef, useState} from "react";
-import {getStringHash} from "../../../utils/utils";
 import './TextInputForm.css';
+import {Tag} from "../../usecases/TagUseCase";
 
 
-const TextInputField = ({placeholder, onSubmit, buttonTitle="+", style}) => {
+const TextInputField = ({placeholder, onSubmit, buttonTitle = "+", style}) => {
     const [tagName, setTagName] = useState("");
     const inputRef = useRef();
 
     const onFormSubmit = e => {
         e.preventDefault();
-        onSubmit({
-            id: getStringHash(tagName),
-            name: tagName
-        });
+        onSubmit(new Tag(tagName));
         setTagName("");
         inputRef.current.focus();
     };

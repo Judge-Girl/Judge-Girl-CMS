@@ -1,8 +1,9 @@
 import {useState} from "react";
+import {getStringHash} from "../../utils/utils";
 
 
-const useTags = () => {
-    const [tags, setTags] = useState([]);
+const useTags = (initialState = []) => {
+    const [tags, setTags] = useState(initialState);
 
     const addTag = tag => {
         if (tagAlreadyExists(tag, tags) || isIllegalText(tag)) {
@@ -16,6 +17,10 @@ const useTags = () => {
         setTags(tags => [tag, ...tags]);
     };
 
+    const replaceTags = previousTags => {
+        setTags(previousTags)
+    }
+
     const removeTag = tag => {
         setTags(tags => tags.filter(_tag => _tag.id !== tag.id));
     };
@@ -28,7 +33,14 @@ const useTags = () => {
         return !tag.name || /^\s*$/.test(tag.name);
     };
 
-    return {tags, setTags, addTag, removeTag};
+    return {tags, setTags, addTag, removeTag, replaceTags};
 };
 
-export {useTags};
+class Tag {
+    constructor(tagName) {
+        this.name = tagName
+        this.id = getStringHash(tagName)
+    }
+}
+
+export {useTags, Tag};

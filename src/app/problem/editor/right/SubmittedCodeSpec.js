@@ -6,22 +6,36 @@ import {TextInputItems} from "../../commons/TextInputItems";
 import {EditSaveCancelButton} from "../../commons/EditSaveCancelButton";
 import TagWithIconList from "../../commons/TagWithIconList";
 import {AiOutlinePaperClip} from "react-icons/all";
+import {useProblemEditorContext} from "../ProblemEditorContext";
+import {problemService} from "../../../../services/services";
+import {LanguageEnv} from "../../Model";
 
 
 const SubmittedCodeSpec = () => {
+    const {currentProblem, fetchProblems} = useProblemEditorContext();
     const [isEditing, setIsEditing] = useState(false);
-    const {tags, addTag, removeTag} = useTags();
+    const [tagsBackUp, setTagsBackUp] = useState(undefined);
+    const languageEnv = new LanguageEnv(currentProblem.languageEnvs[0]);
+    const {tags, addTag, removeTag, replaceTags} = useTags(languageEnv.getSubmittedCodeSpecFileNameTags());
 
     const onClickEdit = () => {
         setIsEditing(true);
+        setTagsBackUp(tags);
     }
 
     const onClickSave = () => {
         setIsEditing(false);
+        languageEnv.updateSubmittedCodeSpecs(tags);
+        problemService.updateLanguageEnv(currentProblem.id, languageEnv)
+            .then(() => {
+                console.log("The problem's SubmittedCodeSpec has been updated");
+                fetchProblems();
+            });
     }
 
     const onClickCancel = () => {
         setIsEditing(false);
+        replaceTags(tagsBackUp);
     }
 
     return <>
@@ -34,7 +48,7 @@ const SubmittedCodeSpec = () => {
                        onClickSave={onClickSave}
                        onClickCancel={onClickCancel}/>
                }>
-            {!isEditing?
+            {!isEditing ?
                 <TagWithIconList icon={<AiOutlinePaperClip/>}
                                  style={{color: "rgba(18, 115, 186, 1)"}}
                                  items={tags.map(tag => tag.name)}/>

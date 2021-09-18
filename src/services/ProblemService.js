@@ -23,6 +23,16 @@ export class ProblemService extends AbstractService {
         return this.axios.patch(`/api/problems/${problemId}`, {problemId, visible});
     }
 
+    async updateLanguageEnv(problemId, languageEnv) {
+        const language = languageEnv.language;
+        const compilationScript = languageEnv.compilationScript;
+        const resourceSpecCpu = languageEnv.resourceSpecCpu;
+        const resourceSpecGpu = languageEnv.resourceSpecGpu;
+        const submittedCodeSpecs = languageEnv.submittedCodeSpecs;
+        return this.axios.put(`/api/problems/${problemId}/langEnv/${language}`,
+            {language, compilationScript, resourceSpecCpu, resourceSpecGpu, submittedCodeSpecs})
+    }
+
     async getProblemById(problemId) {
         return this.axios.get(`/api/problems/${problemId}`)
             .then(res => new Problem(res.data));

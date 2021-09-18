@@ -1,15 +1,24 @@
 import {useProblemEditorContext} from "../ProblemEditorContext";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {problemService} from "../../../../services/services";
 import {FaEdit} from "react-icons/all";
 import {EditSaveCancelButton} from "../../commons/EditSaveCancelButton";
+import {useParams} from "react-router-dom";
 
 
 const ProblemTitle = () => {
-    const {currentProblem, fetchProblems} = useProblemEditorContext();
-    const [problemTitle, setProblemTitle] = useState(currentProblem.title);
+    const {problemId} = useParams();
+    const {fetchAllProblems} = useProblemEditorContext();
+    const [problemTitle, setProblemTitle] = useState(undefined);
     const [problemTitleBackUp, setProblemTitleBackUp] = useState(undefined);
     const [isEditing, setIsEditing] = useState(false);
+
+    useEffect(() => {
+        if (!problemTitle)
+            problemService.getProblemById(problemId)
+                          .then(problem => setProblemTitle(problem.title));
+    }, [problemTitle, problemId, setProblemTitle]);
+
 
     const onClickEdit = () => {
         setIsEditing(true);
@@ -17,13 +26,13 @@ const ProblemTitle = () => {
     }
 
     const onClickSave = () => {
-        if (problemTitle.length === 0) {
+        if (problemTitle.length === 0)
             return;
-        }
-        problemService.updateProblemTitle(currentProblem.id, problemTitle)
+
+        problemService.updateProblemTitle(problemId, problemTitle)
             .then(() => {
                 console.log("The problem's title has been modified");
-                fetchProblems();
+                fetchAllProblems();
             });
         setIsEditing(false);
     };
@@ -32,6 +41,9 @@ const ProblemTitle = () => {
         setProblemTitle(problemTitleBackUp);
         setIsEditing(false);
     }
+
+    if (!problemTitle)
+        return "";
 
     return <>
         <div className="problem-title">

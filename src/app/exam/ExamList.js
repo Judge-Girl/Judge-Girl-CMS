@@ -1,5 +1,6 @@
+import './ExamList.scss';
 import React, {useCallback, useEffect, useState} from "react";
-import {Link, Redirect, Route, Switch} from "react-router-dom";
+import {Link, Redirect, Route, Switch, useHistory} from "react-router-dom";
 import {examService} from "../../services/services";
 import {EXAM_STATUSES} from "../../services/ExamService";
 import {ItemListPage} from "../commons/ItemListPage/ItemListPage";
@@ -12,10 +13,10 @@ import {ExamOptions} from "./options/ExamOptions";
 import {Spinner} from "../commons/Spinner";
 import {ExamContext} from "./questions/ExamContext";
 import {TableCell} from "../../utils/TableCell";
-import './ExamList.css';
 import ExamLiveSubmissions from "./submissions/ExamLiveSubmissions";
 import ExamScoreboardPage from "./scoreboard/ExamScoreboardPage";
 import ExamScorePage from "./score/ExamScorePage";
+import {ExamInPageNavigationBar} from "./ExamInPageNavigationBar";
 
 export const useExamList = () => {
     const [exams, setExams] = useState();
@@ -24,104 +25,104 @@ export const useExamList = () => {
         setExams(exams);
     };
 
-    return {exams, setExams, addExam}
+    return {exams, setExams, addExam};
 };
 
 const ExamList = () => {
-    const [showCreateExamModal, setShowCreateExamModal] = useState(false);
+    const history = useHistory();
     const {exams, setExams} = useExamList();
-    const [currentExam, setCurrentExam] = useState(undefined);
-    // TODO: Refactoring: This flag can be removed.
-    const [shouldRedirect, setShouldRedirect] = useState(false);
-    const refetchExam = useCallback((examId) => {
+    const [shouldUpdate, setShouldUpdate] = useState(false);
+    const [showCreateExamModal, setShowCreateExamModal] = useState(false);
+    const updateExams = useCallback(() => setShouldUpdate(true), [setShouldUpdate]);
+    const fetchExams = useCallback(() => {
+        console.log("fetchExams called.");
         examService.getExams({status: EXAM_STATUSES.ALL})
-            .then(exams => {
-                setExams(exams);
-                setCurrentExam(exams.find(exam => parseInt(exam.id) === parseInt(examId)))
-            })
-    }, [setExams, setCurrentExam]);
+            .then(setExams);
+    }, [setExams]);
 
     useEffect(() => {
-        if (!exams || exams.length === 0) {
-            refetchExam()
+        if (!exams) {
+            fetchExams();
         }
-    }, [exams, refetchExam]);
+    }, [exams, fetchExams]);
 
-    const onExamCreated = (exam) => {
-        refetchExam(exam.id);
-        setShouldRedirect(true);
+    useEffect(() => {
+        if (shouldUpdate) {
+            fetchExams();
+            setShouldUpdate(false);
+        }
+    }, [shouldUpdate, fetchExams, setShouldUpdate]);
+
+    const onExamCreated = exam => {
+        history.push(`/exams/${exam.id}/problems`);
     };
 
-    if (!exams || (shouldRedirect && !currentExam)) {
-        return <Spinner/>
+    if (!exams) {
+        return <Spinner/>;
     }
 
-    return (
-        <>{shouldRedirect ?
-            <Redirect to={`/exams/${currentExam.id}/problems`}/> : ""}
-            <Route path="/exams" exact>
-                <div className="exam-list font-poppins">
-                    <div className="font-poppins" style={{paddingTop: "20px", paddingBottom: "150px"}}>
-                        <div style={{display: "flex", justifyContent: "center"}}>
-                            <ItemListPage title="Exam List"
-                                          width="1000px"
-                                          filterItems={["Filter", "Id", "name"]}
-                                          Button={() =>
-                                              <CreateButton onClick={() => setShowCreateExamModal(true)}/>}
-                                          tableHeaders={[
-                                              <TableCell>#</TableCell>,
-                                              <TableCell>Exam Name</TableCell>,
-                                              <TableCell>Start Time</TableCell>,
-                                              <TableCell>End Time</TableCell>]}
-                                          tableRowGenerator={{
-                                              list: exams,
-                                              key: (exam) => exam.id,
-                                              data: (exam) => [
-                                                  <TableCell>{exam?.id}</TableCell>,
-                                                  <TableCell>
-                                                      <Link to={`/exams/${exam.id}/problems`}
-                                                            onClick={() => setCurrentExam(exam)}>
-                                                          {exam.name}</Link>
-                                                  </TableCell>,
-                                                  <TableCell>{displayDate(exam?.startTime)}</TableCell>,
-                                                  <TableCell>{displayDate(exam?.endTime)}</TableCell>,
-                                              ]
-                                          }}/>
+    return <>
+        <Route path="/exams" exact>
+            <div className="exam-list font-poppins">
+                <ItemListPage title="Exam List"
+                              width="1000px"
+                              filterItems={["Filter", "Id", "name"]}
+                              Button={() =>
+                                  <CreateButton onClick={() => setShowCreateExamModal(true)}/>}
+                              tableHeaders={[
+                                  <TableCell>#</TableCell>,
+                                  <TableCell>Exam Name</TableCell>,
+                                  <TableCell>Start Time</TableCell>,
+                                  <TableCell>End Time</TableCell>]}
+                              tableRowGenerator={{
+                                  list: exams,
+                                  key: (exam) => exam.id,
+                                  data: (exam) => [
+                                      <TableCell>{exam?.id}</TableCell>,
+                                      <TableCell>
+                                          <Link to={`/exams/${exam.id}/problems`}>
+                                              {exam?.name}
+                                          </Link>
+                                      </TableCell>,
+                                      <TableCell>{displayDate(exam?.startTime)}</TableCell>,
+                                      <TableCell>{displayDate(exam?.endTime)}</TableCell>,
+                                  ]
+                              }}/>
 
-                            <CreateExamModal show={showCreateExamModal}
-                                             onClose={() => setShowCreateExamModal(false)}
-                                             onExamCreated={onExamCreated}/>
-                        </div>
-                    </div>
-                </div>
+                <CreateExamModal show={showCreateExamModal}
+                                 onClose={() => setShowCreateExamModal(false)}
+                                 onExamCreated={onExamCreated}/>
+            </div>
+        </Route>
+        <ExamContext.Provider value={{exams, updateExams, shouldUpdate}}>
+            <Route path="/exams/:examId">
+                <ExamInPageNavigationBar/>
             </Route>
-            <ExamContext.Provider value={{currentExam, setCurrentExam, refetchExam, setShouldRedirect, exams, setExams}}>
-                <Switch>
-                    <Route path="/exams/:examId/problems">
-                        <ExamQuestions/>
-                    </Route>
-                    <Route path="/exams/:examId/students">
-                        <Examinees/>
-                    </Route>
-                    <Route path="/exams/:examId/submissions">
-                        <ExamLiveSubmissions/>
-                    </Route>
-                    <Route path="/exams/:examId/scoreboard">
-                        <ExamScoreboardPage/>
-                    </Route>
-                    <Route path="/exams/:examId/score">
-                        <ExamScorePage/>
-                    </Route>
-                    <Route path="/exams/:examId/options">
-                        <ExamOptions/>
-                    </Route>
-                    <Route path="/exams/:examId/*">
-                        <Redirect to="/exams/:examId/problems"/>
-                    </Route>
-                </Switch>
-            </ExamContext.Provider>
-        </>
-    )
+            <Switch>
+                <Route path="/exams/:examId/problems">
+                    <ExamQuestions/>
+                </Route>
+                <Route path="/exams/:examId/students">
+                    <Examinees/>
+                </Route>
+                <Route path="/exams/:examId/submissions">
+                    <ExamLiveSubmissions/>
+                </Route>
+                <Route path="/exams/:examId/scoreboard">
+                    <ExamScoreboardPage/>
+                </Route>
+                <Route path="/exams/:examId/score">
+                    <ExamScorePage/>
+                </Route>
+                <Route path="/exams/:examId/options">
+                    <ExamOptions/>
+                </Route>
+                <Route path="/exams/:examId/*">
+                    <Redirect to="/exams/:examId/problems"/>
+                </Route>
+            </Switch>
+        </ExamContext.Provider>
+    </>;
 };
 
 

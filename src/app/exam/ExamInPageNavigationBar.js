@@ -1,28 +1,44 @@
-import {InPageNavigationBar} from "../commons/IndexBanner/InPageNavigationBar";
 import {AiFillYoutube, AiOutlineSetting, FaClipboardList, FaRegChartBar, FaRegEdit, FaUserFriends} from "react-icons/all";
+import {useEffect, useState} from "react";
+import {useHistory, useParams, useRouteMatch} from "react-router-dom";
+import {InPageNavigationBar} from "../commons/IndexBanner/InPageNavigationBar";
+import {examService} from "../../services/services";
 import {useExamContext} from "./questions/ExamContext";
 
-const ExamInPageNavigationBar = function ({currentURL, examName, examId}) {
-    const {setCurrentExam, setShouldRedirect} = useExamContext();
+const ExamInPageNavigationBar = () => {
+    const history = useHistory();
+    const {url} = useRouteMatch();
+    const {examId} = useParams();
+    const [exam, setExam] = useState(undefined);
+    const {shouldUpdate} = useExamContext();
 
-    // TODO: improve the design for InPageNavigationBar
+    useEffect(() => {
+        if (!exam || shouldUpdate) {
+            examService.getExam(examId)
+                .then(setExam);
+        }
+    }, [exam, shouldUpdate, examId, setExam]);
+
     const onBreadcrumbClickAtIndex = (index) => {
         const BACK_TO_EXAM_LIST = 0;
         switch (index) {
             case BACK_TO_EXAM_LIST:
-                setCurrentExam(null);
-                setShouldRedirect(false);
+                history.push("/exams");
                 break;
             default:
                 console.log("WARNING: onBreadcrumbClickAtIndex index out of range.")
         }
     };
 
+    if (!exam) {
+        return <></>;
+    }
+
     return (
-        <InPageNavigationBar currentURL={currentURL}
+        <InPageNavigationBar currentURL={url}
                              path={{
                                  head: "Exam",
-                                 tail: examName
+                                 tail: exam.name
                              }}
                              onBreadcrumbClickAtIndex={onBreadcrumbClickAtIndex}
                              tabContents={[

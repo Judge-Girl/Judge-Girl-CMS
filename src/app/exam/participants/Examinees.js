@@ -1,6 +1,5 @@
-import React, {useEffect, useState} from "react";
-import {useParams, useRouteMatch} from "react-router-dom";
-import {ExamInPageNavigationBar} from "../ExamInPageNavigationBar"
+import React, {useCallback, useEffect, useState} from "react";
+import {useParams} from "react-router-dom";
 import FakeLink from "../../commons/FakeLink";
 import {examService} from "../../../services/services";
 import {ItemListPage} from "../../commons/ItemListPage/ItemListPage";
@@ -10,33 +9,30 @@ import {TextareaModal} from "../../commons/modals/TextareaModal";
 import {ThreeDotsButton} from "../../commons/buttons/ThreeDotsButton";
 import {DeleteConfirmationModal} from "../../commons/modals/DeleteConfirmationModal";
 import {Spinner} from "../../commons/Spinner";
-import {useExamContext} from "../questions/ExamContext";
 import {EmptyCell, TableCell} from "../../../utils/TableCell";
 
 
 const Examinees = () => {
-    const {url: currentURL} = useRouteMatch();
     const {examId} = useParams();
-    const {currentExam, refetchExam} = useExamContext()
+    const [exam, setExam] = useState(undefined);
     const [examinees, setExaminees] = useState(undefined);
     const [selectedExaminee, setSelectedExaminee] = useState(undefined);
     const [showAddStudentModal, setShowAddStudentModal] = useState(false);
     const [showAddGroupModal, setShowAddGroupModal] = useState(false);
     const [showRemoveExamineeConfirmationModal, setShowRemoveExamineeConfirmationModal] = useState(false);
 
-    const fetchExaminees = (examId) => {
+    const fetchExaminees = useCallback(() => {
         examService.getExaminees(examId)
-            .then(examineeStudents => setExaminees(examineeStudents));
-    }
+            .then(setExaminees);
+    }, [examId, setExaminees]);
 
     useEffect(() => {
-        if (!currentExam) {
-            refetchExam(examId);
+        if (!exam) {
+            examService.getExam(examId)
+                .then(setExam)
+                .then(fetchExaminees);
         }
-        if (!examinees && currentExam) {
-            fetchExaminees(examId);
-        }
-    }, [currentExam, examId, examinees, refetchExam]);
+    }, [exam, examId, setExam, fetchExaminees]);
 
     const actionItemsButton = ({examinee}) =>
         <ThreeDotsButton dropDownItems={[
@@ -55,30 +51,26 @@ const Examinees = () => {
             .then(errorList => {
                 // TODO: the error should be handled in the future
                 console.log(`errorList=${errorList}`);
-                fetchExaminees(examId);
-            })
-
-    }
+                fetchExaminees();
+            });
+    };
 
     const addExamineesByGroups = async (groupNames) => {
         examService.addGroupsOfExaminees(examId, groupNames)
-            .then(res => fetchExaminees(examId));
-    }
+            .then(fetchExaminees);
+    };
 
     const removeExaminee = (email) => {
         examService.deleteExaminees(examId, email)
-            .then(() => setExaminees(examinees.filter(examinee => examinee.email !== email)));
-    }
+            .then(fetchExaminees);
+    };
 
-    if (!currentExam) {
-        return <Spinner/>
+    if (!exam || !examinees) {
+        return <Spinner/>;
     }
 
     return (
         <div className="examinees">
-            <ExamInPageNavigationBar currentURL={currentURL}
-                                     examName={currentExam.name}
-                                     examId={examId}/>
             <div className="font-poppins" style={{paddingTop: "20px", paddingBottom: "150px"}}>
                 <div style={{display: "flex", justifyContent: "center"}}>
                     <ItemListPage width="1200px"

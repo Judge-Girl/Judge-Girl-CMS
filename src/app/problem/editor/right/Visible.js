@@ -3,18 +3,20 @@ import Block from "./Block";
 import {useState} from "react";
 import {useProblemEditorContext} from "../ProblemEditorContext";
 import {problemService} from "../../../../services/services";
+import {useParams} from "react-router-dom";
 
 
 const Visible = () => {
-    const {currentProblem, fetchProblems} = useProblemEditorContext();
-    const [isOnClicked, setIsOnClicked] = useState(currentProblem.visible);
+    const {problemId} = useParams();
+    const {fetchAllProblems} = useProblemEditorContext();
+    const [isOnClicked, setIsOnClicked] = useState();
 
     const onVisibleButtonClick = (isVisibleButtonClicked) => {
         setIsOnClicked(isVisibleButtonClicked);
-        problemService.updateProblemVisible(currentProblem.id, isVisibleButtonClicked)
+        problemService.updateProblemVisible(problemId, isVisibleButtonClicked)
             .then(() => {
                 console.log("The problem's visible has been modified");
-                fetchProblems();
+                fetchAllProblems();
             });
     }
 

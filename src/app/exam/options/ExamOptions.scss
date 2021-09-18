@@ -2,6 +2,12 @@ $update-blue: #0F7ED0;
 $update-dark-blue: #0E6FB7;
 
 .exam-options {
+
+  padding-top: 20px;
+  padding-bottom: 150px;
+  display: flex;
+  justify-content: flex-start;
+
   section {
     margin-bottom: 45px;
   }

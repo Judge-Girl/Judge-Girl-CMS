@@ -1,47 +1,40 @@
-import {ExamInPageNavigationBar} from "../ExamInPageNavigationBar";
 import {ItemListPage} from "../../commons/ItemListPage/ItemListPage";
 import FakeLink from "../../commons/FakeLink";
-import {useParams, useRouteMatch} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import React, {useEffect, useState} from "react";
-import {useExamContext} from "../questions/ExamContext";
 import {Spinner} from "../../commons/Spinner";
 import {TableCell} from "../../../utils/TableCell";
 import ExamSummary from "./ExamSummary";
-import {examTranscriptService} from "../../../services/services";
+import {examService, examTranscriptService} from "../../../services/services";
 import {ExamScorePresenter} from "./ExamScorePresenter";
 
 
 const ExamScorePage = () => {
-    const {url: currentURL} = useRouteMatch();
     const {examId} = useParams();
-    const {refetchExam, currentExam} = useExamContext();
     const [presenter, setPresenter] = useState(undefined);
+    const [exam, setExam] = useState(undefined);
 
     useEffect(() => {
-        if (!currentExam) {
-            refetchExam(examId);
+        if (!exam) {
+            examService.getExam(examId)
+                .then(setExam);
         }
-    }, [currentExam, refetchExam, examId]);
+    }, [exam, examId, setExam]);
 
     useEffect(() => {
-        if (currentExam) {
+        if (exam) {
             const subscription = examTranscriptService.pollingExamScoreboard(examId,
                 examScoreboard => setPresenter(new ExamScorePresenter(examScoreboard)));
-            return () => {
-                subscription.unsubscribe();
-            }
+            return () => subscription.unsubscribe();
         }
-    }, [currentExam, examId]);
+    }, [exam, setPresenter, examId]);
 
-    if (!currentExam || !presenter) {
+    if (!exam || !presenter) {
         return <Spinner/>;
     }
 
     return (
         <div className="exam-score">
-            <ExamInPageNavigationBar currentURL={currentURL}
-                                     examName={currentExam.name}
-                                     examId={examId}/>
             <div className="font-poppins" style={{paddingTop: "20px", paddingBottom: "150px"}}>
                 <div className="mt-2" style={{display: "flex", justifyContent: "center"}}>
                     <div className="mt-4 mr-3" style={{width: "fit-content", textAlign: "center"}}>

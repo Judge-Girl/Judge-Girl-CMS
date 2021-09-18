@@ -1,3 +1,9 @@
+.exam-list {
+    padding-top: 20px;
+    padding-bottom: 150px;
+    display: flex;
+    justify-content: center;
+}
 
 .create-exam-modal .container {
     padding-top: 60px;
@@ -24,7 +30,7 @@
 
 .my-exam-table thead {
     border-bottom: 2px solid #6D6E7D;
-    text: #676877;
+    color: #676877;
 }
 
 .my-exam-table tr {

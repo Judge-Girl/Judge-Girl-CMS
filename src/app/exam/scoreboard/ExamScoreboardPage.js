@@ -1,51 +1,41 @@
-import {useParams, useRouteMatch} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import {Spinner} from "../../commons/Spinner";
-import {ExamInPageNavigationBar} from "../ExamInPageNavigationBar";
-import {useExamContext} from "../questions/ExamContext";
 import {TitleLine} from "../../commons/titles/TitleLine";
 import ExamSummary from "../score/ExamSummary";
 import ChartField from "./ChartField";
 import FakeLink from "../../commons/FakeLink";
 import {Bar} from "react-chartjs-2";
 import {dataTemplate, optionsTemplate} from "./ChartConfigTemplates";
-import {examTranscriptService} from "../../../services/services";
+import {examService, examTranscriptService} from "../../../services/services";
 import {ExamScoreboardPresenter} from "./ExamScoreboardPresenter";
 
 
 const ExamScoreboardPage = () => {
-    const {url: currentURL} = useRouteMatch();
     const {examId} = useParams();
-    const {refetchExam, currentExam} = useExamContext();
+    const [exam, setExam] = useState(undefined);
     const [presenter, setPresenter] = useState(undefined);
 
     useEffect(() => {
-        if (!currentExam) {
-            refetchExam(examId);
+        if (!exam) {
+            examService.getExam(examId)
+                .then(setExam);
         }
-    }, [currentExam, refetchExam, examId]);
+    }, [exam, examId, setExam]);
 
     useEffect(() => {
-        if (currentExam) {
+        if (exam) {
             const subscription = examTranscriptService.pollingExamScoreboard(examId,
                 examScoreboard => setPresenter(new ExamScoreboardPresenter(examScoreboard)));
-            return () => {
-                subscription.unsubscribe();
-            };
+            return () => subscription.unsubscribe();
         }
-    }, [currentExam, examId]);
+    }, [exam, examId, setPresenter]);
 
-
-    if (!currentExam || !presenter) {
+    if (!exam || !presenter)
         return <Spinner/>;
-    }
 
     return (
         <div className="exam-scoreboard">
-            <ExamInPageNavigationBar
-                currentURL={currentURL}
-                examName={currentExam.name}
-                examId={examId}/>
             <div className="font-poppins" style={{paddingTop: "20px", paddingBottom: "150px"}}>
                 <div style={{display: "flex", flexDirection: "row", justifyContent: "center"}}>
                     <div style={{

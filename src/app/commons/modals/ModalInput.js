@@ -14,8 +14,8 @@ export const ModalInput = React.forwardRef((
             {labelText ?
                 <label className="modal-input-label" style={{fontSize: labelFontSize}}>{labelText}</label> : ""}
             <input ref={ref} className={`modal-input placeholder-align-${placeholderTextAlign}`}
-                   type={type} value={value} placeholder={placeholder}
-                   style={{height, fontSize}}
+                   type={type} style={{height, fontSize}}
+                   value={value} placeholder={placeholder}
                    onChange={onChange} required={required}/>
         </div>
     )

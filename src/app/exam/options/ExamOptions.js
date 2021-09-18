@@ -25,31 +25,33 @@ const ExamOptions = () => {
     const examScheduleRef = useRef();
 
     useEffect(() => {
-        if (!exam)
+        if (!exam) {
             examService.getExam(examId)
-                       .then(exam => {
-                           setExamName(exam.name);
-                           setStartTime(formatDate(exam?.startTime));
-                           setEndTime(formatDate(exam?.endTime));
-                           return exam;
-                       })
-                       .then(setExam);
+                .then(exam => {
+                    setExamName(exam.name);
+                    setStartTime(formatDate(exam?.startTime));
+                    setEndTime(formatDate(exam?.endTime));
+                    setExam(exam);
+                });
+        }
     }, [exam, examId, setExam]);
 
     const onButtonUpdateChangeClick = () => {
         if (examScheduleRef.current?.validateTimes(startTime, endTime)) {
             examService.updateExam(examId, {
-                examId,
-                name: examName,
-                startTime,
-                endTime,
-                description: exam.description
-            }).then(updateExams);
+                    examId,
+                    name: examName,
+                    startTime,
+                    endTime,
+                    description: exam.description
+                })
+                .then(updateExams);
         }
     };
 
     const deleteExam = () => {
-        examService.deleteExam(examId).then(updateExams);
+        examService.deleteExam(examId)
+            .then(updateExams);
         history.push("/exams");
     };
 

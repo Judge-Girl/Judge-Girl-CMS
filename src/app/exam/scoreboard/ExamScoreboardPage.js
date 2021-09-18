@@ -18,7 +18,8 @@ const ExamScoreboardPage = () => {
 
     useEffect(() => {
         if (!exam) {
-            examService.getExam(examId).then(setExam);
+            examService.getExam(examId)
+                .then(setExam);
         }
     }, [exam, examId, setExam]);
 

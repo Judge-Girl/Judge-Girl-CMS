@@ -22,7 +22,8 @@ const Examinees = () => {
     const [showRemoveExamineeConfirmationModal, setShowRemoveExamineeConfirmationModal] = useState(false);
 
     const fetchExaminees = useCallback(() => {
-        examService.getExaminees(examId).then(setExaminees);
+        examService.getExaminees(examId)
+            .then(setExaminees);
     }, [examId, setExaminees]);
 
     useEffect(() => {
@@ -55,7 +56,8 @@ const Examinees = () => {
     };
 
     const addExamineesByGroups = async (groupNames) => {
-        examService.addGroupsOfExaminees(examId, groupNames).then(fetchExaminees);
+        examService.addGroupsOfExaminees(examId, groupNames)
+            .then(fetchExaminees);
     };
 
     const removeExaminee = (email) => {

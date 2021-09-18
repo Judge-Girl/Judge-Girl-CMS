@@ -16,7 +16,8 @@ const ProblemList = () => {
     const [problems, setProblems] = useState(undefined);
     const [showCreateProblemModal, setShowCreateProblemModal] = useState(false);
     const fetchAllProblems = useCallback(() => {
-        problemService.getAllProblems().then(setProblems);
+        problemService.getAllProblems()
+            .then(setProblems);
     }, [setProblems]);
 
     useEffect(() => {

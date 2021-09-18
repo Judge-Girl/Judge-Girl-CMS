@@ -18,10 +18,11 @@ const ExamDescription = ({examId}) => {
 
     useEffect(() => {
         if (!markdownText)
-            examService.getExam(examId).then(exam => {
-                setExam(exam);
-                setMarkdownText(exam.description);
-            });
+            examService.getExam(examId)
+                .then(exam => {
+                    setExam(exam);
+                    setMarkdownText(exam.description);
+                });
     }, [markdownText, examId, setMarkdownText]);
 
     const onClickEdit = () => {

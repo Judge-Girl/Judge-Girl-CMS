@@ -50,8 +50,7 @@ const ProblemDescription = () => {
                                          onClickEdit={onClickEdit}
                                          onClickSave={onClickSave}
                                          onClickCancel={onClickCancel}/>
-               }
-               buttonPos="top">
+               }>
             <EditorContext.Provider value={{markdownText, setMarkdownText}}>
                 <MarkdownEditor className="markdown"
                                 tabObjects={[

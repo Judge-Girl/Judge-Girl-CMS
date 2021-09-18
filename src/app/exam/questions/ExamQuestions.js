@@ -11,15 +11,15 @@ import {RejudgeQuestionModal} from "../modals/RejudgeQuestionModal";
 import {Spinner} from "../../commons/Spinner";
 import {TableCell} from "../../../utils/TableCell";
 import {DeleteConfirmationModal} from "../../commons/modals/DeleteConfirmationModal";
-import Description from "../../problem/editor/right/Description";
+import ExamDescription from "./ExamDescription";
 
 const toCharacterIndex = i => {
     return String.fromCharCode(i + 65);
 };
 
-const NOT_SET = -1;
 
 const ExamQuestions = () => {
+    const NOT_SET = -1;
     const {examId} = useParams();
     const [exam, setExam] = useState(undefined);
     const [questions, setQuestions] = useState(undefined);
@@ -40,8 +40,8 @@ const ExamQuestions = () => {
     useEffect(() => {
         if (!exam)
             examService.getExam(examId)
-                       .then(setExam)
-                       .then(fetchExam);
+                .then(setExam)
+                .then(fetchExam);
     }, [exam, examId, setExam, fetchExam]);
 
     const editQuestion = question => {
@@ -98,7 +98,12 @@ const ExamQuestions = () => {
             {/* TODO: refactor into scss. */}
             <div className="font-poppins" style={{paddingTop: "20px", paddingBottom: "150px"}}>
                 <div style={{display: "flex", justifyContent: "center"}}>
-                    <div style={{display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "center"}}>
+                    <div style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "flex-start",
+                        alignItems: "center"
+                    }}>
                         <ItemListPage
                             width="1200px"
                             title="Questions"
@@ -157,13 +162,8 @@ const ExamQuestions = () => {
                              }}>
                             <span>Add New Question</span>
                         </div>
-                        {/* TODO: Delete the surrounding <div>s here. */}
-                        <div className="problem-editor" style={{width: "1200px"}}>
-                            <div className="right-bar" style={{width: "100%", padding: "0"}}>
-                                {/* TODO: Pass the state into <Description> by Context.Provider. */}
-                                <Description buttonPos="down"/>
-                            </div>
-                        </div>
+                        <ExamDescription examId={examId}
+                                         buttonPos="down"/>
                     </div>
                 </div>
             </div>

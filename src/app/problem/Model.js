@@ -14,11 +14,11 @@ export class LanguageEnv {
         return this.submittedCodeSpecs.map(codeSpec => new Tag(codeSpec.fileName));
     }
 
-    updateSubmittedCodeSpecs(fileNameTags) {
-        this.submittedCodeSpecs = fileNameTags.map(tag => {
+    updateSubmittedCodeSpecs(fileNames) {
+        this.submittedCodeSpecs = fileNames.map(fileName => {
             return {
                 format: this.language,
-                fileName: tag.name
+                fileName: fileName
             }
         })
     }

@@ -12,7 +12,7 @@ import {LanguageEnv} from "../../Model";
 
 
 const SubmittedCodeSpec = () => {
-    const {currentProblem, fetchProblems} = useProblemEditorContext();
+    const {currentProblem} = useProblemEditorContext();
     const [isEditing, setIsEditing] = useState(false);
     const [tagsBackUp, setTagsBackUp] = useState(undefined);
     const languageEnv = new LanguageEnv(currentProblem.languageEnvs[0]);
@@ -25,11 +25,10 @@ const SubmittedCodeSpec = () => {
 
     const onClickSave = () => {
         setIsEditing(false);
-        languageEnv.updateSubmittedCodeSpecs(tags);
+        languageEnv.updateSubmittedCodeSpecs(tags.map(tag => tag.name));
         problemService.updateLanguageEnv(currentProblem.id, languageEnv)
             .then(() => {
                 console.log("The problem's SubmittedCodeSpec has been updated");
-                fetchProblems();
             });
     }
 

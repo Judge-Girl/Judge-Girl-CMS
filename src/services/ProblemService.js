@@ -30,7 +30,7 @@ export class ProblemService extends AbstractService {
         const resourceSpecGpu = languageEnv.resourceSpecGpu;
         const submittedCodeSpecs = languageEnv.submittedCodeSpecs;
         return this.axios.put(`/api/problems/${problemId}/langEnv/${language}`,
-            {language, compilationScript, resourceSpecCpu, resourceSpecGpu, submittedCodeSpecs})
+            {language, compilationScript, resourceSpecCpu, resourceSpecGpu, submittedCodeSpecs});
     }
 
     async getProblemById(problemId) {

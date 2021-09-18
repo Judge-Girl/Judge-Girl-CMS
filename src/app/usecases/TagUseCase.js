@@ -17,8 +17,8 @@ const useTags = (initialState = []) => {
         setTags(tags => [tag, ...tags]);
     };
 
-    const replaceTags = previousTags => {
-        setTags(previousTags)
+    const replaceTags = newTags => {
+        setTags(newTags)
     }
 
     const removeTag = tag => {

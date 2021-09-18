@@ -14,7 +14,8 @@ const ExamInPageNavigationBar = () => {
 
     useEffect(() => {
         if (!exam || shouldUpdate) {
-            examService.getExam(examId).then(setExam);
+            examService.getExam(examId)
+                .then(setExam);
         }
     }, [exam, shouldUpdate, examId, setExam]);
 

@@ -8,8 +8,8 @@ import {useParams} from "react-router-dom";
 
 const ProblemTitle = () => {
     const {problemId} = useParams();
-    const {fetchAllProblems} = useProblemEditorContext();
-    const [problemTitle, setProblemTitle] = useState(undefined);
+    const {currentProblem, markProblemsDirty} = useProblemEditorContext();
+    const [problemTitle, setProblemTitle] = useState(currentProblem.title);
     const [problemTitleBackUp, setProblemTitleBackUp] = useState(undefined);
     const [isEditing, setIsEditing] = useState(false);
 
@@ -23,7 +23,7 @@ const ProblemTitle = () => {
     const onClickEdit = () => {
         setIsEditing(true);
         setProblemTitleBackUp(problemTitle);
-    }
+    };
 
     const onClickSave = () => {
         if (problemTitle.length === 0)
@@ -32,7 +32,7 @@ const ProblemTitle = () => {
         problemService.updateProblemTitle(problemId, problemTitle)
             .then(() => {
                 console.log("The problem's title has been modified");
-                fetchAllProblems();
+                markProblemsDirty();
             });
         setIsEditing(false);
     };
@@ -40,7 +40,7 @@ const ProblemTitle = () => {
     const onClickCancel = () => {
         setProblemTitle(problemTitleBackUp);
         setIsEditing(false);
-    }
+    };
 
     if (!problemTitle)
         return "";

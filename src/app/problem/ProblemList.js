@@ -14,21 +14,28 @@ import {ProblemEditorContext} from "./editor/ProblemEditorContext";
 const ProblemList = () => {
     const history = useHistory();
     const [problems, setProblems] = useState(undefined);
+    const [problemsDirty, setProblemsDirty] = useState(true);
     const [showCreateProblemModal, setShowCreateProblemModal] = useState(false);
     const fetchAllProblems = useCallback(() => {
         problemService.getAllProblems()
             .then(setProblems);
     }, [setProblems]);
 
+    const markProblemsDirty = () => setProblemsDirty(true);
+
+    const [currentProblem, setCurrentProblem] = useState(undefined);
+
     useEffect(() => {
-        if (!problems || problems.length === 0)
+        if (!problems || problemsDirty) {
             fetchAllProblems();
-    }, [problems, fetchAllProblems]);
+            setProblemsDirty(false);
+        }
+    }, [problems, problemsDirty, fetchAllProblems]);
 
     const onProblemCreated = problemId => {
         fetchAllProblems();
         history.push(`/problems/${problemId}/edit`);
-    }
+    };
 
     if (!problems)
         return <Spinner/>;
@@ -72,7 +79,8 @@ const ProblemList = () => {
             </div>
         </Route>
         <Route path="/problems/:problemId/edit">
-            <ProblemEditorContext.Provider value={{problems, fetchAllProblems}}>
+            <ProblemEditorContext.Provider
+                value={{markProblemsDirty, currentProblem, setCurrentProblem}}>
                 <ProblemEditor/>
             </ProblemEditorContext.Provider>
         </Route>

@@ -9,6 +9,6 @@ const ProblemEditor = () => {
             <LeftBar/><RightBar/>
         </div>
     </>;
-}
+};
 
 export default ProblemEditor;

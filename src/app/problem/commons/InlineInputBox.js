@@ -1,18 +1,12 @@
-import './InlineInputBox.css';
+import './InlineInputBox.scss'
 
-const InputBox = ({type = "text", className = "input-box"}) => {
-    return (
-        <input type={type} className={className}/>
-    );
-};
-
-const InlineInputBox = ({title = "title", fontSize = "fontSize"}) => {
+const InlineInputBox = ({title = "title", type = "text", fontSize = "fontSize", value = ""}) => {
     return (
         <li className="inline-input-box">
             <span style={{fontSize: fontSize}}>{title}</span>
-            <InputBox type="text" className="input-box"/>
+            <input type={type} value={value}/>
         </li>
     )
 };
 
-export {InputBox, InlineInputBox};
+export {InlineInputBox};

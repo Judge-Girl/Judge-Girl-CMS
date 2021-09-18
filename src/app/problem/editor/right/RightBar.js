@@ -1,3 +1,4 @@
+import React from "react";
 import Tags from "./Tags";
 import ProvidedCode from "./ProvidedCode";
 import SubmittedCodeSpec from "./SubmittedCodeSpec";
@@ -6,7 +7,8 @@ import CompilationScript from "./CompilationScript";
 import OutputMatchPolicy from "./OutputMatchPolicy";
 import Visible from "./Visible";
 import ProblemDescription from "./ProblemDescription";
-import TestCases from "./TestCases";
+
+import Testcases from "./testcases/Testcases";
 import Actions from "./Actions";
 import ProblemTitle from "./ProblemTitle";
 import {Divider} from "./Divider";
@@ -41,12 +43,12 @@ const RightBar = () => {
             <ProblemDescription/>
             <Divider/>
 
-            <TestCases/>
+            <Testcases/>
             <Divider/>
 
             <Actions/>
         </div>
     </>;
-}
+};
 
 export default RightBar;

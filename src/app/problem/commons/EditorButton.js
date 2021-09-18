@@ -20,7 +20,7 @@ const EditorButton = ({
         height, width,
         marginTop, marginRight,
         marginBottom, marginLeft,
-    }
+    };
     if (type === "file") {
         return <>
             <label style={{cursor: "pointer", ...style}}>

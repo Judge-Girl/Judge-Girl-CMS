@@ -1,0 +1,44 @@
+.testcase-editor {
+    height: 336px;
+    background: #F9F9F9;
+    border: 1px solid #A2A3B1;
+    box-sizing: border-box;
+    border-radius: 10px;
+    margin: 17px;
+
+
+    .testcase-name {
+        font-style: normal;
+        font-weight: bold;
+        font-size: 17px;
+        color: #6D6E7D;
+    }
+
+    .testcase-name-input {
+        height: 28px;
+        width: 150px;
+        border: 1px solid #E4E1E1;
+    }
+
+    .testcase-box-in {
+        height: 240px;
+        width: inherit;
+        background: #FFFFFF;
+        border: 1px solid #E4E1E1;
+        box-sizing: border-box;
+        border-radius: 2px;
+        margin: 2px;
+    }
+
+    .testcase-left {
+        flex-grow: 1;
+    }
+
+    .testcase-mid {
+        flex-grow: 1;
+    }
+
+    .testcase-right {
+        flex-grow: 1;
+    }
+}

@@ -11,7 +11,6 @@ import Visible from "./edit/Visible";
 import {EditorButton} from "../problem/commons/EditorButton";
 import {SubtitleLine} from "../commons/titles/TitleLine";
 import MarkdownEditorOld from "../commons/MarkdownEditorOld";
-import TestCase from "../problem/commons/TestCasesList";
 import React, {useEffect, useState} from "react";
 import {Spinner} from "../commons/Spinner";
 import ProblemNotFound from "./ProblemNotFound";
@@ -36,17 +35,17 @@ const ProblemEditorOld = () => {
                 setIsProblemArchived(problem.archived);
             })
             .catch(reason => setProblemNotFound(true));
-    }
+    };
 
     const onProblemSaved = () => {
         setShouldRedirect(true);
-    }
+    };
 
     useEffect(() => {
         if (!currentProblem) {
             fetchProblem(problemId);
         }
-    }, [currentProblem, problemId])
+    }, [currentProblem, problemId]);
 
     if (problemNotFound) {
         return <ProblemNotFound/>
@@ -67,7 +66,7 @@ const ProblemEditorOld = () => {
                                   .then(() => fetchProblem(problemId));
                           }}/>
         )
-    }
+    };
 
     const RestoreAndDeleteProblemButtons = () => {
         return (
@@ -89,7 +88,7 @@ const ProblemEditorOld = () => {
                               }}/>
             </>
         )
-    }
+    };
 
     const HandleDescriptionButtons = () => {
         return (
@@ -118,7 +117,7 @@ const ProblemEditorOld = () => {
                     }}/>
             </>
         )
-    }
+    };
 
     const EditDescriptionButton = () => {
         return (
@@ -136,7 +135,7 @@ const ProblemEditorOld = () => {
                     setLastProblemDescription(problemDescription);
                 }}/>
         )
-    }
+    };
 
     const handleDescription = e => {
         e.preventDefault();
@@ -155,7 +154,7 @@ const ProblemEditorOld = () => {
             problemService.updateProblemDescription(problemId, description)
                 .then(() => fetchProblem(problemId));
         }
-    }
+    };
 
     return (
         <div className="problem-editor-old">
@@ -215,7 +214,7 @@ const ProblemEditorOld = () => {
                                                    style={{backgroundColor: "var(--backgroundDim)"}}/>
                             </section>
                             <section>
-                                <TestCase/>
+
                             </section>
                         </div>
                     </div>
@@ -223,5 +222,5 @@ const ProblemEditorOld = () => {
             </div>
         </div>
     );
-}
+};
 export {ProblemEditorOld};

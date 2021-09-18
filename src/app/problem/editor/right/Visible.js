@@ -8,17 +8,17 @@ import {useParams} from "react-router-dom";
 
 const Visible = () => {
     const {problemId} = useParams();
-    const {fetchAllProblems} = useProblemEditorContext();
-    const [isOnClicked, setIsOnClicked] = useState();
+    const {currentProblem, markProblemsDirty} = useProblemEditorContext();
+    const [isOnClicked, setIsOnClicked] = useState(currentProblem.visible);
 
     const onVisibleButtonClick = (isVisibleButtonClicked) => {
         setIsOnClicked(isVisibleButtonClicked);
         problemService.updateProblemVisible(problemId, isVisibleButtonClicked)
             .then(() => {
-                console.log("The problem's visible has been modified");
-                fetchAllProblems();
+                console.log("The problem's visibility has been modified");
+                markProblemsDirty();
             });
-    }
+    };
 
     return <>
         <Block title="Visible"
@@ -46,7 +46,7 @@ const Visible = () => {
                        />
                    </div>
                }>
-            *The problem for exam used should be unvisible
+            *The problem for exam used should be invisible
         </Block>
     </>;
 };

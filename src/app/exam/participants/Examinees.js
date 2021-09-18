@@ -26,10 +26,11 @@ const Examinees = () => {
     }, [examId, setExaminees]);
 
     useEffect(() => {
-        if (!exam)
+        if (!exam) {
             examService.getExam(examId)
                 .then(setExam)
                 .then(fetchExaminees);
+        }
     }, [exam, examId, setExam, fetchExaminees]);
 
     const actionItemsButton = ({examinee}) =>

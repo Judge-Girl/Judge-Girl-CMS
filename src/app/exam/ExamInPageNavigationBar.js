@@ -13,8 +13,9 @@ const ExamInPageNavigationBar = () => {
     const {shouldUpdate} = useExamContext();
 
     useEffect(() => {
-        if (!exam || shouldUpdate)
+        if (!exam || shouldUpdate) {
             examService.getExam(examId).then(setExam);
+        }
     }, [exam, shouldUpdate, examId, setExam]);
 
     const onBreadcrumbClickAtIndex = (index) => {

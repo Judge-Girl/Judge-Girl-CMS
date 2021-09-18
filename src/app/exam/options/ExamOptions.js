@@ -37,7 +37,7 @@ const ExamOptions = () => {
     }, [exam, examId, setExam]);
 
     const onButtonUpdateChangeClick = () => {
-        if (examScheduleRef.current?.validateTimes(startTime, endTime))
+        if (examScheduleRef.current?.validateTimes(startTime, endTime)) {
             examService.updateExam(examId, {
                 examId,
                 name: examName,
@@ -45,6 +45,7 @@ const ExamOptions = () => {
                 endTime,
                 description: exam.description
             }).then(updateExams);
+        }
     };
 
     const deleteExam = () => {
@@ -52,8 +53,9 @@ const ExamOptions = () => {
         history.push("/exams");
     };
 
-    if (!exam)
+    if (!exam) {
         return <Spinner/>;
+    }
 
     return <>
         <div className="exam-options font-poppins">

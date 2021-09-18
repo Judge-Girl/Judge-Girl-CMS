@@ -15,8 +15,9 @@ const ExamScorePage = () => {
     const [exam, setExam] = useState(undefined);
 
     useEffect(() => {
-        if (!exam)
+        if (!exam) {
             examService.getExam(examId).then(setExam);
+        }
     }, [exam, examId, setExam]);
 
     useEffect(() => {

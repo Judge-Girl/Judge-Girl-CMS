@@ -16,9 +16,10 @@ const ExamLiveSubmissions = function () {
     let liveSubmissions = [];
 
     useEffect(() => {
-        if (!exam)
+        if (!exam) {
             examService.getExam(examId)
                        .then(setExam);
+        }
     }, [exam, examId, setExam]);
 
     useEffect(() => {

@@ -57,8 +57,9 @@ const ExamList = () => {
         history.push(`/exams/${exam.id}/problems`);
     };
 
-    if (!exams)
+    if (!exams) {
         return <Spinner/>;
+    }
 
     return <>
         <Route path="/exams" exact>

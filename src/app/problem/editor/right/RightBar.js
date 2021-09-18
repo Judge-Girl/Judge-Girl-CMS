@@ -5,7 +5,7 @@ import ResourceSpec from "./ResourceSpec";
 import CompilationScript from "./CompilationScript";
 import OutputMatchPolicy from "./OutputMatchPolicy";
 import Visible from "./Visible";
-import Description from "./Description";
+import ProblemDescription from "./ProblemDescription";
 import TestCases from "./TestCases";
 import Actions from "./Actions";
 import ProblemTitle from "./ProblemTitle";
@@ -38,7 +38,7 @@ const RightBar = () => {
             <Visible/>
             <Divider/>
 
-            <Description/>
+            <ProblemDescription/>
             <Divider/>
 
             <TestCases/>

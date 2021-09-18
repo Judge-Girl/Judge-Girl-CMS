@@ -1,5 +1,5 @@
 import Block from "./Block";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import MarkdownEditorWriteTab from "../../commons/MarkdownEditorWriteTab";
 import MarkdownEditorPreviewTab from "../../commons/MarkdownEditorPreviewTab";
 import {EditorContext} from "../../commons/MarkdownEditorContext";
@@ -7,13 +7,21 @@ import {EditSaveCancelButton} from "../../commons/EditSaveCancelButton";
 import MarkdownEditor from "../../commons/MarkdownEditor";
 import {useProblemEditorContext} from "../ProblemEditorContext";
 import {problemService} from "../../../../services/services";
+import {useParams} from "react-router";
 
 
-const Description = ({buttonPos="top"}) => {
-    const {currentProblem, fetchProblems} = useProblemEditorContext();
+const ProblemDescription = () => {
+    const {problemId} = useParams();
+    const {fetchAllProblems} = useProblemEditorContext();
     const [isEditing, setIsEditing] = useState(false);
-    const [markdownText, setMarkdownText] = useState(currentProblem.description);
+    const [markdownText, setMarkdownText] = useState(undefined);
     const [markdownTextBackUp, setMarkdownTextBackUp] = useState(undefined);
+
+    useEffect(() => {
+        if (!markdownText)
+            problemService.getProblemById(problemId)
+                .then(problem => setMarkdownText(problem.description));
+    }, [markdownText, problemId, setMarkdownText]);
 
     const onClickEdit = () => {
         setMarkdownTextBackUp(markdownText);
@@ -22,10 +30,10 @@ const Description = ({buttonPos="top"}) => {
 
     const onClickSave = () => {
         setIsEditing(false);
-        problemService.updateProblemDescription(currentProblem.id, markdownText)
+        problemService.updateProblemDescription(problemId, markdownText)
             .then(() => {
                 console.log("The problem's description has been modified");
-                fetchProblems();
+                fetchAllProblems();
             });
     }
 
@@ -43,7 +51,7 @@ const Description = ({buttonPos="top"}) => {
                                          onClickSave={onClickSave}
                                          onClickCancel={onClickCancel}/>
                }
-               buttonPos={buttonPos}>
+               buttonPos="top">
             <EditorContext.Provider value={{markdownText, setMarkdownText}}>
                 <MarkdownEditor className="markdown"
                                 tabObjects={[
@@ -57,4 +65,4 @@ const Description = ({buttonPos="top"}) => {
     </>;
 };
 
-export default Description;
+export default ProblemDescription;

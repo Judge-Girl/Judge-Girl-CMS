@@ -1,4 +1,4 @@
-import './ExamList.css';
+import './ExamList.scss';
 import React, {useCallback, useEffect, useState} from "react";
 import {Link, Redirect, Route, Switch, useHistory} from "react-router-dom";
 import {examService} from "../../services/services";
@@ -37,7 +37,7 @@ const ExamList = () => {
     const fetchExams = useCallback(() => {
         console.log("fetchExams called.");
         examService.getExams({status: EXAM_STATUSES.ALL})
-                   .then(setExams);
+            .then(setExams);
     }, [setExams]);
 
     useEffect(() => {
@@ -63,39 +63,34 @@ const ExamList = () => {
     return <>
         <Route path="/exams" exact>
             <div className="exam-list font-poppins">
-                {/* TODO: Refactor into scss. */}
-                <div className="font-poppins" style={{paddingTop: "20px", paddingBottom: "150px"}}>
-                    <div style={{display: "flex", justifyContent: "center"}}>
-                        <ItemListPage title="Exam List"
-                                      width="1000px"
-                                      filterItems={["Filter", "Id", "name"]}
-                                      Button={() =>
-                                          <CreateButton onClick={() => setShowCreateExamModal(true)}/>}
-                                      tableHeaders={[
-                                          <TableCell>#</TableCell>,
-                                          <TableCell>Exam Name</TableCell>,
-                                          <TableCell>Start Time</TableCell>,
-                                          <TableCell>End Time</TableCell>]}
-                                      tableRowGenerator={{
-                                          list: exams,
-                                          key: (exam) => exam.id,
-                                          data: (exam) => [
-                                              <TableCell>{exam?.id}</TableCell>,
-                                              <TableCell>
-                                                  <Link to={`/exams/${exam.id}/problems`}>
-                                                      {exam?.name}
-                                                  </Link>
-                                              </TableCell>,
-                                              <TableCell>{displayDate(exam?.startTime)}</TableCell>,
-                                              <TableCell>{displayDate(exam?.endTime)}</TableCell>,
-                                          ]
-                                      }}/>
+                <ItemListPage title="Exam List"
+                              width="1000px"
+                              filterItems={["Filter", "Id", "name"]}
+                              Button={() =>
+                                  <CreateButton onClick={() => setShowCreateExamModal(true)}/>}
+                              tableHeaders={[
+                                  <TableCell>#</TableCell>,
+                                  <TableCell>Exam Name</TableCell>,
+                                  <TableCell>Start Time</TableCell>,
+                                  <TableCell>End Time</TableCell>]}
+                              tableRowGenerator={{
+                                  list: exams,
+                                  key: (exam) => exam.id,
+                                  data: (exam) => [
+                                      <TableCell>{exam?.id}</TableCell>,
+                                      <TableCell>
+                                          <Link to={`/exams/${exam.id}/problems`}>
+                                              {exam?.name}
+                                          </Link>
+                                      </TableCell>,
+                                      <TableCell>{displayDate(exam?.startTime)}</TableCell>,
+                                      <TableCell>{displayDate(exam?.endTime)}</TableCell>,
+                                  ]
+                              }}/>
 
-                        <CreateExamModal show={showCreateExamModal}
-                                         onClose={() => setShowCreateExamModal(false)}
-                                         onExamCreated={onExamCreated}/>
-                    </div>
-                </div>
+                <CreateExamModal show={showCreateExamModal}
+                                 onClose={() => setShowCreateExamModal(false)}
+                                 onExamCreated={onExamCreated}/>
             </div>
         </Route>
         <ExamContext.Provider value={{exams, updateExams, shouldUpdate}}>

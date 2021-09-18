@@ -17,8 +17,6 @@ const ExamInPageNavigationBar = () => {
             examService.getExam(examId).then(setExam);
     }, [exam, shouldUpdate, examId, setExam]);
 
-
-    // TODO: improve the design for InPageNavigationBar
     const onBreadcrumbClickAtIndex = (index) => {
         const BACK_TO_EXAM_LIST = 0;
         switch (index) {

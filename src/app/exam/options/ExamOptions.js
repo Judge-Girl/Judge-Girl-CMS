@@ -56,46 +56,38 @@ const ExamOptions = () => {
         return <Spinner/>;
 
     return <>
-        <div className="exam-options">
-            <div className="font-poppins" style={{paddingTop: "20px", paddingBottom: "150px"}}>
-                {/* TODO: Refactor into scss. */}
-                <div style={{display: "flex", justifyContent: "flex-start"}}>
-                    <div style={{
-                        display: "flex", flexDirection: "column", alignItems: "flex-start",
-                        paddingLeft: "150px"
-                    }}>
-                        <TitleLine title="Options" width="150%"/>
-                        <div className="column is-narrow" style={{width: "450px"}}>
-                            <section>
-                                <ExamName examName={examName}
-                                          onChange={e => setExamName(e.target.value)}/>
-                            </section>
-                            <section>
-                                <ExamSchedule
-                                    scheduleRef={examScheduleRef}
-                                    startTime={startTime}
-                                    endTime={endTime}
-                                    setStartTime={setStartTime}
-                                    setEndTime={setEndTime}/>
-                            </section>
-                            <section>
-                                <ExamWhiteList/>
-                            </section>
-                            <section>
-                                <button className="button update-button"
-                                        onClick={onButtonUpdateChangeClick}>
-                                    Update Change
-                                </button>
-                            </section>
-                        </div>
-                        <div className="column right"/>
-                        <TitleLine title="Danger Zone" width="150%"/>
-                        <DangerZone onDangerButtonClick={() => setShowDeleteExamModal(true)}
-                                    header="Delete this exam"
-                                    description="Once you delete an exam, there is no going back. Please be certain."
-                                    buttonName="Delete Exam"/>
-                    </div>
+        <div className="exam-options font-poppins">
+            <div style={{display: "flex", flexDirection: "column", alignItems: "flex-start", paddingLeft: "150px"}}>
+                <TitleLine title="Options" width="150%"/>
+                <div className="column is-narrow" style={{width: "450px"}}>
+                    <section>
+                        <ExamName examName={examName}
+                                  onChange={e => setExamName(e.target.value)}/>
+                    </section>
+                    <section>
+                        <ExamSchedule
+                            scheduleRef={examScheduleRef}
+                            startTime={startTime}
+                            endTime={endTime}
+                            setStartTime={setStartTime}
+                            setEndTime={setEndTime}/>
+                    </section>
+                    <section>
+                        <ExamWhiteList/>
+                    </section>
+                    <section>
+                        <button className="button update-button"
+                                onClick={onButtonUpdateChangeClick}>
+                            Update Change
+                        </button>
+                    </section>
                 </div>
+                <div className="column right"/>
+                <TitleLine title="Danger Zone" width="150%"/>
+                <DangerZone onDangerButtonClick={() => setShowDeleteExamModal(true)}
+                            header="Delete this exam"
+                            description="Once you delete an exam, there is no going back. Please be certain."
+                            buttonName="Delete Exam"/>
             </div>
 
             <DeleteConfirmationModal title="Delete the Exam"

@@ -94,78 +94,68 @@ const ExamQuestions = () => {
         return <Spinner/>;
 
     return (
-        <div className="exam-questions">
-            {/* TODO: refactor into scss. */}
-            <div className="font-poppins" style={{paddingTop: "20px", paddingBottom: "150px"}}>
-                <div style={{display: "flex", justifyContent: "center"}}>
-                    <div style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        justifyContent: "flex-start",
-                        alignItems: "center"
-                    }}>
-                        <ItemListPage
-                            width="1200px"
-                            title="Questions"
-                            tableHeaders={[
-                                <TableCell>#</TableCell>,
-                                <TableCell>Question ID</TableCell>,
-                                <TableCell>Question Title</TableCell>,
-                                <TableCell>Score Percentage</TableCell>,
-                                <TableCell>Submission Quota</TableCell>,
-                                " "]}
-                            tableDataStyle={{height: "60px"}}
-                            tableRowGenerator={{
-                                list: questions,
-                                key: question => `${question.questionOrder}-${question.problemId}`,
-                                data: (question) => {
-                                    return [
-                                        <TableCell>{toCharacterIndex(question.questionOrder)}</TableCell>,
-                                        <FakeLink>{question.problemId}</FakeLink>,
-                                        <FakeLink>{question.problemTitle}</FakeLink>,
-                                        <TableCell>{question.maxScore}</TableCell>,
-                                        <TableCell>{question.quota}</TableCell>,
-                                        <TableCell>
-                                            {rejudgingProblemId === question.problemId ?
-                                                <span className="tag"
-                                                      style={{
-                                                          backgroundColor: "#FFBB00",
-                                                          color: "white",
-                                                          width: "75px"
-                                                      }}>
+        <div className="exam-questions font-poppins">
+            <div style={{display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "center"}}>
+                <ItemListPage
+                    width="1200px"
+                    title="Questions"
+                    tableHeaders={[
+                        <TableCell>#</TableCell>,
+                        <TableCell>Question ID</TableCell>,
+                        <TableCell>Question Title</TableCell>,
+                        <TableCell>Score Percentage</TableCell>,
+                        <TableCell>Submission Quota</TableCell>,
+                        " "]}
+                    tableDataStyle={{height: "60px"}}
+                    tableRowGenerator={{
+                        list: questions,
+                        key: question => `${question.questionOrder}-${question.problemId}`,
+                        data: (question) => {
+                            return [
+                                <TableCell>{toCharacterIndex(question.questionOrder)}</TableCell>,
+                                <FakeLink>{question.problemId}</FakeLink>,
+                                <FakeLink>{question.problemTitle}</FakeLink>,
+                                <TableCell>{question.maxScore}</TableCell>,
+                                <TableCell>{question.quota}</TableCell>,
+                                <TableCell>
+                                    {rejudgingProblemId === question.problemId ?
+                                        <span className="tag"
+                                              style={{
+                                                  backgroundColor: "#FFBB00",
+                                                  color: "white",
+                                                  width: "75px"
+                                              }}>
                                                     Rejudging
                                                     <span className="waitingForConnection">.</span>
                                                     <span className="waitingForConnection2">.</span>
                                                     <span className="waitingForConnection3">.</span>
                                                 </span>
-                                                :
-                                                <div className="text-center" style={{width: "75px"}}>
-                                                    <ThreeDotsButton dropDownItems={dropDownItems(question)}/>
-                                                </div>
-                                            }
-                                            <RejudgeQuestionModal
-                                                show={showRejudgeQuestionModal === question.problemId}
-                                                title="Rejudge The Problem?"
-                                                question={question}
-                                                onClose={() => setShowRejudgeQuestionModal(NOT_SET)}
-                                                onConfirmRejudge={rejudgeQuestion}/>
-                                        </TableCell>
-                                    ]
-                                },
-                            }}
-                            showFilterSearchBar={false}/>
-                        <div className="add-question-btn"
-                             onClick={() => setShowAddQuestionModal(true)}
-                             style={{
-                                 alignSelf: "flex-end",
-                                 position: "relative"
-                             }}>
-                            <span>Add New Question</span>
-                        </div>
-                        <ExamDescription examId={examId}
-                                         buttonPos="down"/>
-                    </div>
+                                        :
+                                        <div className="text-center" style={{width: "75px"}}>
+                                            <ThreeDotsButton dropDownItems={dropDownItems(question)}/>
+                                        </div>
+                                    }
+                                    <RejudgeQuestionModal
+                                        show={showRejudgeQuestionModal === question.problemId}
+                                        title="Rejudge The Problem?"
+                                        question={question}
+                                        onClose={() => setShowRejudgeQuestionModal(NOT_SET)}
+                                        onConfirmRejudge={rejudgeQuestion}/>
+                                </TableCell>
+                            ]
+                        },
+                    }}
+                    showFilterSearchBar={false}/>
+                <div className="add-question-btn"
+                     onClick={() => setShowAddQuestionModal(true)}
+                     style={{
+                         alignSelf: "flex-end",
+                         position: "relative"
+                     }}>
+                    <span>Add New Question</span>
                 </div>
+                <ExamDescription examId={examId}
+                                 buttonPos="down"/>
             </div>
 
             <AddQuestionModal
@@ -180,7 +170,7 @@ const ExamQuestions = () => {
                                onClose={() => setShowEditQuestionModal(false)}
                                onSubmitQuestion={editQuestion}/>
             {showDeleteQuestionModal ?
-                <DeleteConfirmationModal title={"Delete the Question?"}
+                <DeleteConfirmationModal title="Delete the Question?"
                                          data={[
                                              {
                                                  title: "Question Title",
@@ -192,7 +182,7 @@ const ExamQuestions = () => {
                                          onSubmit={() => deleteQuestion(showDeleteQuestionModal)}/> : undefined}
 
         </div>
-    )
+    );
 };
 
 

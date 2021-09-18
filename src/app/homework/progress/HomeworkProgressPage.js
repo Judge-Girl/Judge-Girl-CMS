@@ -48,8 +48,7 @@ const HomeworkProgressPage = () => {
                                     onClick={() => setShowAddGroupModal(true)}>
                                 Import Groups
                             </button>
-                            <button className="button export-csv-button">Export CSV
-                            </button>
+                            <button className="button export-csv-button">Export CSV</button>
                         </div>
                     </div>
 

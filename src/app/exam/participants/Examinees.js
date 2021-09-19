@@ -25,7 +25,6 @@ const Examinees = () => {
         examService.getExaminees(examId)
             .then(setExaminees);
     }, [examId, setExaminees]);
-
     useEffect(() => {
         if (!exam) {
             examService.getExam(examId)
@@ -44,7 +43,7 @@ const Examinees = () => {
                     setSelectedExaminee(examinee);
                 }
             },
-        ]}/>
+        ]}/>;
 
     const addExamineesByEmails = async (emails) => {
         examService.addExaminees(examId, emails)
@@ -146,6 +145,6 @@ const Examinees = () => {
             </div>
         </div>
     );
-}
+};
 
 export {Examinees};

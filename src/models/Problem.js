@@ -1,3 +1,5 @@
+import Testcase from "./Testcase";
+
 export default class Problem {
     constructor({id, title, description, languageEnvs, judgeMatchPolicyPluginTag,
                     judgeFilterPluginTags, tags, testcases, totalGrade, visible, archived}) {
@@ -8,7 +10,7 @@ export default class Problem {
         this.judgeMatchPolicyPluginTag = judgeMatchPolicyPluginTag;
         this.judgeFilterPluginTags = judgeFilterPluginTags;
         this.tags = tags;
-        this.testcases = testcases;
+        this.testcases = testcases?.map(testcase => new Testcase(testcase));
         this.totalGrade = totalGrade;
         this.visible = visible;
         this.archived = archived;

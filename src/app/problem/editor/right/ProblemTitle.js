@@ -8,8 +8,8 @@ import {useParams} from "react-router-dom";
 
 const ProblemTitle = () => {
     const {problemId} = useParams();
-    const {currentProblem, markProblemsDirty} = useProblemEditorContext();
-    const [problemTitle, setProblemTitle] = useState(currentProblem.title);
+    const {markProblemsDirty} = useProblemEditorContext();
+    const [problemTitle, setProblemTitle] = useState(undefined);
     const [problemTitleBackUp, setProblemTitleBackUp] = useState(undefined);
     const [isEditing, setIsEditing] = useState(false);
 

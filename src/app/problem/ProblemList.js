@@ -23,8 +23,6 @@ const ProblemList = () => {
 
     const markProblemsDirty = () => setProblemsDirty(true);
 
-    const [currentProblem, setCurrentProblem] = useState(undefined);
-
     useEffect(() => {
         if (!problems || problemsDirty) {
             fetchAllProblems();
@@ -33,7 +31,7 @@ const ProblemList = () => {
     }, [problems, problemsDirty, fetchAllProblems]);
 
     const onProblemCreated = problemId => {
-        markProblemsDirty();
+        fetchAllProblems();
         history.push(`/problems/${problemId}/edit`);
     };
 
@@ -80,7 +78,7 @@ const ProblemList = () => {
         </Route>
         <Route path="/problems/:problemId/edit">
             <ProblemEditorContext.Provider
-                value={{markProblemsDirty, currentProblem, setCurrentProblem}}>
+                value={{markProblemsDirty}}>
                 <ProblemEditor/>
             </ProblemEditorContext.Provider>
         </Route>

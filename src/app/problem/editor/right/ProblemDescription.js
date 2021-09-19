@@ -18,15 +18,16 @@ const ProblemDescription = () => {
     const [markdownTextBackUp, setMarkdownTextBackUp] = useState(undefined);
 
     useEffect(() => {
-        if (!markdownText)
+        if (!markdownText) {
             problemService.getProblemById(problemId)
                 .then(problem => setMarkdownText(problem.description));
+        }
     }, [markdownText, problemId, setMarkdownText]);
 
     const onClickEdit = () => {
         setMarkdownTextBackUp(markdownText);
         setIsEditing(true);
-    }
+    };
 
     const onClickSave = () => {
         setIsEditing(false);
@@ -35,12 +36,12 @@ const ProblemDescription = () => {
                 console.log("The problem's description has been modified");
                 markProblemsDirty();
             });
-    }
+    };
 
     const onClickCancel = () => {
         setIsEditing(false);
         setMarkdownText(markdownTextBackUp);
-    }
+    };
 
     return <>
         <Block title="Description"

@@ -8,8 +8,8 @@ import {useParams} from "react-router-dom";
 
 const Visible = () => {
     const {problemId} = useParams();
-    const {currentProblem, markProblemsDirty} = useProblemEditorContext();
-    const [isOnClicked, setIsOnClicked] = useState(currentProblem.visible);
+    const {markProblemsDirty} = useProblemEditorContext();
+    const [isOnClicked, setIsOnClicked] = useState(undefined);
 
     const onVisibleButtonClick = (isVisibleButtonClicked) => {
         setIsOnClicked(isVisibleButtonClicked);

@@ -4,14 +4,22 @@ import useTestcaseList from './usecase';
 import {EditSaveCancelButton} from "../../../commons/EditSaveCancelButton";
 import {EditorButton} from "../../../commons/EditorButton";
 import TestcaseEditor from "./TestcaseEditor";
-import {useProblemEditorContext} from "../../ProblemEditorContext";
+import {problemService} from "../../../../../services/services";
+import {useParams} from "react-router-dom";
 
 const TestCaseList = () => {
-    const {currentProblem} = useProblemEditorContext();
+    const {problemId} = useParams();
+    const [problem, setProblem] = useState(undefined);
     const {testcases, setTestcases, addNewTestcase, deleteTestcase} = useTestcaseList();
 
     useEffect(() => {
-        setTestcases(currentProblem.testcases);
+        if (!problem) {
+            problemService.getProblemById(problemId)
+                .then(problem => {
+                    setProblem(problem);
+                    setTestcases(problem.testcases)
+                });
+        }
     });
 
     return <>

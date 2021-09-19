@@ -40,7 +40,7 @@ const Tags = () => {
                }>
             {!isEditing ?
                 <IconTextItems icon={<BsTag size={21}/>} style={{color: "rgba(18, 115, 186, 1)"}}
-                               items={textItems.map(content => content.text)}/>
+                               items={textItems.map(item => item.text)}/>
                 :
                 <>
                     <TextInputField placeholder={"Add New Tags"} style={{width: "234px"}}

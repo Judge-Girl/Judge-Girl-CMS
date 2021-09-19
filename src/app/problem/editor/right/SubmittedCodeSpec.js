@@ -14,23 +14,23 @@ import {useParams} from "react-router-dom";
 const SubmittedCodeSpec = () => {
     const {problemId} = useParams();
     const [problem, setProblem] = useState(undefined);
-    const [languageEnv, getLanguageEnv] = useState(undefined);
+    const [languageEnv, setLanguageEnv] = useState(undefined);
     const [isEditing, setIsEditing] = useState(false);
     const [textItemBackUp, setTextItemBackUp] = useState(undefined);
-    const {textItems, addTextItem, removeTextItem, updateTextItem} = useTextItems();
+    const {textItems, setTextItems, addTextItem, removeTextItem, updateTextItem} = useTextItems();
 
     useEffect(() => {
         if (!problem) {
             problemService.getProblemById(problemId)
                 .then(p => {
                     setProblem(p);
-                    getLanguageEnv(new LanguageEnv(p.languageEnvs[0]));
+                    setLanguageEnv(new LanguageEnv(p.languageEnvs[0]));
                 });
         }
         if (languageEnv) {
-            updateTextItem(languageEnv.getSubmittedCodeSpecFileNames().map(name => new TextItem(name)));
+            setTextItems(languageEnv.getSubmittedCodeSpecFileNames().map(name => new TextItem(name)));
         }
-    }, [languageEnv, problem, problemId, updateTextItem]);
+    }, [languageEnv, problem, problemId, setTextItems]);
 
     const onClickEdit = () => {
         setIsEditing(true);
@@ -39,7 +39,7 @@ const SubmittedCodeSpec = () => {
 
     const onClickSave = () => {
         setIsEditing(false);
-        languageEnv.updateSubmittedCodeSpecs(textItems.map(content => content.text));
+        languageEnv.updateSubmittedCodeSpecs(textItems.map(item => item.text));
         problemService.updateLanguageEnv(problemId, languageEnv)
             .then(() => {
                 console.log("The problem's SubmittedCodeSpec has been updated");

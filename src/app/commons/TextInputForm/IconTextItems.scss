@@ -1,0 +1,22 @@
+.icon-text-items {
+  .placeholder {
+    color: rgba(164, 164, 164, 1);
+  }
+
+  .item {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    min-height: 1.5em;
+
+    div {
+      padding-top: 2.2px;
+    }
+
+    span {
+      margin-left: 5px;
+      overflow-wrap: anywhere;
+    }
+
+  }
+}

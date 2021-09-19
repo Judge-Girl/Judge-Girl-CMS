@@ -33,7 +33,7 @@ const ProblemList = () => {
     }, [problems, problemsDirty, fetchAllProblems]);
 
     const onProblemCreated = problemId => {
-        fetchAllProblems();
+        markProblemsDirty();
         history.push(`/problems/${problemId}/edit`);
     };
 

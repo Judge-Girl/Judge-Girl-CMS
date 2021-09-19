@@ -14,9 +14,10 @@ const ProblemTitle = () => {
     const [isEditing, setIsEditing] = useState(false);
 
     useEffect(() => {
-        if (!problemTitle)
+        if (!problemTitle) {
             problemService.getProblemById(problemId)
-                          .then(problem => setProblemTitle(problem.title));
+                .then(problem => setProblemTitle(problem.title));
+        }
     }, [problemTitle, problemId, setProblemTitle]);
 
 
@@ -26,8 +27,9 @@ const ProblemTitle = () => {
     };
 
     const onClickSave = () => {
-        if (problemTitle.length === 0)
+        if (problemTitle.length === 0) {
             return;
+        }
 
         problemService.updateProblemTitle(problemId, problemTitle)
             .then(() => {

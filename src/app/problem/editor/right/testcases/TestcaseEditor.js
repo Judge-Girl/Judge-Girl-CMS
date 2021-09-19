@@ -1,4 +1,3 @@
-import React from "react";
 import './TestcaseEditor.scss'
 import {TestCaseSubtitleLine} from "../../../../commons/titles/TitleLine";
 import {InlineInputBox} from "../../../commons/InlineInputBox";

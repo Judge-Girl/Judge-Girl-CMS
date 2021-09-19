@@ -12,7 +12,7 @@ import {useParams} from "react-router";
 
 const ProblemDescription = () => {
     const {problemId} = useParams();
-    const {fetchAllProblems} = useProblemEditorContext();
+    const {markProblemsDirty} = useProblemEditorContext();
     const [isEditing, setIsEditing] = useState(false);
     const [markdownText, setMarkdownText] = useState(undefined);
     const [markdownTextBackUp, setMarkdownTextBackUp] = useState(undefined);
@@ -33,7 +33,7 @@ const ProblemDescription = () => {
         problemService.updateProblemDescription(problemId, markdownText)
             .then(() => {
                 console.log("The problem's description has been modified");
-                fetchAllProblems();
+                markProblemsDirty();
             });
     }
 

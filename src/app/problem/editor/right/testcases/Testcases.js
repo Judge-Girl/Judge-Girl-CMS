@@ -38,7 +38,7 @@ const TestCaseList = () => {
                 onClick={addNewTestcase}
             />
         </div>
-    </>
+    </>;
 };
 
 const Testcases = () => {

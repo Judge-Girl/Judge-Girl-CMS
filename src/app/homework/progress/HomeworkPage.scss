@@ -1,0 +1,118 @@
+$dark-gray: #252730;
+.homework-button {
+
+  .same {
+    position: static;
+    width: 168px;
+    height: 30px;
+    left: 10px;
+
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 30px;
+    /* identical to box height */
+
+    display: flex;
+    align-items: center;
+    text-align: center;
+
+    color: #FFFFFF;
+
+    /* Inside Auto Layout */
+
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+    margin: 0 10px;
+
+    &:hover {
+      color: white;
+    }
+
+    &:focus {
+      color: white;
+    }
+
+  }
+
+  .import-students-button {
+    @extend .same;
+    /* Auto Layout */
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+
+    position: static;
+    width: 188px;
+    height: 50px;
+    left: 0;
+
+    background: #96D745;
+    border-radius: 10px;
+
+    /* Inside Auto Layout */
+
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+    margin: 10px;
+
+  }
+
+  .import-groups-button {
+    @extend .same;
+    /* Auto Layout */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+
+    position: static;
+    width: 188px;
+    height: 50px;
+    left: 0;
+
+    background: #6DA32B;
+    border-radius: 10px;
+
+    /* Inside Auto Layout */
+
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+    margin: 10px;
+
+  }
+
+  .export-csv-button {
+    @extend .same;
+    display: flex;
+    flexDirection: row;
+    justifyContent: center;
+    alignItems: center;
+    padding: 10px;
+
+    position: static;
+    width: 187px;
+    height: 50px;
+    left: 0.5px;
+    top: 120px;
+
+    background-color: #4585B4;
+    border-radius: 10px;
+
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 30px;
+    /* identical to box height */
+    color: white;
+
+  }
+
+}

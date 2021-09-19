@@ -1,16 +1,16 @@
 import {SubtitleLine} from "../../commons/titles/TitleLine";
-import {useTextInputContent} from "../../usecases/TagUseCase";
+import {useTextItems} from "../../usecases/TextItemUseCase";
 import {TextInputField} from "../../commons/TextInputForm/TextInputField";
-import {TextInputItems} from "../../commons/TextInputForm/TextInputItems";
+import {FixedTextInputField} from "../../commons/TextInputForm/FixedTextInputField";
 import './ExamOptions.scss';
 
 const ExamWhiteList = () => {
-    const {textInputContents, addTextInputContent, removeTextInputContent} = useTextInputContent();
+    const {textItems, addTextItem, removeTextItem} = useTextItems();
     return (
         <div>
             <SubtitleLine title={"WhiteList"}/>
-            <TextInputField placeholder={'Add IP'} onSubmit={addTextInputContent}/>
-            <TextInputItems items={textInputContents} removeItem={removeTextInputContent}/>
+            <TextInputField placeholder={'Add IP'} onSubmit={addTextItem}/>
+            <FixedTextInputField items={textItems} removeItem={removeTextItem}/>
         </div>
     )
 };

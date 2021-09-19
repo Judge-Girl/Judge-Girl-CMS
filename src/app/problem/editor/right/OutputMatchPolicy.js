@@ -1,27 +1,27 @@
 import Block from "./Block";
 import {useState} from "react";
 import {EditSaveCancelButton} from "../../commons/EditSaveCancelButton";
-import {useTextInputContent} from "../../../usecases/TagUseCase";
+import {useTextItems} from "../../../usecases/TextItemUseCase";
 import {TextInputField} from "../../../commons/TextInputForm/TextInputField";
-import {TextInputItems} from "../../../commons/TextInputForm/TextInputItems";
-import TextInputItemsPreview from "../../../commons/TextInputForm/TextInputItemsPreview.js";
+import {FixedTextInputField} from "../../../commons/TextInputForm/FixedTextInputField";
+import IconTextItems from "../../../commons/TextInputForm/IconTextItems.js";
 import {GoTriangleDown, RiRulerLine} from "react-icons/all";
 
 const OutputMatchPolicy = () => {
     const [isEditing, setIsEditing] = useState(false);
-    const {textInputContents, addTextInputContent, removeTextInputContent} = useTextInputContent();
+    const {textItems, addTextItem, removeTextItem} = useTextItems();
 
     const onClickEdit = () => {
         setIsEditing(true);
-    }
+    };
 
     const onClickSave = () => {
         setIsEditing(false);
-    }
+    };
 
     const onClickCancel = () => {
         setIsEditing(false);
-    }
+    };
 
     return <>
         <Block title="Output Match Policy"
@@ -34,14 +34,14 @@ const OutputMatchPolicy = () => {
                        onClickCancel={onClickCancel}/>
                }>
             {!isEditing?
-                <TextInputItemsPreview icon={<RiRulerLine/>} style={{color: "rgba(18, 115, 186, 1)"}}
-                                       items={textInputContents.map(content => content.text)}/>
+                <IconTextItems icon={<RiRulerLine/>} style={{color: "rgba(18, 115, 186, 1)"}}
+                               items={textItems.map(item => item.text)}/>
                 :
                 <>
                     <TextInputField placeholder={"Add Match Policy"}
                                     buttonTitle={<GoTriangleDown/>}
-                                    onSubmit={addTextInputContent} style={{width: "234px"}}/>
-                    <TextInputItems items={textInputContents} removeItem={removeTextInputContent}/>
+                                    onSubmit={addTextItem} style={{width: "234px"}}/>
+                    <FixedTextInputField items={textItems} removeItem={removeTextItem} iconSize={15}/>
                 </>
             }
         </Block>

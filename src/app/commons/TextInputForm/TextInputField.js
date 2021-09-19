@@ -1,6 +1,6 @@
 import {useRef, useState} from "react";
 import './TextInputForm.css';
-import {TextInputContent} from "../../usecases/TagUseCase";
+import {TextItem} from "../../usecases/TextItemUseCase";
 
 
 const TextInputField = ({placeholder, onSubmit, buttonTitle = "+", style}) => {
@@ -9,7 +9,7 @@ const TextInputField = ({placeholder, onSubmit, buttonTitle = "+", style}) => {
 
     const onFormSubmit = e => {
         e.preventDefault();
-        onSubmit(new TextInputContent(text));
+        onSubmit(new TextItem(text));
         setText("");
         inputRef.current.focus();
     };
@@ -27,7 +27,7 @@ const TextInputField = ({placeholder, onSubmit, buttonTitle = "+", style}) => {
                            value={text} onChange={onChangeInput}
                            style={{width: "100%"}}/>
                 </p>
-                <button className="control tag-button"
+                <button className="control text-item-remove-button"
                         style={{cursor: "pointer"}}>
                     {buttonTitle}
                 </button>

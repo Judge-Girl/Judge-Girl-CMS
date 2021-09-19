@@ -89,7 +89,7 @@
     }
 
     // TODO: the refactoring will start from here.
-    .tag-with-icon-list {
+    .icon-text-items {
       .placeholder {
         color: rgba(164,164,164,1);
       }
@@ -107,7 +107,7 @@
       }
     }
 
-    .tag-item {
+    .text-item {
       position: relative;
       color: #1273BA;
       padding-left: 10px;
@@ -129,12 +129,12 @@
 
       display: flex;
       align-items: center;
-      .tag-content {
+      .text-item-line {
         width: 85%;
         height: 100%;
         overflow-wrap: anywhere;
       }
-      .tag-button {
+      .text-item-remove-button {
         cursor: pointer;
         width: 15%;
         display: flex;

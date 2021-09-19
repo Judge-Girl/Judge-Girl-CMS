@@ -1,10 +1,10 @@
-const TextInputItemsPreview = ({
+const IconTextItems = ({
     icon, items,
     placeholder="Empty.",
     style,
 }) => {
     return <>
-        <div className="tag-with-icon-list">
+        <div className="icon-text-items">
         {items.length === 0?
             <span className="placeholder">{placeholder}</span>: ""
         }
@@ -19,4 +19,4 @@ const TextInputItemsPreview = ({
 };
 
 
-export default TextInputItemsPreview;
+export default IconTextItems;

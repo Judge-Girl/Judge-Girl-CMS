@@ -63,7 +63,6 @@ const SubmittedCodeSpec = () => {
                }>
             {!isEditing ?
                 <IconTextItems icon={<AiOutlinePaperClip/>}
-                               style={{color: "rgba(18, 115, 186, 1)"}}
                                items={textItems.map(item => item.text)}/>
                 :
                 <>

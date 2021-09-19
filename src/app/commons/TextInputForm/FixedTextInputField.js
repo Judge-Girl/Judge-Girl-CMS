@@ -1,12 +1,13 @@
 import {AiOutlineClose} from "react-icons/ai";
+import "./FixedTextInputField.scss"
 
-const FixedTextInputField = ({items, removeItem, iconSize}) => {
+const FixedTextInputField = ({items, removeItem}) => {
     return items.map((textItem) => (
-        <div key={textItem.id} className="text-item">
-            <div className="text-item-line">{textItem.text}</div>
+        <div key={textItem.id} className="fixed-text-input-field">
+            <div className="text-item">{textItem.text}</div>
             <div className="text-item-remove-button"
                  onClick={() => removeItem(textItem)}>
-                <AiOutlineClose size={iconSize}/>
+                <AiOutlineClose size={15}/>
             </div>
         </div>
     ));

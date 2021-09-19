@@ -2,7 +2,6 @@ $update-blue: #0F7ED0;
 $update-dark-blue: #0E6FB7;
 
 .exam-options {
-
   padding-top: 20px;
   padding-bottom: 150px;
   display: flex;
@@ -10,28 +9,6 @@ $update-dark-blue: #0E6FB7;
 
   section {
     margin-bottom: 45px;
-  }
-
-  .text-item {
-    color: #1273BA;
-    padding-left: 10px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    width: 282px;
-    height: 33px;
-    border: 1px solid #E4E1E1;
-    box-sizing: border-box;
-
-    font-family: Poppins, sans-serif;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 15px;
-    line-height: 22px;
-
-    display: flex;
-    align-items: center;
   }
 
   .update-button {

@@ -34,7 +34,7 @@ const OutputMatchPolicy = () => {
                        onClickCancel={onClickCancel}/>
                }>
             {!isEditing?
-                <IconTextItems icon={<RiRulerLine/>} style={{color: "rgba(18, 115, 186, 1)"}}
+                <IconTextItems icon={<RiRulerLine/>}
                                items={textItems.map(item => item.text)}/>
                 :
                 <>

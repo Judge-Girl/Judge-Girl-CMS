@@ -39,7 +39,7 @@ const Tags = () => {
                        onClickCancel={onClickCancel}/>
                }>
             {!isEditing ?
-                <IconTextItems icon={<BsTag size={21}/>} style={{color: "rgba(18, 115, 186, 1)"}}
+                <IconTextItems icon={<BsTag size={21}/>}
                                items={textItems.map(item => item.text)}/>
                 :
                 <>

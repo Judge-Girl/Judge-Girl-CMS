@@ -1,11 +1,11 @@
 import {AiOutlineClose} from "react-icons/ai";
+import "./ProvidedCodeItems.scss";
 
-// TODO: Moving the style fields into a separate .scss file.
 function ProvidedCodeItems({files, removeFile}) {
     return files.map((file) => (
-        <div className="text-item">
-            <div className="text-item-line">{file.name}</div>
-            <div className="text-item-remove-button"
+        <div className="provided-code-items">
+            <div className="provided-code-file-name">{file.name}</div>
+            <div className="provided-code-remove-button"
                  onClick={() => removeFile(file)}>
                 <AiOutlineClose size={15}/>
             </div>

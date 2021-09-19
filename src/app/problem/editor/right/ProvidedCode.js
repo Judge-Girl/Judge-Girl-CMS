@@ -35,7 +35,7 @@ const ProvidedCode = () => {
                    onClickCancel={onClickCancel}/>
                }>
             {!isEditing?
-                <IconTextItems icon={<VscFileCode/>} style={{color: "rgba(18, 115, 186, 1)"}}
+                <IconTextItems icon={<VscFileCode/>}
                                items={files.map(file => file.name)}/>
                 :
                 <>

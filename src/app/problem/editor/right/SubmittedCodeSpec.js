@@ -30,7 +30,7 @@ const SubmittedCodeSpec = () => {
         if (languageEnv) {
             updateTextItem(languageEnv.getSubmittedCodeSpecFileNames().map(name => new TextItem(name)));
         }
-    }, [languageEnv, problemId]);
+    }, [languageEnv, problem, problemId, updateTextItem]);
 
     const onClickEdit = () => {
         setIsEditing(true);

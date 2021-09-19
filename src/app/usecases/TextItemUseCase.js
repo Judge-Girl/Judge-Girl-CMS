@@ -17,7 +17,7 @@ const useTextItems = (initialTextItems = []) => {
         setTextItems(items => [item, ...items]);
     };
 
-    const replaceTextItem = newItems => {
+    const updateTextItem = newItems => {
         setTextItems(newItems);
     };
 
@@ -33,7 +33,7 @@ const useTextItems = (initialTextItems = []) => {
         return !item.text || /^\s*$/.test(item.text);
     };
 
-    return {textItems, setTextItems, addTextItem, removeTextItem, replaceTextItem};
+    return {textItems, setTextItems, addTextItem, removeTextItem, updateTextItem};
 };
 
 class TextItem {

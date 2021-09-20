@@ -2,7 +2,7 @@ import './ProblemEditorOld.css';
 import {Redirect, useParams} from "react-router-dom";
 import ProblemEditorTitle from "./edit/ProblemEditorTitle";
 import TagList from "./edit/TagList";
-import ProvidedCodeList from '../problem/editor/right/ProvidedCodeList';
+import ProvidedCodeList from './edit/ProvidedCodeList';
 import SubmittedCodeList from './edit/SubmittedCodeList';
 import ResourceSpec from "./edit/ResourceSpec";
 import CompilationScript from "./edit/CompilationScript";

@@ -1,28 +1,55 @@
 import Block from "./Block";
-import {useState} from "react";
-import {useTags} from "../../../usecases/TagUseCase";
+import {useEffect, useState} from "react";
+import {TextItem, useTextItems} from "../../../usecases/TextItemUseCase";
 import {TextInputField} from "../../../commons/TextInputForm/TextInputField";
-import {TextInputItems} from "../../commons/TextInputItems";
+import {FixedTextInputField} from "../../../commons/TextInputForm/FixedTextInputField";
 import {EditSaveCancelButton} from "../../commons/EditSaveCancelButton";
-import TagWithIconList from "../../commons/TagWithIconList";
+import IconTextItems from "../../../commons/TextInputForm/IconTextItems.js";
 import {AiOutlinePaperClip} from "react-icons/all";
+import {problemService} from "../../../../services/services";
+import {LanguageEnv} from "../../Model";
+import {useParams} from "react-router-dom";
 
 
 const SubmittedCodeSpec = () => {
+    const {problemId} = useParams();
+    const [problem, setProblem] = useState(undefined);
+    const [languageEnv, setLanguageEnv] = useState(undefined);
     const [isEditing, setIsEditing] = useState(false);
-    const {tags, addTag, removeTag} = useTags();
+    const [textItemBackUp, setTextItemBackUp] = useState(undefined);
+    const {textItems, setTextItems, addTextItem, removeTextItem, updateTextItem} = useTextItems();
+
+    useEffect(() => {
+        if (!problem) {
+            problemService.getProblemById(problemId)
+                .then(p => {
+                    setProblem(p);
+                    setLanguageEnv(new LanguageEnv(p.languageEnvs[0]));
+                });
+        }
+        if (languageEnv) {
+            setTextItems(languageEnv.getSubmittedCodeSpecFileNames().map(name => new TextItem(name)));
+        }
+    }, [languageEnv, problem, problemId, setTextItems]);
 
     const onClickEdit = () => {
         setIsEditing(true);
-    }
+        setTextItemBackUp(textItems);
+    };
 
     const onClickSave = () => {
         setIsEditing(false);
-    }
+        languageEnv.updateSubmittedCodeSpecs(textItems.map(item => item.text));
+        problemService.updateLanguageEnv(problemId, languageEnv)
+            .then(() => {
+                console.log("The problem's SubmittedCodeSpec has been updated");
+            });
+    };
 
     const onClickCancel = () => {
         setIsEditing(false);
-    }
+        updateTextItem(textItemBackUp);
+    };
 
     return <>
         <Block title="Submitted Code Spec"
@@ -34,14 +61,14 @@ const SubmittedCodeSpec = () => {
                        onClickSave={onClickSave}
                        onClickCancel={onClickCancel}/>
                }>
-            {!isEditing?
-                <TagWithIconList icon={<AiOutlinePaperClip/>}
-                                 style={{color: "rgba(18, 115, 186, 1)"}}
-                                 items={tags.map(tag => tag.name)}/>
+            {!isEditing ?
+                <IconTextItems icon={<AiOutlinePaperClip/>}
+                               items={textItems.map(item => item.text)}/>
                 :
                 <>
-                    <TextInputField placeholder={"Add New Tags"} onSubmit={addTag} style={{width: "234px"}}/>
-                    <TextInputItems items={tags} removeItem={removeTag}/>
+                    <TextInputField placeholder={"Add Submitted Code File Name"} onSubmit={addTextItem}
+                                    style={{width: "250px"}}/>
+                    <FixedTextInputField items={textItems} removeItem={removeTextItem} iconSize={15}/>
                 </>
             }
         </Block>

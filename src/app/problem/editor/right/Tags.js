@@ -1,53 +1,53 @@
 import Block from "./Block";
 import {EditSaveCancelButton} from "../../commons/EditSaveCancelButton";
-import {useTags} from "../../../usecases/TagUseCase";
+import {useTextItems} from "../../../usecases/TextItemUseCase";
 import {TextInputField} from "../../../commons/TextInputForm/TextInputField";
-import {TextInputItems} from "../../commons/TextInputItems";
+import {FixedTextInputField} from "../../../commons/TextInputForm/FixedTextInputField";
 import {useState} from "react";
-import TagWithIconList from "../../commons/TagWithIconList";
+import IconTextItems from "../../../commons/TextInputForm/IconTextItems.js";
 import {BsTag} from "react-icons/all";
 
 
 const Tags = () => {
     const [isEditing, setIsEditing] = useState(false);
-    const [tagsBackUp, setTagsBackUp] = useState(undefined);
-    const {tags, setTags, addTag, removeTag} = useTags();
+    const [textItemsBackUp, setTextItemsBackUp] = useState(undefined);
+    const {textItems, setTextItems, addTextItem, removeTextItem} = useTextItems();
 
     const onClickEdit = () => {
-        setTagsBackUp(tags);
+        setTextItemsBackUp(textItems);
         setIsEditing(true);
-    }
+    };
 
     const onClickSave = () => {
         setIsEditing(false);
         // TODO: API connection, save to DB.
-    }
+    };
 
     const onClickCancel = () => {
         setIsEditing(false);
-        setTags(tagsBackUp);
-    }
+        setTextItems(textItemsBackUp);
+    };
 
     return <>
         <Block title="Tags"
                id="problem-editor-tags"
                titleButton={
-               <EditSaveCancelButton
-                   isEditing={isEditing}
-                   onClickEdit={onClickEdit}
-                   onClickSave={onClickSave}
-                   onClickCancel={onClickCancel}/>
+                   <EditSaveCancelButton
+                       isEditing={isEditing}
+                       onClickEdit={onClickEdit}
+                       onClickSave={onClickSave}
+                       onClickCancel={onClickCancel}/>
                }>
-        {!isEditing?
-            <TagWithIconList icon={<BsTag size={21}/>} style={{color: "rgba(18, 115, 186, 1)"}}
-                             items={tags.map(tag => tag.name)}/>
-            :
-            <>
-                <TextInputField placeholder={"Add New Tags"} style={{width: "234px"}}
-                                onSubmit={addTag}/>
-                <TextInputItems items={tags} removeItem={removeTag}/>
-            </>
-        }
+            {!isEditing ?
+                <IconTextItems icon={<BsTag size={21}/>}
+                               items={textItems.map(item => item.text)}/>
+                :
+                <>
+                    <TextInputField placeholder={"Add New Tags"} style={{width: "234px"}}
+                                    onSubmit={addTextItem}/>
+                    <FixedTextInputField items={textItems} removeItem={removeTextItem} iconSize={15}/>
+                </>
+            }
         </Block>
     </>;
 };

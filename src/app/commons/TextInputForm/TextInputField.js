@@ -1,23 +1,20 @@
 import {useRef, useState} from "react";
-import {getStringHash} from "../../../utils/utils";
 import './TextInputForm.css';
+import {TextItem} from "../../usecases/TextItemUseCase";
 
 
-const TextInputField = ({placeholder, onSubmit, buttonTitle="+", style}) => {
-    const [tagName, setTagName] = useState("");
+const TextInputField = ({placeholder, onSubmit, buttonTitle = "+", style}) => {
+    const [text, setText] = useState("");
     const inputRef = useRef();
 
     const onFormSubmit = e => {
         e.preventDefault();
-        onSubmit({
-            id: getStringHash(tagName),
-            name: tagName
-        });
-        setTagName("");
+        onSubmit(new TextItem(text));
+        setText("");
         inputRef.current.focus();
     };
 
-    const onChangeInput = e => setTagName(e.target.value);
+    const onChangeInput = e => setText(e.target.value);
 
     return (
         <div className="text-input-form">
@@ -27,10 +24,10 @@ const TextInputField = ({placeholder, onSubmit, buttonTitle="+", style}) => {
                     <input type='text' name="text" className="tag-input control"
                            ref={inputRef}
                            placeholder={placeholder}
-                           value={tagName} onChange={onChangeInput}
+                           value={text} onChange={onChangeInput}
                            style={{width: "100%"}}/>
                 </p>
-                <button className="control tag-button"
+                <button className="control text-item-remove-button"
                         style={{cursor: "pointer"}}>
                     {buttonTitle}
                 </button>

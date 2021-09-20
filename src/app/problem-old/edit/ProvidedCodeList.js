@@ -1,9 +1,9 @@
 import React from 'react';
-import {SubtitleLine} from "../../../commons/titles/TitleLine";
-import ProvidedCodeItems from "./ProvidedCodeItems";
-import {UploadFileButton} from "./UploadFileButton";
+import {SubtitleLine} from "../../commons/titles/TitleLine";
+import ProvidedCodeItems from "../../problem/editor/right/ProvidedCodeItems";
+import {UploadFileButton} from "../../problem/editor/right/UploadFileButton";
 import './ProvidedCodeList.css';
-import {useUploads} from "../../../usecases/UploadFilesUseCase";
+import {useUploads} from "../../usecases/UploadFilesUseCase";
 
 function ProvidedCodeList() {
     const {files, addFile, removeFile} = useUploads();

@@ -20,12 +20,12 @@
 
     display: flex;
     align-items: center;
-    .tag-content {
+    .text-item-line {
         width: 85%;
         height: 100%;
         overflow-wrap: anywhere;
     }
-    .tag-button {
+    .text-item-remove-button {
         width: 15%;
         display: flex;
         cursor: pointer;

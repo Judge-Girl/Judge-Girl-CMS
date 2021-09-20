@@ -1,11 +1,11 @@
 import {AiOutlineClose} from "react-icons/ai";
+import "../../../commons/TextInputForm/FixedTextInputField.scss";
 
-// TODO: Moving the style fields into a separate .scss file.
 function ProvidedCodeItems({files, removeFile}) {
     return files.map((file) => (
-        <div className="tag-item">
-            <div className="tag-content">{file.name}</div>
-            <div className="tag-button"
+        <div className="fixed-text-input-field">
+            <div className="text-item">{file.name}</div>
+            <div className="text-item-remove-button"
                  onClick={() => removeFile(file)}>
                 <AiOutlineClose size={15}/>
             </div>

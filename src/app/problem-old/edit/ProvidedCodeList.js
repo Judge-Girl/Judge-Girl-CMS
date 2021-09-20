@@ -1,7 +1,7 @@
 import React from 'react';
 import {SubtitleLine} from "../../commons/titles/TitleLine";
-import ProvidedCodeItems from "../../problem/editor/right/ProvidedCodeItems";
-import {UploadFileButton} from "../../problem/editor/right/UploadFileButton";
+import FixedUploadFileItems from "../../problem/editor/right/FixedUploadFileItems";
+import {UploadFileButton} from "../UploadFileButton";
 import './ProvidedCodeList.css';
 import {useUploads} from "../../usecases/UploadFilesUseCase";
 
@@ -11,7 +11,7 @@ function ProvidedCodeList() {
     return (
         <div>
             <SubtitleLine title={"Provided Code"}/>
-            <ProvidedCodeItems files={files} removeFile={removeFile}/>
+            <FixedUploadFileItems files={files} removeFile={removeFile}/>
             <UploadFileButton
                 title={"Upload Provided Code +"}
                 onChange={addFile}

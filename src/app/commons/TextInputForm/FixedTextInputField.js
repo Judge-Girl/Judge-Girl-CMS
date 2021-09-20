@@ -3,7 +3,7 @@ import "./FixedTextInputField.scss"
 
 const FixedTextInputField = ({items, removeItem}) => {
     return items.map((textItem) => (
-        <div key={textItem.id} className="fixed-text-input-field">
+        <div key={textItem.id} className="fixed-text-input-field" style={{width: "16rem"}}>
             <div className="text-item">{textItem.text}</div>
             <div className="text-item-remove-button"
                  onClick={() => removeItem(textItem)}>

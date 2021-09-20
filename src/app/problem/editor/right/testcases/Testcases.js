@@ -10,7 +10,6 @@ import {useParams} from "react-router-dom";
 const Testcases = () => {
     const {problemId} = useParams();
     const [problem, setProblem] = useState(undefined);
-    const [isEditing, setIsEditing] = useState(false);
     const {testcases, setTestcases, addNewTestcase, deleteTestcase} = useTestcaseList();
 
     useEffect(() => {
@@ -38,7 +37,7 @@ const Testcases = () => {
                }>
             <div className="testcases">
                 {testcases.map((testcase) =>
-                    <TestcaseEditor testcase={testcase} deleteTestcase={deleteTestcase}/>)
+                    <TestcaseEditor key={testcase.id} testcase={testcase} deleteTestcase={deleteTestcase}/>)
                 }
             </div>
         </Block>

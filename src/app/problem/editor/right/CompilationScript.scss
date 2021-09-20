@@ -1,0 +1,37 @@
+$dark-gray-color: #676877;
+$light-gray-color: #C4C4C4;
+
+.compilation-script {
+  color: rgba(18, 115, 186, 1);
+  font-size: 18px;
+
+  .compile-script-text-area {
+    font-size: 17px;
+    color: $dark-gray-color;
+
+    width: 70%;
+    min-width: 280px;
+    max-width: 450px;
+    height: 20%;
+    padding: 10px;
+    margin-bottom: 5px;
+
+    background-color: #F9F9F9;
+    border-radius: 10px;
+    border-color: $light-gray-color;
+
+    outline: none;
+
+    &:focus {
+      border-color: $dark-gray-color;
+    }
+
+    &:focus::placeholder {
+      color: transparent;
+    }
+
+    &::placeholder {
+      color: $light-gray-color;
+    }
+  }
+}

@@ -8,6 +8,14 @@ export class LanguageEnv {
         this.submittedCodeSpecs = submittedCodeSpecs;
     }
 
+    getCompilationScript() {
+        return this.compilationScript
+    }
+
+    updateCompilationScript(script) {
+        this.compilationScript = script
+    }
+
     getSubmittedCodeSpecFileNames() {
         return this.submittedCodeSpecs.map(codeSpec => codeSpec.fileName);
     }

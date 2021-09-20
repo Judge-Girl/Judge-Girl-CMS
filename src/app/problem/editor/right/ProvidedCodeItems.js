@@ -1,11 +1,11 @@
 import {AiOutlineClose} from "react-icons/ai";
-import "./ProvidedCodeItems.scss";
+import "../../../commons/TextInputForm/FixedTextInputField.scss";
 
 function ProvidedCodeItems({files, removeFile}) {
     return files.map((file) => (
-        <div className="provided-code-items">
-            <div className="provided-code-file-name">{file.name}</div>
-            <div className="provided-code-remove-button"
+        <div className="fixed-text-input-field">
+            <div className="text-item">{file.name}</div>
+            <div className="text-item-remove-button"
                  onClick={() => removeFile(file)}>
                 <AiOutlineClose size={15}/>
             </div>

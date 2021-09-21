@@ -27,16 +27,16 @@ const TestCaseSubtitle = ({title}) => {
     </>
 }
 
-const InlineText = ({title, value, onChange, isEditing}) => {
+const BulletText = ({title, value, onChange, isEditing}) => {
     return (
         isEditing ?
-            <div className="inline-text">
+            <div className="bullet-text">
                 <FaCircle size={6}/>
                 <span>{title}</span>
                 <input type={"text"} value={value} onChange={onChange} placeholder={0}/>
             </div>
             :
-            <div className="inline-text">
+            <div className="bullet-text">
                 <FaCircle size={6}/>
                 <span>{title}: {value}</span>
             </div>
@@ -120,20 +120,20 @@ function TestcaseEditor({testcase, deleteTestcase}) {
             <div className="testcase-box-in columns testcase-details">
                 <div className="column is-desktop subColumn">
                     <TestCaseSubtitle title="Limits"/>
-                    <InlineText title="Time Limit"
+                    <BulletText title="Time Limit"
                                 value={testcase.timeLimit}
                                 onChange={onChange()}
                                 isEditing={isEditing}/>
-                    <InlineText title="Memory Limit"
+                    <BulletText title="Memory Limit"
                                 value={testcase.memoryLimit}
                                 onChange={onChange()}
                                 isEditing={isEditing}/>
-                    <InlineText title="Output Limit"
+                    <BulletText title="Output Limit"
                                 value={testcase.outputLimit}
                                 onChange={onChange()}
                                 isEditing={isEditing}/>
                     <TestCaseSubtitle title="Grade"/>
-                    <InlineText title="Grade"
+                    <BulletText title="Grade"
                                 value={testcase.grade}
                                 onChange={onChange()}
                                 isEditing={isEditing}/>

@@ -1,74 +1,161 @@
 import './TestcaseEditor.scss'
-import {TestCaseSubtitleLine} from "../../../../commons/titles/TitleLine";
-import {InlineInputBox} from "../../../commons/InlineInputBox";
-import {UploadFileButton} from "../UploadFileButton";
+import React, {useState} from "react";
+import {useUploads} from "../../../../usecases/UploadFilesUseCase";
+import FixedUploadFileItems from "../FixedUploadFileItems";
 import {EditorButton} from "../../../commons/EditorButton";
+import {FaCircle, FiUpload, VscFileCode} from "react-icons/all";
+import {EditSaveCancelButton} from "../../../commons/EditSaveCancelButton";
+import IconTextItems from "../../../../commons/TextInputForm/IconTextItems";
+
+const TestCaseName = ({name, isEditing}) => {
+    return (
+        <div className="testcase-name">
+            Testcase Name
+            {isEditing ?
+                <input className="testcase-name-input" value={name}/>
+                :
+                <span>{name}</span>
+            }
+        </div>
+    )
+}
+
+const TestCaseSubtitle = ({title}) => {
+    return <>
+        <div className="testcase-subtitle">{title}</div>
+        <hr/>
+    </>
+}
+
+const BulletText = ({title, value, onChange, isEditing}) => {
+    return (
+        isEditing ?
+            <div className="bullet-text">
+                <FaCircle size={6}/>
+                <span>{title}</span>
+                <input type={"text"} value={value} onChange={onChange} placeholder={0}/>
+            </div>
+            :
+            <div className="bullet-text">
+                <FaCircle size={6}/>
+                <span>{title}: {value}</span>
+            </div>
+    )
+}
+
+const UploadFileButton = ({buttonName, buttonColor, addFile}) => {
+    return <EditorButton
+        text={
+            <div style={{display: "flex", justifyContent: "flex-start", alignItems: "center"}}>
+                {buttonName} <FiUpload size={18} style={{paddingLeft: "3px"}}/>
+            </div>}
+        type="file"
+        buttonColor={buttonColor}
+        fontSize="14px"
+        fontColor="#fff"
+        width="fit-content"
+        height="28px"
+        borderRadius="50px"
+        onClick={addFile}/>
+}
+
+const UploadFileItems = ({buttonName, buttonColor, files, addFile, removeFile, isEditing}) => {
+    return (
+        isEditing ?
+            <>
+                <FixedUploadFileItems files={files} removeFile={removeFile} style={{marginBottom: "5px"}}/>
+                <UploadFileButton buttonName={buttonName}
+                                  buttonColor={buttonColor}
+                                  addFile={addFile}/>
+            </>
+            :
+            <IconTextItems icon={<VscFileCode size={18}/>}
+                           items={files.map(file => file.name)}/>
+    )
+}
 
 function TestcaseEditor({testcase, deleteTestcase}) {
-    return (
-        <div key={testcase.id}
-             className="testcase-editor testcase-box-out"
-             style={{display: "flex", flexDirection: "column"}}>
-            <div style={{
-                display: "flex", justifyContent: "flex-start", alignItems: "center",
-                padding: "1% 0 3px 15px", whiteSpace: "nowrap"
-            }}>
-                <span className="testcase-name">Testcase Name</span>
-                <input className="testcase-name-input" style={{marginLeft: "5px"}} value={testcase.name}/>
-            </div>
-            <div className="testcase-box-in columns">
-                <div className="column is-two-fifths">
-                    <TestCaseSubtitleLine title="Limits"/>
-                    <InlineInputBox type="Number" title="Time Limit" fontSize={14} value={testcase.timeLimit}/>
-                    <InlineInputBox type="Number" title="Memory Limit" fontSize={14} value={testcase.memoryLimit}/>
-                    <InlineInputBox type="Number" title="Output Limit" fontSize={14} value={testcase.outputLimit}/>
+    const {files, addFile, removeFile} = useUploads();
+    const [isEditing, setIsEditing] = useState(true);
 
-                    <TestCaseSubtitleLine title="Grade" fontSize={15}/>
-                    <InlineInputBox type="Number" title="Grade" fontSize={14} value={testcase.grade}/>
-                </div>
-                <div className="column"
-                     style={{width: "100px"}}>
-                    <TestCaseSubtitleLine title="Standard In"/>
-                    <UploadFileButton
-                        title={"Standard In +"} className={"testcase-upload-button"} buttonColor={"#F2B311"}
-                    />
-                    <TestCaseSubtitleLine title="Standard Out"/>
-                    <UploadFileButton
-                        title={"Standard In +"} className={"testcase-upload-button"} buttonColor={"#F2B311"}
-                    />
-                </div>
-                <div className="column"
-                     style={{width: "100px"}}>
-                    <TestCaseSubtitleLine title="Input Files"/>
-                    <UploadFileButton
-                        title={"Standard In +"} className={"testcase-upload-button"} buttonColor={"#3EBDD9"}
-                    />
-                    <TestCaseSubtitleLine title="Output Files"/>
-                    <UploadFileButton
-                        title={"Standard In +"} className={"testcase-upload-button"} buttonColor={"#3EBDD9"}
-                    />
+    const onClickEdit = () => {
+        setIsEditing(true);
+    };
+
+    const onClickSave = () => {
+        setIsEditing(false);
+    };
+
+    const onClickCancel = () => {
+        setIsEditing(false);
+    };
+
+    const onChange = () => {
+
+    };
+
+    return (
+        <div key={testcase.id} className={`testcase-editor ${isEditing ? "" : "testcase-view"}`}>
+            <div className="testcase-name-row">
+                <TestCaseName name={testcase.name} isEditing={isEditing}/>
+
+                <div style={{justifyContent: "flex-end", display: "flex"}}>
+                    <EditSaveCancelButton
+                        isEditing={isEditing}
+                        onClickEdit={onClickEdit}
+                        onClickSave={onClickSave}
+                        onClickCancel={onClickCancel}/>
+
+                    {isEditing ? "" :
+                        <EditorButton text="Delete"
+                                      width="70px"
+                                      height="36px"
+                                      borderRadius="50px"
+                                      fontColor="#FB5D53"
+                                      borderColor="#FB5D53"
+                                      marginLeft="10px"
+                                      onClick={deleteTestcase}/>}
                 </div>
             </div>
-            <div style={{display: "flex", flexDirection: "row", marginRight: "10px", alignSelf: "flex-end"}}>
-                <EditorButton
-                    text={"Save"}
-                    buttonColor={"#91CB46"}
-                    fontColor={"#FFFFFF"}
-                    width={66} height={24}
-                    fontSize={12}
-                    borderRadius={10}
-                />
-                <EditorButton
-                    text={"Delete"}
-                    buttonColor={"#FFFFFF"}
-                    fontColor={"#E26C65"}
-                    width={66} height={24}
-                    fontSize={12}
-                    borderRadius={10}
-                    borderColor={"#E26C65"}
-                    marginLeft={5}
-                    onClickFunc={() => deleteTestcase(testcase.id)}
-                />
+            <div className="testcase-box-in columns testcase-details">
+                <div className="column is-desktop subColumn">
+                    <TestCaseSubtitle title="Limits"/>
+                    <BulletText title="Time Limit"
+                                value={testcase.timeLimit}
+                                onChange={onChange()}
+                                isEditing={isEditing}/>
+                    <BulletText title="Memory Limit"
+                                value={testcase.memoryLimit}
+                                onChange={onChange()}
+                                isEditing={isEditing}/>
+                    <BulletText title="Output Limit"
+                                value={testcase.outputLimit}
+                                onChange={onChange()}
+                                isEditing={isEditing}/>
+                    <TestCaseSubtitle title="Grade"/>
+                    <BulletText title="Grade"
+                                value={testcase.grade}
+                                onChange={onChange()}
+                                isEditing={isEditing}/>
+                </div>
+
+                <div className="column is-desktop subColumn">
+                    <TestCaseSubtitle title="Standard In"/>
+                    <UploadFileItems buttonName="Standard In " buttonColor="rgba(241, 196, 15, 1)"
+                                     files={files} addFile={addFile} removeFile={removeFile} isEditing={isEditing}/>
+                    <TestCaseSubtitle title="Standard Out"/>
+                    <UploadFileItems buttonName="Standard Out " buttonColor="rgba(241, 196, 15, 1)"
+                                     files={files} addFile={addFile} removeFile={removeFile} isEditing={isEditing}/>
+                </div>
+
+                <div className="column is-desktop subColumn">
+                    <TestCaseSubtitle title="Input Files"/>
+                    <UploadFileItems buttonName="Input File " buttonColor="rgba(255, 133, 21, 1)"
+                                     files={files} addFile={addFile} removeFile={removeFile} isEditing={isEditing}/>
+                    <TestCaseSubtitle title="Output Files"/>
+                    <UploadFileItems buttonName="Output File " buttonColor="rgba(255, 133, 21, 1)"
+                                     files={files} addFile={addFile} removeFile={removeFile} isEditing={isEditing}/>
+                </div>
             </div>
         </div>)
 }

@@ -13,7 +13,7 @@ const Block = ({id, title, titleButton, buttonPos="top", children, style}) => {
         <div id={id} style={{width: "100%", ...style}}>
             <div className="block-title" style={{
                 display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "flex-start",
-                marginTop: "-3.5em"
+                marginTop: "-3.5em", flexWrap: "wrap", minWidth: "300px"
             }}>
                 <div className="block-title-item" style={{fontSize: "21px", fontWeight: "700", alignSelf: "center"}}>
                     {title}

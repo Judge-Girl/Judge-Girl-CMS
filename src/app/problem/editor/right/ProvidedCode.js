@@ -1,7 +1,7 @@
 import Block from "./Block";
 import {useState} from "react";
 import {EditSaveCancelButton} from "../../commons/EditSaveCancelButton";
-import ProvidedCodeItems from "./ProvidedCodeItems";
+import FixedUploadFileItems from "./FixedUploadFileItems";
 import {useUploads} from "../../../usecases/UploadFilesUseCase";
 import IconTextItems from "../../../commons/TextInputForm/IconTextItems.js";
 import {FiUpload, VscFileCode} from "react-icons/all";
@@ -35,11 +35,11 @@ const ProvidedCode = () => {
                    onClickCancel={onClickCancel}/>
                }>
             {!isEditing?
-                <IconTextItems icon={<VscFileCode/>}
+                <IconTextItems icon={<VscFileCode size={22}/>}
                                items={files.map(file => file.name)}/>
                 :
                 <>
-                    <ProvidedCodeItems files={files} removeFile={removeFile}/>
+                    <FixedUploadFileItems files={files} removeFile={removeFile} style={{width: "16rem"}}/>
                     <EditorButton
                         text={<div>Upload Code <FiUpload/></div>}
                         type="file"

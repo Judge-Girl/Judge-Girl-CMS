@@ -139,7 +139,9 @@
         .tab {
           background-color: transparent;
 
-          border: 1px solid rgba(198, 196, 196, 1);
+          border-width: 1px;
+          border-color: rgba(198, 196, 196, 1);
+          border-style: solid;
           border-radius: 10px 10px 0 0;
 
           font-family: Poppins, sans-serif;
@@ -159,7 +161,7 @@
         }
 
         .placeholder {
-          border: 1px solid transparent;
+          border-color: transparent;
           border-bottom-color: rgba(198, 196, 196, 1);
         }
       }
@@ -168,7 +170,9 @@
         font-family: monospace;
         box-sizing: border-box;
         background: #FFF;
-        border: 1px solid #E4E1E1;
+        border-width: 1px;
+        border-color: #E4E1E1;
+        border-style: solid;
         border-radius: 10px;
         margin-top: 11px;
         padding: 25px 20px;
@@ -192,6 +196,5 @@
         }
       }
     }
-
   }
 }

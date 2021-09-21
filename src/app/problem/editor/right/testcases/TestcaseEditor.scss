@@ -1,44 +1,102 @@
+$gray-color: #6D6E7D;
+$blue-color: #1273BA;
+
 .testcase-editor {
-    height: 336px;
-    background: #F9F9F9;
-    border: 1px solid #A2A3B1;
-    box-sizing: border-box;
-    border-radius: 10px;
-    margin: 17px;
+  height: auto;
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  border-color: #58D68D;
+  border-style: solid;
+  border-width: 1px;
+  box-sizing: border-box;
+  border-radius: 10px;
+  padding: 30px;
+  margin-top: 10px;
+  font-weight: 500;
 
+  hr {
+    height: 1px;
+    background-color: $gray-color;
+    margin: 6px 0 6px 0 !important;
+  }
 
-    .testcase-name {
-        font-style: normal;
-        font-weight: bold;
-        font-size: 17px;
-        color: #6D6E7D;
-    }
+  .testcase-name-row {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  .testcase-name {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 17px;
+    color: $gray-color;
 
     .testcase-name-input {
-        height: 28px;
-        width: 150px;
-        border: 1px solid #E4E1E1;
+      margin-left: 10px;
+      padding-left: 10px;
+      border-radius: 10px;
+      height: 33px;
+      width: 130px;
+      border: 1px solid #E4E1E1;
+      font-size: 18px;
+      color: $blue-color;
     }
 
-    .testcase-box-in {
-        height: 240px;
-        width: inherit;
-        background: #FFFFFF;
-        border: 1px solid #E4E1E1;
-        box-sizing: border-box;
-        border-radius: 2px;
-        margin: 2px;
+    span {
+      color: $blue-color;
+      margin-left: 10px;
+    }
+  }
+
+  .testcase-subtitle {
+    color: $gray-color;
+    font-size: 15px;
+    margin-top: 20px;
+  }
+
+  .testcase-details {
+    display: flex;
+    flex-wrap: wrap;
+
+    .subColumn {
+      min-width: 200px;
     }
 
-    .testcase-left {
-        flex-grow: 1;
-    }
+    .bullet-text {
+      color: $blue-color;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      margin-bottom: 7px;
 
-    .testcase-mid {
-        flex-grow: 1;
-    }
+      span {
+        margin-left: 6px;
+      }
 
-    .testcase-right {
-        flex-grow: 1;
+      input {
+        height: 22px;
+        width: 60px;
+        border: transparent;
+        margin-left: 5px;
+        padding-left: 5px;
+        background-color: #F3F3F3;
+        color: $gray-color;
+
+        &:focus::placeholder {
+          color: transparent;
+        }
+
+        &::placeholder {
+          color: #C4C4C4;
+        }
+      }
     }
+  }
+}
+
+.testcase-view {
+  border: 1px solid #E4E1E1;
 }

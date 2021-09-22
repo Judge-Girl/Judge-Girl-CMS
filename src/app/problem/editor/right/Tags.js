@@ -24,7 +24,7 @@ const Tags = () => {
             problemService.getProblemById(problemId)
                 .then(p => {
                     setProblem(p);
-                    setTextItems(p.tags.map(tag => new TextItem(tag)))
+                    setTextItems(p.tags.map(tag => new TextItem(tag)));
                 });
         }
     }, [problem, problemId, setTextItems]);

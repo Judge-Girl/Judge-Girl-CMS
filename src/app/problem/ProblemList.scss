@@ -3,4 +3,12 @@
   padding-bottom: 150px;
   display: flex;
   justify-content: center;
+
+  .problem-tag {
+    background-color: #1273BA;
+    font-weight: bold;
+    font-size: 13px;
+    color: #fff;
+    border-radius: 15px;
+  }
 }

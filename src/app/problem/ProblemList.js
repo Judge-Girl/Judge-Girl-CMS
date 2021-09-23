@@ -6,7 +6,6 @@ import CreateProblemModal from "./Modal/CreateProblemModal";
 import {problemService} from "../../services/services";
 import {Spinner} from "../commons/Spinner";
 import {Link, Route, useHistory} from "react-router-dom";
-import {TableCell} from "../../utils/TableCell";
 import ProblemEditor from "./editor/ProblemEditor";
 import {ProblemEditorContext} from "./editor/ProblemEditorContext";
 
@@ -48,27 +47,21 @@ const ProblemList = () => {
                                   Button={() =>
                                       <CreateButton onClick={() => setShowCreateProblemModal(true)}/>}
                                   tableHeaders={[
-                                      <TableCell>#</TableCell>,
-                                      <TableCell>Problem Title</TableCell>,
-                                      <TableCell>Tags</TableCell>
+                                      <div>#</div>,
+                                      <div>Problem Title</div>,
+                                      <div>Tags</div>
                                   ]}
                                   tableRowGenerator={{
                                       list: problems,
                                       key: (problem) => problem.id,
                                       data: (problem) => [
-                                          <TableCell>
-                                              <p>{problem.id}</p>
-                                          </TableCell>,
-                                          <TableCell>
-                                              <Link to={`problems/${problem.id}/edit`}>
-                                                  {problem.title}
-                                              </Link>
-                                          </TableCell>,
-                                          <TableCell>
-                                              <span className="tag is-link">Functions</span>
-                                          </TableCell>,
-                                      ]
-                                  }}
+                                          <p>{problem.id}</p>,
+                                          <Link to={`problems/${problem.id}/edit`}>{problem.title}</Link>,
+                                          <div className="tags are-small">
+                                              {problem.tags?.map(tag =>
+                                                  <span key={tag} className="problem-tag tag">{tag}</span>)}
+                                          </div>
+                                      ]}}
                                   tableDataStyle={{textAlign: "left"}}/>
                     <CreateProblemModal show={showCreateProblemModal}
                                         onClose={() => setShowCreateProblemModal(false)}

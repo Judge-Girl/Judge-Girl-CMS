@@ -15,6 +15,10 @@ export class ProblemService extends AbstractService {
         return this.axios.patch(`/api/problems/${problemId}`, {problemId, title});
     }
 
+    async updateProblemTags(problemId, tags) {
+        return this.axios.patch(`/api/problems/${problemId}`, {problemId, tags});
+    }
+
     async updateProblemDescription(problemId, description) {
         return this.axios.patch(`/api/problems/${problemId}`, {problemId, description});
     }

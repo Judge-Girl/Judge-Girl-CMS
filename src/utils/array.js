@@ -1,5 +1,5 @@
 export function remove(array, objToRemove) {
-    removeIf(array, obj => obj === objToRemove)
+    return removeIf(array, obj => obj === objToRemove)
 }
 
 export function removeIf(array, predicate) {
@@ -8,6 +8,7 @@ export function removeIf(array, predicate) {
             array.splice(i, 1)
         }
     }
+    return [...array];
 }
 
 export function distinct(array) {

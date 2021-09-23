@@ -10,9 +10,9 @@ const LeftBar = () => {
         document.body.scrollIntoView({behavior: "smooth"});
     };
 
-    const scrollToSection = (tagId, e) => {
+    const scrollToSection = (elementId, e) => {
         e.preventDefault();
-        document.getElementById(tagId)?.scrollIntoView({behavior: 'smooth'});
+        document.getElementById(elementId)?.scrollIntoView({behavior: 'smooth'});
     };
 
     return <>
@@ -32,6 +32,6 @@ const LeftBar = () => {
         }
         </div>
     </>;
-}
+};
 
 export default LeftBar;

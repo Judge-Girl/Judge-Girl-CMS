@@ -64,4 +64,8 @@ export class ProblemService extends AbstractService {
     async restoreProblem(problemId) {
         return this.axios.patch(`/api/problems/${problemId}/restore`);
     }
+
+    async upsertTestcase(testcase) {
+        return this.axios.put(`/api/problems/${testcase.problemId}/testcases/${testcase.id}`, testcase)
+    }
 }

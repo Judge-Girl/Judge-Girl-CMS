@@ -1,3 +1,5 @@
+@import "node_modules/font-awesome/css/font-awesome.min";
+
 .problem-list {
   padding-top: 20px;
   padding-bottom: 150px;
@@ -11,4 +13,23 @@
     color: #fff;
     border-radius: 15px;
   }
+
+  li {
+    font-weight: 500;
+
+    .is-Active {
+      color: #0E6FB7;
+      border-bottom-color: #0E6FB7;
+    }
+  }
+
+  .search {
+    padding-left: 6px;
+    font-family: FontAwesome, sans-serif;
+    flex-grow: 1;
+    background-color: #F3F3F3;
+    border: none;
+    border-radius: 10px;
+  }
+
 }

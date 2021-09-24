@@ -5,22 +5,30 @@ import {EditorButton} from "../../../commons/EditorButton";
 import TestcaseEditor from "./TestcaseEditor";
 import {problemService} from "../../../../../services/services";
 import {useParams} from "react-router-dom";
+import Testcase from "../../../../../models/Testcase";
 
 
 const Testcases = () => {
     const {problemId} = useParams();
     const [problem, setProblem] = useState(undefined);
-    const {testcases, setTestcases, addNewTestcase, deleteTestcase} = useTestcaseList();
+    const {testcases, initializeTestcases, addNewTestcase, deleteTestcase} = useTestcaseList(problem);
 
     useEffect(() => {
         if (!problem) {
             problemService.getProblemById(problemId)
                 .then(problem => {
                     setProblem(problem);
-                    setTestcases(problem.testcases)
+                    initializeTestcases(problem.testcases);
                 });
         }
     });
+
+    const saveTestcase = testcase => {
+        problemService.upsertTestcase(new Testcase(testcase))
+            .then(() => {
+                console.log("Testcase upserted.");
+            });
+    };
 
     return <>
         <Block title="Test Cases"
@@ -37,7 +45,11 @@ const Testcases = () => {
                }>
             <div className="testcases">
                 {testcases.map((testcase) =>
-                    <TestcaseEditor key={testcase.id} testcase={testcase} deleteTestcase={deleteTestcase}/>)
+                    <TestcaseEditor key={testcase.id}
+                                    editing={testcase.editing}
+                                    initialTestcase={testcase}
+                                    onTestcaseSaved={saveTestcase}
+                                    onTestcaseDeleted={deleteTestcase}/>)
                 }
             </div>
         </Block>

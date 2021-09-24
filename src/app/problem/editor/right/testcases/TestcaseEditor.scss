@@ -39,7 +39,6 @@ $blue-color: #1273BA;
       padding-left: 10px;
       border-radius: 10px;
       height: 33px;
-      width: 130px;
       border: 1px solid #E4E1E1;
       font-size: 18px;
       color: $blue-color;
@@ -67,7 +66,7 @@ $blue-color: #1273BA;
 
     .bullet-text {
       color: $blue-color;
-      font-size: 14px;
+      font-size: 13px;
       display: flex;
       align-items: center;
       margin-bottom: 7px;
@@ -77,11 +76,13 @@ $blue-color: #1273BA;
       }
 
       input {
+        font-size: 13px;
         height: 22px;
-        width: 60px;
+        width: 100px;
         border: transparent;
         margin-left: 5px;
         padding-left: 5px;
+        text-align: center;
         background-color: #F3F3F3;
         color: $gray-color;
 

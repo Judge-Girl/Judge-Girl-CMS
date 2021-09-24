@@ -9,11 +9,11 @@ export class LanguageEnv {
     }
 
     getCompilationScript() {
-        return this.compilationScript
+        return this.compilationScript;
     }
 
     updateCompilationScript(script) {
-        this.compilationScript = script
+        this.compilationScript = script;
     }
 
     getSubmittedCodeSpecFileNames() {

@@ -36,7 +36,7 @@ const CompilationScript = () => {
 
     const onClickSave = () => {
         setIsEditing(false);
-        languageEnv.updateCompilationScript(script)
+        languageEnv.updateCompilationScript(script);
         problemService.updateLanguageEnv(problemId, languageEnv)
             .then(() => {
                 console.log("The problem's compilation script has been updated");
@@ -45,7 +45,7 @@ const CompilationScript = () => {
 
     const onClickCancel = () => {
         setIsEditing(false);
-        setScript(scriptBackUp)
+        setScript(scriptBackUp);
     };
 
     return <>

@@ -79,10 +79,7 @@ const UploadFileItems = ({buttonName, buttonColor, files, addFile, removeFile, i
     )
 };
 
-function TestcaseEditor({
-                            initialTestcase,
-                            onTestcaseSaved, onTestcaseDeleted
-                        }) {
+function TestcaseEditor({initialTestcase, onTestcaseSaved, onTestcaseDeleted}) {
     const [edited, setEdited] = useState(false);
     const [beforeSaveTestcase, setBeforeSaveTestcase] = useState(initialTestcase);
     const [testcase, setTestcase] = useState(initialTestcase);

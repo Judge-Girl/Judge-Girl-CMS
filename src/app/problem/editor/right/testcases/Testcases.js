@@ -18,7 +18,7 @@ const Testcases = () => {
             problemService.getProblemById(problemId)
                 .then(problem => {
                     setProblem(problem);
-                    initializeTestcases(problem.testcases)
+                    initializeTestcases(problem.testcases);
                 });
         }
     });
@@ -26,8 +26,8 @@ const Testcases = () => {
     const saveTestcase = testcase => {
         problemService.upsertTestcase(new Testcase(testcase))
             .then(() => {
-                console.log("Testcase upserted.")
-            })
+                console.log("Testcase upserted.");
+            });
     };
 
     return <>

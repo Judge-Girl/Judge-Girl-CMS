@@ -1,14 +1,11 @@
 import {ItemListPage} from "../../commons/ItemListPage/ItemListPage";
-import FakeLink from "../../commons/FakeLink";
 import {useParams} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import {Spinner} from "../../commons/Spinner";
-import {TableCell} from "../../../utils/TableCell";
 import ExamSummary from "./ExamSummary";
 import {examService, examTranscriptService} from "../../../services/services";
 import {ExamScorePresenter} from "./ExamScorePresenter";
-import {ExportCsvButton} from "../../commons/buttons/ExportCsvButton";
-
+import './ExamScorePage.scss';
 
 const ExamScorePage = () => {
     const {examId} = useParams();
@@ -47,29 +44,32 @@ const ExamScorePage = () => {
 
     return (
         <div className="exam-score">
-            <div className="font-poppins" style={{paddingTop: "20px", paddingBottom: "150px"}}>
-                <div className="mt-2" style={{display: "flex", justifyContent: "center"}}>
-                    <div className="mt-4 mr-3" style={{width: "fit-content", textAlign: "center"}}>
+            <div className="exam-score-font-poppins">
+                <div className="exam-score-mt-2">
+                    <div className="exam-score-mr-3">
                         <ExamSummary vertical
-                                     averageScore={presenter.crossAverage}
-                                     maxScore={presenter.sumOfMaxScores}
-                                     totalExaminees={presenter.totalExaminees}/>
-                        <ExportCsvButton onClick = {()=>onButtonExportCSVClick(examId)}/>
+                                averageScore={presenter.crossAverage}
+                                maxScore={presenter.sumOfMaxScores}
+                                totalExaminees={presenter.totalExaminees} />
+                            <button className="export-blue-btn"
+                                onClick={() => onButtonExportCSVClick(examId)}>
+                                Export CSV
+                            </button>
                     </div>
                     <ItemListPage
                         width="1000px"
                         tableHeaders={[
-                            <TableCell>Name</TableCell>,
-                            ...presenter.problemIds.map(problemId => <TableCell>{problemId}</TableCell>),
-                            <TableCell>Table Score</TableCell>
+                            "Name",
+                            ...presenter.problemIds.map(problemId => `${problemId}`),
+                            "Table Score"
                         ]}
                         tableRowGenerator={{
                             list: presenter.examineeRecords,
                             key: examinee => examinee.studentId,
                             data: ({studentName, studentScores, studentTotalScore}) => [
-                                <FakeLink>{studentName}</FakeLink>,
-                                ...studentScores.map(score => <FakeLink>{score}</FakeLink>),
-                                <FakeLink>{studentTotalScore} / {presenter.sumOfMaxScores}</FakeLink>,
+                                <span>{studentName}</span>,
+                                ...studentScores.map(score => <span>{score}</span>),
+                                <span>{studentTotalScore} / {presenter.sumOfMaxScores}</span>,
                             ]
                         }}
                         showFilterSearchBar={false}

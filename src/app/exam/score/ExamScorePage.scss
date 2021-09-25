@@ -1,0 +1,35 @@
+.exam-score-font-poppins {
+    padding-top: 20px;
+    padding-bottom: 150px;
+
+    .exam-score-mt-2 {
+        display: flex;
+        justify-content: center;
+
+        .exam-score-mr-3 {
+            width: fit-content;
+            text-align: center;
+
+            .export-blue-btn {
+                justify-content: center;
+                align-items: center;
+                display: flex;
+                border: none;
+
+                width: 100%;
+                height: 15%;
+
+                background: #4585b4;
+                border-radius: 10px;
+
+                color: #ffffff;
+
+                margin: 5% 0%;
+
+                font-family: Poppins, sans-serif;
+                font-style: normal;
+                font-size: 120%;
+            }
+        }
+    }
+}

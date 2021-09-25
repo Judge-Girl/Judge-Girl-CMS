@@ -4,7 +4,6 @@ import {studentService} from "../../services/services";
 import FakeLink from "../commons/FakeLink";
 import {CreateStudentAccountModal} from "./CreateStudentAccountModal";
 import {CreateButton} from "../commons/buttons/CreateButton";
-import {EmptyCell, TableCell} from "../../utils/TableCell";
 import {ThreeDotsButton} from "../commons/buttons/ThreeDotsButton";
 import {DeleteConfirmationModal} from "../commons/modals/DeleteConfirmationModal";
 
@@ -38,8 +37,11 @@ const StudentList = () => {
         }]}/>;
 
     const deleteStudent = () => {
-
-    }
+        studentService.deleteStudentById(selectedStudent.id)
+            .then(() => {
+                setStudents(students.filter(s => s !== selectedStudent));
+            });
+    };
 
     return (
         <div className="student-list font-poppins">
@@ -48,12 +50,12 @@ const StudentList = () => {
                     <ItemListPage title="Student List"
                                   width="700px"
                                   filterItems={["Filter", "Name", "Email"]}
-                                  Button={() => <CreateButton onClick={() =>
-                                      setShowCreateStudentAccountModal(true)}/>}
+                                  Button={() =>
+                                      <CreateButton onClick={() => setShowCreateStudentAccountModal(true)}/>}
                                   tableHeaders={[
-                                      <TableCell>Name</TableCell>,
-                                      <TableCell>Email</TableCell>,
-                                      <EmptyCell/>
+                                      "Name",
+                                      "Email",
+                                      ""
                                   ]}
                                   tableRowGenerator={{
                                       list: students,
@@ -61,7 +63,7 @@ const StudentList = () => {
                                       data: (student) => [
                                           <FakeLink>{student.name}</FakeLink>,
                                           <FakeLink>{student.email}</FakeLink>,
-                                          <TableCell>{actionItemsButton(student)}</TableCell>
+                                          actionItemsButton(student)
                                       ]
                                   }}
                                   tableDataStyle={{textAlign: "left"}}/>
@@ -70,7 +72,7 @@ const StudentList = () => {
                                                onClose={() => setShowCreateStudentAccountModal(false)}
                                                onStudentCreated={student => addStudent(student)}/>
 
-                    <DeleteConfirmationModal title={"Delete this student"}
+                    <DeleteConfirmationModal title={"Delete this Student"}
                                              data={[
                                                  {
                                                      title: "Name",
@@ -83,12 +85,11 @@ const StudentList = () => {
                                              ]}
                                              show={showRemoveStudentModal}
                                              onClose={() => setShowRemoveStudentModal(false)}
-                                             onSubmit={() => deleteStudent()}/>
+                                             onSubmit={deleteStudent}/>
                 </div>
             </div>
         </div>
     )
 };
-
 
 export {StudentList};

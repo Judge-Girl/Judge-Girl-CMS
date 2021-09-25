@@ -116,6 +116,10 @@ export default class StudentService extends AbstractService {
             .then(res => new Group(res.data));
     }
 
+    async deleteStudentById(studentId) {
+        return this.axios.delete(`/api/students/${studentId}`)
+    }
+
     async deleteGroupById(groupId) {
         return this.axios.delete(`/api/groups/${groupId}`);
     }

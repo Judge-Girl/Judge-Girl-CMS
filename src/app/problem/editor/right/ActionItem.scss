@@ -1,0 +1,30 @@
+.action-item {
+  .action-title {
+    font-weight: bold;
+    font-size: 18px;
+    color: #374550;
+    margin-bottom: 2px;
+  }
+
+  .action-description {
+    font-size: 15px;
+    color: #A2A3B1;
+    margin-bottom: 8px;
+  }
+
+  .action-btn {
+    border-radius: 50px;
+    border-color: #D2D2D2;
+    font-size: 15px;
+    font-weight: 600 !important;
+    color: rgba(124,124,124,1);
+    padding: 8px 15px 8px 15px;
+    background-color: transparent;
+    border-style: solid;
+    cursor: pointer;
+
+    &:hover {
+      border-color: rgba(124,124,124,1);
+    }
+  }
+}

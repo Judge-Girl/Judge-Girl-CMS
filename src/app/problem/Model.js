@@ -20,6 +20,22 @@ export class LanguageEnv {
         return this.submittedCodeSpecs.map(codeSpec => codeSpec.fileName);
     }
 
+    getResourceSpecCpu() {
+        return this.resourceSpecCpu;
+    }
+
+    getResourceSpecGpu() {
+        return this.resourceSpecGpu;
+    }
+
+    updateResourceSpecCpu(cpu) {
+        this.resourceSpecCpu = cpu;
+    }
+
+    updateResourceSpecGpu(gpu) {
+        this.resourceSpecGpu = gpu;
+    }
+
     updateSubmittedCodeSpecs(fileNames) {
         this.submittedCodeSpecs = fileNames.map(fileName => {
             return {

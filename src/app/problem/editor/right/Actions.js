@@ -28,38 +28,36 @@ const Actions = () => {
             problemService.getProblemById(problemId)
                 .then(p => {
                     setProblem(p);
-                    // setArchived(p.archived)
+                    setArchived(p.archived)
                 });
         }
     }, [problem, problemId]);
 
     const archiveProblem = () => {
-        setArchived(true);
-        // problemService.archiveOrDeleteProblem(problemId)
-        //     .then(() => {
-        //         console.log(`Problem ${problemId} has been archived`);
-        //         markProblemsDirty();
-        //         setArchived(true);
-        //     })
+        problemService.archiveOrDeleteProblem(problemId)
+            .then(() => {
+                console.log(`Problem ${problemId} has been archived`);
+                markProblemsDirty();
+                setArchived(true);
+            })
     }
 
     const restoreProblem = () => {
-        setArchived(false);
-        // problemService.restoreProblem(problemId)
-        //     .then(() => {
-        //         console.log(`Problem ${problemId} has been restored`);
-        //         markProblemsDirty();
-        //         setArchived(false);
-        //     })
+        problemService.restoreProblem(problemId)
+            .then(() => {
+                console.log(`Problem ${problemId} has been restored`);
+                markProblemsDirty();
+                setArchived(false);
+            })
     }
 
     const deleteProblem = () => {
-        // problemService.archiveOrDeleteProblem(problemId)
-        //     .then(() => {
-        //         console.log(`Problem ${problemId} has been deleted`);
-        //         markProblemsDirty();
-        //         history.push("/problems");
-        //     })
+        problemService.archiveOrDeleteProblem(problemId)
+            .then(() => {
+                console.log(`Problem ${problemId} has been deleted`);
+                markProblemsDirty();
+                history.push("/problems");
+            })
     }
 
     return <>

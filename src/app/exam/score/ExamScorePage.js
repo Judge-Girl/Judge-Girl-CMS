@@ -7,6 +7,7 @@ import {TableCell} from "../../../utils/TableCell";
 import ExamSummary from "./ExamSummary";
 import {examService, examTranscriptService} from "../../../services/services";
 import {ExamScorePresenter} from "./ExamScorePresenter";
+import {ExportCsvButton} from "../../commons/buttons/ExportCsvButton";
 
 
 const ExamScorePage = () => {
@@ -33,6 +34,17 @@ const ExamScorePage = () => {
         return <Spinner/>;
     }
 
+    const onButtonExportCSVClick = (examId) => {
+        examService.getExamTranscriptCsvFile(examId)
+        .then((res) => {
+            const url = window.URL.createObjectURL(new Blob([res.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', 'ExamTranscript.csv');
+            link.click();
+        });
+    };
+
     return (
         <div className="exam-score">
             <div className="font-poppins" style={{paddingTop: "20px", paddingBottom: "150px"}}>
@@ -42,6 +54,7 @@ const ExamScorePage = () => {
                                      averageScore={presenter.crossAverage}
                                      maxScore={presenter.sumOfMaxScores}
                                      totalExaminees={presenter.totalExaminees}/>
+                        <ExportCsvButton onClick = {()=>onButtonExportCSVClick(examId)}/>
                     </div>
                     <ItemListPage
                         width="1000px"

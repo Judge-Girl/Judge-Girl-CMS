@@ -37,13 +37,13 @@ const ProblemList = () => {
 
     const ProblemFilterSearchBar = ({filterItems}) => {
         return (
-            <div className="is-flex is-justify-content-center">
-                <div className="select" id="filter" style={{marginLeft: "60%", marginRight: "8px"}}>
-                    <select style={{border: "none", color: "#676877"}}>
+            <div className="is-flex is-justify-content-center filterSearchBar">
+                <div className="select">
+                    <select>
                         {filterItems?.map(name => <option key={name}>{name}</option>)}
                     </select>
                 </div>
-                <input className="search" placeholder="&#xF002;" type="text" id="searchBar"/>
+                <input className="search" placeholder="&#xF002;" type="text"/>
                 <CreateButton onClick={() => setShowCreateProblemModal(true)}/>
             </div>
         )
@@ -53,18 +53,20 @@ const ProblemList = () => {
 
         const onProblemsTabClick = () => {
             setProblemTabActiveIndex(1);
-            problemService.getAllProblems()
+            problemService.getVisibleProblems()
                 .then(setProblems);
         };
 
         const onInvisibleTabClick = () => {
             setProblemTabActiveIndex(2);
-            // Todo use API to get invisible problems
+            problemService.getInvisibleProblems()
+                .then(setProblems);
         };
 
         const onArchiveTabClick = () => {
             setProblemTabActiveIndex(3);
-            // Todo use API to get archive problems
+            problemService.getArchiveProblems()
+                .then(setProblems);
         };
 
         return (
@@ -94,9 +96,9 @@ const ProblemList = () => {
                     <ItemListPage width="1000px"
                                   showFilterSearchBar={false}
                                   tableHeaders={[
-                                      <div>#</div>,
-                                      <div>Problem Title</div>,
-                                      <div>Tags</div>
+                                      "#",
+                                      "Problem Title",
+                                      "Tags"
                                   ]}
                                   tableRowGenerator={{
                                       list: problems,

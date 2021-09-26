@@ -1,16 +1,14 @@
-import {ItemListPage} from "../../commons/ItemListPage/ItemListPage";
-import FakeLink from "../../commons/FakeLink";
-import {useParams} from "react-router-dom";
-import React, {useEffect, useState} from "react";
-import {Spinner} from "../../commons/Spinner";
-import {TableCell} from "../../../utils/TableCell";
+import { ItemListPage } from "../../commons/ItemListPage/ItemListPage";
+import { useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Spinner } from "../../commons/Spinner";
 import ExamSummary from "./ExamSummary";
-import {examService, examTranscriptService} from "../../../services/services";
-import {ExamScorePresenter} from "./ExamScorePresenter";
-
+import { examService, examTranscriptService } from "../../../services/services";
+import { ExamScorePresenter } from "./ExamScorePresenter";
+import './ExamScorePage.scss';
 
 const ExamScorePage = () => {
-    const {examId} = useParams();
+    const { examId } = useParams();
     const [presenter, setPresenter] = useState(undefined);
     const [exam, setExam] = useState(undefined);
 
@@ -33,36 +31,47 @@ const ExamScorePage = () => {
         return <Spinner/>;
     }
 
+    const onButtonExportCSVClick = (examId) => {
+        examService.getExamTranscriptCsvFile(examId)
+            .then((res) => {
+                const url = window.URL.createObjectURL(new Blob([res.data]));
+                const link = document.createElement('a');
+                link.href = url;
+                link.setAttribute('download', 'ExamTranscript.csv');
+                link.click();
+            });
+    };
+
     return (
         <div className="exam-score">
-            <div className="font-poppins" style={{paddingTop: "20px", paddingBottom: "150px"}}>
-                <div className="mt-2" style={{display: "flex", justifyContent: "center"}}>
-                    <div className="mt-4 mr-3" style={{width: "fit-content", textAlign: "center"}}>
-                        <ExamSummary vertical
-                                     averageScore={presenter.crossAverage}
-                                     maxScore={presenter.sumOfMaxScores}
-                                     totalExaminees={presenter.totalExaminees}/>
-                    </div>
-                    <ItemListPage
-                        width="1000px"
-                        tableHeaders={[
-                            <TableCell>Name</TableCell>,
-                            ...presenter.problemIds.map(problemId => <TableCell>{problemId}</TableCell>),
-                            <TableCell>Table Score</TableCell>
-                        ]}
-                        tableRowGenerator={{
-                            list: presenter.examineeRecords,
-                            key: examinee => examinee.studentId,
-                            data: ({studentName, studentScores, studentTotalScore}) => [
-                                <FakeLink>{studentName}</FakeLink>,
-                                ...studentScores.map(score => <FakeLink>{score}</FakeLink>),
-                                <FakeLink>{studentTotalScore} / {presenter.sumOfMaxScores}</FakeLink>,
-                            ]
-                        }}
-                        showFilterSearchBar={false}
-                    />
-                </div>
+            <div className="exam-score-left">
+                <ExamSummary vertical
+                    averageScore={presenter.crossAverage}
+                    maxScore={presenter.sumOfMaxScores}
+                    totalExaminees={presenter.totalExaminees} />
+                <button className="export-blue-btn"
+                    onClick={() => onButtonExportCSVClick(examId)}>
+                    Export CSV
+                </button>
             </div>
+            <ItemListPage
+                width="1000px"
+                tableHeaders={[
+                    "Name",
+                    ...presenter.problemIds.map(problemId => `${problemId}`),
+                    "Table Score"
+                ]}
+                tableRowGenerator={{
+                    list: presenter.examineeRecords,
+                    key: examinee => examinee.studentId,
+                    data: ({ studentName, studentScores, studentTotalScore }) => [
+                        <span>{studentName}</span>,
+                        ...studentScores.map(score => <span>{score}</span>),
+                        <span>{studentTotalScore} / {presenter.sumOfMaxScores}</span>,
+                    ]
+                }}
+                showFilterSearchBar={false}
+            />
         </div>
     )
 };

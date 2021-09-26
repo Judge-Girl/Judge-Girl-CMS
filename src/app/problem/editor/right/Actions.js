@@ -28,7 +28,7 @@ const Actions = () => {
             problemService.getProblemById(problemId)
                 .then(p => {
                     setProblem(p);
-                    setArchived(p.archived)
+                    setArchived(p.archived);
                 });
         }
     }, [problem, problemId]);
@@ -39,8 +39,8 @@ const Actions = () => {
                 console.log(`Problem ${problemId} has been archived`);
                 markProblemsDirty();
                 setArchived(true);
-            })
-    }
+            });
+    };
 
     const restoreProblem = () => {
         problemService.restoreProblem(problemId)
@@ -48,8 +48,8 @@ const Actions = () => {
                 console.log(`Problem ${problemId} has been restored`);
                 markProblemsDirty();
                 setArchived(false);
-            })
-    }
+            });
+    };
 
     const deleteProblem = () => {
         problemService.archiveOrDeleteProblem(problemId)
@@ -57,8 +57,8 @@ const Actions = () => {
                 console.log(`Problem ${problemId} has been deleted`);
                 markProblemsDirty();
                 history.push("/problems");
-            })
-    }
+            });
+    };
 
     return <>
         <Block title="Actions" id="problem-editor-actions">

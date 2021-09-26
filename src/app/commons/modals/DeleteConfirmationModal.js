@@ -22,7 +22,7 @@ const DeleteConfirmationModal = ({title, data, show, onClose, onSubmit}) => {
     };
 
     return renderModal({
-        modalClassName: "remove-confirmation-modal",
+        modalClassName: "delete-confirmation-modal",
         modalWidth: "480px",
         show, onClose, closeIconRef,
         contentRendering: () => (
@@ -31,10 +31,10 @@ const DeleteConfirmationModal = ({title, data, show, onClose, onSubmit}) => {
                     <ModalHeader className="header" title={title} style={{textAlign: "center"}}/>
                     {
                         data?.map(item =>
-                            <p key={item.title}>{item.title}: {item.value}</p>
+                            <p key={item.title}>{item.title}: <br/>{item.value}</p>
                         )
                     }
-                    <button className="button mt-5" id="remove-btn">Remove</button>
+                    <button className="button mt-5" id="delete-btn">Delete</button>
                 </div>
             </form>
         )

@@ -46,7 +46,8 @@ const Visible = () => {
                        />
                    </div>
                }>
-            *The problem for exam used should be invisible
+            * The problem for exam used should be invisible. <br/>
+            * If the problem is invisible, you can only see this problem in <i>invisible problem list</i>.
         </Block>
     </>;
 };

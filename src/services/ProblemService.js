@@ -62,12 +62,12 @@ export class ProblemService extends AbstractService {
     }
 
     async getVisibleProblems() {
-        return this.axios.get(`/api/problems?invisible=false`)
+        return this.axios.get(`/api/problems?invisible=false&archive=false`)
             .then(res => res.data.map(obj => new Problem(obj)));
     }
 
     async getInvisibleProblems() {
-        return this.axios.get(`/api/problems?visible=false`)
+        return this.axios.get(`/api/problems?visible=false&archive=false`)
             .then(res => res.data.map(obj => new Problem(obj)));
     }
 

@@ -117,7 +117,7 @@ export default class StudentService extends AbstractService {
     }
 
     async deleteStudentById(studentId) {
-        return this.axios.delete(`/api/students/${studentId}`)
+        return this.axios.delete(`/api/students/${studentId}`);
     }
 
     async deleteGroupById(groupId) {

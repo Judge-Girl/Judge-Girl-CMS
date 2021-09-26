@@ -28,7 +28,7 @@ const ExamScorePage = () => {
     }, [exam, setPresenter, examId]);
 
     if (!exam || !presenter) {
-        return <Spinner />;
+        return <Spinner/>;
     }
 
     const onButtonExportCSVClick = (examId) => {

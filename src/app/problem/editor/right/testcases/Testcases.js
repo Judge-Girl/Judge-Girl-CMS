@@ -1,17 +1,16 @@
 import React, {useEffect, useState} from "react";
 import Block from "../Block";
-import useTestcaseList from './usecase';
+import {useTestcaseList} from './usecase';
 import {EditorButton} from "../../../commons/EditorButton";
 import TestcaseEditor from "./TestcaseEditor";
 import {problemService} from "../../../../../services/services";
 import {useParams} from "react-router-dom";
 import Testcase from "../../../../../models/Testcase";
 
-
 const Testcases = () => {
     const {problemId} = useParams();
     const [problem, setProblem] = useState(undefined);
-    const {testcases, initializeTestcases, addNewTestcase, deleteTestcase} = useTestcaseList(problem);
+    const {testcases, initializeTestcases, addNewTestcase, deleteTestcase, updateTestcase} = useTestcaseList(problem);
 
     useEffect(() => {
         if (!problem) {
@@ -30,6 +29,14 @@ const Testcases = () => {
             });
     };
 
+    const patchTestcaseIOs = testcaseIOsPatch => {
+        problemService.patchTestcaseIOs(testcaseIOsPatch)
+            .then((patchedTestcase) => {
+                updateTestcase(testcaseIOsPatch.testcaseId, () => patchedTestcase);
+                console.log("Testcase IOs patched");
+            });
+    };
+
     return <>
         <Block title="Test Cases"
                id="problem-editor-testcases"
@@ -45,10 +52,11 @@ const Testcases = () => {
                }>
             <div className="testcases">
                 {testcases.map((testcase) =>
-                    <TestcaseEditor key={testcase.id}
+                    <TestcaseEditor key={testcase.id + testcase.ioFileId}
                                     editing={testcase.editing}
                                     initialTestcase={testcase}
                                     onTestcaseSaved={saveTestcase}
+                                    onTestcaseIOsPatched={patchTestcaseIOs}
                                     onTestcaseDeleted={deleteTestcase}/>)
                 }
             </div>

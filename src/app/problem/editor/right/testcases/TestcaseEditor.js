@@ -1,11 +1,10 @@
-import './TestcaseEditor.scss'
+import './TestcaseEditor.scss';
 import React, {useState} from "react";
-import {useUploads} from "../../../../usecases/UploadFilesUseCase";
 import FixedUploadFileItems from "../FixedUploadFileItems";
-import {EditorButton} from "../../../commons/EditorButton";
 import {FaCircle, FiUpload, VscFileCode} from "react-icons/all";
 import {EditSaveCancelButton} from "../../../commons/EditSaveCancelButton";
 import IconTextItems from "../../../../commons/TextInputForm/IconTextItems";
+import {useTestcaseIosPatch} from "./usecase";
 
 const TestCaseName = ({name, isEditing, onChange}) => {
     return (
@@ -48,30 +47,30 @@ const BulletText = ({title, value, onChange, isEditing, type = "text"}) => {
     )
 };
 
-const UploadFileButton = ({buttonName, buttonColor, addFile}) => {
-    return <EditorButton
-        text={
-            <div style={{display: "flex", justifyContent: "flex-start", alignItems: "center"}}>
-                {buttonName} <FiUpload size={18} style={{paddingLeft: "3px"}}/>
-            </div>}
-        type="file"
-        buttonColor={buttonColor}
-        fontSize="14px"
-        fontColor="#fff"
-        width="fit-content"
-        height="28px"
-        borderRadius="50px"
-        onClick={addFile}/>
+const UploadFileButton = ({buttonName, buttonColor, onFilesUploaded, multipleFiles}) => {
+    return <label>
+        <input type="file"
+               style={{cursor: "pointer", display: "none"}}
+               onChange={onFilesUploaded} multiple={multipleFiles}/>
+        <div className="upload-file-button" style={{background: buttonColor}}>
+            {buttonName} <FiUpload size={18} style={{paddingLeft: "3px"}}/>
+        </div>
+    </label>
 };
 
-const UploadFileItems = ({buttonName, buttonColor, files, addFile, removeFile, isEditing}) => {
+const UploadFileItems = ({buttonName, buttonColor, files, onFilesUploaded, removeFile, isEditing, multipleFiles, fileRemovable = true}) => {
     return (
         isEditing ?
             <>
-                <FixedUploadFileItems files={files} removeFile={removeFile} style={{marginBottom: "5px"}}/>
+                {console.log(files)}
+                <FixedUploadFileItems items={files.map(f => {
+                    return {key: f.name, text: f.name}
+                })} fileRemovable={fileRemovable} removeItem={item => removeFile(item.text)}
+                                      style={{marginBottom: "5px"}}/>
                 <UploadFileButton buttonName={buttonName}
                                   buttonColor={buttonColor}
-                                  addFile={addFile}/>
+                                  onFilesUploaded={onFilesUploaded}
+                                  multipleFiles={multipleFiles}/>
             </>
             :
             <IconTextItems icon={<VscFileCode size={18}/>}
@@ -79,11 +78,16 @@ const UploadFileItems = ({buttonName, buttonColor, files, addFile, removeFile, i
     )
 };
 
-function TestcaseEditor({initialTestcase, onTestcaseSaved, onTestcaseDeleted}) {
-    const [edited, setEdited] = useState(false);
+function TestcaseEditor({initialTestcase, onTestcaseSaved, onTestcaseIOsPatched, onTestcaseDeleted}) {
+    const [testcaseEdited, setEdited] = useState(false);
     const [beforeSaveTestcase, setBeforeSaveTestcase] = useState(initialTestcase);
     const [testcase, setTestcase] = useState(initialTestcase);
-    const {files, addFile, removeFile} = useUploads();
+    const {
+        createTestcaseIOsPatch, inputFiles, addInputFiles, removeInputFile,
+        outputFiles, addOutputFiles, removeOutputFile,
+        stdIns, setStandardInFile, stdOuts, setStandardOutFile, reset: resetTestcaseIOs
+    } = useTestcaseIosPatch(initialTestcase);
+
 
     const onClickEdit = () => {
         setEdited(false); // reset the 'edited' state
@@ -91,15 +95,25 @@ function TestcaseEditor({initialTestcase, onTestcaseSaved, onTestcaseDeleted}) {
     };
 
     const onClickSave = () => {
+        const testcaseIosPatch = createTestcaseIOsPatch();
+
         // if the testcase is not edited during the editing state,
         // then we don't have to trigger the "onTestcaseSaved" event.
-        if (edited ||
-            // for the new testcase, should save it on the first edition
-            !testcase.saved) {
+        const shouldSave = testcaseEdited || !testcaseIosPatch.isEmpty()
+             // for the new testcase, should save it on the first edition
+            || !testcase.saved;
+
+        if (shouldSave) {
             const savedTestcase = {...testcase, saved: true, editing: false};
             setTestcase(savedTestcase);
-            setBeforeSaveTestcase(savedTestcase);
-            onTestcaseSaved(testcase);
+            if (testcaseEdited) {
+                setBeforeSaveTestcase(savedTestcase);
+                onTestcaseSaved(testcase);
+            }
+            if (!testcaseIosPatch.isEmpty()) {
+                resetTestcaseIOs();
+                onTestcaseIOsPatched(testcaseIosPatch);
+            }
         } else {
             setTestcase({...testcase, editing: false});
         }
@@ -108,6 +122,7 @@ function TestcaseEditor({initialTestcase, onTestcaseSaved, onTestcaseDeleted}) {
     const onClickCancel = () => {
         // restore to the before-save one
         setTestcase({...beforeSaveTestcase, editing: false});
+        resetTestcaseIOs();
         if (!testcase.saved) {
             // for the new testcase, should delete it on cancellation.
             onTestcaseDeleted(testcase);
@@ -134,14 +149,8 @@ function TestcaseEditor({initialTestcase, onTestcaseSaved, onTestcaseDeleted}) {
                         onClickCancel={onClickCancel}/>
 
                     {testcase.editing ? "" :
-                        <EditorButton text="Delete"
-                                      width="70px"
-                                      height="36px"
-                                      borderRadius="50px"
-                                      fontColor="#FB5D53"
-                                      borderColor="#FB5D53"
-                                      marginLeft="10px"
-                                      onClick={() => onTestcaseDeleted(testcase)}/>}
+                        <button className="button delete-button"
+                                onClick={() => onTestcaseDeleted(testcase)}>Delete</button>}
                 </div>
             </div>
             <div className="testcase-box-in columns testcase-details">
@@ -173,22 +182,34 @@ function TestcaseEditor({initialTestcase, onTestcaseSaved, onTestcaseDeleted}) {
                 <div className="column is-desktop subColumn">
                     <TestCaseSubtitle title="Standard In"/>
                     <UploadFileItems buttonName="Standard In " buttonColor="rgba(241, 196, 15, 1)"
-                                     files={files} addFile={addFile} removeFile={removeFile}
+                                     files={stdIns}
+                                     fileRemovable={false}
+                                     onFilesUploaded={e => setStandardInFile(e.target.files[0])}
+                                     multipleFiles={false}
                                      isEditing={testcase.editing}/>
                     <TestCaseSubtitle title="Standard Out"/>
                     <UploadFileItems buttonName="Standard Out " buttonColor="rgba(241, 196, 15, 1)"
-                                     files={files} addFile={addFile} removeFile={removeFile}
+                                     files={stdOuts}
+                                     fileRemovable={false}
+                                     onFilesUploaded={e => setStandardOutFile(e.target.files[0])}
+                                     multipleFiles={false}
                                      isEditing={testcase.editing}/>
                 </div>
 
                 <div className="column is-desktop subColumn">
                     <TestCaseSubtitle title="Input Files"/>
                     <UploadFileItems buttonName="Input File " buttonColor="rgba(255, 133, 21, 1)"
-                                     files={files} addFile={addFile} removeFile={removeFile}
+                                     files={inputFiles}
+                                     onFilesUploaded={e => addInputFiles(Array.from(e.target.files))}
+                                     removeFile={removeInputFile}
+                                     multipleFiles={true}
                                      isEditing={testcase.editing}/>
                     <TestCaseSubtitle title="Output Files"/>
                     <UploadFileItems buttonName="Output File " buttonColor="rgba(255, 133, 21, 1)"
-                                     files={files} addFile={addFile} removeFile={removeFile}
+                                     files={outputFiles}
+                                     onFilesUploaded={e => addOutputFiles(Array.from(e.target.files))}
+                                     removeFile={removeOutputFile}
+                                     multipleFiles={true}
                                      isEditing={testcase.editing}/>
                 </div>
             </div>

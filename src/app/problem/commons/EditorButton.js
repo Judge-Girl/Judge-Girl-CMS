@@ -13,7 +13,7 @@ const EditorButton = ({
         background: buttonColor, color: fontColor,
         font: "Poppins", fontSize, fontWeight: 600,
         border: noBorder? "none": undefined,
-        borderRadius, borderWidth: 2, borderColor,
+        borderRadius, borderWidth: 1, borderColor,
         outline: "none", boxShadow: "none",
         padding: 10,
         display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center",
@@ -24,7 +24,7 @@ const EditorButton = ({
     if (type === "file") {
         return <>
             <label style={{cursor: "pointer", ...style}}>
-                <input type="file"
+                <input type={type}
                        className="original-upload-button"
                        style={{cursor: "pointer", display: "none"}}
                        onChange={onClick}/>

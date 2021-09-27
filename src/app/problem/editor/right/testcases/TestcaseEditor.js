@@ -62,7 +62,6 @@ const UploadFileItems = ({buttonName, buttonColor, files, onFilesUploaded, remov
     return (
         isEditing ?
             <>
-                {console.log(files)}
                 <FixedUploadFileItems items={files.map(f => {
                     return {key: f.name, text: f.name}
                 })} fileRemovable={fileRemovable} removeItem={item => removeFile(item.text)}

@@ -52,6 +52,9 @@ const Testcases = () => {
                }>
             <div className="testcases">
                 {testcases.map((testcase) =>
+                    // The key of TestcaseEditor must be 'testcase.id + testcase.ioFileId'
+                    // because whenever the testcase is patched, its ioFileId will be changed,
+                    // then React will re-initialize the TestcaseEditor with the patched testcase's content
                     <TestcaseEditor key={testcase.id + testcase.ioFileId}
                                     editing={testcase.editing}
                                     initialTestcase={testcase}

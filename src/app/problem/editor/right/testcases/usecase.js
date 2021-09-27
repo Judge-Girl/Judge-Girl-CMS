@@ -50,6 +50,9 @@ const useTestcaseList = (problem) => {
     return {testcases, initializeTestcases, addNewTestcase, updateTestcase, deleteTestcase};
 };
 
+/**
+ * Record the 'add file' and 'delete file' actions and finally create a TestcaseIosPatch that summarizes these actions.
+ */
 const useTestcaseIosPatch = (initialTestcase) => {
     const {files: inputFiles, addFiles: _addInputFiles, removeFile: _removeInputFile, reset: _resetInputFiles} =
         useUploads(initialTestcase.inputFiles ? initialTestcase.inputFiles.map(name => new FakeFile(name)) : []);

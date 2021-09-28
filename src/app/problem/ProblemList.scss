@@ -1,3 +1,5 @@
+@import "node_modules/font-awesome/css/font-awesome.min";
+
 .problem-list {
   padding-top: 20px;
   padding-bottom: 150px;
@@ -10,5 +12,36 @@
     font-size: 13px;
     color: #fff;
     border-radius: 15px;
+  }
+
+  .filterSearchBar {
+    position: absolute;
+    top: 80px;
+    left: 780px;
+
+    .select {
+      margin-left: 40px;
+      margin-right: 8px;
+      border: none;
+      color: #676877;
+    }
+  }
+
+  li {
+    font-weight: 500;
+
+    .is-Active {
+      color: #0E6FB7;
+      border-bottom-color: #0E6FB7;
+    }
+  }
+
+  .search {
+    padding-left: 6px;
+    font-family: FontAwesome, sans-serif;
+    flex-grow: 1;
+    background-color: #F3F3F3;
+    border: none;
+    border-radius: 10px;
   }
 }

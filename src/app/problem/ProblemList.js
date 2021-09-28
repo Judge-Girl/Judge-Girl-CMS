@@ -15,6 +15,7 @@ const ProblemList = () => {
     const [problems, setProblems] = useState(undefined);
     const [problemsDirty, setProblemsDirty] = useState(true);
     const [showCreateProblemModal, setShowCreateProblemModal] = useState(false);
+    const [problemTabActiveIndex, setProblemTabActiveIndex] = useState(1);
     const fetchAllProblems = useCallback(() => {
         problemService.getAllProblems()
             .then(setProblems);
@@ -24,7 +25,8 @@ const ProblemList = () => {
 
     useEffect(() => {
         if (!problems || problemsDirty) {
-            fetchAllProblems();
+            problemService.getNonArchivedAndVisibleProblems()
+                .then(setProblems);
             setProblemsDirty(false);
         }
     }, [problems, problemsDirty, fetchAllProblems]);
@@ -34,34 +36,84 @@ const ProblemList = () => {
         history.push(`/problems/${problemId}/edit`);
     };
 
-    if (!problems)
+    const ProblemFilterSearchBar = ({filterItems}) => {
+        return (
+            <div className="is-flex is-justify-content-center filterSearchBar">
+                <select className="select">
+                    {filterItems?.map(name => <option key={name}>{name}</option>)}
+                </select>
+                <input className="search" placeholder="&#xF002;" type="text"/>
+                <CreateButton onClick={() => setShowCreateProblemModal(true)}/>
+            </div>
+        )
+    };
+
+    const ProblemTabs = () => {
+
+        const onProblemsTabClick = () => {
+            setProblemTabActiveIndex(1);
+            problemService.getNonArchivedAndVisibleProblems()
+                .then(setProblems);
+        };
+
+        const onInvisibleTabClick = () => {
+            setProblemTabActiveIndex(2);
+            problemService.getNonArchivedAndInvisibleProblems()
+                .then(setProblems);
+        };
+
+        const onArchiveTabClick = () => {
+            setProblemTabActiveIndex(3);
+            problemService.getArchiveProblems()
+                .then(setProblems);
+        };
+
+        return (
+            <div className="tabs is-medium">
+                <ul>
+                    <li><a className={problemTabActiveIndex === 1 ? "is-Active" : ""}
+                           onClick={onProblemsTabClick}>Problems</a></li>
+                    <li><a className={problemTabActiveIndex === 2 ? "is-Active" : ""}
+                           onClick={onInvisibleTabClick}>Invisible</a></li>
+                    <li><a className={problemTabActiveIndex === 3 ? "is-Active" : ""}
+                           onClick={onArchiveTabClick}>Archive</a></li>
+                </ul>
+            </div>
+        )
+    };
+
+    if (!problems) {
         return <Spinner/>;
+    }
 
     return <>
         <Route path="/problems" exact>
             <div className="problem-list font-poppins">
                 <div>
-                    <ItemListPage title="Problem List"
-                                  width="1000px"
-                                  filterItems={["Filter", "Id", "tags"]}
-                                  Button={() =>
-                                      <CreateButton onClick={() => setShowCreateProblemModal(true)}/>}
+                    <ProblemFilterSearchBar filterItems={["Filter", "Id", "tags"]}/>
+                    <ProblemTabs/>
+                    <ItemListPage width="1000px"
+                                  showFilterSearchBar={false}
                                   tableHeaders={[
-                                      <div>#</div>,
-                                      <div>Problem Title</div>,
-                                      <div>Tags</div>
+                                      "#",
+                                      "Problem Title",
+                                      "Tags"
                                   ]}
                                   tableRowGenerator={{
                                       list: problems,
                                       key: (problem) => problem.id,
                                       data: (problem) => [
                                           <p>{problem.id}</p>,
-                                          <Link to={`problems/${problem.id}/edit`}>{problem.title}</Link>,
+                                          <Link to={`problems/${problem.id}/edit`}
+                                                style={{color: "#1273BA"}}>
+                                              {problem.title}
+                                          </Link>,
                                           <div className="tags are-small">
                                               {problem.tags?.map(tag =>
                                                   <span key={tag} className="problem-tag tag">{tag}</span>)}
                                           </div>
-                                      ]}}
+                                      ]
+                                  }}
                                   tableDataStyle={{textAlign: "left"}}/>
                     <CreateProblemModal show={showCreateProblemModal}
                                         onClose={() => setShowCreateProblemModal(false)}
@@ -75,7 +127,8 @@ const ProblemList = () => {
                 <ProblemEditor/>
             </ProblemEditorContext.Provider>
         </Route>
-    </>;
+    </>
+        ;
 };
 
 

@@ -61,6 +61,21 @@ export class ProblemService extends AbstractService {
             .then(res => res.data.map(obj => new Problem(obj)));
     }
 
+    async getNonArchivedAndVisibleProblems() {
+        return this.axios.get(`/api/problems?invisible=false&archive=false`)
+            .then(res => res.data.map(obj => new Problem(obj)));
+    }
+
+    async getNonArchivedAndInvisibleProblems() {
+        return this.axios.get(`/api/problems?visible=false&archive=false`)
+            .then(res => res.data.map(obj => new Problem(obj)));
+    }
+
+    async getArchiveProblems() {
+        return this.axios.get(`/api/problems?archive=true`)
+            .then(res => res.data.map(obj => new Problem(obj)));
+    }
+
     async archiveOrDeleteProblem(problemId) {
         return this.axios.delete(`/api/problems/${problemId}`);
     }

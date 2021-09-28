@@ -25,7 +25,8 @@ const ProblemList = () => {
 
     useEffect(() => {
         if (!problems || problemsDirty) {
-            fetchAllProblems();
+            problemService.getNonArchivedAndVisibleProblems()
+                .then(setProblems);
             setProblemsDirty(false);
         }
     }, [problems, problemsDirty, fetchAllProblems]);
@@ -53,13 +54,13 @@ const ProblemList = () => {
 
         const onProblemsTabClick = () => {
             setProblemTabActiveIndex(1);
-            problemService.getVisibleProblems()
+            problemService.getNonArchivedAndVisibleProblems()
                 .then(setProblems);
         };
 
         const onInvisibleTabClick = () => {
             setProblemTabActiveIndex(2);
-            problemService.getInvisibleProblems()
+            problemService.getNonArchivedAndInvisibleProblems()
                 .then(setProblems);
         };
 

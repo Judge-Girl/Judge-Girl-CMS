@@ -39,11 +39,9 @@ const ProblemList = () => {
     const ProblemFilterSearchBar = ({filterItems}) => {
         return (
             <div className="is-flex is-justify-content-center filterSearchBar">
-                <div className="select">
-                    <select>
-                        {filterItems?.map(name => <option key={name}>{name}</option>)}
-                    </select>
-                </div>
+                <select className="select">
+                    {filterItems?.map(name => <option key={name}>{name}</option>)}
+                </select>
                 <input className="search" placeholder="&#xF002;" type="text"/>
                 <CreateButton onClick={() => setShowCreateProblemModal(true)}/>
             </div>

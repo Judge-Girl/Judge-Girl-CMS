@@ -104,19 +104,19 @@ const ExamQuestions = () => {
                     tableHeaders={[
                         "#",
                         "Question",
-                        "Score Percentage",
-                        "Submission Quota",
+                        <p className="text-center">Score Percentage</p>,
+                        <p className="text-center">Submission Quota</p>,
                         " "
                     ]}
-                    tableDataStyle={{height: "60px"}}
+                    tableDataStyle={{height: "24px", padding: "5px 12px"}}
                     tableRowGenerator={{
                         list: questions,
                         key: question => `${question.questionOrder}-${question.problemId}`,
                         data: (question) => [
-                            <span>{toCharacterIndex(questions.findIndex(_question => _question.questionOrder === question.questionOrder))}</span>,
+                            <p>{toCharacterIndex(questions.findIndex(_question => _question.questionOrder === question.questionOrder))}</p>,
                             <FakeLink>{`${question.problemId} ${question.problemTitle}`}</FakeLink>,
-                            <p>{question.maxScore}</p>,
-                            <p>{question.quota}</p>,
+                            <p className="text-center">{question.maxScore}</p>,
+                            <p className="text-center">{question.quota}</p>,
                             <div>
                                 {rejudgingProblemId === question.problemId ?
                                     <span className="tag"

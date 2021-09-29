@@ -9,7 +9,6 @@ import {AddQuestionModal} from "../modals/AddQuestionModal.js";
 import {EditQuestionModal} from "../modals/EditQuestionModal.js";
 import {RejudgeQuestionModal} from "../modals/RejudgeQuestionModal";
 import {Spinner} from "../../commons/Spinner";
-import {TableCell} from "../../../utils/TableCell";
 import {DeleteConfirmationModal} from "../../commons/modals/DeleteConfirmationModal";
 import ExamDescription from "./ExamDescription";
 
@@ -103,23 +102,22 @@ const ExamQuestions = () => {
                     width="1200px"
                     title="Questions"
                     tableHeaders={[
-                        <TableCell>#</TableCell>,
-                        <TableCell>Question ID</TableCell>,
-                        <TableCell>Question Title</TableCell>,
-                        <TableCell>Score Percentage</TableCell>,
-                        <TableCell>Submission Quota</TableCell>,
-                        " "]}
+                        "#",
+                        "Question",
+                        "Score Percentage",
+                        "Submission Quota",
+                        " "
+                    ]}
                     tableDataStyle={{height: "60px"}}
                     tableRowGenerator={{
                         list: questions,
                         key: question => `${question.questionOrder}-${question.problemId}`,
                         data: (question) => [
-                            <TableCell>{toCharacterIndex(questions.findIndex(_question => _question.questionOrder === question.questionOrder))}</TableCell>,
-                            <FakeLink>{question.problemId}</FakeLink>,
-                            <FakeLink>{question.problemTitle}</FakeLink>,
-                            <TableCell>{question.maxScore}</TableCell>,
-                            <TableCell>{question.quota}</TableCell>,
-                            <TableCell>
+                            <span>{toCharacterIndex(questions.findIndex(_question => _question.questionOrder === question.questionOrder))}</span>,
+                            <FakeLink>{`${question.problemId} ${question.problemTitle}`}</FakeLink>,
+                            <p>{question.maxScore}</p>,
+                            <p>{question.quota}</p>,
+                            <div>
                                 {rejudgingProblemId === question.problemId ?
                                     <span className="tag"
                                           style={{
@@ -143,16 +141,13 @@ const ExamQuestions = () => {
                                     question={question}
                                     onClose={() => setShowRejudgeQuestionModal(NOT_SET)}
                                     onConfirmRejudge={rejudgeQuestion}/>
-                            </TableCell>
+                            </div>
                         ]
                     }}
                     showFilterSearchBar={false}/>
                 <div className="add-question-btn"
                      onClick={() => setShowAddQuestionModal(true)}
-                     style={{
-                         alignSelf: "flex-end",
-                         position: "relative"
-                     }}>
+                     style={{alignSelf: "flex-end", position: "relative"}}>
                     <span>Add New Question</span>
                 </div>
                 <ExamDescription examId={examId}

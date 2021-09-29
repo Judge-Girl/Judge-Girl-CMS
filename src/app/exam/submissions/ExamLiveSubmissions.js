@@ -18,7 +18,7 @@ const ExamLiveSubmissions = function () {
     useEffect(() => {
         if (!exam) {
             examService.getExam(examId)
-                       .then(setExam);
+                .then(setExam);
         }
     }, [exam, examId, setExam]);
 
@@ -76,11 +76,11 @@ const ExamLiveSubmissions = function () {
     function renderStatus(verdict) {
         switch (verdict?.summaryStatus) {
             case 'AC':
-                return <span>{'(' + verdict.maximumRuntime}&nbsp;ms,&nbsp;{verdict?.maximumMemoryUsage}&nbsp;KB{')'}</span>
+                return <span>{`(${verdict?.maximumRuntime} ms, ${verdict?.maximumMemoryUsage} KB)`}</span>
             case 'WA':
             case 'TLE':
             case 'RE':
-                return <span>{'('}score:&nbsp;{verdict?.totalGrade + ')'}</span>
+                return <span>{`(score: ${verdict?.totalGrade})`}</span>
             case 'CE':
             case 'MLE':
             case 'OLE':

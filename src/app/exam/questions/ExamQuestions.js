@@ -17,7 +17,6 @@ const toCharacterIndex = i => {
     return String.fromCharCode(i + 65);
 };
 
-
 const ExamQuestions = () => {
     const NOT_SET = -1;
     const {examId} = useParams();
@@ -31,17 +30,19 @@ const ExamQuestions = () => {
     const [showDeleteQuestionModal, setShowDeleteQuestionModal] = useState(undefined);
 
     const fetchExam = useCallback(() => {
-        examService.getExamOverview(examId).then(exam => {
-            exam.questions.sort((questionA, questionB) => questionA.questionOrder - questionB.questionOrder);
-            setQuestions(exam.questions);
-        });
+        examService.getExamOverview(examId)
+            .then(exam => {
+                exam.questions.sort((questionA, questionB) => questionA.questionOrder - questionB.questionOrder);
+                setQuestions(exam.questions);
+            });
     }, [examId, setQuestions]);
 
     useEffect(() => {
-        if (!exam)
+        if (!exam) {
             examService.getExam(examId)
                 .then(setExam)
                 .then(fetchExam);
+        }
     }, [exam, examId, setExam, fetchExam]);
 
     const editQuestion = question => {
@@ -81,7 +82,7 @@ const ExamQuestions = () => {
             .then(res => {
                 console.log("Calling Rejudge API: and get result:", res);
                 setRejudgeProblemId(NOT_SET);
-            })
+            });
     };
 
     const addQuestion = question => {
@@ -91,8 +92,9 @@ const ExamQuestions = () => {
             .then(fetchExam);
     };
 
-    if (!exam || !questions)
+    if (!exam || !questions) {
         return <Spinner/>;
+    }
 
     return (
         <div className="exam-questions font-poppins">
@@ -111,40 +113,38 @@ const ExamQuestions = () => {
                     tableRowGenerator={{
                         list: questions,
                         key: question => `${question.questionOrder}-${question.problemId}`,
-                        data: (question) => {
-                            return [
-                                <TableCell>{toCharacterIndex(question.questionOrder)}</TableCell>,
-                                <FakeLink>{question.problemId}</FakeLink>,
-                                <FakeLink>{question.problemTitle}</FakeLink>,
-                                <TableCell>{question.maxScore}</TableCell>,
-                                <TableCell>{question.quota}</TableCell>,
-                                <TableCell>
-                                    {rejudgingProblemId === question.problemId ?
-                                        <span className="tag"
-                                              style={{
-                                                  backgroundColor: "#FFBB00",
-                                                  color: "white",
-                                                  width: "75px"
-                                              }}>
+                        data: (question) => [
+                            <TableCell>{toCharacterIndex(questions.findIndex(_question => _question.questionOrder === question.questionOrder))}</TableCell>,
+                            <FakeLink>{question.problemId}</FakeLink>,
+                            <FakeLink>{question.problemTitle}</FakeLink>,
+                            <TableCell>{question.maxScore}</TableCell>,
+                            <TableCell>{question.quota}</TableCell>,
+                            <TableCell>
+                                {rejudgingProblemId === question.problemId ?
+                                    <span className="tag"
+                                          style={{
+                                              backgroundColor: "#FFBB00",
+                                              color: "white",
+                                              width: "75px"
+                                          }}>
                                                     Rejudging
                                                     <span className="waitingForConnection">.</span>
                                                     <span className="waitingForConnection2">.</span>
                                                     <span className="waitingForConnection3">.</span>
                                                 </span>
-                                        :
-                                        <div className="text-center" style={{width: "75px"}}>
-                                            <ThreeDotsButton dropDownItems={dropDownItems(question)}/>
-                                        </div>
-                                    }
-                                    <RejudgeQuestionModal
-                                        show={showRejudgeQuestionModal === question.problemId}
-                                        title="Rejudge The Problem?"
-                                        question={question}
-                                        onClose={() => setShowRejudgeQuestionModal(NOT_SET)}
-                                        onConfirmRejudge={rejudgeQuestion}/>
-                                </TableCell>
-                            ]
-                        },
+                                    :
+                                    <div className="text-center" style={{width: "75px"}}>
+                                        <ThreeDotsButton dropDownItems={dropDownItems(question)}/>
+                                    </div>
+                                }
+                                <RejudgeQuestionModal
+                                    show={showRejudgeQuestionModal === question.problemId}
+                                    title="Rejudge The Problem?"
+                                    question={question}
+                                    onClose={() => setShowRejudgeQuestionModal(NOT_SET)}
+                                    onConfirmRejudge={rejudgeQuestion}/>
+                            </TableCell>
+                        ]
                     }}
                     showFilterSearchBar={false}/>
                 <div className="add-question-btn"

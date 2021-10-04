@@ -11,6 +11,24 @@
     text-align: center;
   }
 
+  .exam-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
+    .three-dot-button {
+      padding-left: 15px;
+      width: 75px;
+    }
+  }
+
+  .tag {
+    width: 75px;
+    color: #FFFFFF;
+    background: #FFC700;
+  }
+
   .add-question-btn {
     background-color: #58D68D;
     border-radius: 50px;
@@ -18,6 +36,8 @@
     margin: 1rem 0;
     padding: 5px 20px;
     cursor: pointer;
+    align-self: flex-end;
+    position: relative;
 
     span {
       color: #FFF;

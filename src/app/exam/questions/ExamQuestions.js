@@ -1,9 +1,8 @@
 import "./ExamQuestions.scss";
 import React, {useCallback, useEffect, useState} from "react";
-import {useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import {examService, submissionService} from "../../../services/services.js";
 import {ThreeDotsButton} from "../../commons/buttons/ThreeDotsButton.js";
-import FakeLink from "../../commons/FakeLink.js";
 import {ItemListPage} from "../../commons/ItemListPage/ItemListPage.js";
 import {AddQuestionModal} from "../modals/AddQuestionModal.js";
 import {EditQuestionModal} from "../modals/EditQuestionModal.js";
@@ -97,7 +96,7 @@ const ExamQuestions = () => {
 
     return (
         <div className="exam-questions font-poppins">
-            <div style={{display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "center"}}>
+            <div className="exam-content">
                 <ItemListPage
                     width="1200px"
                     title="Questions"
@@ -113,25 +112,22 @@ const ExamQuestions = () => {
                         list: questions,
                         key: question => `${question.questionOrder}-${question.problemId}`,
                         data: (question) => [
-                            <p>{toCharacterIndex(questions.findIndex(_question => _question.questionOrder === question.questionOrder))}</p>,
-                            <FakeLink>{`${question.problemId} ${question.problemTitle}`}</FakeLink>,
+                            <p>{toCharacterIndex(questions.findIndex(_question => _question.problemId === question.problemId))}</p>,
+                            <Link to={`../../problems/${question.problemId}/edit`}
+                                  style={{color: "#1273BA"}}>{`${question.problemId} ${question.problemTitle}`}
+                            </Link>,
                             <p className="text-center">{question.maxScore}</p>,
                             <p className="text-center">{question.quota}</p>,
                             <div>
                                 {rejudgingProblemId === question.problemId ?
-                                    <span className="tag"
-                                          style={{
-                                              backgroundColor: "#FFBB00",
-                                              color: "white",
-                                              width: "75px"
-                                          }}>
+                                    <span className="tag">
                                                     Rejudging
                                                     <span className="waitingForConnection">.</span>
                                                     <span className="waitingForConnection2">.</span>
                                                     <span className="waitingForConnection3">.</span>
                                                 </span>
                                     :
-                                    <div className="text-center" style={{width: "75px"}}>
+                                    <div className="three-dot-button">
                                         <ThreeDotsButton dropDownItems={dropDownItems(question)}/>
                                     </div>
                                 }
@@ -146,8 +142,7 @@ const ExamQuestions = () => {
                     }}
                     showFilterSearchBar={false}/>
                 <div className="add-question-btn"
-                     onClick={() => setShowAddQuestionModal(true)}
-                     style={{alignSelf: "flex-end", position: "relative"}}>
+                     onClick={() => setShowAddQuestionModal(true)}>
                     <span>Add New Question</span>
                 </div>
                 <ExamDescription examId={examId}

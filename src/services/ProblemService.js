@@ -87,4 +87,61 @@ export class ProblemService extends AbstractService {
     async upsertTestcase(testcase) {
         return this.axios.put(`/api/problems/${testcase.problemId}/testcases/${testcase.id}`, testcase);
     }
+
+    /**
+     * @param {TestcaseIOsPatch} patch
+     */
+    patchTestcaseIOs(patch) {
+        let formData = new FormData();
+        if (patch.deletedIns.length > 0) {
+            formData.append("testcaseIOs.inFiles.delete", patch.deletedIns.join(','));
+        }
+        if (patch.deletedOuts.length > 0) {
+            formData.append("testcaseIOs.outFiles.delete", patch.deletedOuts.join(','));
+        }
+        patch.inFiles.forEach(inFile => formData.append("testcaseIOs.inFiles", inFile));
+        patch.outFiles.forEach(outFile => formData.append("testcaseIOs.outFiles", outFile));
+
+        if (patch.stdInFile) {
+            formData.append("testcaseIOs.stdIn", patch.stdInFile);
+        }
+        if (patch.stdOutFile) {
+            formData.append("testcaseIOs.stdOut", patch.stdOutFile);
+        }
+
+        return this.axios.patch(`/api/problems/${patch.problemId}/testcases/${patch.testcaseId}/io`, formData, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+            },
+        }).then(res => res.data);
+    }
+}
+
+export class TestcaseIOsPatch {
+    /**
+     * @param {number} problemId
+     * @param {String} testcaseId
+     * @param {String[]} deletedIns
+     * @param {String[]} deletedOuts
+     * @param {File?} stdInFile
+     * @param {File?} stdOutFile
+     * @param {File[]} inFiles
+     * @param {File[]} outFiles
+     */
+    constructor({problemId, testcaseId, deletedIns = [], deletedOuts = [],
+                    stdInFile, stdOutFile, inFiles = [], outFiles = []}) {
+        this.problemId = problemId;
+        this.testcaseId = testcaseId;
+        this.deletedIns = deletedIns;
+        this.deletedOuts = deletedOuts;
+        this.stdInFile = stdInFile;
+        this.stdOutFile = stdOutFile;
+        this.inFiles = inFiles;
+        this.outFiles = outFiles;
+    }
+
+    isEmpty() {
+        return this.deletedIns.length === 0 && this.deletedOuts.length === 0
+        && !this.stdInFile && !this.stdOutFile && this.inFiles.length === 0 && this.outFiles.length === 0;
+    }
 }

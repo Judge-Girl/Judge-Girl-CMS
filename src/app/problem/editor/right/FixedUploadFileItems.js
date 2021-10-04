@@ -3,15 +3,21 @@ import "../../../commons/TextInputForm/FixedTextInputField.scss";
 import {VscFileCode} from "react-icons/all";
 import React from "react";
 
-function FixedUploadFileItems({files, removeFile, style}) {
-    return files.map((file) => (
-        <div className="fixed-text-input-field" style={style}>
+function FixedUploadFileItems({items, fileRemovable = true, removeItem, style}) {
+
+    return items.map((item) => (
+        <div key={item.key} className="fixed-text-input-field" style={style}>
             <VscFileCode size={22} style={{paddingRight: "5px"}}/>
-            <div className="text-item">{file.name}</div>
-            <div className="text-item-remove-button"
-                 onClick={() => removeFile(file)}>
-                <AiOutlineClose size={15}/>
-            </div>
+            <div className="text-item">{item.text}</div>
+            {
+                fileRemovable ?
+                    <div className="text-item-remove-button"
+                         onClick={() => removeItem(item)}>
+                        <AiOutlineClose size={15}/>
+                    </div>
+                    : ""
+            }
+
         </div>
     ));
 }

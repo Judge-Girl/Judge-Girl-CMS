@@ -1,20 +1,25 @@
 import {useState} from "react"
+import {removeIf} from "../../utils/array";
 
 
-const useUploads = () => {
-    const [files, setFiles] = useState([]);
+const useUploads = (initialFiles = []) => {
+    const [files, setFiles] = useState(initialFiles);
 
-    const addFile = e => {
-        // Cancel button makes event undefined.
-        if (!e.target.files[0]) return;
-        setFiles(files => [e.target.files[0], ...files]);
+    const addFiles = newFiles => {
+        setFiles(files => [...newFiles,
+            ...removeIf(files, // replace the old files that have duplicate filenames
+            file => newFiles.find(f => f.name === file.name))]);
     };
 
-    const removeFile = file => {
-        setFiles(files => files.filter(_file => _file.name !== file.name));
+    const removeFile = filename => {
+        setFiles(files => files.filter(f => f.name !== filename));
     };
 
-    return {files, setFiles, addFile, removeFile};
+    const reset = () => {
+        setFiles(initialFiles);
+    };
+
+    return {files, setFiles, addFiles, removeFile, reset};
 };
 
 export {useUploads};

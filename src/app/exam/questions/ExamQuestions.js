@@ -1,22 +1,19 @@
 import "./ExamQuestions.scss";
 import React, {useCallback, useEffect, useState} from "react";
-import {useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import {examService, submissionService} from "../../../services/services.js";
 import {ThreeDotsButton} from "../../commons/buttons/ThreeDotsButton.js";
-import FakeLink from "../../commons/FakeLink.js";
 import {ItemListPage} from "../../commons/ItemListPage/ItemListPage.js";
 import {AddQuestionModal} from "../modals/AddQuestionModal.js";
 import {EditQuestionModal} from "../modals/EditQuestionModal.js";
 import {RejudgeQuestionModal} from "../modals/RejudgeQuestionModal";
 import {Spinner} from "../../commons/Spinner";
-import {TableCell} from "../../../utils/TableCell";
 import {DeleteConfirmationModal} from "../../commons/modals/DeleteConfirmationModal";
 import ExamDescription from "./ExamDescription";
 
 const toCharacterIndex = i => {
     return String.fromCharCode(i + 65);
 };
-
 
 const ExamQuestions = () => {
     const NOT_SET = -1;
@@ -31,17 +28,19 @@ const ExamQuestions = () => {
     const [showDeleteQuestionModal, setShowDeleteQuestionModal] = useState(undefined);
 
     const fetchExam = useCallback(() => {
-        examService.getExamOverview(examId).then(exam => {
-            exam.questions.sort((questionA, questionB) => questionA.questionOrder - questionB.questionOrder);
-            setQuestions(exam.questions);
-        });
+        examService.getExamOverview(examId)
+            .then(exam => {
+                exam.questions.sort((questionA, questionB) => questionA.questionOrder - questionB.questionOrder);
+                setQuestions(exam.questions);
+            });
     }, [examId, setQuestions]);
 
     useEffect(() => {
-        if (!exam)
+        if (!exam) {
             examService.getExam(examId)
                 .then(setExam)
                 .then(fetchExam);
+        }
     }, [exam, examId, setExam, fetchExam]);
 
     const editQuestion = question => {
@@ -81,7 +80,7 @@ const ExamQuestions = () => {
             .then(res => {
                 console.log("Calling Rejudge API: and get result:", res);
                 setRejudgeProblemId(NOT_SET);
-            })
+            });
     };
 
     const addQuestion = question => {
@@ -91,68 +90,59 @@ const ExamQuestions = () => {
             .then(fetchExam);
     };
 
-    if (!exam || !questions)
+    if (!exam || !questions) {
         return <Spinner/>;
+    }
 
     return (
         <div className="exam-questions font-poppins">
-            <div style={{display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "center"}}>
+            <div className="exam-content">
                 <ItemListPage
                     width="1200px"
                     title="Questions"
                     tableHeaders={[
-                        <TableCell>#</TableCell>,
-                        <TableCell>Question ID</TableCell>,
-                        <TableCell>Question Title</TableCell>,
-                        <TableCell>Score Percentage</TableCell>,
-                        <TableCell>Submission Quota</TableCell>,
-                        " "]}
-                    tableDataStyle={{height: "60px"}}
+                        "#",
+                        "Question",
+                        <p className="text-center">Score Percentage</p>,
+                        <p className="text-center">Submission Quota</p>,
+                        " "
+                    ]}
+                    tableDataStyle={{height: "24px", padding: "5px 12px"}}
                     tableRowGenerator={{
                         list: questions,
                         key: question => `${question.questionOrder}-${question.problemId}`,
-                        data: (question) => {
-                            return [
-                                <TableCell>{toCharacterIndex(question.questionOrder)}</TableCell>,
-                                <FakeLink>{question.problemId}</FakeLink>,
-                                <FakeLink>{question.problemTitle}</FakeLink>,
-                                <TableCell>{question.maxScore}</TableCell>,
-                                <TableCell>{question.quota}</TableCell>,
-                                <TableCell>
-                                    {rejudgingProblemId === question.problemId ?
-                                        <span className="tag"
-                                              style={{
-                                                  backgroundColor: "#FFBB00",
-                                                  color: "white",
-                                                  width: "75px"
-                                              }}>
+                        data: (question) => [
+                            <p>{toCharacterIndex(questions.findIndex(_question => _question.problemId === question.problemId))}</p>,
+                            <Link to={`../../problems/${question.problemId}/edit`}
+                                  style={{color: "#1273BA"}}>{`${question.problemId} ${question.problemTitle}`}
+                            </Link>,
+                            <p className="text-center">{question.maxScore}</p>,
+                            <p className="text-center">{question.quota}</p>,
+                            <div>
+                                {rejudgingProblemId === question.problemId ?
+                                    <span className="tag">
                                                     Rejudging
                                                     <span className="waitingForConnection">.</span>
                                                     <span className="waitingForConnection2">.</span>
                                                     <span className="waitingForConnection3">.</span>
                                                 </span>
-                                        :
-                                        <div className="text-center" style={{width: "75px"}}>
-                                            <ThreeDotsButton dropDownItems={dropDownItems(question)}/>
-                                        </div>
-                                    }
-                                    <RejudgeQuestionModal
-                                        show={showRejudgeQuestionModal === question.problemId}
-                                        title="Rejudge The Problem?"
-                                        question={question}
-                                        onClose={() => setShowRejudgeQuestionModal(NOT_SET)}
-                                        onConfirmRejudge={rejudgeQuestion}/>
-                                </TableCell>
-                            ]
-                        },
+                                    :
+                                    <div className="three-dot-button">
+                                        <ThreeDotsButton dropDownItems={dropDownItems(question)}/>
+                                    </div>
+                                }
+                                <RejudgeQuestionModal
+                                    show={showRejudgeQuestionModal === question.problemId}
+                                    title="Rejudge The Problem?"
+                                    question={question}
+                                    onClose={() => setShowRejudgeQuestionModal(NOT_SET)}
+                                    onConfirmRejudge={rejudgeQuestion}/>
+                            </div>
+                        ]
                     }}
                     showFilterSearchBar={false}/>
                 <div className="add-question-btn"
-                     onClick={() => setShowAddQuestionModal(true)}
-                     style={{
-                         alignSelf: "flex-end",
-                         position: "relative"
-                     }}>
+                     onClick={() => setShowAddQuestionModal(true)}>
                     <span>Add New Question</span>
                 </div>
                 <ExamDescription examId={examId}

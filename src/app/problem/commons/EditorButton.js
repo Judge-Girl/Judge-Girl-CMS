@@ -1,6 +1,8 @@
+import DotLoader from "react-spinners/DotLoader";
 
 /* TODO: Should be refactored for cleanness. */
 const EditorButton = ({
+    loading = false,
     text,
     fontSize, fontColor,
     height = 46, width = "fit-content",
@@ -34,7 +36,8 @@ const EditorButton = ({
     } else {
         return <>
             <button className="button" type={type} onClick={onClick} style={style}>
-                {text}
+                <span>{text}</span>
+                <DotLoader color={"white"} loading={loading} css={{marginLeft: '10px'}} size={10} />
             </button>
         </>;
     }

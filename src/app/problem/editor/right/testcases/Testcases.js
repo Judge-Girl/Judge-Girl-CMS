@@ -1,16 +1,16 @@
 import React, {useEffect, useState} from "react";
 import Block from "../Block";
-import {useTestcaseList} from './usecase';
+import {useTestcaseEditList} from './usecase';
 import {EditorButton} from "../../../commons/EditorButton";
 import TestcaseEditor from "./TestcaseEditor";
-import {problemService} from "../../../../../services/services";
 import {useParams} from "react-router-dom";
-import Testcase from "../../../../../models/Testcase";
+import {problemService} from "../../../../../services/services";
+
 
 const Testcases = () => {
     const {problemId} = useParams();
     const [problem, setProblem] = useState(undefined);
-    const {testcases, initializeTestcases, addNewTestcase, deleteTestcase, updateTestcase} = useTestcaseList(problem);
+    const {testcaseEdits, initializeTestcases, addNewTestcase, deleteTestcase} = useTestcaseEditList(problem);
 
     useEffect(() => {
         if (!problem) {
@@ -21,21 +21,6 @@ const Testcases = () => {
                 });
         }
     });
-
-    const saveTestcase = testcase => {
-        problemService.upsertTestcase(new Testcase(testcase))
-            .then(() => {
-                console.log("Testcase upserted.");
-            });
-    };
-
-    const patchTestcaseIOs = testcaseIOsPatch => {
-        problemService.patchTestcaseIOs(testcaseIOsPatch)
-            .then((patchedTestcase) => {
-                updateTestcase(testcaseIOsPatch.testcaseId, () => patchedTestcase);
-                console.log("Testcase IOs patched");
-            });
-    };
 
     return <>
         <Block title="Test Cases"
@@ -51,15 +36,10 @@ const Testcases = () => {
                                  onClick={addNewTestcase}/>
                }>
             <div className="testcases">
-                {testcases.map((testcase) =>
-                    // The key of TestcaseEditor must be 'testcase.id + testcase.ioFileId'
-                    // because whenever the testcase is patched, its ioFileId will be changed,
-                    // then React will re-initialize the TestcaseEditor with the patched testcase's content
-                    <TestcaseEditor key={testcase.id + testcase.ioFileId}
-                                    editing={testcase.editing}
-                                    initialTestcase={testcase}
-                                    onTestcaseSaved={saveTestcase}
-                                    onTestcaseIOsPatched={patchTestcaseIOs}
+                {testcaseEdits.map((testcaseEdit) =>
+                    <TestcaseEditor key={testcaseEdit.id}
+                                    problemService={problemService}
+                                    initialTestcaseEdit={testcaseEdit}
                                     onTestcaseDeleted={deleteTestcase}/>)
                 }
             </div>

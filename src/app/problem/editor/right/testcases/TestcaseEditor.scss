@@ -6,7 +6,6 @@ $blue-color: #1273BA;
   min-width: 300px;
   display: flex;
   flex-direction: column;
-  border-color: #58D68D;
   border-style: solid;
   border-width: 1px;
   box-sizing: border-box;
@@ -14,6 +13,20 @@ $blue-color: #1273BA;
   padding: 30px;
   margin-top: 10px;
   font-weight: 500;
+
+  &.can-save {
+    border-color: #58D68D;
+  }
+
+  &.cannot-save {
+    border-color: #FB5D53;
+  }
+
+  .name-error-message {
+    color: red;
+    font-size: 13px;
+  }
+
 
   hr {
     height: 1px;
@@ -139,3 +152,4 @@ $blue-color: #1273BA;
 .testcase-view {
   border: 1px solid #E4E1E1;
 }
+

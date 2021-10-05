@@ -2,65 +2,141 @@ import {useRef, useState} from "react";
 import {useUploads} from "../../../../usecases/UploadFilesUseCase";
 import {TestcaseIOsPatch} from "../../../../../services/ProblemService";
 
-const useTestcaseList = (problem) => {
-    const [testcases, setTestcases] = useState([]);
+let currentTestcaseEdits = [];
+
+const useTestcaseEditList = (problem) => {
+    const [testcaseEdits, setTestcaseEdits] = useState([]);
 
     const addNewTestcase = () => {
-        const nextId = testcases ? Math.max(...testcases.map(t => t.id)) + 1 : 0;
-        setTestcases([...testcases,
-            {
+        const nextId = testcaseEdits.length === 0 ? 0 : Math.max(...testcaseEdits.map(t => t.id)) + 1;
+        setTestcaseEdits([...testcaseEdits,
+            new TestcaseEdit({
                 id: nextId,
                 name: nextId,
-                timeLimit: 0,
-                memoryLimit: 0,
-                outputLimit: 0,
-                threadNumberLimit: -1,
+                timeLimit: 1,
+                memoryLimit: 1,
+                outputLimit: 1,
+                threadNumberLimit: -1,  // currently doesn't support threadNumberLimit's modification
                 grade: 0,
                 problemId: problem.id,
 
-                // the manipulation state of a testcase
-                saved: false, // new testcase --> not saved yet
-                editing: true // new testcase --> is under editing
-            }]);
+                editing: true // new testcase --> editing it immediately
+            })]);
     };
 
     const deleteTestcase = testcase => {
-        setTestcases(testcasesList => testcasesList.filter(tc => tc.id !== testcase.id));
+        setTestcaseEdits(testcasesList => testcasesList.filter(tc => tc.id !== testcase.id));
     };
 
     const initializeTestcases = testcases => {
-        for (const testcase of testcases) {
-            testcase.saved = true; // old testcases --> should have been saved
-        }
-        setTestcases(testcases);
+        currentTestcaseEdits = testcases.map(testcase =>
+            new TestcaseEdit({
+                ...testcase,
+                saved: true // old testcases --> should have been saved
+            }));
+        setTestcaseEdits(currentTestcaseEdits);
     };
 
-    const updateTestcase = (testcaseId, update) => {
-        const newTestcases = [...testcases];
-        for (let i = 0; i < newTestcases.length; i++) {
-            if (newTestcases[i].id === testcaseId) {
-                newTestcases[i] = update(newTestcases[i]);
-                newTestcases[i].saved = true; // testcase updated --> should have been saved
-                break;
-            }
-        }
-        setTestcases(newTestcases);
-    };
-
-    return {testcases, initializeTestcases, addNewTestcase, updateTestcase, deleteTestcase};
+    return {testcaseEdits, initializeTestcases, addNewTestcase, deleteTestcase};
 };
+
+class TestcaseEdit {
+    constructor({
+                    id, problemId, name, timeLimit, memoryLimit, outputLimit,
+                    threadNumberLimit, grade,
+                    ioFileId, stdIn, stdOut, inputFiles, outputFiles,
+
+                    // the manipulation of editing properties
+                    saved = false, editing = false, edited = false, errorMessage, backup
+                }) {
+
+        this.id = id;
+        this.problemId = problemId;
+        if (name.length === 0) {
+            this.nameErrorMessage = "The name must not be empty."
+        }
+        if (currentTestcaseEdits.filter(t => t.id !== this.id).find(t => t.name === name)) {
+            this.nameErrorMessage = "Testcase's name should not be duplicate.";
+        }
+        this.name = name;
+        this.timeLimit = this._filterNumber(timeLimit, 1, 2000000000);
+        this.memoryLimit = this._filterNumber(memoryLimit, 1, 2000000000);
+        this.outputLimit = this._filterNumber(outputLimit, 1, 2000000000);
+        this.threadNumberLimit = -1; // currently doesn't support threadNumberLimit's modification
+        this.grade = this._filterNumber(grade, 0, 2000000000);
+        this.ioFileId = ioFileId;
+        this.stdIn = stdIn;
+        this.stdOut = stdOut;
+        this.inputFiles = inputFiles;
+        this.outputFiles = outputFiles;
+
+        this.saved = saved;
+        this.editing = editing;
+        this.edited = edited;
+        this.errorMessage = errorMessage;
+
+        this.backup = backup;
+    }
+
+    _filterNumber(number, min, max) {
+        if (isNaN(number) || number < min) {
+            return min;
+        }
+        if (number > max) {
+            return max;
+        }
+        return number;
+    }
+
+    startEditing() {
+        return this._newTestcaseEdit({...this, edited: false, editing: true, backup: this});
+    }
+
+    error(errorMessage) {
+        return this._newTestcaseEdit({...this, errorMessage})
+    }
+
+    edit(edition) {
+        return this._newTestcaseEdit({...this, ...edition, edited: true});
+    }
+
+    cancelEditing() {
+        if (!this.editing) {
+            throw new Error("You can only cancel the editing during the editing state.");
+        }
+        return this._newTestcaseEdit(this.backup);
+    }
+
+    save() {
+        return this._newTestcaseEdit({...this, saved: true, editing: false});
+    }
+
+    hasError() {
+        return this.nameErrorMessage;
+    }
+
+    delete() {
+        currentTestcaseEdits = currentTestcaseEdits.filter(t => t.id !== this.id);
+    }
+
+    _newTestcaseEdit(editObj) {
+        const index = currentTestcaseEdits.findIndex(t => t.id === this.id);
+        currentTestcaseEdits[index] = new TestcaseEdit(editObj);
+        return currentTestcaseEdits[index];
+    }
+}
 
 /**
  * Record the 'add file' and 'delete file' actions and finally create a TestcaseIosPatch that summarizes these actions.
  */
 const useTestcaseIosPatch = (initialTestcase) => {
-    const {files: inputFiles, addFiles: _addInputFiles, removeFile: _removeInputFile, reset: _resetInputFiles} =
+    const {files: inputFiles, addFiles: _addInputFiles, removeFile: _removeInputFile} =
         useUploads(initialTestcase.inputFiles ? initialTestcase.inputFiles.map(name => new FakeFile(name)) : []);
-    const {files: outputFiles, addFiles: _addOutputFiles, removeFile: _removeOutputFile, reset: _resetOutputFiles} =
+    const {files: outputFiles, addFiles: _addOutputFiles, removeFile: _removeOutputFile} =
         useUploads(initialTestcase.outputFiles ? initialTestcase.outputFiles.map(name => new FakeFile(name)) : []);
-    const {files: stdIns, setFiles: _setStandardInFiles, reset: _resetStandardInFiles} =
+    const {files: stdIns, setFiles: _setStandardInFiles} =
         useUploads(initialTestcase.stdIn ? [new FakeFile(initialTestcase.stdIn)] : []);
-    const {files: stdOuts, setFiles: _setStandardOutFiles, reset: _resetStandardOutFiles} =
+    const {files: stdOuts, setFiles: _setStandardOutFiles} =
         useUploads(initialTestcase.stdOut ? [new FakeFile(initialTestcase.stdOut)] : []);
     const inFilesMap = useRef({});
     const outFilesMap = useRef({});
@@ -106,6 +182,7 @@ const useTestcaseIosPatch = (initialTestcase) => {
         _setStandardOutFiles([stdOut]);
     };
 
+
     const createTestcaseIOsPatch = () => {
         return new TestcaseIOsPatch({
             problemId: initialTestcase.problemId,
@@ -120,10 +197,12 @@ const useTestcaseIosPatch = (initialTestcase) => {
     };
 
     const reset = () => {
-        _resetInputFiles();
-        _resetOutputFiles();
-        _resetStandardInFiles();
-        _resetStandardOutFiles();
+        inFilesMap.current = {};
+        outFilesMap.current = {};
+        stdInFile.current = undefined;
+        stdOutFile.current = undefined;
+        deletedInFileNames.current = new Set();
+        deletedOutFileNames.current = new Set();
     };
 
     return {
@@ -133,7 +212,7 @@ const useTestcaseIosPatch = (initialTestcase) => {
     }
 };
 
-export {useTestcaseList, useTestcaseIosPatch};
+export {useTestcaseEditList, useTestcaseIosPatch};
 
 class FakeFile {
     constructor(name) {

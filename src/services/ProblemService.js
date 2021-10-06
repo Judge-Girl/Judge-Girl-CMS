@@ -81,11 +81,17 @@ export class ProblemService extends AbstractService {
     }
 
     async restoreProblem(problemId) {
-        return this.axios.patch(`/api/problems/${problemId}/restore`);
+        return this.axios.patch(`/api/problems/${problemId}/restore`)
+            .catch(e => {
+                throw new Error(e.response.data)
+            });  // TODO: maybe axios supports response filtering?
     }
 
-    async upsertTestcase(testcase) {
-        return this.axios.put(`/api/problems/${testcase.problemId}/testcases/${testcase.id}`, testcase);
+    async saveTestcase(testcase) {
+        return this.axios.put(`/api/problems/${testcase.problemId}/testcases/${testcase.id}`, testcase)
+            .catch(e => {
+                throw new Error(e.response.data)
+            });
     }
 
     /**

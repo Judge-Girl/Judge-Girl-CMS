@@ -5,6 +5,8 @@ import {FaCircle, FiUpload, VscFileCode} from "react-icons/all";
 import {EditSaveCancelButton} from "../../../commons/EditSaveCancelButton";
 import IconTextItems from "../../../../commons/TextInputForm/IconTextItems";
 import {useTestcaseIosPatch} from "./usecase";
+import Testcase from "../../../../../models/Testcase";
+
 
 const TestCaseName = ({name, isEditing, onChange}) => {
     return (
@@ -77,105 +79,132 @@ const UploadFileItems = ({buttonName, buttonColor, files, onFilesUploaded, remov
     )
 };
 
-function TestcaseEditor({initialTestcase, onTestcaseSaved, onTestcaseIOsPatched, onTestcaseDeleted}) {
-    const [testcaseEdited, setEdited] = useState(false);
-    const [beforeSaveTestcase, setBeforeSaveTestcase] = useState(initialTestcase);
-    const [testcase, setTestcase] = useState(initialTestcase);
+function TestcaseEditor({
+                            problemService, initialTestcaseEdit,
+                            onTestcaseDeleted
+                        }) {
+    const [loading, setLoading] = useState(false);
+    const [testcaseEdit, setTestcaseEdit] = useState(initialTestcaseEdit);
     const {
         createTestcaseIOsPatch, inputFiles, addInputFiles, removeInputFile,
         outputFiles, addOutputFiles, removeOutputFile,
-        stdIns, setStandardInFile, stdOuts, setStandardOutFile, reset: resetTestcaseIOs
-    } = useTestcaseIosPatch(initialTestcase);
-
+        stdIns, setStandardInFile, stdOuts, setStandardOutFile, reset: resetTestcaseIOsPatching
+    } = useTestcaseIosPatch(initialTestcaseEdit);
 
     const onClickEdit = () => {
-        setEdited(false); // reset the 'edited' state
-        setTestcase({...testcase, editing: true});
+        setTestcaseEdit(testcaseEdit.startEditing());
     };
 
     const onClickSave = () => {
-        const testcaseIosPatch = createTestcaseIOsPatch();
+        const testcaseIOsPatch = createTestcaseIOsPatch();
 
-        // if the testcase is not edited during the editing state,
-        // then we don't have to trigger the "onTestcaseSaved" event.
-        const shouldSave = testcaseEdited || !testcaseIosPatch.isEmpty()
-             // for the new testcase, should save it on the first edition
-            || !testcase.saved;
+        // save the testcase or its IOs only if it is actually edited
+        const shouldSave = testcaseEdit.edited || !testcaseIOsPatch.isEmpty()
+            // for the new testcaseEdit, must save it on the first edition
+            || !testcaseEdit.saved;
 
         if (shouldSave) {
-            const savedTestcase = {...testcase, saved: true, editing: false};
-            setTestcase(savedTestcase);
-            if (testcaseEdited) {
-                setBeforeSaveTestcase(savedTestcase);
-                onTestcaseSaved(testcase);
+            setLoading(true);
+            if (testcaseEdit.edited || !testcaseEdit.saved) {
+                saveTestcase(new Testcase(testcaseEdit));
             }
-            if (!testcaseIosPatch.isEmpty()) {
-                resetTestcaseIOs();
-                onTestcaseIOsPatched(testcaseIosPatch);
+            if (!testcaseIOsPatch.isEmpty()) {
+                patchTestcaseIOs(testcaseIOsPatch);
             }
         } else {
-            setTestcase({...testcase, editing: false});
+            setTestcaseEdit(testcaseEdit.cancelEditing());
         }
     };
 
     const onClickCancel = () => {
-        // restore to the before-save one
-        setTestcase({...beforeSaveTestcase, editing: false});
-        resetTestcaseIOs();
-        if (!testcase.saved) {
-            // for the new testcase, should delete it on cancellation.
-            onTestcaseDeleted(testcase);
+        resetTestcaseIOsPatching();
+        if (testcaseEdit.saved) {
+            setTestcaseEdit(testcaseEdit.cancelEditing());
+        } else {
+            // TODO, pop-up a dialog to confirm the deletion
+            // for the new testcaseEdit, should delete it on cancellation.
+            onTestcaseDeleted(testcaseEdit);
         }
     };
 
-    const onChange = (newTestcase) => {
-        setEdited(true);
-        setTestcase(newTestcase);
+    const onTestcaseEdit = (edition) => {
+        setTestcaseEdit(testcaseEdit.edit(edition));
+    };
+
+    const saveTestcase = (testcase) => {
+        problemService.saveTestcase(testcase)
+            .then(() => {
+                setTestcaseEdit(testcaseEdit.save());
+            })
+            .catch(error => {
+                alert(error.message);
+                setTestcaseEdit(testcaseEdit.error(error.message));
+            }).finally(() => setLoading(false));
+    };
+
+    const patchTestcaseIOs = (testcaseIOsPatch) => {
+        problemService.patchTestcaseIOs(testcaseIOsPatch)
+            .then((patchedTestcase) => {
+                Object.assign(testcaseEdit, patchedTestcase);
+                setTestcaseEdit(testcaseEdit.save());
+                resetTestcaseIOsPatching();
+            })
+            .catch(error => {
+                alert(error.message);
+                setTestcaseEdit(testcaseEdit.error(error.message));
+            }).finally(() => setLoading(false));
     };
 
     return (
-        <div key={testcase.id} className={`testcase-editor ${testcase.editing ? "" : "testcase-view"}`}>
+        <div key={testcaseEdit.id} className={`testcase-editor 
+        ${testcaseEdit.hasError() ? "cannot-save" : 
+            testcaseEdit.editing ? "can-save" : "testcase-view"}`}>
             <div className="testcase-name-row">
-                <TestCaseName name={testcase.name} isEditing={testcase.editing}
-                              onChange={(name) => onChange({...testcase, name})}
-                />
-
+                <TestCaseName name={testcaseEdit.name} isEditing={testcaseEdit.editing}
+                              onChange={(name) => onTestcaseEdit({name})} />
                 <div style={{justifyContent: "flex-end", display: "flex"}}>
                     <EditSaveCancelButton
-                        isEditing={testcase.editing}
+                        isEditing={testcaseEdit.editing}
+                        loading={loading}
+                        disableSave={testcaseEdit.hasError()}
                         onClickEdit={onClickEdit}
                         onClickSave={onClickSave}
                         onClickCancel={onClickCancel}/>
 
-                    {testcase.editing ? "" :
+                    {testcaseEdit.editing ? "" :
                         <button className="button delete-button"
-                                onClick={() => onTestcaseDeleted(testcase)}>Delete</button>}
+                                onClick={() => onTestcaseDeleted(testcaseEdit)}>Delete</button>}
                 </div>
             </div>
+            {
+                testcaseEdit.nameErrorMessage ?
+                    <p className='name-error-message'>{`* ${testcaseEdit.nameErrorMessage}`}</p> : ""
+            }
+
             <div className="testcase-box-in columns testcase-details">
                 <div className="column is-desktop subColumn">
                     <TestCaseSubtitle title="Limits"/>
                     <BulletText title="Time Limit (ms)"
                                 type="number"
-                                value={testcase.timeLimit}
-                                onChange={(timeLimit) => onChange({...testcase, timeLimit})}
-                                isEditing={testcase.editing}/>
+                                value={testcaseEdit.timeLimit}
+                                onChange={(timeLimit) => onTestcaseEdit({timeLimit})}
+                                isEditing={testcaseEdit.editing}/>
                     <BulletText title="Memory Limit (B)"
                                 type="number"
-                                value={testcase.memoryLimit}
-                                onChange={(memoryLimit) => onChange({...testcase, memoryLimit})}
-                                isEditing={testcase.editing}/>
+                                value={testcaseEdit.memoryLimit}
+                                onChange={(memoryLimit) => onTestcaseEdit({memoryLimit})}
+                                isEditing={testcaseEdit.editing}/>
                     <BulletText title="Output Limit (B)"
                                 type="number"
-                                value={testcase.outputLimit}
-                                onChange={(outputLimit) => onChange({...testcase, outputLimit})}
-                                isEditing={testcase.editing}/>
+                                value={testcaseEdit.outputLimit}
+                                onChange={(outputLimit) => onTestcaseEdit({outputLimit})}
+                                isEditing={testcaseEdit.editing}/>
                     <TestCaseSubtitle title="Grade"/>
                     <BulletText title="Grade"
                                 type="number"
-                                value={testcase.grade}
-                                onChange={(grade) => onChange({...testcase, grade})}
-                                isEditing={testcase.editing}/>
+                                value={testcaseEdit.grade}
+                                onChange={(grade) => onTestcaseEdit({grade})}
+                                isEditing={testcaseEdit.editing}/>
                 </div>
 
                 <div className="column is-desktop subColumn">
@@ -185,14 +214,14 @@ function TestcaseEditor({initialTestcase, onTestcaseSaved, onTestcaseIOsPatched,
                                      fileRemovable={false}
                                      onFilesUploaded={e => setStandardInFile(e.target.files[0])}
                                      multipleFiles={false}
-                                     isEditing={testcase.editing}/>
+                                     isEditing={testcaseEdit.editing}/>
                     <TestCaseSubtitle title="Standard Out"/>
                     <UploadFileItems buttonName="Standard Out " buttonColor="rgba(241, 196, 15, 1)"
                                      files={stdOuts}
                                      fileRemovable={false}
                                      onFilesUploaded={e => setStandardOutFile(e.target.files[0])}
                                      multipleFiles={false}
-                                     isEditing={testcase.editing}/>
+                                     isEditing={testcaseEdit.editing}/>
                 </div>
 
                 <div className="column is-desktop subColumn">
@@ -202,14 +231,14 @@ function TestcaseEditor({initialTestcase, onTestcaseSaved, onTestcaseIOsPatched,
                                      onFilesUploaded={e => addInputFiles(Array.from(e.target.files))}
                                      removeFile={removeInputFile}
                                      multipleFiles={true}
-                                     isEditing={testcase.editing}/>
+                                     isEditing={testcaseEdit.editing}/>
                     <TestCaseSubtitle title="Output Files"/>
                     <UploadFileItems buttonName="Output File " buttonColor="rgba(255, 133, 21, 1)"
                                      files={outputFiles}
                                      onFilesUploaded={e => addOutputFiles(Array.from(e.target.files))}
                                      removeFile={removeOutputFile}
                                      multipleFiles={true}
-                                     isEditing={testcase.editing}/>
+                                     isEditing={testcaseEdit.editing}/>
                 </div>
             </div>
         </div>)

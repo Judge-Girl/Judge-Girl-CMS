@@ -105,7 +105,7 @@ function TestcaseEditor({
 
         if (shouldSave) {
             setLoading(true);
-            if (testcaseEdit.edited) {
+            if (testcaseEdit.edited || !testcaseEdit.saved) {
                 saveTestcase(new Testcase(testcaseEdit));
             }
             if (!testcaseIOsPatch.isEmpty()) {
@@ -134,44 +134,39 @@ function TestcaseEditor({
     const saveTestcase = (testcase) => {
         problemService.saveTestcase(testcase)
             .then(() => {
-                setLoading(false);
                 setTestcaseEdit(testcaseEdit.save());
             })
             .catch(error => {
-                setLoading(false);
                 alert(error.message);
                 setTestcaseEdit(testcaseEdit.error(error.message));
-            });
+            }).finally(() => setLoading(false));
     };
 
     const patchTestcaseIOs = (testcaseIOsPatch) => {
         problemService.patchTestcaseIOs(testcaseIOsPatch)
             .then((patchedTestcase) => {
-                setLoading(false);
                 Object.assign(testcaseEdit, patchedTestcase);
                 setTestcaseEdit(testcaseEdit.save());
                 resetTestcaseIOsPatching();
             })
             .catch(error => {
-                setLoading(false);
                 alert(error.message);
                 setTestcaseEdit(testcaseEdit.error(error.message));
-            });
+            }).finally(() => setLoading(false));
     };
 
     return (
         <div key={testcaseEdit.id} className={`testcase-editor 
-        ${testcaseEdit.editing ? "" : "testcaseEdit-view"} 
-        ${testcaseEdit.hasError() ? "cannot-save" : "can-save"}`}>
+        ${testcaseEdit.hasError() ? "cannot-save" : 
+            testcaseEdit.editing ? "can-save" : "testcase-view"}`}>
             <div className="testcase-name-row">
                 <TestCaseName name={testcaseEdit.name} isEditing={testcaseEdit.editing}
-                              onChange={(name) => onTestcaseEdit({name})}
-                />
-
+                              onChange={(name) => onTestcaseEdit({name})} />
                 <div style={{justifyContent: "flex-end", display: "flex"}}>
                     <EditSaveCancelButton
                         isEditing={testcaseEdit.editing}
                         loading={loading}
+                        disableSave={testcaseEdit.hasError()}
                         onClickEdit={onClickEdit}
                         onClickSave={onClickSave}
                         onClickCancel={onClickCancel}/>

@@ -1,7 +1,7 @@
 import {EditorButton} from "./EditorButton";
 
 
-export const EditSaveCancelButton = ({isEditing, loading, onClickEdit, onClickSave, onClickCancel}) => {
+export const EditSaveCancelButton = ({isEditing, disableSave=false, loading=false, onClickEdit, onClickSave, onClickCancel}) => {
     return <>
         <div style={{display: "flex", flexDirection: "row"}}>
         {!isEditing?
@@ -21,6 +21,7 @@ export const EditSaveCancelButton = ({isEditing, loading, onClickEdit, onClickSa
                               height="36px"
                               borderRadius="50px"
                               loading={loading}
+                              disable={disableSave}
                               onClick={onClickSave}/>
                 <EditorButton text="Cancel"
                               fontColor="rgba(124,124,124,1)"

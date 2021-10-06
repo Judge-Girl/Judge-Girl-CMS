@@ -8,11 +8,11 @@ const useTestcaseEditList = (problem) => {
     const [testcaseEdits, setTestcaseEdits] = useState([]);
 
     const addNewTestcase = () => {
-        const nextId = testcaseEdits.length === 0 ? 0 : Math.max(...testcaseEdits.map(t => t.id)) + 1;
+        const nextId = testcaseEdits.length === 0 ? 0 : (Math.max(...testcaseEdits.map(t => t.id)) + 1);
         setTestcaseEdits([...testcaseEdits,
             new TestcaseEdit({
-                id: nextId,
-                name: nextId,
+                id: nextId.toString(),
+                name: nextId.toString(),
                 timeLimit: 1,
                 memoryLimit: 1,
                 outputLimit: 1,
@@ -53,7 +53,7 @@ class TestcaseEdit {
         this.id = id;
         this.problemId = problemId;
         if (name.length === 0) {
-            this.nameErrorMessage = "The name must not be empty."
+            this.nameErrorMessage = "The name must not be empty.";
         }
         if (currentTestcaseEdits.filter(t => t.id !== this.id).find(t => t.name === name)) {
             this.nameErrorMessage = "Testcase's name should not be duplicate.";
@@ -93,7 +93,7 @@ class TestcaseEdit {
     }
 
     error(errorMessage) {
-        return this._newTestcaseEdit({...this, errorMessage})
+        return this._newTestcaseEdit({...this, errorMessage});
     }
 
     edit(edition) {
@@ -121,8 +121,13 @@ class TestcaseEdit {
 
     _newTestcaseEdit(editObj) {
         const index = currentTestcaseEdits.findIndex(t => t.id === this.id);
-        currentTestcaseEdits[index] = new TestcaseEdit(editObj);
-        return currentTestcaseEdits[index];
+        const testcaseEdit = new TestcaseEdit(editObj);
+        if (index === -1) {
+            currentTestcaseEdits.push(testcaseEdit);
+        } else {
+            currentTestcaseEdits[index] = new TestcaseEdit(editObj);
+        }
+        return testcaseEdit;
     }
 }
 

@@ -22,6 +22,11 @@ $blue-color: #1273BA;
     border-color: #FB5D53;
   }
 
+  &.testcase-view {
+    border: 1px solid #E4E1E1;
+  }
+
+
   .name-error-message {
     color: red;
     font-size: 13px;
@@ -147,9 +152,5 @@ $blue-color: #1273BA;
     border-radius: 50px
   }
 
-}
-
-.testcase-view {
-  border: 1px solid #E4E1E1;
 }
 

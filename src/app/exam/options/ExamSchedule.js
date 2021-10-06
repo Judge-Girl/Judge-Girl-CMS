@@ -1,6 +1,7 @@
 import {SubtitleLine} from "../../commons/titles/TitleLine";
 import React, {createRef, forwardRef, useImperativeHandle} from "react";
 import ScheduleItem from "../../commons/ScheduleItem";
+import moment from "moment";
 
 const ExamSchedule = ({ scheduleRef, startTime, endTime, setStartTime, setEndTime }) => {
     const startTimeInputRef = createRef();
@@ -18,7 +19,7 @@ const ExamSchedule = ({ scheduleRef, startTime, endTime, setStartTime, setEndTim
     }));
 
     const validateTimes = (startTime, endTime) => {
-        if (startTime >= endTime) {
+        if (moment(endTime).isBefore(startTime) || moment(endTime).isSame(startTime)) {
             endTimeInputRef.current.setCustomValidity("The exam's end time must come after the start time.");
             endTimeInputRef.current.reportValidity();
             return false;

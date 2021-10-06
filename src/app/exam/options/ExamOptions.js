@@ -10,7 +10,8 @@ import {formatDate} from "../../../utils/utils";
 import {useExamContext} from "../questions/ExamContext";
 import {Spinner} from "../../commons/Spinner";
 import {DangerZone} from "../../commons/dangerZone/DangerZone";
-import {DeleteConfirmationModal} from "../../commons/modals/ConfirmationModal";
+import {DeleteConfirmationModal} from "../../commons/modals/DeleteConfirmationModal";
+import moment from "moment";
 
 
 const ExamOptions = () => {
@@ -39,12 +40,12 @@ const ExamOptions = () => {
     const onButtonUpdateChangeClick = () => {
         if (examScheduleRef.current?.validateTimes(startTime, endTime)) {
             examService.updateExam(examId, {
-                    examId,
-                    name: examName,
-                    startTime,
-                    endTime,
-                    description: exam.description
-                })
+                examId,
+                name: examName,
+                startTime: moment(startTime).valueOf(),
+                endTime: moment(endTime).valueOf(),
+                description: exam.description
+            })
                 .then(updateExams);
         }
     };

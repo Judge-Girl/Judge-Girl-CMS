@@ -8,6 +8,7 @@ import {ModalInput} from "../../commons/modals/ModalInput";
 import ScheduleItem from "../../commons/ScheduleItem";
 import {SECS_ONE_HOUR} from "../../../utils/times";
 import "./CreateExamModel.css";
+import moment from "moment";
 
 
 const CreateExamModal = ({show, onClose, onExamCreated}) => {
@@ -21,9 +22,9 @@ const CreateExamModal = ({show, onClose, onExamCreated}) => {
     const closeIconRef = createRef();
 
     const validateTimes = (startTime, endTime) => {
-        if (now() >= startTime) {
+        if (moment(startTime).isBefore(now()) || moment(now()).isSame(startTime)) {
             startTimeInputRef.current.setCustomValidity("The exam's start time must come after the current time.");
-        } else if (startTime >= endTime) {
+        } else if (moment(endTime).isBefore(startTime) || moment(startTime).isSame(endTime)) {
             endTimeInputRef.current.setCustomValidity("The exam's end time must come after the start time.");
         } else {
             startTimeInputRef.current.setCustomValidity("");
@@ -74,7 +75,7 @@ const CreateExamModal = ({show, onClose, onExamCreated}) => {
                                 onChange={e => setName(e.target.value)}/>
                     <SubtitleLine title="Schedule"/>
                     <ScheduleItem inputRef={startTimeInputRef} label='Start Time' inputName='startTime'
-                                  timeValue={startTime} setTime={setStartTimeHandler} />
+                                  timeValue={startTime} setTime={setStartTimeHandler}/>
                     <ScheduleItem inputRef={endTimeInputRef} label='End Time' inputName='endTime'
                                   timeValue={endTime} setTime={setEndTimeHandler} minTime={new Date(startTime)}/>
                     {/* TODO: white-list */}

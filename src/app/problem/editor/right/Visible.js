@@ -1,23 +1,30 @@
 import {EditorButton} from "../../commons/EditorButton";
 import Block from "./Block";
-import {useState} from "react";
-import {useProblemEditorContext} from "../context";
+import {useEffect, useState} from "react";
+import {ACTION_UPDATE_VISIBILITY, useProblemEditorContext} from "../context";
 import {problemService} from "../../../../services/services";
-import {useParams} from "react-router-dom";
-
 
 const Visible = () => {
-    const {problemId} = useParams();
-    const {markProblemsDirty} = useProblemEditorContext();
+    const {problem, dispatch} = useProblemEditorContext();
     const [isOnClicked, setIsOnClicked] = useState(undefined);
 
+    useEffect(() => {
+       if (problem) {
+           if (isOnClicked === undefined) {
+               setIsOnClicked(problem.visible);
+           }
+       }
+    }, [problem, isOnClicked, setIsOnClicked]);
+
     const onVisibleButtonClick = (isVisibleButtonClicked) => {
-        setIsOnClicked(isVisibleButtonClicked);
-        problemService.updateProblemVisible(problemId, isVisibleButtonClicked)
-            .then(() => {
-                console.log("The problem's visibility has been modified");
-                markProblemsDirty();
-            });
+        if (isVisibleButtonClicked !== isOnClicked) {
+            setIsOnClicked(isVisibleButtonClicked);
+            problemService.updateProblemVisibility(problem.id, isVisibleButtonClicked)
+                .then(() => {
+                    console.log(`The problem's visibility has been modified to --> ${isVisibleButtonClicked}`);
+                    dispatch({type: ACTION_UPDATE_VISIBILITY, visible: isVisibleButtonClicked});
+                });
+        }
     };
 
     return <>
@@ -25,7 +32,6 @@ const Visible = () => {
                id="problem-editor-visible"
                titleButton={
                    <div style={{display: "flex", flexDirection: "row"}}>
-                       {/* TODO: Should be refactored into a component. */}
                        <EditorButton text="ON"
                                      buttonColor={isOnClicked ? "rgba(51, 155, 231, 1)" : null}
                                      fontColor={isOnClicked ? "#FFF" : "rgba(124,124,124,1)"}

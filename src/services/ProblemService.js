@@ -23,7 +23,7 @@ export class ProblemService extends AbstractService {
         return this.axios.patch(`/api/problems/${problemId}`, {problemId, description});
     }
 
-    async updateProblemVisible(problemId, visible) {
+    async updateProblemVisibility(problemId, visible) {
         return this.axios.patch(`/api/problems/${problemId}`, {problemId, visible});
     }
 
@@ -34,7 +34,10 @@ export class ProblemService extends AbstractService {
         const resourceSpecGpu = languageEnv.resourceSpec.gpu;
         const submittedCodeSpecs = languageEnv.submittedCodeSpecs;
         return this.axios.put(`/api/problems/${problemId}/langEnv/${language}`,
-            {language, compilationScript, resourceSpecCpu, resourceSpecGpu, submittedCodeSpecs});
+            {language, compilationScript, resourceSpecCpu, resourceSpecGpu, submittedCodeSpecs})
+            .catch(e => {
+                throw new Error(e.response.data)
+            });
     }
 
     async getProblemById(problemId) {

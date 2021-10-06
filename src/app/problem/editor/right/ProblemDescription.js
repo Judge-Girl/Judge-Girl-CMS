@@ -6,11 +6,9 @@ import {EditSaveCancelButton} from "../../commons/EditSaveCancelButton";
 import MarkdownEditor from "../../commons/MarkdownEditor";
 import {ACTION_UPDATE_DESCRIPTION, useProblemEditorContext} from "../context";
 import {problemService} from "../../../../services/services";
-import {useParams} from "react-router";
 
 
 const ProblemDescription = () => {
-    const {problemId} = useParams();
     const {problem, dispatch} = useProblemEditorContext();
     const [isEditing, setIsEditing] = useState(false);
     const [markdownText, setMarkdownText] = useState(undefined);
@@ -34,7 +32,7 @@ const ProblemDescription = () => {
 
     const onClickSave = () => {
         setIsEditing(false);
-        problemService.updateProblemDescription(problemId, markdownText)
+        problemService.updateProblemDescription(problem.id, markdownText)
             .then(() => {
                 console.log("The problem's description has been modified");
                 setMarkdownTextBackUp(markdownText);

@@ -7,7 +7,7 @@ import {problemService} from "../../services/services";
 import {Spinner} from "../commons/Spinner";
 import {Link, Route, useHistory} from "react-router-dom";
 import ProblemEditor from "./editor/ProblemEditor";
-import {ProblemEditorContext} from "./editor/ProblemEditorContext";
+import {Context} from "./editor/context";
 
 
 const ProblemList = () => {
@@ -122,10 +122,10 @@ const ProblemList = () => {
             </div>
         </Route>
         <Route path="/problems/:problemId/edit">
-            <ProblemEditorContext.Provider
+            <Context.Provider
                 value={{markProblemsDirty}}>
                 <ProblemEditor/>
-            </ProblemEditorContext.Provider>
+            </Context.Provider>
         </Route>
     </>
         ;

@@ -8,7 +8,7 @@ import IconTextItems from "../../../commons/TextInputForm/IconTextItems.js";
 import {TextItem, useTextItems} from "../../../usecases/TextItemUseCase";
 import {BsTag} from "react-icons/all";
 import {problemService} from "../../../../services/services";
-import {useProblemEditorContext} from "../ProblemEditorContext";
+import {useProblemEditorContext} from "../context";
 
 
 const Tags = () => {

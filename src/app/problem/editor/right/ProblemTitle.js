@@ -1,4 +1,4 @@
-import {useProblemEditorContext} from "../ProblemEditorContext";
+import {useProblemEditorContext} from "../context";
 import {useEffect, useState} from "react";
 import {problemService} from "../../../../services/services";
 import {FaEdit} from "react-icons/all";

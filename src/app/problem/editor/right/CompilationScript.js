@@ -25,7 +25,7 @@ const CompilationScript = () => {
                 });
         }
         if (languageEnv) {
-            setScript(languageEnv.getCompilationScript());
+            setScript(languageEnv.compilation.script);
         }
     }, [languageEnv, problem, problemId]);
 

@@ -1,7 +1,7 @@
 import {useState} from "react";
 
 
-const MarkdownEditor = ({className, tabObjects, defaultTabIndex, isEditing}) => {
+const MarkdownEditor = ({className, tags, defaultTabIndex, isEditing}) => {
     const LEFTMOST_TAB_INDEX = 0;
     const [currentTabIndex, setCurrentTabIndex] = useState(LEFTMOST_TAB_INDEX);
 
@@ -9,11 +9,11 @@ const MarkdownEditor = ({className, tabObjects, defaultTabIndex, isEditing}) => 
         <div className={className}>
             <div className="tabs">
             {isEditing?
-                [tabObjects.map((tabObject, i) =>
+                [tags.map((tag, i) =>
                     <button className={["tab", i === currentTabIndex? "current": ""].join(" ")}
                             style={i !== LEFTMOST_TAB_INDEX? {marginLeft: "-1px"}: {}}
                             onClick={() => setCurrentTabIndex(i)}>
-                        {tabObject.title}
+                        {tag.title}
                     </button>),
                     /* TODO: Is it possible to replace this by css? */
                     <div className="placeholder" style={{flex: 1}}/>
@@ -22,10 +22,10 @@ const MarkdownEditor = ({className, tabObjects, defaultTabIndex, isEditing}) => 
             }
             </div>
             <div className="main">
-                {tabObjects[isEditing? currentTabIndex: defaultTabIndex].component}
+                {tags[isEditing? currentTabIndex: defaultTabIndex].component}
             </div>
         </div>
     </>;
-}
+};
 
 export default MarkdownEditor;

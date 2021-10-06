@@ -1,7 +1,7 @@
 import {EditorButton} from "../../commons/EditorButton";
 import Block from "./Block";
 import {useState} from "react";
-import {useProblemEditorContext} from "../ProblemEditorContext";
+import {useProblemEditorContext} from "../context";
 import {problemService} from "../../../../services/services";
 import {useParams} from "react-router-dom";
 

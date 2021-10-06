@@ -2,27 +2,30 @@ import Block from "./Block";
 import {useEffect, useState} from "react";
 import MarkdownEditorWriteTab from "../../commons/MarkdownEditorWriteTab";
 import MarkdownEditorPreviewTab from "../../commons/MarkdownEditorPreviewTab";
-import {EditorContext} from "../../commons/MarkdownEditorContext";
 import {EditSaveCancelButton} from "../../commons/EditSaveCancelButton";
 import MarkdownEditor from "../../commons/MarkdownEditor";
-import {useProblemEditorContext} from "../ProblemEditorContext";
+import {ACTION_UPDATE_DESCRIPTION, useProblemEditorContext} from "../context";
 import {problemService} from "../../../../services/services";
 import {useParams} from "react-router";
 
 
 const ProblemDescription = () => {
     const {problemId} = useParams();
-    const {markProblemsDirty} = useProblemEditorContext();
+    const {problem, dispatch} = useProblemEditorContext();
     const [isEditing, setIsEditing] = useState(false);
     const [markdownText, setMarkdownText] = useState(undefined);
     const [markdownTextBackUp, setMarkdownTextBackUp] = useState(undefined);
 
     useEffect(() => {
-        if (!markdownText) {
-            problemService.getProblemById(problemId)
-                .then(problem => setMarkdownText(problem.description));
+        if (problem) {
+            if (markdownText === undefined) {
+                setMarkdownText(problem.description);
+                if (markdownTextBackUp === undefined) {
+                    setMarkdownTextBackUp(problem.description);
+                }
+            }
         }
-    }, [markdownText, problemId, setMarkdownText]);
+    }, [problem, markdownText, setMarkdownText, markdownTextBackUp, setMarkdownTextBackUp]);
 
     const onClickEdit = () => {
         setMarkdownTextBackUp(markdownText);
@@ -34,7 +37,8 @@ const ProblemDescription = () => {
         problemService.updateProblemDescription(problemId, markdownText)
             .then(() => {
                 console.log("The problem's description has been modified");
-                markProblemsDirty();
+                setMarkdownTextBackUp(markdownText);
+                dispatch({type: ACTION_UPDATE_DESCRIPTION, description: markdownText});
             });
     };
 
@@ -52,15 +56,14 @@ const ProblemDescription = () => {
                                          onClickSave={onClickSave}
                                          onClickCancel={onClickCancel}/>
                }>
-            <EditorContext.Provider value={{markdownText, setMarkdownText}}>
-                <MarkdownEditor className="markdown"
-                                tabObjects={[
-                                    {title: "Write", component: <MarkdownEditorWriteTab/>},
-                                    {title: "Preview", component: <MarkdownEditorPreviewTab/>},
-                                ]}
-                                defaultTabIndex={1}
-                                isEditing={isEditing}/>
-            </EditorContext.Provider>
+            <MarkdownEditor className="markdown"
+                            tags={[
+                                {title: "Write", component: <MarkdownEditorWriteTab initialMarkdownText={markdownText}
+                                                                                    onMarkdownTextChange={setMarkdownText}/>},
+                                {title: "Preview", component: <MarkdownEditorPreviewTab markdownText={markdownText}/>},
+                            ]}
+                            defaultTabIndex={1}
+                            isEditing={isEditing}/>
         </Block>
     </>;
 };

@@ -29,17 +29,40 @@ export class ProblemService extends AbstractService {
 
     async updateLanguageEnv(problemId, languageEnv) {
         const language = languageEnv.language;
-        const compilationScript = languageEnv.compilationScript;
-        const resourceSpecCpu = languageEnv.resourceSpecCpu;
-        const resourceSpecGpu = languageEnv.resourceSpecGpu;
+        const compilationScript = languageEnv.compilation.script;
+        const resourceSpecCpu = languageEnv.resourceSpec.cpu;
+        const resourceSpecGpu = languageEnv.resourceSpec.gpu;
         const submittedCodeSpecs = languageEnv.submittedCodeSpecs;
         return this.axios.put(`/api/problems/${problemId}/langEnv/${language}`,
             {language, compilationScript, resourceSpecCpu, resourceSpecGpu, submittedCodeSpecs});
     }
 
     async getProblemById(problemId) {
-        return this.axios.get(`/api/problems/${problemId}`)
-            .then(res => new Problem(res.data));
+        const response = await this.axios.get(`/api/problems/${problemId}`);
+        const problem = new Problem(response.data);
+
+        return new Promise((resolve) => {
+            if (!problem.languageEnvs || problem.languageEnvs.length === 0 ||
+                problem.languageEnvs[0].name.toUpperCase() !== 'C') {
+                problem.languageEnvs = [{
+                    name: "C",
+                    language: "C",
+                    compilation: {
+                        script: "gcc -std=c99 -O2 a.c -lm"
+                    },
+                    resourceSpec: {
+                        cpu: 1.0,
+                        gpu: 0.0,
+                    },
+                    submittedCodeSpecs: []
+                }];
+                console.log(`The problem(id=${problemId}) doesn't have the default C language, let's initialize one for it...`)
+                this.updateLanguageEnv(problemId, problem.languageEnvs[0])
+                    .then(() => resolve(problem));
+            } else {
+                resolve(problem);
+            }
+        });
     }
 
     async getProblemsByIds(problemIds) {

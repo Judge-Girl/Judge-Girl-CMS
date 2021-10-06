@@ -3,7 +3,7 @@ import "./ActionItem.scss";
 import React, {useEffect, useState} from "react";
 import {Divider} from "./Divider";
 import {useHistory, useParams} from "react-router-dom";
-import {useProblemEditorContext} from "../ProblemEditorContext";
+import {useProblemEditorContext} from "../context";
 import {problemService} from "../../../../services/services";
 import {DeleteConfirmationModal} from "../../../commons/modals/DeleteConfirmationModal";
 

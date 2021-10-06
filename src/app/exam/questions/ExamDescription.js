@@ -46,7 +46,7 @@ const ExamDescription = ({examId}) => {
     const onClickCancel = () => {
         setIsEditing(false);
         setMarkdownText(markdownTextBackUp);
-    }
+    };
 
     return <>
         <div className="exam-description-editor">
@@ -62,7 +62,7 @@ const ExamDescription = ({examId}) => {
                        }>
                     <EditorContext.Provider value={{markdownText, setMarkdownText}}>
                         <MarkdownEditor className="markdown"
-                                        tabObjects={[
+                                        tags={[
                                             {title: "Write", component: <MarkdownEditorWriteTab/>},
                                             {title: "Preview", component: <MarkdownEditorPreviewTab/>},
                                         ]}
@@ -73,7 +73,7 @@ const ExamDescription = ({examId}) => {
             </div>
         </div>
     </>;
-}
+};
 
 
 export default ExamDescription;

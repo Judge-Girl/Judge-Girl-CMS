@@ -8,20 +8,30 @@ const useTestcaseEditList = (problem) => {
     const [testcaseEdits, setTestcaseEdits] = useState([]);
 
     const addNewTestcase = () => {
-        const nextId = testcaseEdits.length === 0 ? 0 : (Math.max(...testcaseEdits.map(t => t.id)) + 1);
-        setTestcaseEdits([...testcaseEdits,
-            new TestcaseEdit({
-                id: nextId.toString(),
-                name: nextId.toString(),
-                timeLimit: 1,
-                memoryLimit: 1,
-                outputLimit: 1,
-                threadNumberLimit: -1,  // currently doesn't support threadNumberLimit's modification
-                grade: 0,
-                problemId: problem.id,
+        const nextId = testcaseEdits.length === 0 ? 0 : generateNextTestcaseId(testcaseEdits);
+        const newTestcaseEdit = new TestcaseEdit({
+            id: nextId.toString(),
+            name: nextId.toString(),
+            timeLimit: 1,
+            memoryLimit: 1,
+            outputLimit: 1,
+            threadNumberLimit: -1,  // currently doesn't support threadNumberLimit's modification
+            grade: 0,
+            problemId: problem.id,
 
-                editing: true // new testcase --> editing it immediately
-            })]);
+            editing: true // new testcase --> editing it immediately
+        });
+        setTestcaseEdits([...testcaseEdits, newTestcaseEdit])
+        return newTestcaseEdit;
+    };
+
+
+    const generateNextTestcaseId = (testcaseEdits, id = 0) => {
+        const idText = id.toString();
+        if (testcaseEdits.find(t => t.id === idText)) {
+            return generateNextTestcaseId(testcaseEdits, id + 1);
+        }
+        return idText;
     };
 
     const deleteTestcase = testcase => {
@@ -135,13 +145,13 @@ class TestcaseEdit {
  * Record the 'add file' and 'delete file' actions and finally create a TestcaseIosPatch that summarizes these actions.
  */
 const useTestcaseIosPatch = (initialTestcase) => {
-    const {files: inputFiles, addFiles: _addInputFiles, removeFile: _removeInputFile} =
+    const {files: inputFiles, addFiles: _addInputFiles, removeFile: _removeInputFile, reset: _resetInputFiles} =
         useUploads(initialTestcase.inputFiles ? initialTestcase.inputFiles.map(name => new FakeFile(name)) : []);
-    const {files: outputFiles, addFiles: _addOutputFiles, removeFile: _removeOutputFile} =
+    const {files: outputFiles, addFiles: _addOutputFiles, removeFile: _removeOutputFile, reset: _resetOutputFiles} =
         useUploads(initialTestcase.outputFiles ? initialTestcase.outputFiles.map(name => new FakeFile(name)) : []);
-    const {files: stdIns, setFiles: _setStandardInFiles} =
+    const {files: stdIns, setFiles: _setStandardInFiles, reset: _resetStandardInFiles} =
         useUploads(initialTestcase.stdIn ? [new FakeFile(initialTestcase.stdIn)] : []);
-    const {files: stdOuts, setFiles: _setStandardOutFiles} =
+    const {files: stdOuts, setFiles: _setStandardOutFiles, reset: _resetStandardOutFiles} =
         useUploads(initialTestcase.stdOut ? [new FakeFile(initialTestcase.stdOut)] : []);
     const inFilesMap = useRef({});
     const outFilesMap = useRef({});
@@ -202,6 +212,14 @@ const useTestcaseIosPatch = (initialTestcase) => {
     };
 
     const reset = () => {
+        commit();
+        _resetInputFiles();
+        _resetOutputFiles();
+        _resetStandardInFiles();
+        _resetStandardOutFiles();
+    };
+
+    const commit = () => {
         inFilesMap.current = {};
         outFilesMap.current = {};
         stdInFile.current = undefined;
@@ -213,7 +231,7 @@ const useTestcaseIosPatch = (initialTestcase) => {
     return {
         createTestcaseIOsPatch, inputFiles, addInputFiles, removeInputFile,
         outputFiles, addOutputFiles, removeOutputFile,
-        stdIns, setStandardInFile, stdOuts, setStandardOutFile, reset
+        stdIns, setStandardInFile, stdOuts, setStandardOutFile, reset, commit
     }
 };
 

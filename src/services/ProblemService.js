@@ -121,6 +121,11 @@ export class ProblemService extends AbstractService {
             },
         }).then(res => res.data);
     }
+
+    deleteTestcase(problemId, testcaseId) {
+        return this.axios.delete(`/api/problems/${problemId}/testcases/${testcaseId}`)
+            .then(res => res.data);
+    }
 }
 
 export class TestcaseIOsPatch {

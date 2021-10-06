@@ -6,6 +6,7 @@ import {EditSaveCancelButton} from "../../../commons/EditSaveCancelButton";
 import IconTextItems from "../../../../commons/TextInputForm/IconTextItems";
 import {useTestcaseIosPatch} from "./usecase";
 import Testcase from "../../../../../models/Testcase";
+import DotLoader from "react-spinners/DotLoader";
 
 
 const TestCaseName = ({name, isEditing, onChange}) => {
@@ -83,12 +84,14 @@ function TestcaseEditor({
                             problemService, initialTestcaseEdit,
                             onTestcaseDeleted
                         }) {
-    const [loading, setLoading] = useState(false);
+    const [saving, setSaving] = useState(false);
+    const [deleting, setDeleting] = useState(false);
     const [testcaseEdit, setTestcaseEdit] = useState(initialTestcaseEdit);
     const {
         createTestcaseIOsPatch, inputFiles, addInputFiles, removeInputFile,
         outputFiles, addOutputFiles, removeOutputFile,
-        stdIns, setStandardInFile, stdOuts, setStandardOutFile, reset: resetTestcaseIOsPatching
+        stdIns, setStandardInFile, stdOuts, setStandardOutFile,
+        reset: resetTestcaseIOsPatching, commit: commitTestcaseIOsPatching
     } = useTestcaseIosPatch(initialTestcaseEdit);
 
     const onClickEdit = () => {
@@ -104,7 +107,7 @@ function TestcaseEditor({
             || !testcaseEdit.saved;
 
         if (shouldSave) {
-            setLoading(true);
+            setSaving(true);
             if (testcaseEdit.edited || !testcaseEdit.saved) {
                 saveTestcase(new Testcase(testcaseEdit));
             }
@@ -139,7 +142,7 @@ function TestcaseEditor({
             .catch(error => {
                 alert(error.message);
                 setTestcaseEdit(testcaseEdit.error(error.message));
-            }).finally(() => setLoading(false));
+            }).finally(() => setSaving(false));
     };
 
     const patchTestcaseIOs = (testcaseIOsPatch) => {
@@ -147,25 +150,38 @@ function TestcaseEditor({
             .then((patchedTestcase) => {
                 Object.assign(testcaseEdit, patchedTestcase);
                 setTestcaseEdit(testcaseEdit.save());
-                resetTestcaseIOsPatching();
+                commitTestcaseIOsPatching();
             })
             .catch(error => {
                 alert(error.message);
                 setTestcaseEdit(testcaseEdit.error(error.message));
-            }).finally(() => setLoading(false));
+            }).finally(() => setSaving(false));
+    };
+
+    const deleteTestcaseEdit = (testcaseEdit) => {
+        setDeleting(true);
+        problemService.deleteTestcase(testcaseEdit.problemId, testcaseEdit.id)
+            .then(() => {
+                onTestcaseDeleted(testcaseEdit);
+                testcaseEdit.delete();
+            })
+            .catch(error => {
+                alert(error.message);
+            })
+            .finally(() => setDeleting(false));
     };
 
     return (
         <div key={testcaseEdit.id} className={`testcase-editor 
-        ${testcaseEdit.hasError() ? "cannot-save" : 
+        ${testcaseEdit.hasError() ? "cannot-save" :
             testcaseEdit.editing ? "can-save" : "testcase-view"}`}>
             <div className="testcase-name-row">
                 <TestCaseName name={testcaseEdit.name} isEditing={testcaseEdit.editing}
-                              onChange={(name) => onTestcaseEdit({name})} />
+                              onChange={(name) => onTestcaseEdit({name})}/>
                 <div style={{justifyContent: "flex-end", display: "flex"}}>
                     <EditSaveCancelButton
                         isEditing={testcaseEdit.editing}
-                        loading={loading}
+                        loading={saving}
                         disableSave={testcaseEdit.hasError()}
                         onClickEdit={onClickEdit}
                         onClickSave={onClickSave}
@@ -173,7 +189,10 @@ function TestcaseEditor({
 
                     {testcaseEdit.editing ? "" :
                         <button className="button delete-button"
-                                onClick={() => onTestcaseDeleted(testcaseEdit)}>Delete</button>}
+                                onClick={() => deleteTestcaseEdit(testcaseEdit)}>
+                            <span>Delete</span>
+                            <DotLoader color="#FB5D53" loading={deleting} css={{marginLeft: '10px'}} size={10}/>
+                        </button>}
                 </div>
             </div>
             {

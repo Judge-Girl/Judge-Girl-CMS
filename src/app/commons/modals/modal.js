@@ -19,7 +19,7 @@ const renderModal = ({modalClassName, modalWidth, contentRendering, show, closeI
             </div>
         </div>
     );
-}
+};
 
 
 export {renderModal};

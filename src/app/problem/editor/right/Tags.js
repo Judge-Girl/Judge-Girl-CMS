@@ -1,52 +1,54 @@
 import Block from "./Block";
 import {useEffect, useState} from "react";
-import {useParams} from "react-router-dom";
 import {EditSaveCancelButton} from "../../commons/EditSaveCancelButton";
 import {TextInputField} from "../../../commons/TextInputForm/TextInputField";
 import {FixedTextInputField} from "../../../commons/TextInputForm/FixedTextInputField";
 import IconTextItems from "../../../commons/TextInputForm/IconTextItems.js";
-import {TextItem, useTextItems} from "../../../usecases/TextItemUseCase";
+import {useTextItems} from "../../../usecases/TextItemUseCase";
 import {BsTag} from "react-icons/all";
 import {problemService} from "../../../../services/services";
-import {useProblemEditorContext} from "../context";
+import {ACTION_UPDATE_TAGS, useProblemEditorContext} from "../context";
 
 
 const Tags = () => {
-    const {problemId} = useParams();
-    const [problem, setProblem] = useState(undefined);
-    const {markProblemsDirty} = useProblemEditorContext();
+    const {problem, dispatch} = useProblemEditorContext();
+    const [tagsBackUp, setTagsBackup] = useState(undefined);
+    const {textItems: tags, setTextItems: setTags, addTextItem: addTag, removeTextItem: removeTag} = useTextItems(undefined);
     const [isEditing, setIsEditing] = useState(false);
-    const [textItemsBackUp, setTextItemsBackUp] = useState(undefined);
-    const {textItems, setTextItems, addTextItem, removeTextItem} = useTextItems();
 
     useEffect(() => {
-        if (!problem) {
-            problemService.getProblemById(problemId)
-                .then(p => {
-                    setProblem(p);
-                    setTextItems(p.tags.map(tag => new TextItem(tag)));
-                });
+        if (problem) {
+            if (!tags) {
+                setTags(problem.tags);
+                if (!tagsBackUp) {
+                    setTagsBackup(problem.tags);
+                }
+            }
         }
-    }, [problem, problemId, setTextItems]);
+    }, [problem, tags, setTags, tagsBackUp, setTagsBackup]);
 
     const onClickEdit = () => {
-        setTextItemsBackUp(textItems);
         setIsEditing(true);
     };
 
     const onClickSave = () => {
         setIsEditing(false);
-        problemService.updateProblemTags(problemId, textItems.map(item => item.text))
+        problemService.updateProblemTags(problem.id, tags)
             .then(() => {
+                dispatch({type: ACTION_UPDATE_TAGS, tags});
                 console.log("The problem's tags has been modified");
-                markProblemsDirty();
+                setTagsBackup(tags);
             });
     };
 
     const onClickCancel = () => {
         setIsEditing(false);
-        setTextItems(textItemsBackUp);
+        setTags(tagsBackUp);
     };
+
+    if (!tags) {
+        return "";
+    }
 
     return <>
         <Block title="Tags"
@@ -60,12 +62,12 @@ const Tags = () => {
                }>
             {!isEditing ?
                 <IconTextItems icon={<BsTag size={21}/>}
-                               items={textItems.map(item => item.text)}/>
+                               items={tags}/>
                 :
                 <>
                     <TextInputField placeholder={"Add New Tags"} style={{width: "234px"}}
-                                    onSubmit={addTextItem}/>
-                    <FixedTextInputField items={textItems} removeItem={removeTextItem} iconSize={15}/>
+                                    onSubmit={addTag}/>
+                    <FixedTextInputField items={tags} removeItem={removeTag} iconSize={15}/>
                 </>
             }
         </Block>

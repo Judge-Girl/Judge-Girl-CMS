@@ -1,55 +1,61 @@
 import Block from "./Block";
 import {useEffect, useState} from "react";
-import {TextItem, useTextItems} from "../../../usecases/TextItemUseCase";
+import {useTextItems} from "../../../usecases/TextItemUseCase";
 import {TextInputField} from "../../../commons/TextInputForm/TextInputField";
 import {FixedTextInputField} from "../../../commons/TextInputForm/FixedTextInputField";
 import {EditSaveCancelButton} from "../../commons/EditSaveCancelButton";
 import IconTextItems from "../../../commons/TextInputForm/IconTextItems.js";
 import {AiOutlinePaperClip} from "react-icons/all";
 import {problemService} from "../../../../services/services";
-import {LanguageEnv} from "../../Model";
-import {useParams} from "react-router-dom";
+import {ACTION_UPDATE_LANGUAGE_ENV, useProblemEditorContext} from "../context";
 
 
 const SubmittedCodeSpec = () => {
-    const {problemId} = useParams();
-    const [problem, setProblem] = useState(undefined);
-    const [languageEnv, setLanguageEnv] = useState(undefined);
+    const {problem, dispatch} = useProblemEditorContext();
+    const {textItems: fileNames, setTextItems: setFileNames,
+        addTextItem: addFileName, removeTextItem: removeFileName} = useTextItems(undefined);
+    const [fileNamesBackup, setFileNamesBackup] = useState(undefined);
     const [isEditing, setIsEditing] = useState(false);
-    const [textItemBackUp, setTextItemBackUp] = useState(undefined);
-    const {textItems, setTextItems, addTextItem, removeTextItem, updateTextItem} = useTextItems();
 
     useEffect(() => {
-        if (!problem) {
-            problemService.getProblemById(problemId)
-                .then(p => {
-                    setProblem(p);
-                    setLanguageEnv(new LanguageEnv(p.languageEnvs[0]));
-                });
+        if (problem) {
+            if (!fileNames) {
+                const fileNames = problem.languageEnvs[0].submittedCodeSpecs.map(s => s.fileName);
+                setFileNames(fileNames);
+                if (!fileNamesBackup) {
+                    setFileNamesBackup(fileNames);
+                }
+            }
         }
-        if (languageEnv) {
-            setTextItems(languageEnv.getSubmittedCodeSpecFileNames().map(name => new TextItem(name)));
-        }
-    }, [languageEnv, problem, problemId, setTextItems]);
+    }, [problem, fileNames, setFileNames, fileNamesBackup, setFileNamesBackup]);
 
     const onClickEdit = () => {
         setIsEditing(true);
-        setTextItemBackUp(textItems);
     };
 
     const onClickSave = () => {
         setIsEditing(false);
-        languageEnv.updateSubmittedCodeSpecs(textItems.map(item => item.text));
-        problemService.updateLanguageEnv(problemId, languageEnv)
+        const newLanguageEnv = {
+            ...problem.languageEnvs[0],
+            submittedCodeSpecs: fileNames.map(fileName => {
+                return {format: 'C', fileName};
+            })
+        };
+        problemService.updateLanguageEnv(problem.id, newLanguageEnv)
             .then(() => {
+                dispatch({type: ACTION_UPDATE_LANGUAGE_ENV, languageEnv: newLanguageEnv});
                 console.log("The problem's SubmittedCodeSpec has been updated");
+                setFileNamesBackup(fileNames);
             });
     };
 
     const onClickCancel = () => {
         setIsEditing(false);
-        updateTextItem(textItemBackUp);
     };
+
+    if (!fileNames) {
+        return "";
+    }
 
     return <>
         <Block title="Submitted Code Spec"
@@ -63,12 +69,12 @@ const SubmittedCodeSpec = () => {
                }>
             {!isEditing ?
                 <IconTextItems icon={<AiOutlinePaperClip/>}
-                               items={textItems.map(item => item.text)}/>
+                               items={fileNames}/>
                 :
                 <>
-                    <TextInputField placeholder={"Add Submitted Code File Name"} onSubmit={addTextItem}
+                    <TextInputField placeholder={"Add Submitted Code File Name"} onSubmit={addFileName}
                                     style={{width: "250px"}}/>
-                    <FixedTextInputField items={textItems} removeItem={removeTextItem} iconSize={15}/>
+                    <FixedTextInputField items={fileNames} removeItem={removeFileName} iconSize={15}/>
                 </>
             }
         </Block>

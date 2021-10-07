@@ -12,8 +12,6 @@ const CompilationScript = () => {
     const [compilationBackup, setCompilationBackup] = useState(undefined);
     const [isEditing, setIsEditing] = useState(false);
 
-    const languageEnv = () => problem.languageEnvs[0];
-
     useEffect(() => {
         if (problem) {
             if (!compilation) {
@@ -31,7 +29,7 @@ const CompilationScript = () => {
 
     const onClickSave = () => {
         setIsEditing(false);
-        const newLanguageEnv = {...languageEnv(), compilation};
+        const newLanguageEnv = {...problem.languageEnvs[0], compilation};
         problemService.updateLanguageEnv(problem.id, newLanguageEnv)
             .then(() => {
                 dispatch({type: ACTION_UPDATE_LANGUAGE_ENV, languageEnv: newLanguageEnv});

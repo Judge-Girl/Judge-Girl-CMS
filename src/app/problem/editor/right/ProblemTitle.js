@@ -1,64 +1,67 @@
-import {useProblemEditorContext} from "../context";
+import {ACTION_UPDATE_TITLE, useProblemEditorContext} from "../context";
 import {useEffect, useState} from "react";
 import {problemService} from "../../../../services/services";
 import {FaEdit} from "react-icons/all";
 import {EditSaveCancelButton} from "../../commons/EditSaveCancelButton";
-import {useParams} from "react-router-dom";
 
 
 const ProblemTitle = () => {
-    const {problemId} = useParams();
-    const {markProblemsDirty} = useProblemEditorContext();
-    const [problemTitle, setProblemTitle] = useState(undefined);
-    const [problemTitleBackUp, setProblemTitleBackUp] = useState(undefined);
+    const {problem, dispatch} = useProblemEditorContext();
+    const [title, setTitle] = useState(undefined);
+    const [titleBackup, setTitleBackup] = useState(undefined);
     const [isEditing, setIsEditing] = useState(false);
 
     useEffect(() => {
-        if (!problemTitle) {
-            problemService.getProblemById(problemId)
-                .then(problem => setProblemTitle(problem.title));
+        if (problem) {
+            if (!title) {
+                setTitle(problem.title);
+                if (!titleBackup) {
+                    setTitleBackup(problem.title);
+                }
+            }
         }
-    }, [problemTitle, problemId, setProblemTitle]);
+    }, [problem, title, setTitle, titleBackup, setTitleBackup]);
 
 
     const onClickEdit = () => {
         setIsEditing(true);
-        setProblemTitleBackUp(problemTitle);
     };
 
     const onClickSave = () => {
-        if (problemTitle.length === 0) {
+        if (title.length === 0) {
             return;
         }
 
-        problemService.updateProblemTitle(problemId, problemTitle)
+        problemService.updateProblemTitle(problem.id, title)
             .then(() => {
+                dispatch({type: ACTION_UPDATE_TITLE, title});
                 console.log("The problem's title has been modified");
-                markProblemsDirty();
             });
         setIsEditing(false);
     };
 
     const onClickCancel = () => {
-        setProblemTitle(problemTitleBackUp);
         setIsEditing(false);
+        setTitle(titleBackup);
     };
 
-    if (!problemTitle)
+    if (!title) {
         return "";
+    }
 
     return <>
         <div className="problem-title">
         {!isEditing?
             <div className="not-on-edit">
-                <div>{problemTitle}</div><FaEdit className="edit-icon" onClick={onClickEdit} />
+                <div>{title}</div>
+                <FaEdit className="edit-icon" onClick={onClickEdit}/>
             </div>
             :
             <form className="on-edit">
                 <input className="input-field"
                        type="text"
-                       required value={problemTitle}
-                       onChange={e => setProblemTitle(e.target.value)}/>
+                       required value={title}
+                       onChange={e => setTitle(e.target.value)}/>
                 <EditSaveCancelButton
                     isEditing={isEditing}
                     onClickSave={onClickSave}

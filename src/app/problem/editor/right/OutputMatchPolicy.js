@@ -10,6 +10,8 @@ import {GoTriangleDown, RiRulerLine} from "react-icons/all";
 const OutputMatchPolicy = () => {
     const [isEditing, setIsEditing] = useState(false);
     const {textItems, addTextItem, removeTextItem} = useTextItems();
+    // TODO
+    return "";
 
     const onClickEdit = () => {
         setIsEditing(true);

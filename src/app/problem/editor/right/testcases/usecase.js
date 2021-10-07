@@ -4,8 +4,9 @@ import {TestcaseIOsPatch} from "../../../../../services/ProblemService";
 
 let currentTestcaseEdits = [];
 
-const useTestcaseEditList = (problem) => {
-    const [testcaseEdits, setTestcaseEdits] = useState([]);
+const useTestcaseEditList = () => {
+    const [problem,  setProblem] = useState(undefined);
+    const [testcaseEdits, setTestcaseEdits] = useState(undefined);
 
     const addNewTestcase = () => {
         const nextId = testcaseEdits.length === 0 ? 0 : generateNextTestcaseId(testcaseEdits);
@@ -21,7 +22,7 @@ const useTestcaseEditList = (problem) => {
 
             editing: true // new testcase --> editing it immediately
         });
-        setTestcaseEdits([...testcaseEdits, newTestcaseEdit])
+        setTestcaseEdits([...testcaseEdits, newTestcaseEdit]);
         return newTestcaseEdit;
     };
 
@@ -38,8 +39,8 @@ const useTestcaseEditList = (problem) => {
         setTestcaseEdits(testcasesList => testcasesList.filter(tc => tc.id !== testcase.id));
     };
 
-    const initializeTestcases = testcases => {
-        currentTestcaseEdits = testcases.map(testcase =>
+    const initializeTestcases = (initialTestcases) => {
+        currentTestcaseEdits = initialTestcases.map(testcase =>
             new TestcaseEdit({
                 ...testcase,
                 saved: true // old testcases --> should have been saved
@@ -47,7 +48,7 @@ const useTestcaseEditList = (problem) => {
         setTestcaseEdits(currentTestcaseEdits);
     };
 
-    return {testcaseEdits, initializeTestcases, addNewTestcase, deleteTestcase};
+    return {setProblem, testcaseEdits, initializeTestcases, addNewTestcase, deleteTestcase};
 };
 
 class TestcaseEdit {

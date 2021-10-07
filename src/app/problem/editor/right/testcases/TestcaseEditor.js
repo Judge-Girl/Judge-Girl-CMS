@@ -7,6 +7,7 @@ import IconTextItems from "../../../../commons/TextInputForm/IconTextItems";
 import {useTestcaseIosPatch} from "./usecase";
 import Testcase from "../../../../../models/Testcase";
 import DotLoader from "react-spinners/DotLoader";
+import {ConfirmationModal, DeleteConfirmationModal} from "../../../../commons/modals/DeleteConfirmationModal";
 
 
 const TestCaseName = ({name, isEditing, onChange}) => {
@@ -87,6 +88,9 @@ function TestcaseEditor({
     const [saving, setSaving] = useState(false);
     const [deleting, setDeleting] = useState(false);
     const [testcaseEdit, setTestcaseEdit] = useState(initialTestcaseEdit);
+    const [showConfirmCancelModal, setShowConfirmCancelModal] = useState(false);
+    const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false);
+
     const {
         createTestcaseIOsPatch, inputFiles, addInputFiles, removeInputFile,
         outputFiles, addOutputFiles, removeOutputFile,
@@ -124,9 +128,9 @@ function TestcaseEditor({
         if (testcaseEdit.saved) {
             setTestcaseEdit(testcaseEdit.cancelEditing());
         } else {
-            // TODO, pop-up a dialog to confirm the deletion
-            // for the new testcaseEdit, should delete it on cancellation.
-            onTestcaseDeleted(testcaseEdit);
+            // ask the user to confirm the cancel action
+            //  --> this will delete this testcase since it's not saved
+            setShowConfirmCancelModal(true);
         }
     };
 
@@ -189,7 +193,7 @@ function TestcaseEditor({
 
                     {testcaseEdit.editing ? "" :
                         <button className="button delete-button"
-                                onClick={() => deleteTestcaseEdit(testcaseEdit)}>
+                                onClick={() => setShowConfirmDeleteModal(true)} disabled={deleting}>
                             <span>Delete</span>
                             <DotLoader color="#FB5D53" loading={deleting} css={{marginLeft: '10px'}} size={10}/>
                         </button>}
@@ -260,7 +264,32 @@ function TestcaseEditor({
                                      isEditing={testcaseEdit.editing}/>
                 </div>
             </div>
-        </div>)
+
+            <ConfirmationModal title="The Testcase has not been Saved"
+                               themeColor='#F2B311'
+                               themeColorDark='#F2B311'
+                               data={[
+                                   {
+                                       title: 'If you continue, the testcase will be deleted. ',
+                                       value: `Name: ${testcaseEdit.name}`
+                                   }
+                               ]}
+                               show={showConfirmCancelModal}
+                               onClose={() => setShowConfirmCancelModal(false)}
+                               onSubmit={() => onTestcaseDeleted(testcaseEdit)}/>
+
+            <DeleteConfirmationModal title="Delete the Testcase"
+                                     data={[
+                                         {
+                                             title: 'Are you sure you want to delete the testcase?',
+                                             value: `Name: ${testcaseEdit.name}`
+                                         }
+                                     ]}
+                                     show={showConfirmDeleteModal}
+                                     onClose={() => setShowConfirmDeleteModal(false)}
+                                     onSubmit={() => deleteTestcaseEdit(testcaseEdit)}/>
+        </div>
+    )
 }
 
 export default TestcaseEditor;

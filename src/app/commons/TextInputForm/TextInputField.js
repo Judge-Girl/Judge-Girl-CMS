@@ -1,6 +1,5 @@
 import {useRef, useState} from "react";
 import './TextInputForm.css';
-import {TextItem} from "../../usecases/TextItemUseCase";
 
 
 const TextInputField = ({placeholder, onSubmit, buttonTitle = "+", style}) => {
@@ -9,7 +8,7 @@ const TextInputField = ({placeholder, onSubmit, buttonTitle = "+", style}) => {
 
     const onFormSubmit = e => {
         e.preventDefault();
-        onSubmit(new TextItem(text));
+        onSubmit(text);
         setText("");
         inputRef.current.focus();
     };

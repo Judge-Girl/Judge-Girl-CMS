@@ -16,7 +16,7 @@ const CreateProblemModal = ({show, onClose, onProblemCreated}) => {
 
         if (form.checkValidity()) {
             problemService.createProblem(problemName)
-                .then(problemId => onProblemCreated(problemId));
+                .then(problem => onProblemCreated(problem));
             setName(null);
             closeIconRef.current.click()
         } else {

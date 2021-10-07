@@ -1,8 +1,7 @@
 import {useState} from "react";
-import {getStringHash} from "../../utils/utils";
 
 
-const useTextItems = (initialTextItems = []) => {
+const useTextItems = (initialTextItems) => {
     const [textItems, setTextItems] = useState(initialTextItems);
 
     const addTextItem = item => {
@@ -17,30 +16,20 @@ const useTextItems = (initialTextItems = []) => {
         setTextItems(items => [item, ...items]);
     };
 
-    const updateTextItem = newItems => {
-        setTextItems(newItems);
-    };
-
     const removeTextItem = item => {
-        setTextItems(items => items.filter(_item => _item.id !== item.id));
+        setTextItems(items => items.filter(_item => _item !== item));
     };
 
     const itemAlreadyExists = item => {
-        return textItems.some(_item => _item.text === item.text);
+        return textItems.some(_item => _item === item);
     };
 
     const isIllegalText = item => {
-        return !item.text || /^\s*$/.test(item.text);
+        return !item || /^\s*$/.test(item);
     };
 
-    return {textItems, setTextItems, addTextItem, removeTextItem, updateTextItem};
+    return {textItems, setTextItems, addTextItem, removeTextItem};
 };
 
-class TextItem {
-    constructor(text) {
-        this.text = text;
-        this.id = getStringHash(text);
-    }
-}
 
-export {useTextItems, TextItem};
+export {useTextItems};

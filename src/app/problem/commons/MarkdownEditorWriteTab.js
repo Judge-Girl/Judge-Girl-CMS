@@ -1,4 +1,4 @@
-import {useEditorContext} from "./MarkdownEditorContext";
+import {useState} from "react";
 
 const defaultLines = [
     `Press Edit Description to start writing the description. :smile:`,
@@ -6,11 +6,12 @@ const defaultLines = [
 ];
 
 /* TODO: this will be refactored in the next PR. */
-const MarkdownEditorWriteTab = () => {
-    const {markdownText, setMarkdownText} = useEditorContext();
+const MarkdownEditorWriteTab = ({initialMarkdownText, onMarkdownTextChange}) => {
+    const [markdownText, setMarkdownText] = useState(initialMarkdownText);
 
     const handleTextareaChange = e => {
         setMarkdownText(e.target.value);
+        onMarkdownTextChange(e.target.value)
     };
 
     return <>

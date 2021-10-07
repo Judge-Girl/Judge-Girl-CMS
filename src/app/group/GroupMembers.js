@@ -8,7 +8,7 @@ import {CreateButton} from "../commons/buttons/CreateButton";
 import FakeLink from "../commons/FakeLink";
 import {ThreeDotsButton} from "../commons/buttons/ThreeDotsButton";
 import {Spinner} from "../commons/Spinner";
-import {DeleteConfirmationModal} from "../commons/modals/DeleteConfirmationModal";
+import {DeleteConfirmationModal} from "../commons/modals/ConfirmationModal";
 import {TextareaModal} from "../commons/modals/TextareaModal";
 import {useGroupContext} from "./GroupContext";
 import GroupNotFound from "./GroupNotFound";

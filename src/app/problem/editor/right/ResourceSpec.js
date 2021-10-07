@@ -3,55 +3,52 @@ import {useEffect, useState} from "react";
 import {EditSaveCancelButton} from "../../commons/EditSaveCancelButton";
 import {FiCpu} from "react-icons/all";
 import {problemService} from "../../../../services/services";
-import {useParams} from "react-router-dom";
-import {LanguageEnv} from "../../Model";
+import {ACTION_UPDATE_LANGUAGE_ENV, useProblemEditorContext} from "../context";
 
 
 const ResourceSpec = () => {
-    const {problemId} = useParams();
-    const [problem, setProblem] = useState(undefined);
-    const [languageEnv, setLanguageEnv] = useState(undefined);
+    const {problem, dispatch} = useProblemEditorContext();
     const [isEditing, setIsEditing] = useState(false);
-    const [cpuCount, setCpuCount] = useState(0);
-    const [gpuCount, setGpuCount] = useState(0);
-    const [cpuCountBackUp, setCpuCountBackUp] = useState(undefined);
-    const [gpuCountBackUp, setGpuCountBackUp] = useState(undefined);
+    const [resourceSpec, setResourceSpec] = useState(undefined);
+    const [resourceSpecBackup, setResourceSpecBackup] = useState(undefined);
+
+    const languageEnv = () => problem.languageEnvs[0];
 
     useEffect(() => {
-        if (!problem) {
-            problemService.getProblemById(problemId)
-                .then(p => {
-                    setProblem(p);
-                    setLanguageEnv(new LanguageEnv(p.languageEnvs[0]));
-                });
+        if (problem) {
+            if (!resourceSpec) {
+                setResourceSpec(problem.languageEnvs[0].resourceSpec);
+                if (!resourceSpecBackup) {
+                    setResourceSpecBackup(problem.languageEnvs[0].resourceSpec);
+                }
+            }
         }
-        if (languageEnv) {
-            setCpuCount(languageEnv.getResourceSpecCpu());
-            setGpuCount(languageEnv.getResourceSpecGpu());
-        }
-    }, [languageEnv, problem, problemId, setCpuCount, setGpuCount]);
+    }, [problem, resourceSpec, setResourceSpec, resourceSpecBackup, setResourceSpecBackup]);
 
     const onClickEdit = () => {
         setIsEditing(true);
-        setCpuCountBackUp(cpuCount);
-        setGpuCountBackUp(gpuCount);
-    }
+    };
 
     const onClickSave = () => {
         setIsEditing(false);
-        languageEnv.updateResourceSpecCpu(cpuCount);
-        languageEnv.updateResourceSpecGpu(gpuCount);
-        problemService.updateLanguageEnv(problemId, languageEnv)
+        const newLanguageEnv = {...languageEnv(), resourceSpec};
+        problemService.updateLanguageEnv(problem.id, newLanguageEnv)
             .then(() => {
+                dispatch({type: ACTION_UPDATE_LANGUAGE_ENV, languageEnv: newLanguageEnv});
+                setResourceSpecBackup(resourceSpec);
                 console.log("The problem's ResourceSpecCpu and ResourceSpeGpu have been updated");
-            });
-    }
+            }).catch(err => alert(err.message));
+    };
 
     const onClickCancel = () => {
         setIsEditing(false);
-        setCpuCount(cpuCountBackUp);
-        setGpuCount(gpuCountBackUp);
+        setResourceSpec(resourceSpecBackup);
+    };
+
+    if (!resourceSpec) {
+        return '';
     }
+
     return <>
         <Block title="Resource Spec"
                id="problem-editor-resource-spec"
@@ -68,20 +65,20 @@ const ResourceSpec = () => {
                 <FiCpu/>
                 <span style={{width: "35px", marginLeft: "5px", color: "rgba(18, 115, 186, 1)"}}>CPU</span>
                 {!isEditing ?
-                    <span style={{marginLeft: "5px", color: "rgba(18, 115, 186, 1)"}}>{cpuCount}</span>
+                    <span style={{marginLeft: "5px", color: "rgba(18, 115, 186, 1)"}}>{resourceSpec.cpu}</span>
                     :
-                    <input type="text" className="input-box" value={cpuCount}
-                           onChange={e => setCpuCount(e.target.value)}/>
+                    <input type="number" className="input-box" value={resourceSpec.cpu}
+                           onChange={e => setResourceSpec({...resourceSpec, cpu: parseFloat(e.target.value)})}/>
                 }
             </div>
             <div style={{display: "flex", flexDirection: "row", alignItems: "center", height: "1.5em"}}>
                 <FiCpu/>
                 <span style={{width: "35px", marginLeft: "5px", color: "rgba(18, 115, 186, 1)"}}>GPU</span>
                 {!isEditing ?
-                    <span style={{marginLeft: "5px", color: "rgba(18, 115, 186, 1)"}}>{gpuCount}</span>
+                    <span style={{marginLeft: "5px", color: "rgba(18, 115, 186, 1)"}}>{resourceSpec.gpu}</span>
                     :
-                    <input type="text" className="input-box" value={gpuCount}
-                           onChange={e => setGpuCount(e.target.value)}/>
+                    <input type="number" className="input-box" value={resourceSpec.gpu}
+                           onChange={e => setResourceSpec({...resourceSpec, gpu: parseFloat(e.target.value)})}/>
                 }
             </div>
         </Block>

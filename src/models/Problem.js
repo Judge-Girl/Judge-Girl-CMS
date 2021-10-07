@@ -15,4 +15,5 @@ export default class Problem {
         this.visible = visible;
         this.archived = archived;
     }
+
 }

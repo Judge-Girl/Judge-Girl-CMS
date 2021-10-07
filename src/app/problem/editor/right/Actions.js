@@ -1,11 +1,11 @@
 import Block from "./Block";
 import "./ActionItem.scss";
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {Divider} from "./Divider";
-import {useHistory, useParams} from "react-router-dom";
-import {useProblemEditorContext} from "../ProblemEditorContext";
+import {useHistory} from "react-router-dom";
+import {ACTION_DELETE, ACTION_UPDATE_ARCHIVED, useProblemEditorContext} from "../context";
 import {problemService} from "../../../../services/services";
-import {DeleteConfirmationModal} from "../../../commons/modals/DeleteConfirmationModal";
+import {DeleteConfirmationModal} from "../../../commons/modals/ConfirmationModal";
 
 const ActionItem = ({title, description, buttonName, onClick}) => {
     return <div className="action-item">
@@ -13,56 +13,45 @@ const ActionItem = ({title, description, buttonName, onClick}) => {
         <p className="action-description">{description}</p>
         <button className="action-btn" onClick={onClick}>{buttonName}</button>
     </div>
-}
+};
 
 const Actions = () => {
     const history = useHistory();
-    const {problemId} = useParams();
-    const [problem, setProblem] = useState(undefined);
-    const {markProblemsDirty} = useProblemEditorContext();
-    const [archived, setArchived] = useState(false);
+    const {problem, dispatch} = useProblemEditorContext();
     const [showDeleteProblemModal, setShowDeleteProblemModal] = useState(false);
 
-    useEffect(() => {
-        if (!problem) {
-            problemService.getProblemById(problemId)
-                .then(p => {
-                    setProblem(p);
-                    setArchived(p.archived);
-                });
-        }
-    }, [problem, problemId]);
-
     const archiveProblem = () => {
-        problemService.archiveOrDeleteProblem(problemId)
+        problemService.archiveOrDeleteProblem(problem.id)
             .then(() => {
-                console.log(`Problem ${problemId} has been archived`);
-                markProblemsDirty();
-                setArchived(true);
+                console.log(`Problem ${problem.id} has been archived`);
+                dispatch({type: ACTION_UPDATE_ARCHIVED, archived: true});
             });
     };
 
     const restoreProblem = () => {
-        problemService.restoreProblem(problemId)
+        problemService.restoreProblem(problem.id)
             .then(() => {
-                console.log(`Problem ${problemId} has been restored`);
-                markProblemsDirty();
-                setArchived(false);
+                console.log(`Problem ${problem.id} has been restored`);
+                dispatch({type: ACTION_UPDATE_ARCHIVED, archived: false});
             });
     };
 
     const deleteProblem = () => {
-        problemService.archiveOrDeleteProblem(problemId)
+        problemService.archiveOrDeleteProblem(problem.id)
             .then(() => {
-                console.log(`Problem ${problemId} has been deleted`);
-                markProblemsDirty();
+                console.log(`Problem ${problem.id} has been deleted`);
+                dispatch({type: ACTION_DELETE});
                 history.push("/problems");
             });
     };
 
+    if (!problem) {
+        return "";
+    }
+
     return <>
         <Block title="Actions" id="problem-editor-actions">
-            {archived ?
+            {problem.archived ?
                 <>
                     <ActionItem title="Restore"
                                 description="*You can see this problem on the problem list after restore this problem."
@@ -89,7 +78,7 @@ const Actions = () => {
         <DeleteConfirmationModal title="Delete the Problem"
                                  data={[
                                      {
-                                         title: "Problem Title",
+                                         title: "Problem Title: ",
                                          value: problem?.title
                                      }
                                  ]}

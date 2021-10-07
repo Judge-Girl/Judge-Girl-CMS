@@ -4,7 +4,7 @@ import {ThreeDotsButton} from "../commons/buttons/ThreeDotsButton";
 import {Spinner} from "../commons/Spinner";
 import {ItemListPage} from "../commons/ItemListPage/ItemListPage";
 import {EmptyCell, TableCell} from "../../utils/TableCell";
-import {DeleteConfirmationModal} from "../commons/modals/DeleteConfirmationModal.js";
+import {DeleteConfirmationModal} from "../commons/modals/ConfirmationModal.js";
 import {CreateButton} from "../commons/buttons/CreateButton";
 import {CreateHomeworkModal} from "./modals/CreateHomeworkModal";
 import {Link, Redirect, Route, Switch} from "react-router-dom";

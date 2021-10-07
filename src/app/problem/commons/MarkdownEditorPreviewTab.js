@@ -1,5 +1,4 @@
-import {useEditorContext} from "./MarkdownEditorContext";
-import { MathJax, MathJaxContext } from "better-react-mathjax";
+import {MathJax, MathJaxContext} from "better-react-mathjax";
 import ReactMarkdown from "react-markdown";
 
 const stub = [
@@ -20,7 +19,7 @@ const stub = [
     `---------------`,
     ``,
     `[Google](https://google.com.tw)`,
-]
+];
 
 const mathJaxConfig = {
     loader: { load: ["[tex]/html"] },
@@ -37,8 +36,7 @@ const mathJaxConfig = {
     }
 };
 
-const MarkdownEditorPreviewTab = () => {
-    const {markdownText} = useEditorContext();
+const MarkdownEditorPreviewTab = ({markdownText}) => {
 
     return <>
         <MathJaxContext version={3} config={mathJaxConfig}>

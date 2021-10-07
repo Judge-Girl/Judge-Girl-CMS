@@ -8,7 +8,7 @@ import {AddQuestionModal} from "../modals/AddQuestionModal.js";
 import {EditQuestionModal} from "../modals/EditQuestionModal.js";
 import {RejudgeQuestionModal} from "../modals/RejudgeQuestionModal";
 import {Spinner} from "../../commons/Spinner";
-import {DeleteConfirmationModal} from "../../commons/modals/DeleteConfirmationModal";
+import {DeleteConfirmationModal} from "../../commons/modals/ConfirmationModal";
 import ExamDescription from "./ExamDescription";
 
 const toCharacterIndex = i => {

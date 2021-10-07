@@ -7,13 +7,11 @@ import {problemService} from "../../services/services";
 import {Spinner} from "../commons/Spinner";
 import {Link, Route, useHistory} from "react-router-dom";
 import ProblemEditor from "./editor/ProblemEditor";
-import {ProblemEditorContext} from "./editor/ProblemEditorContext";
 
 
 const ProblemList = () => {
     const history = useHistory();
     const [problems, setProblems] = useState(undefined);
-    const [problemsDirty, setProblemsDirty] = useState(true);
     const [showCreateProblemModal, setShowCreateProblemModal] = useState(false);
     const [problemTabActiveIndex, setProblemTabActiveIndex] = useState(1);
     const fetchAllProblems = useCallback(() => {
@@ -21,19 +19,16 @@ const ProblemList = () => {
             .then(setProblems);
     }, [setProblems]);
 
-    const markProblemsDirty = () => setProblemsDirty(true);
-
     useEffect(() => {
-        if (!problems || problemsDirty) {
+        if (!problems) {
             problemService.getNonArchivedAndVisibleProblems()
                 .then(setProblems);
-            setProblemsDirty(false);
         }
-    }, [problems, problemsDirty, fetchAllProblems]);
+    }, [problems]);
 
-    const onProblemCreated = problemId => {
+    const onProblemCreated = problem => {
         fetchAllProblems();
-        history.push(`/problems/${problemId}/edit`);
+        history.push(`/problems/${problem.id}/edit`);
     };
 
     const ProblemFilterSearchBar = ({filterItems}) => {
@@ -122,13 +117,9 @@ const ProblemList = () => {
             </div>
         </Route>
         <Route path="/problems/:problemId/edit">
-            <ProblemEditorContext.Provider
-                value={{markProblemsDirty}}>
                 <ProblemEditor/>
-            </ProblemEditorContext.Provider>
         </Route>
     </>
-        ;
 };
 
 

@@ -3,51 +3,49 @@ import Block from "./Block";
 import {useEffect, useState} from "react";
 import {EditSaveCancelButton} from "../../commons/EditSaveCancelButton";
 import {EditorButton} from "../../commons/EditorButton";
-import {useParams} from "react-router-dom";
 import {problemService} from "../../../../services/services";
-import {LanguageEnv} from "../../Model";
-
+import {ACTION_UPDATE_LANGUAGE_ENV, useProblemEditorContext} from "../context";
 
 const CompilationScript = () => {
-    const {problemId} = useParams();
-    const [problem, setProblem] = useState(undefined);
-    const [languageEnv, setLanguageEnv] = useState(undefined);
+    const {problem, dispatch} = useProblemEditorContext();
+    const [compilation, setCompilation] = useState(undefined);
+    const [compilationBackup, setCompilationBackup] = useState(undefined);
     const [isEditing, setIsEditing] = useState(false);
-    const [script, setScript] = useState("");
-    const [scriptBackUp, setScriptBackUp] = useState(undefined);
 
     useEffect(() => {
-        if (!problem) {
-            problemService.getProblemById(problemId)
-                .then(p => {
-                    setProblem(p);
-                    setLanguageEnv(new LanguageEnv(p.languageEnvs[0]));
-                });
+        if (problem) {
+            if (!compilation) {
+                setCompilation(problem.languageEnvs[0].compilation);
+                if (!compilationBackup) {
+                    setCompilationBackup(problem.languageEnvs[0].compilation);
+                }
+            }
         }
-        if (languageEnv) {
-            setScript(languageEnv.getCompilationScript());
-        }
-    }, [languageEnv, problem, problemId]);
+    }, [problem, compilation, setCompilation, compilationBackup, setCompilationBackup]);
 
     const onClickEdit = () => {
         setIsEditing(true);
-        setScriptBackUp(script);
     };
 
     const onClickSave = () => {
         setIsEditing(false);
-        languageEnv.updateCompilationScript(script);
-        problemService.updateLanguageEnv(problemId, languageEnv)
+        const newLanguageEnv = {...problem.languageEnvs[0], compilation};
+        problemService.updateLanguageEnv(problem.id, newLanguageEnv)
             .then(() => {
+                dispatch({type: ACTION_UPDATE_LANGUAGE_ENV, languageEnv: newLanguageEnv});
+                setCompilationBackup(compilation);
                 console.log("The problem's compilation script has been updated");
             });
     };
 
     const onClickCancel = () => {
         setIsEditing(false);
-        setScript(scriptBackUp);
+        setCompilation(compilationBackup);
     };
 
+    if (!compilation) {
+        return "";
+    }
     return <>
         <Block title="Compilation Script"
                id="problem-editor-compilation-script"
@@ -60,14 +58,12 @@ const CompilationScript = () => {
                }>
 
             <div className={"compilation-script"}>
-                {!isEditing ?
-                    <div>{script}</div>
-                    :
+                {isEditing ?
                     <>
                         <textarea className="compile-script-text-area"
                                   placeholder="gcc a.out -o main.c"
-                                  value={script}
-                                  onChange={e => setScript(e.target.value)}/>
+                                  value={compilation.script}
+                                  onChange={e => setCompilation({...compilation, script: e.target.value})}/>
                         <EditorButton text="Auto Generate"
                                       type="file"
                                       buttonColor="rgba(236, 112, 99, 1)"
@@ -76,8 +72,9 @@ const CompilationScript = () => {
                                       width="11em"
                                       height="36px"
                                       borderRadius="50px"
-                                      onClick={undefined}/>
-                    </>}
+                                      onClick={undefined} disabled/>
+                    </>: <div>{compilation.script}</div>
+                    }
             </div>
         </Block>
     </>;

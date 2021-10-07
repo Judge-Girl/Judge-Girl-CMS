@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {Redirect, useParams, useRouteMatch} from "react-router-dom";
 import {Spinner} from "../commons/Spinner";
-import {DeleteConfirmationModal} from "../commons/modals/DeleteConfirmationModal";
+import {DeleteConfirmationModal} from "../commons/modals/ConfirmationModal";
 import {DangerZone} from "../commons/dangerZone/DangerZone";
 import {useGroupContext} from "./GroupContext";
 import {GroupInPageNavigationBar} from "./GroupInPageNavigationBar";

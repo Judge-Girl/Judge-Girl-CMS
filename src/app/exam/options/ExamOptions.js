@@ -10,7 +10,7 @@ import {formatDate} from "../../../utils/utils";
 import {useExamContext} from "../questions/ExamContext";
 import {Spinner} from "../../commons/Spinner";
 import {DangerZone} from "../../commons/dangerZone/DangerZone";
-import {DeleteConfirmationModal} from "../../commons/modals/DeleteConfirmationModal";
+import {DeleteConfirmationModal} from "../../commons/modals/ConfirmationModal";
 
 
 const ExamOptions = () => {

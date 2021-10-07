@@ -2,18 +2,14 @@ export class LanguageEnv {
 
     constructor({language, compilation, resourceSpec, submittedCodeSpecs}) {
         this.language = language;
-        this.compilationScript = compilation.script;
+        this.compilation = compilation;
         this.resourceSpecCpu = resourceSpec.cpu;
         this.resourceSpecGpu = resourceSpec.gpu;
         this.submittedCodeSpecs = submittedCodeSpecs;
     }
 
-    getCompilationScript() {
-        return this.compilationScript;
-    }
-
     updateCompilationScript(script) {
-        this.compilationScript = script;
+        this.compilation.script = script;
     }
 
     getSubmittedCodeSpecFileNames() {

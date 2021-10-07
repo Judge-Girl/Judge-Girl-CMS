@@ -1,27 +1,39 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import Block from "../Block";
 import {useTestcaseEditList} from './usecase';
 import {EditorButton} from "../../../commons/EditorButton";
 import TestcaseEditor from "./TestcaseEditor";
-import {useParams} from "react-router-dom";
 import {problemService} from "../../../../../services/services";
+import {useProblemEditorContext} from "../../context";
 
 
 const Testcases = () => {
-    const {problemId} = useParams();
-    const [problem, setProblem] = useState(undefined);
-    const {testcaseEdits, initializeTestcases, addNewTestcase, deleteTestcase} = useTestcaseEditList(problem);
+    const {problem} = useProblemEditorContext();
+    const {setProblem, testcaseEdits, initializeTestcases, addNewTestcase, deleteTestcase} = useTestcaseEditList();
 
     useEffect(() => {
-        if (!problem) {
-            problemService.getProblemById(problemId)
-                .then(problem => {
-                    setProblem(problem);
-                    initializeTestcases(problem.testcases);
-                });
+        if (problem) {
+            setProblem(problem);
+            if (!testcaseEdits) {
+                initializeTestcases(problem.testcases);
+            }
         }
-    });
+    }, [problem, setProblem, testcaseEdits, initializeTestcases]);
 
+    const onAddNewTestcaseButtonClick = () => {
+        const newTestcaseEdit = addNewTestcase();
+        // -- Scroll to the new testcase edit's element just created:
+        // We use setTimeout here because React won't update the `testcaseEdits' state immediately,
+        // so we predict that the 'testcaseEdits' will be updated after 150 ms.
+        setTimeout(() => {
+            const testcaseEditElement = document.getElementById(`testcase-${newTestcaseEdit.id}`);
+            testcaseEditElement?.scrollIntoView({behavior: 'smooth', block: 'center'});
+        }, 150)
+    };
+
+    if (!testcaseEdits) {
+        return "";
+    }
     return <>
         <Block title="Test Cases"
                id="problem-editor-testcases"
@@ -33,14 +45,17 @@ const Testcases = () => {
                                  borderRadius="50px"
                                  fontColor="rgba(124,124,124,1)"
                                  borderColor="#D2D2D2"
-                                 onClick={addNewTestcase}/>
+                                 onClick={onAddNewTestcaseButtonClick}/>
                }>
             <div className="testcases">
+
                 {testcaseEdits.map((testcaseEdit) =>
-                    <TestcaseEditor key={testcaseEdit.id}
-                                    problemService={problemService}
-                                    initialTestcaseEdit={testcaseEdit}
-                                    onTestcaseDeleted={deleteTestcase}/>)
+                    <div id={`testcase-${testcaseEdit.id}`}>
+                        <TestcaseEditor key={testcaseEdit.id}
+                                        problemService={problemService}
+                                        initialTestcaseEdit={testcaseEdit}
+                                        onTestcaseDeleted={deleteTestcase}/>
+                    </div>)
                 }
             </div>
         </Block>

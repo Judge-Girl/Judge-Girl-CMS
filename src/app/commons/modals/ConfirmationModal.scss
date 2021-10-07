@@ -1,13 +1,8 @@
-$light-red: #E26C65;
 
-.delete-confirmation-modal {
+.confirmation-modal {
   #modal {
     padding: 30px 40px 27px 40px;
     font-family: 'Poppins', sans-serif;
-  }
-
-  .modal-header {
-    color: $light-red;
   }
 
   p {
@@ -21,12 +16,7 @@ $light-red: #E26C65;
     margin-top: 20px;
     border-radius: 10px;
     font-weight: 600;
-    background: $light-red;
     color: white;
     border-color: rgba(0, 0, 0, 0);
-
-    &:hover {
-      background: #D84E47;
-    }
   }
 }

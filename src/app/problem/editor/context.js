@@ -32,13 +32,9 @@ export function reducer(problem, action) {
         case ACTION_UPDATE_ARCHIVED:
             return newProblem({...problem, archived: true});
         case ACTION_UPDATE_COMPILATION:
-            const languageName = action.languageName;
             return newProblem({
                 ...problem,
-                languageEnvs: updateLanguageEnv(problem.languageEnvs, languageName,
-                    languageEnv => {
-                        return {...languageEnv, compilation: action.compilation};
-                    })
+                languageEnvs: updateLanguageEnv(problem.languageEnvs, action.languageEnv)
             });
         case ACTION_UPDATE_LANGUAGE_ENV:
             return newProblem({
@@ -57,11 +53,7 @@ function newProblem(newProblem) {
 }
 
 function updateLanguageEnv(languageEnvs, languageEnv) {
-    for (let i = 0; i < languageEnvs.length; i++) {
-        if (languageEnvs[i].name === languageEnv.name) {
-            languageEnvs[i] = languageEnv;
-            break;
-        }
-    }
+    const languageEnvIndex = languageEnvs.findIndex(_languageEnv => _languageEnv.name === languageEnv.name);
+    languageEnvs[languageEnvIndex] = languageEnv;
     return languageEnvs;
 }

@@ -8,7 +8,7 @@ import {useEffect, useReducer} from "react";
 import {reducer} from "./context";
 
 
-const ProblemEditor = ({markProblemsDirty}) => {
+const ProblemEditor = () => {
     const {problemId} = useParams();
     const [problem, dispatch] = useReducer(reducer, undefined);
 
@@ -20,7 +20,7 @@ const ProblemEditor = ({markProblemsDirty}) => {
     });
 
     return <>
-        <Context.Provider value={{problem, dispatch, markProblemsDirty}}>
+        <Context.Provider value={{problem, dispatch}}>
             <div id="problem-editor" className="problem-editor">
                 <LeftBar/><RightBar/>
             </div>

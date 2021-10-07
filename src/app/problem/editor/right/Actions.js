@@ -17,24 +17,14 @@ const ActionItem = ({title, description, buttonName, onClick}) => {
 
 const Actions = () => {
     const history = useHistory();
-    const {problem, dispatch, markProblemsDirty} = useProblemEditorContext();
-    const [archived, setArchived] = useState(undefined);
+    const {problem, dispatch} = useProblemEditorContext();
     const [showDeleteProblemModal, setShowDeleteProblemModal] = useState(false);
-
-    useEffect(() => {
-        if (problem) {
-            if (archived === undefined) {
-                setArchived(problem.archived);
-            }
-        }
-    }, [problem, archived, setArchived]);
 
     const archiveProblem = () => {
         problemService.archiveOrDeleteProblem(problem.id)
             .then(() => {
                 console.log(`Problem ${problem.id} has been archived`);
                 dispatch({type: ACTION_UPDATE_ARCHIVED, archived: true});
-                setArchived(true);
             });
     };
 
@@ -43,7 +33,6 @@ const Actions = () => {
             .then(() => {
                 console.log(`Problem ${problem.id} has been restored`);
                 dispatch({type: ACTION_UPDATE_ARCHIVED, archived: false});
-                setArchived(false);
             });
     };
 
@@ -52,14 +41,17 @@ const Actions = () => {
             .then(() => {
                 console.log(`Problem ${problem.id} has been deleted`);
                 dispatch({type: ACTION_DELETE});
-                markProblemsDirty();
                 history.push("/problems");
             });
     };
 
+    if (!problem) {
+        return "";
+    }
+
     return <>
         <Block title="Actions" id="problem-editor-actions">
-            {archived ?
+            {problem.archived ?
                 <>
                     <ActionItem title="Restore"
                                 description="*You can see this problem on the problem list after restore this problem."

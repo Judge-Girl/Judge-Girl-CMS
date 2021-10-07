@@ -5,7 +5,7 @@ import {Divider} from "./Divider";
 import {useHistory} from "react-router-dom";
 import {ACTION_DELETE, ACTION_UPDATE_ARCHIVED, useProblemEditorContext} from "../context";
 import {problemService} from "../../../../services/services";
-import {DeleteConfirmationModal} from "../../../commons/modals/DeleteConfirmationModal";
+import {DeleteConfirmationModal} from "../../../commons/modals/ConfirmationModal";
 
 const ActionItem = ({title, description, buttonName, onClick}) => {
     return <div className="action-item">

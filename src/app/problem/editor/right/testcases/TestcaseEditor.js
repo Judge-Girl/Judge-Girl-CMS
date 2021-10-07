@@ -7,7 +7,7 @@ import IconTextItems from "../../../../commons/TextInputForm/IconTextItems";
 import {useTestcaseIosPatch} from "./usecase";
 import Testcase from "../../../../../models/Testcase";
 import DotLoader from "react-spinners/DotLoader";
-import {ConfirmationModal, DeleteConfirmationModal} from "../../../../commons/modals/DeleteConfirmationModal";
+import {ConfirmationModal, DeleteConfirmationModal} from "../../../../commons/modals/ConfirmationModal";
 
 
 const TestCaseName = ({name, isEditing, onChange}) => {

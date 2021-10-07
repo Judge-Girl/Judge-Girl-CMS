@@ -5,7 +5,7 @@ import FakeLink from "../commons/FakeLink";
 import {CreateStudentAccountModal} from "./CreateStudentAccountModal";
 import {CreateButton} from "../commons/buttons/CreateButton";
 import {ThreeDotsButton} from "../commons/buttons/ThreeDotsButton";
-import {DeleteConfirmationModal} from "../commons/modals/DeleteConfirmationModal";
+import {DeleteConfirmationModal} from "../commons/modals/ConfirmationModal";
 
 const useStudentList = () => {
     const [students, setStudents] = useState(undefined);

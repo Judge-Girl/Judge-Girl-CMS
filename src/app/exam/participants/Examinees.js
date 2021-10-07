@@ -7,7 +7,7 @@ import {DropDownBtn} from "../../commons/buttons/DropDownButton";
 import {AiOutlineMail, AiOutlineUsergroupAdd} from "react-icons/ai";
 import {TextareaModal} from "../../commons/modals/TextareaModal";
 import {ThreeDotsButton} from "../../commons/buttons/ThreeDotsButton";
-import {DeleteConfirmationModal} from "../../commons/modals/DeleteConfirmationModal";
+import {DeleteConfirmationModal} from "../../commons/modals/ConfirmationModal";
 import {Spinner} from "../../commons/Spinner";
 import {EmptyCell, TableCell} from "../../../utils/TableCell";
 

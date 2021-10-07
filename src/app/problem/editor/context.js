@@ -32,10 +32,6 @@ export function reducer(problem, action) {
         case ACTION_UPDATE_ARCHIVED:
             return newProblem({...problem, archived: true});
         case ACTION_UPDATE_COMPILATION:
-            return newProblem({
-                ...problem,
-                languageEnvs: updateLanguageEnv(problem.languageEnvs, action.languageEnv)
-            });
         case ACTION_UPDATE_LANGUAGE_ENV:
             return newProblem({
                 ...problem,

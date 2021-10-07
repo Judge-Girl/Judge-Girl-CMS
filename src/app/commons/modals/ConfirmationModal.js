@@ -19,6 +19,7 @@ const DeleteConfirmationModal = ({title, data, show, onClose, onSubmit}) => {
  */
 
 /**
+ * @callback callback
  * @param {string} title, the title (str) of the modal
  * @param {{title: string, value: string}[]} data, a list of the content items described by title and value
  * @param {string} themeColor the theme color (applies on title and the button's background color)

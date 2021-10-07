@@ -40,10 +40,24 @@ export class ProblemService extends AbstractService {
             });
     }
 
+    async createProblem(problemTitle) {
+        const response = await this.axios.post(`/api/problems`, problemTitle,
+            {
+                headers: {
+                    'Content-Type': 'text/plain'
+                }
+            });
+        const problem = new Problem(response.data);
+        return this._initializeWithDefaultLanguageEnv(problem);
+    }
+
     async getProblemById(problemId) {
         const response = await this.axios.get(`/api/problems/${problemId}`);
         const problem = new Problem(response.data);
+        return this._initializeWithDefaultLanguageEnv(problem);
+    }
 
+    async _initializeWithDefaultLanguageEnv(problem) {
         return new Promise((resolve) => {
             if (!problem.languageEnvs || problem.languageEnvs.length === 0 ||
                 problem.languageEnvs[0].name.toUpperCase() !== 'C') {
@@ -59,8 +73,8 @@ export class ProblemService extends AbstractService {
                     },
                     submittedCodeSpecs: []
                 }];
-                console.log(`The problem(id=${problemId}) doesn't have the default C language, let's initialize one for it...`)
-                this.updateLanguageEnv(problemId, problem.languageEnvs[0])
+                console.log(`The problem(id=${problem.id}) doesn't have the default C language, let's initialize one for it...`);
+                this.updateLanguageEnv(problem.id, problem.languageEnvs[0])
                     .then(() => resolve(problem));
             } else {
                 resolve(problem);
@@ -71,15 +85,6 @@ export class ProblemService extends AbstractService {
     async getProblemsByIds(problemIds) {
         return this.axios.get(`/api/problems?ids=${problemIds.join(',')}`)
             .then(res => res.data.map(obj => new Problem(obj)));
-    }
-
-    async createProblem(problemTitle) {
-        return this.axios.post(`/api/problems`, problemTitle,
-            {
-                headers: {
-                    'Content-Type': 'text/plain'
-                }
-            }).then(res => res.data);
     }
 
     async getAllProblems() {

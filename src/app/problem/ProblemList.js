@@ -26,9 +26,9 @@ const ProblemList = () => {
         }
     }, [problems]);
 
-    const onProblemCreated = problemId => {
+    const onProblemCreated = problem => {
         fetchAllProblems();
-        history.push(`/problems/${problemId}/edit`);
+        history.push(`/problems/${problem.id}/edit`);
     };
 
     const ProblemFilterSearchBar = ({filterItems}) => {

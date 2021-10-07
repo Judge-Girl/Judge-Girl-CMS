@@ -1,6 +1,6 @@
 import Block from "./Block";
 import "./ActionItem.scss";
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {Divider} from "./Divider";
 import {useHistory} from "react-router-dom";
 import {ACTION_DELETE, ACTION_UPDATE_ARCHIVED, useProblemEditorContext} from "../context";

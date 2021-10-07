@@ -3,7 +3,6 @@ import {useEffect, useState} from "react";
 import {examService} from "../../../services/services";
 import Block from "../../problem/editor/right/Block";
 import {EditSaveCancelButton} from "../../problem/commons/EditSaveCancelButton";
-import {EditorContext} from "../../problem/commons/MarkdownEditorContext";
 import MarkdownEditor from "../../problem/commons/MarkdownEditor";
 import MarkdownEditorWriteTab from "../../problem/commons/MarkdownEditorWriteTab";
 import MarkdownEditorPreviewTab from "../../problem/commons/MarkdownEditorPreviewTab";
@@ -60,15 +59,14 @@ const ExamDescription = ({examId}) => {
                                                  onClickSave={onClickSave}
                                                  onClickCancel={onClickCancel}/>
                        }>
-                    <EditorContext.Provider value={{markdownText, setMarkdownText}}>
                         <MarkdownEditor className="markdown"
                                         tags={[
-                                            {title: "Write", component: <MarkdownEditorWriteTab/>},
-                                            {title: "Preview", component: <MarkdownEditorPreviewTab/>},
+                                            {title: "Write", component: <MarkdownEditorWriteTab initialMarkdownText={markdownText}
+                                                                                                onMarkdownTextChange={setMarkdownText}/>},
+                                            {title: "Preview", component: <MarkdownEditorPreviewTab markdownText={markdownText}/>},
                                         ]}
                                         defaultTabIndex={FIRST_TAB_INDEX}
                                         isEditing={isEditing}/>
-                    </EditorContext.Provider>
                 </Block>
             </div>
         </div>

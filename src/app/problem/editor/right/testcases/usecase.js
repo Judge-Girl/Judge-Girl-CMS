@@ -1,6 +1,7 @@
 import {useRef, useState} from "react";
 import {useUploads} from "../../../../usecases/UploadFilesUseCase";
 import {TestcaseIOsPatch} from "../../../../../services/ProblemService";
+import {MB, SECOND} from "../../../../../utils/unit";
 
 let currentTestcaseEdits = [];
 
@@ -13,11 +14,11 @@ const useTestcaseEditList = () => {
         const newTestcaseEdit = new TestcaseEdit({
             id: nextId.toString(),
             name: nextId.toString(),
-            timeLimit: 1,
-            memoryLimit: 1,
-            outputLimit: 1,
+            timeLimit: SECOND(1),
+            memoryLimit: MB(64),
+            outputLimit: MB(64),
             threadNumberLimit: -1,  // currently doesn't support threadNumberLimit's modification
-            grade: 0,
+            grade: 10,
             problemId: problem.id,
 
             editing: true // new testcase --> editing it immediately

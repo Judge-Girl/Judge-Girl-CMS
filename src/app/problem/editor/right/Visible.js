@@ -6,23 +6,23 @@ import {problemService} from "../../../../services/services";
 
 const Visible = () => {
     const {problem, dispatch} = useProblemEditorContext();
-    const [isOnClicked, setIsOnClicked] = useState(undefined);
+    const [visibility, setVisibility] = useState(undefined);
 
     useEffect(() => {
        if (problem) {
-           if (isOnClicked === undefined) {
-               setIsOnClicked(problem.visible);
+           if (visibility === undefined) {
+               setVisibility(problem.visible);
            }
        }
-    }, [problem, isOnClicked, setIsOnClicked]);
+    }, [problem, visibility, setVisibility]);
 
-    const onVisibleButtonClick = (isVisibleButtonClicked) => {
-        if (isVisibleButtonClicked !== isOnClicked) {
-            setIsOnClicked(isVisibleButtonClicked);
-            problemService.updateProblemVisibility(problem.id, isVisibleButtonClicked)
+    const onVisibleButtonClick = (newVisibility) => {
+        if (newVisibility !== visibility) {
+            setVisibility(newVisibility);
+            problemService.updateProblemVisibility(problem.id, newVisibility)
                 .then(() => {
-                    console.log(`The problem's visibility has been modified to --> ${isVisibleButtonClicked}`);
-                    dispatch({type: ACTION_UPDATE_VISIBILITY, visible: isVisibleButtonClicked});
+                    console.log(`The problem's visibility has been modified to --> ${newVisibility}`);
+                    dispatch({type: ACTION_UPDATE_VISIBILITY, visible: newVisibility});
                 });
         }
     };
@@ -33,8 +33,8 @@ const Visible = () => {
                titleButton={
                    <div style={{display: "flex", flexDirection: "row"}}>
                        <EditorButton text="ON"
-                                     buttonColor={isOnClicked ? "rgba(51, 155, 231, 1)" : null}
-                                     fontColor={isOnClicked ? "#FFF" : "rgba(124,124,124,1)"}
+                                     buttonColor={visibility ? "rgba(51, 155, 231, 1)" : null}
+                                     fontColor={visibility ? "#FFF" : "rgba(124,124,124,1)"}
                                      width="61px"
                                      height="36px"
                                      borderRadius="50px 0 0 50px"
@@ -42,8 +42,8 @@ const Visible = () => {
                                      onClick={() => onVisibleButtonClick(true)}
                        />
                        <EditorButton text="OFF"
-                                     buttonColor={isOnClicked ? null : "rgba(51, 155, 231, 1)"}
-                                     fontColor={isOnClicked ? "rgba(124,124,124,1)" : "#FFF"}
+                                     buttonColor={visibility ? null : "rgba(51, 155, 231, 1)"}
+                                     fontColor={visibility ? "rgba(124,124,124,1)" : "#FFF"}
                                      width="61px"
                                      height="36px"
                                      borderRadius="0 50px 50px 0"

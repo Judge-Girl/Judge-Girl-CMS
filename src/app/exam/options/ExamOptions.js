@@ -4,12 +4,12 @@ import {useHistory, useParams} from "react-router-dom"
 import {TitleLine} from "../../commons/titles/TitleLine";
 import ExamName from "./ExamName";
 import ExamSchedule from "./ExamSchedule";
-import ExamWhiteList from "./ExamWhiteList";
 import {examService} from "../../../services/services";
 import {formatDate} from "../../../utils/utils";
 import {useExamContext} from "../questions/ExamContext";
 import {Spinner} from "../../commons/Spinner";
 import {DangerZone} from "../../commons/dangerZone/DangerZone";
+import moment from "moment";
 import {DeleteConfirmationModal} from "../../commons/modals/ConfirmationModal";
 
 
@@ -39,12 +39,12 @@ const ExamOptions = () => {
     const onButtonUpdateChangeClick = () => {
         if (examScheduleRef.current?.validateTimes(startTime, endTime)) {
             examService.updateExam(examId, {
-                    examId,
-                    name: examName,
-                    startTime,
-                    endTime,
-                    description: exam.description
-                })
+                examId,
+                name: examName,
+                startTime: moment(startTime).valueOf(),
+                endTime: moment(endTime).valueOf(),
+                description: exam.description
+            })
                 .then(updateExams);
         }
     };
@@ -76,9 +76,12 @@ const ExamOptions = () => {
                             setStartTime={setStartTime}
                             setEndTime={setEndTime}/>
                     </section>
-                    <section>
-                        <ExamWhiteList/>
-                    </section>
+                    {/*<section>*/}
+                        {
+                            //TODO Because it has problem(issue #232)
+                            /*<ExamWhiteList/>*/
+                        }
+                    {/*</section>*/}
                     <section>
                         <button className="button update-button"
                                 onClick={onButtonUpdateChangeClick}>

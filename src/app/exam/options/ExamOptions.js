@@ -89,7 +89,7 @@ const ExamOptions = () => {
                         </button>
                     </section>
                 </div>
-                <div className="column right" />
+                <div className="column right"/>
                 <TitleLine title="Danger Zone" width="150%"/>
                 <DangerZone onDangerButtonClick={() => setShowDeleteExamModal(true)}
                             header="Delete this exam"

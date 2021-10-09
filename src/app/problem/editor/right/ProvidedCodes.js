@@ -13,19 +13,24 @@ import {problemService} from "../../../../services/services";
 const ProvidedCodes = () => {
     const {problem, dispatch} = useProblemEditorContext();
     const [isEditing, setIsEditing] = useState(false);
-    const [providedCodesFileId, setProvidedCodesFileId] = useState(undefined);
-    const [providedCodesFileNames, setProvidedCodesFileNames] = useState([]);
+    const [providedCodes, setProvidedCodes] = useState(undefined);
     const {files, setFiles, addFiles, removeFile} = useUploads();
 
     useEffect(() => {
         if (problem) {
-            const providedCodes = problem.languageEnvs[0].providedCodes;
-            if (!providedCodesFileId && providedCodes) {
-                setProvidedCodesFileNames(providedCodes.providedCodesFileNames);
-                setProvidedCodesFileId(providedCodes.providedCodesFileId);
+            if (!providedCodes){
+                /* ProvidedCodes may not exist in languageEnv,
+                 * If providedCodes doesn't exist, set an empty array for providedCodesFileNames
+                 */
+                const problemProvidedCodes = problem.languageEnvs[0].providedCodes;
+                if (problemProvidedCodes) {
+                    setProvidedCodes(problemProvidedCodes);
+                } else {
+                    setProvidedCodes({providedCodesFileNames: [], providedCodes: ""});
+                }
             }
         }
-    }, [problem, providedCodesFileId, setProvidedCodesFileId, setProvidedCodesFileNames]);
+    }, [problem, providedCodes, setProvidedCodes]);
 
 
     const onClickEdit = () => {
@@ -36,14 +41,12 @@ const ProvidedCodes = () => {
         setIsEditing(false);
         problemService.uploadProvidedCodes(problem.id, 'C', files)
             .then((providedCodesFileId) => {
-                let providedCodesFileNames = files.map(f => f.name);
+                let newProvidedCodes = {providedCodesFileNames: files.map(f => f.name), providedCodesFileId};
                 const newLanguageEnv = {
-                    ...problem.languageEnvs[0],
-                    providedCodes: {providedCodesFileNames, providedCodesFileId}
+                    ...problem.languageEnvs[0], providedCodes: newProvidedCodes
                 };
                 dispatch({type: ACTION_UPDATE_PROVIDEDCODES, languageEnv: newLanguageEnv});
-                setProvidedCodesFileId(providedCodesFileId);
-                setProvidedCodesFileNames(providedCodesFileNames);
+                setProvidedCodes(newProvidedCodes);
                 console.log("The problem's SubmittedCodeSpec has been updated");
             });
     };
@@ -53,10 +56,9 @@ const ProvidedCodes = () => {
         setFiles([]);
     };
 
-    if (!providedCodesFileNames) {
+    if (!providedCodes) {
         return "";
     }
-
     return <>
         <Block title="Provided Code"
                id="problem-editor-provided-code"
@@ -69,7 +71,7 @@ const ProvidedCodes = () => {
                }>
             {!isEditing ?
                 <IconTextItems icon={<VscFileCode size={22}/>}
-                               items={providedCodesFileNames}/>
+                               items={providedCodes.providedCodesFileNames}/>
                 :
                 <>
                     <FixedUploadFileItems

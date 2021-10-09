@@ -29,7 +29,6 @@ const ProvidedCodes = () => {
 
 
     const onClickEdit = () => {
-        //show warning modal
         setIsEditing(true);
     };
 

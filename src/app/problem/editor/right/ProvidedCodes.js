@@ -4,13 +4,13 @@ import {EditSaveCancelButton} from "../../commons/EditSaveCancelButton";
 import {useUploads} from "../../../usecases/UploadFilesUseCase";
 import {ACTION_UPDATE_PROVIDEDCODES, useProblemEditorContext} from "../context";
 import IconTextItems from "../../../commons/TextInputForm/IconTextItems";
-import {VscFileCode} from "react-icons/all";
 import FixedUploadFileItems from "./FixedUploadFileItems";
-import {problemService} from "../../../../services/services";
 import UploadFileButton from "../../commons/UploadFileButton";
+import {VscFileCode} from "react-icons/all";
+import {problemService} from "../../../../services/services";
 
 
-const ProvidedCode = () => {
+const ProvidedCodes = () => {
     const {problem, dispatch} = useProblemEditorContext();
     const [isEditing, setIsEditing] = useState(false);
     const [providedCodesFileId, setProvidedCodesFileId] = useState(undefined);
@@ -20,7 +20,7 @@ const ProvidedCode = () => {
     useEffect(() => {
         if (problem) {
             const providedCodes = problem.languageEnvs[0].providedCodes;
-            if (!providedCodesFileId && providedCodes != null) {
+            if (!providedCodesFileId && providedCodes) {
                 setProvidedCodesFileNames(providedCodes.providedCodesFileNames);
                 setProvidedCodesFileId(providedCodes.providedCodesFileId);
             }
@@ -93,4 +93,4 @@ const ProvidedCode = () => {
     </>;
 };
 
-export default ProvidedCode;
+export default ProvidedCodes;

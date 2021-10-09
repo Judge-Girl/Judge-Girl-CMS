@@ -1,6 +1,6 @@
 import React from "react";
 import Tags from "./Tags";
-import ProvidedCode from "./ProvidedCode";
+import ProvidedCodes from "./ProvidedCodes";
 import SubmittedCodeSpec from "./SubmittedCodeSpec";
 import ResourceSpec from "./ResourceSpec";
 import CompilationScript from "./CompilationScript";
@@ -22,7 +22,7 @@ const RightBar = () => {
             <Tags/>
             <Divider/>
 
-            <ProvidedCode/>
+            <ProvidedCodes/>
             <Divider/>
 
             <SubmittedCodeSpec/>

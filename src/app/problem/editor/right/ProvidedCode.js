@@ -1,55 +1,92 @@
 import Block from "./Block";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {EditSaveCancelButton} from "../../commons/EditSaveCancelButton";
-import FixedUploadFileItems from "./FixedUploadFileItems";
 import {useUploads} from "../../../usecases/UploadFilesUseCase";
-import IconTextItems from "../../../commons/TextInputForm/IconTextItems.js";
-import {FiUpload, VscFileCode} from "react-icons/all";
-import {EditorButton} from "../../commons/EditorButton";
+import {ACTION_UPDATE_PROVIDEDCODES, useProblemEditorContext} from "../context";
+import IconTextItems from "../../../commons/TextInputForm/IconTextItems";
+import {VscFileCode} from "react-icons/all";
+import FixedUploadFileItems from "./FixedUploadFileItems";
+import {problemService} from "../../../../services/services";
+import UploadFileButton from "../../commons/UploadFileButton";
 
 
 const ProvidedCode = () => {
+    const {problem, dispatch} = useProblemEditorContext();
     const [isEditing, setIsEditing] = useState(false);
-    const {files, addFile, removeFile} = useUploads();
+    const [providedCodesFileId, setProvidedCodesFileId] = useState(undefined);
+    const [providedCodesFileNames, setProvidedCodesFileNames] = useState([]);
+    const {files, setFiles, addFiles, removeFile} = useUploads();
+
+    useEffect(() => {
+        if (problem) {
+            const providedCodes = problem.languageEnvs[0].providedCodes;
+            if (!providedCodesFileId && providedCodes != null) {
+                setProvidedCodesFileNames(providedCodes.providedCodesFileNames);
+                setProvidedCodesFileId(providedCodes.providedCodesFileId);
+            }
+        }
+    }, [problem, providedCodesFileId, setProvidedCodesFileId, setProvidedCodesFileNames]);
+
 
     const onClickEdit = () => {
+        //show warning modal
         setIsEditing(true);
     };
 
     const onClickSave = () => {
         setIsEditing(false);
+        problemService.uploadProvidedCodes(problem.id, 'C', files)
+            .then((providedCodesFileId) => {
+                let providedCodesFileNames = files.map(f => f.name);
+                const newLanguageEnv = {
+                    ...problem.languageEnvs[0],
+                    providedCodes: {providedCodesFileNames, providedCodesFileId}
+                };
+                dispatch({type: ACTION_UPDATE_PROVIDEDCODES, languageEnv: newLanguageEnv});
+                setProvidedCodesFileId(providedCodesFileId);
+                setProvidedCodesFileNames(providedCodesFileNames);
+                console.log("The problem's SubmittedCodeSpec has been updated");
+            });
     };
 
     const onClickCancel = () => {
         setIsEditing(false);
+        setFiles([]);
     };
+
+    if (!providedCodesFileNames) {
+        return "";
+    }
 
     return <>
         <Block title="Provided Code"
                id="problem-editor-provided-code"
                titleButton={
-               <EditSaveCancelButton
-                   isEditing={isEditing}
-                   onClickEdit={onClickEdit}
-                   onClickSave={onClickSave}
-                   onClickCancel={onClickCancel}/>
+                   <EditSaveCancelButton
+                       isEditing={isEditing}
+                       onClickEdit={onClickEdit}
+                       onClickSave={onClickSave}
+                       onClickCancel={onClickCancel}/>
                }>
-            {!isEditing?
+            {!isEditing ?
                 <IconTextItems icon={<VscFileCode size={22}/>}
-                               items={files.map(file => file.name)}/>
+                               items={providedCodesFileNames}/>
                 :
                 <>
-                    <FixedUploadFileItems files={files} removeFile={removeFile} style={{width: "16rem"}}/>
-                    <EditorButton
-                        text={<div>Upload Code <FiUpload/></div>}
-                        type="file"
-                        buttonColor="rgba(241, 196, 15, 1)"
-                        fontSize="16px"
-                        fontColor="#fff"
-                        width="11em"
-                        height="36px"
-                        borderRadius="50px"
-                        onClick={addFile} />
+                    <FixedUploadFileItems
+                        items={files.map(f => {
+                            return {key: f.name, text: f.name}
+                        })}
+                        fileRemovable={removeFile}
+                        removeItem={item => removeFile(item.text)}
+                        style={{marginBottom: "5px", width: "16rem"}}/>
+                    <UploadFileButton
+                        buttonName='Upload Codes'
+                        buttonColor='rgba(241, 196, 15, 1)'
+                        onFilesUploaded={e => addFiles(Array.from(e.target.files))}
+                        multipleFiles={true}
+                        fontSize='16px'
+                        buttonHeight='36px'/>
                 </>
             }
         </Block>

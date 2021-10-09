@@ -14,6 +14,7 @@ export const ACTION_UPDATE_DESCRIPTION = 'updateDescription';
 export const ACTION_UPDATE_VISIBILITY = 'updateVisibility';
 export const ACTION_UPDATE_ARCHIVED = 'updateArchived';
 export const ACTION_UPDATE_COMPILATION = 'updateCompilation';
+export const ACTION_UPDATE_PROVIDEDCODES = 'updateProvidedCodes';
 export const ACTION_UPDATE_LANGUAGE_ENV = 'updateLanguageEnv';
 export const ACTION_DELETE = 'delete';
 
@@ -33,6 +34,7 @@ export function reducer(problem, action) {
             return newProblem({...problem, archived: true});
         case ACTION_UPDATE_COMPILATION:
         case ACTION_UPDATE_LANGUAGE_ENV:
+        case ACTION_UPDATE_PROVIDEDCODES:
             return newProblem({
                 ...problem,
                 languageEnvs: updateLanguageEnv(problem.languageEnvs, action.languageEnv)

@@ -1,12 +1,13 @@
 import './TestcaseEditor.scss';
 import React, {useState} from "react";
 import FixedUploadFileItems from "../FixedUploadFileItems";
-import {FaCircle, FiUpload, VscFileCode} from "react-icons/all";
-import {EditSaveCancelButton} from "../../../commons/EditSaveCancelButton";
+import UploadFileButton from "../../../commons/UploadFileButton";
 import IconTextItems from "../../../../commons/TextInputForm/IconTextItems";
-import {useTestcaseIosPatch} from "./usecase";
 import Testcase from "../../../../../models/Testcase";
 import DotLoader from "react-spinners/DotLoader";
+import {FaCircle, VscFileCode} from "react-icons/all";
+import {EditSaveCancelButton} from "../../../commons/EditSaveCancelButton";
+import {useTestcaseIosPatch} from "./usecase";
 import {ConfirmationModal, DeleteConfirmationModal} from "../../../../commons/modals/ConfirmationModal";
 
 
@@ -51,17 +52,6 @@ const BulletText = ({title, value, onChange, isEditing, type = "text"}) => {
     )
 };
 
-const UploadFileButton = ({buttonName, buttonColor, onFilesUploaded, multipleFiles}) => {
-    return <label>
-        <input type="file"
-               style={{cursor: "pointer", display: "none"}}
-               onChange={onFilesUploaded} multiple={multipleFiles}/>
-        <div className="upload-file-button" style={{background: buttonColor}}>
-            {buttonName} <FiUpload size={18} style={{paddingLeft: "3px"}}/>
-        </div>
-    </label>
-};
-
 const UploadFileItems = ({buttonName, buttonColor, files, onFilesUploaded, removeFile, isEditing, multipleFiles, fileRemovable = true}) => {
     return (
         isEditing ?
@@ -73,7 +63,9 @@ const UploadFileItems = ({buttonName, buttonColor, files, onFilesUploaded, remov
                 <UploadFileButton buttonName={buttonName}
                                   buttonColor={buttonColor}
                                   onFilesUploaded={onFilesUploaded}
-                                  multipleFiles={multipleFiles}/>
+                                  multipleFiles={multipleFiles}
+                                  fontSize='13px'
+                                  buttonHeight='28px'/>
             </>
             :
             <IconTextItems icon={<VscFileCode size={18}/>}

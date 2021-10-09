@@ -1,0 +1,17 @@
+
+.upload-file-button {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  white-space:nowrap;
+
+  padding: 5px 15px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 16px;
+  color: #fff;
+  width: fit-content;
+  height: 36px;
+  border-radius: 50px;
+  background: rgba(241, 196, 15, 1);
+}

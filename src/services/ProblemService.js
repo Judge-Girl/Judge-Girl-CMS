@@ -118,6 +118,16 @@ export class ProblemService extends AbstractService {
             });  // TODO: maybe axios supports response filtering?
     }
 
+    async uploadProvidedCodes(problemId, language, providedCodesFiles) {
+        let formData = new FormData();
+        providedCodesFiles.forEach(file => formData.append("providedCodes", file));
+        return this.axios.put(`/api/problems/${problemId}/${language}/providedCodes`, formData, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+            },
+        }).then(res => res.data);
+    }
+
     async saveTestcase(testcase) {
         return this.axios.put(`/api/problems/${testcase.problemId}/testcases/${testcase.id}`, testcase)
             .catch(e => {

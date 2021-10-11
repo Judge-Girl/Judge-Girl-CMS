@@ -1,0 +1,21 @@
+
+.upload-file-button {
+
+  .upload-file-button-name {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    white-space:nowrap;
+    padding: 5px 15px;
+    cursor: pointer;
+    font-weight: 500;
+    color: #fff;
+    width: fit-content;
+    border-radius: 50px;
+  }
+
+  input {
+    cursor: pointer;
+    display: none;
+  }
+}

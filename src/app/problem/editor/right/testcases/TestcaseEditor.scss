@@ -116,7 +116,7 @@ $blue-color: #1273BA;
   }
 
   .delete-button {
-    height: 33px;
+    height: 36px;
     width: 70px;
     line-height: 15px;
     font-size: 15px;
@@ -143,20 +143,5 @@ $blue-color: #1273BA;
     border-color:#FB5D53;
     margin-left:10px
   }
-
-  .upload-file-button {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    padding: 5px 11px;
-    cursor: pointer;
-    font-weight: 500;
-    font-size: 13px;
-    color: #fff;
-    width: fit-content;
-    height: 28px;
-    border-radius: 50px
-  }
-
 }
 

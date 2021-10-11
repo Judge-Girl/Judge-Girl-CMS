@@ -45,7 +45,7 @@ const ProvidedCodes = () => {
                 };
                 dispatch({type: ACTION_UPDATE_PROVIDEDCODES, languageEnv: newLanguageEnv});
                 setProvidedCodes(newProvidedCodes);
-                console.log("The problem's SubmittedCodeSpec has been updated");
+                console.log("The problem's providedCodes has been updated");
             }).finally(() => setSaving(false));
     };
 

@@ -119,7 +119,7 @@ export class ProblemService extends AbstractService {
     }
 
     async uploadProvidedCodes(problemId, language, providedCodesFiles) {
-        let formData = new FormData();
+        const formData = new FormData();
         providedCodesFiles.forEach(file => formData.append("providedCodes", file));
         return this.axios.put(`/api/problems/${problemId}/${language}/providedCodes`, formData, {
             headers: {

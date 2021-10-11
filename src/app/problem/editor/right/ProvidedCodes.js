@@ -23,11 +23,7 @@ const ProvidedCodes = () => {
                 /* ProvidedCodes may not exist in languageEnv,
                  * If providedCodes doesn't exist, set an empty array for providedCodesFileNames
                  */
-                if (problem.languageEnvs[0].providedCodes) {
-                    setProvidedCodes(problem.languageEnvs[0].providedCodes);
-                } else {
-                    setProvidedCodes({providedCodesFileNames: [], providedCodes: ""});
-                }
+                setProvidedCodes(problem.languageEnvs[0].providedCodes || {providedCodesFileNames: [], providedCodesFileId: ""});
             }
         }
     }, [problem, providedCodes, setProvidedCodes]);
@@ -41,7 +37,7 @@ const ProvidedCodes = () => {
         setSaving(true);
         problemService.uploadProvidedCodes(problem.id, 'C', files)
             .then((providedCodesFileId) => {
-                let newProvidedCodes = {providedCodesFileNames: files.map(f => f.name), providedCodesFileId};
+                const newProvidedCodes = {providedCodesFileNames: files.map(f => f.name), providedCodesFileId};
                 const newLanguageEnv = {
                     ...problem.languageEnvs[0], providedCodes: newProvidedCodes
                 };

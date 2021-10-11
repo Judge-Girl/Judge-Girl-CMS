@@ -101,22 +101,15 @@ const ExamQuestions = () => {
 
     const ondropQuestion = (e, dropExamQuestion) => {
         e.preventDefault();
-        const dragQuestionIndex = questions.findIndex(question => question.problemId === parseInt(e.dataTransfer.getData('dragQuestionId')));
-        const dropQuestionIndex = questions.findIndex(question => question.problemId === dropExamQuestion.problemId);
-        const dragQuestion = questions[dragQuestionIndex];
-        const dropQuestion = questions[dropQuestionIndex];
-        questions.splice(dragQuestionIndex, 1, dropQuestion);
-        questions.splice(dropQuestionIndex, 1, dragQuestion);
-        const editQuestions = [];
-        questions.forEach((question, index) => {
-            const questionOrder = index + 1;
-            if (question.questionOrder !== questionOrder) {
-                question.questionOrder = questionOrder;
-                editQuestions.push({examId, problemId: question.problemId, questionOrder: question.questionOrder});
-            }
-        });
-        examService.editExamQuestions(examId, editQuestions)
-            .then(() => setQuestions([...questions]))
+        const questions = exam.questions;
+        const dragQuestion = questions.find(question => question.problemId === parseInt(e.dataTransfer.getData('dragQuestionId')));
+        const dropQuestion = questions.find(question => question.problemId === dropExamQuestion.problemId);
+        const tempDropQuestionOrder = dragQuestion.questionOrder;
+        dragQuestion.questionOrder = dropQuestion.questionOrder;
+        dropQuestion.questionOrder = tempDropQuestionOrder;
+        const reorders = questions.map(question => question.questionOrder);
+        examService.reorderQuestions(examId, reorders)
+            .then(fetchExam)
             .catch((error) => console.log(`update question's order fail: ${error.message}`));
     };
 

@@ -83,6 +83,10 @@ export class ExamService extends AbstractService {
         return this.axios.put(`/api/exams/${examId}/problems/${problemId}`, question).then(res => new Question(res.data));
     }
 
+    async reorderQuestions(examId, reorders) {
+        return this.axios.patch(`/api/exams/${examId}/problems/reorder`, {examId, reorders});
+    }
+
     async deleteExamQuestion({examId, problemId}) {
         return this.axios.delete(`/api/exams/${examId}/problems/${problemId}`);
     }

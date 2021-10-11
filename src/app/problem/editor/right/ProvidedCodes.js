@@ -13,6 +13,7 @@ import {problemService} from "../../../../services/services";
 const ProvidedCodes = () => {
     const {problem, dispatch} = useProblemEditorContext();
     const [isEditing, setIsEditing] = useState(false);
+    const [saving, setSaving] = useState(false);
     const [providedCodes, setProvidedCodes] = useState(undefined);
     const {files, setFiles, addFiles, removeFile} = useUploads();
 
@@ -22,9 +23,8 @@ const ProvidedCodes = () => {
                 /* ProvidedCodes may not exist in languageEnv,
                  * If providedCodes doesn't exist, set an empty array for providedCodesFileNames
                  */
-                const problemProvidedCodes = problem.languageEnvs[0].providedCodes;
-                if (problemProvidedCodes) {
-                    setProvidedCodes(problemProvidedCodes);
+                if (!providedCodes && problem.languageEnvs[0].providedCodes) {
+                    setProvidedCodes(problem.languageEnvs[0].providedCodes);
                 } else {
                     setProvidedCodes({providedCodesFileNames: [], providedCodes: ""});
                 }
@@ -32,13 +32,13 @@ const ProvidedCodes = () => {
         }
     }, [problem, providedCodes, setProvidedCodes]);
 
-
     const onClickEdit = () => {
         setIsEditing(true);
     };
 
     const onClickSave = () => {
         setIsEditing(false);
+        setSaving(true);
         problemService.uploadProvidedCodes(problem.id, 'C', files)
             .then((providedCodesFileId) => {
                 let newProvidedCodes = {providedCodesFileNames: files.map(f => f.name), providedCodesFileId};
@@ -48,7 +48,7 @@ const ProvidedCodes = () => {
                 dispatch({type: ACTION_UPDATE_PROVIDEDCODES, languageEnv: newLanguageEnv});
                 setProvidedCodes(newProvidedCodes);
                 console.log("The problem's SubmittedCodeSpec has been updated");
-            });
+            }).finally(() => setSaving(false));
     };
 
     const onClickCancel = () => {
@@ -65,6 +65,7 @@ const ProvidedCodes = () => {
                titleButton={
                    <EditSaveCancelButton
                        isEditing={isEditing}
+                       loading={saving}
                        onClickEdit={onClickEdit}
                        onClickSave={onClickSave}
                        onClickCancel={onClickCancel}/>

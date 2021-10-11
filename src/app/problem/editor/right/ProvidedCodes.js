@@ -19,15 +19,13 @@ const ProvidedCodes = () => {
 
     useEffect(() => {
         if (problem) {
-            if (!providedCodes){
-                /* ProvidedCodes may not exist in languageEnv,
-                 * If providedCodes doesn't exist, set an empty array for providedCodesFileNames
-                 */
-                if (!providedCodes && problem.languageEnvs[0].providedCodes) {
-                    setProvidedCodes(problem.languageEnvs[0].providedCodes);
-                } else {
-                    setProvidedCodes({providedCodesFileNames: [], providedCodes: ""});
-                }
+            /* ProvidedCodes may not exist in languageEnv,
+             * If providedCodes doesn't exist, set an empty array for providedCodesFileNames
+             */
+            if (!providedCodes && problem.languageEnvs[0].providedCodes) {
+                setProvidedCodes(problem.languageEnvs[0].providedCodes);
+            } else {
+                setProvidedCodes({providedCodesFileNames: [], providedCodes: ""});
             }
         }
     }, [problem, providedCodes, setProvidedCodes]);

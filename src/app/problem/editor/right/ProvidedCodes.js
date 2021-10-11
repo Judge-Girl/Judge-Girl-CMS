@@ -23,7 +23,7 @@ const ProvidedCodes = () => {
                 /* ProvidedCodes may not exist in languageEnv,
                  * If providedCodes doesn't exist, set an empty array for providedCodesFileNames
                  */
-                setProvidedCodes(problem.languageEnvs[0].providedCodes || {providedCodesFileNames: [], providedCodesFileId: ""});
+                setProvidedCodes(problem.languageEnvs[0].providedCodes || {fileNames: [], fileId: ""});
             }
         }
     }, [problem, providedCodes, setProvidedCodes]);
@@ -36,8 +36,8 @@ const ProvidedCodes = () => {
         setIsEditing(false);
         setSaving(true);
         problemService.uploadProvidedCodes(problem.id, 'C', files)
-            .then((providedCodesFileId) => {
-                const newProvidedCodes = {providedCodesFileNames: files.map(f => f.name), providedCodesFileId};
+            .then((fileId) => {
+                const newProvidedCodes = {fileNames: files.map(f => f.name), fileId};
                 const newLanguageEnv = {
                     ...problem.languageEnvs[0], providedCodes: newProvidedCodes
                 };
@@ -68,7 +68,7 @@ const ProvidedCodes = () => {
                }>
             {!isEditing ?
                 <IconTextItems icon={<VscFileCode size={22}/>}
-                               items={providedCodes.providedCodesFileNames}/>
+                               items={providedCodes.fileNames}/>
                 :
                 <>
                     <FixedUploadFileItems

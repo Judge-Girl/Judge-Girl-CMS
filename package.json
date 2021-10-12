@@ -6,7 +6,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --passWithNoTests",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "./node_modules/.bin/eslint -c .eslintrc.json src"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.34",

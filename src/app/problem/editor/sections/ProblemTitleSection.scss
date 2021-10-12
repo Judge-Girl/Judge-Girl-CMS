@@ -1,0 +1,52 @@
+
+.problem-editor {
+  .problem-title {
+    --problemTitleNotOnEdit: rgba(18, 115, 186, 1);
+    --problemTitleOnEditInputField: rgba(243, 243, 243, 1);
+    --problemTitleOnEdit: rgba(103, 104, 119, 1);
+
+    font-family: Poppins, sans-serif;
+    font-size: 35px;
+    font-style: normal;
+    font-weight: 600;
+    min-height: 70px;
+
+    .on-edit {
+      display: flex;
+      align-items: center;
+
+      .input-field {
+        background: var(--problemTitleOnEditInputField);
+        color: var(--problemTitleOnEdit);
+
+        font-family: Poppins, sans-serif;
+        font-size: 35px;
+        font-style: normal;
+        font-weight: 600;
+
+        width: 70%;
+        padding: 6px 0;
+        border: none;
+        outline: none;
+        margin-right: 20px;
+      }
+    }
+
+    .not-on-edit {
+      color: var(--problemTitleNotOnEdit);
+
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+
+      .edit-icon {
+        color: #A2A3B1;
+        cursor: pointer;
+
+        height: 24px;
+        width: 24px;
+        margin-left: 10px;
+      }
+    }
+  }
+}

@@ -6,6 +6,9 @@ steps:
   - name: Install Dependencies
     commands:
       - npm install
+  - name: Eslint
+    commands:
+      - CI=true npm run lint
   - name: Test
     commands:
       - CI=true npm test

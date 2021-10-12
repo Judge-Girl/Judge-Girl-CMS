@@ -1,37 +1,21 @@
-import {EditorButton} from "./EditorButton";
-
+import './EditSaveCancelButton.scss';
+import React from 'react';
+import DotLoader from 'react-spinners/DotLoader';
 
 export const EditSaveCancelButton = ({isEditing, disableSave=false, loading=false, onClickEdit, onClickSave, onClickCancel}) => {
-    return <>
-        <div style={{display: "flex", flexDirection: "row"}}>
-        {!isEditing?
-            <EditorButton text="Edit"
-                          width="70px"
-                          height="36px"
-                          borderRadius="50px"
-                          fontColor="rgba(124,124,124,1)"
-                          borderColor="#D2D2D2"
-                          onClick={onClickEdit}/>
-            :
-            <>
-                <EditorButton text="Save" noBorder
-                              buttonColor="rgba(88, 214, 141, 1)"
-                              fontColor="#FFF"
-                              width="70px"
-                              height="36px"
-                              borderRadius="50px"
-                              loading={loading}
-                              disable={disableSave}
-                              onClick={onClickSave}/>
-                <EditorButton text="Cancel"
-                              fontColor="rgba(124,124,124,1)"
-                              width="87px"
-                              height="36px"
-                              borderRadius="50px"
-                              marginLeft="10px"
-                              onClick={onClickCancel}/>
-            </>
-        }
-        </div>
-    </>;
+  return <>
+    <div className="edit-save-cancel-button is-flex-direction-row">
+      {!isEditing?
+        <button className="edit button" onClick={onClickEdit}>Edit</button>
+        :
+        <>
+          <button className="save button"
+                  disabled={disableSave}
+                  onClick={onClickSave}>Save</button>
+          <button className="cancel button" onClick={onClickCancel}>Cancel</button>
+          <DotLoader color={'white'} loading={loading} css={{marginLeft: '10px'}} size={10} />
+        </>
+      }
+    </div>
+  </>;
 };

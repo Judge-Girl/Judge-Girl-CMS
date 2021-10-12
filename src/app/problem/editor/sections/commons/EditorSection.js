@@ -1,9 +1,10 @@
 import React from 'react';
+import './EditorSection.scss';
 
 /**
  * @param id, give an id to this block.
  * @param title, block title that will be shown above the block content.
- * @param titleButton, a button on the right hand side of the @param title.
+ * @param titleButton, a button on the sections hand side of the @param title.
  * @param buttonPos, the position of titleButton. Can be "top" or "down".
  * @param children, the nested component.
  * @param style, the style properties for css customization.

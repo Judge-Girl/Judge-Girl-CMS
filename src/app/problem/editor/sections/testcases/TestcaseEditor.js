@@ -1,6 +1,6 @@
 import './TestcaseEditor.scss';
 import React, {useState} from 'react';
-import FixedUploadFileItems from '../FixedUploadFileItems';
+import FixedUploadFileItems from '../commons/FixedUploadFileItems';
 import UploadFileButton from '../../../commons/UploadFileButton';
 import IconTextItems from '../../../../commons/TextInputForm/IconTextItems';
 import Testcase from '../../../../../models/Testcase';

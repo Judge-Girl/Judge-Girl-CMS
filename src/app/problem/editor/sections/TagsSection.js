@@ -1,5 +1,5 @@
 import React from 'react';
-import EditorSection from './EditorSection';
+import EditorSection from './commons/EditorSection';
 import {useEffect, useState} from 'react';
 import {EditSaveCancelButton} from '../../commons/EditSaveCancelButton';
 import {TextInputField} from '../../../commons/TextInputForm/TextInputField';
@@ -11,7 +11,7 @@ import {problemService} from '../../../../services/services';
 import {ACTION_UPDATE_TAGS, useProblemEditorContext} from '../context';
 
 
-const Tags = () => {
+const TagsSection = () => {
   const {problem, dispatch} = useProblemEditorContext();
   const [tagsBackUp, setTagsBackup] = useState(undefined);
   const {textItems: tags, setTextItems: setTags, addTextItem: addTag, removeTextItem: removeTag} = useTextItems(undefined);
@@ -52,7 +52,7 @@ const Tags = () => {
   }
 
   return <>
-    <EditorSection title="Tags"
+    <EditorSection title="TagsSection"
       id="problem-editor-tags"
       titleButton={
         <EditSaveCancelButton
@@ -66,7 +66,7 @@ const Tags = () => {
           items={tags}/>
         :
         <>
-          <TextInputField placeholder={'Add New Tags'} style={{width: '234px'}}
+          <TextInputField placeholder={'Add New TagsSection'} style={{width: '234px'}}
             onSubmit={addTag}/>
           <FixedTextInputField items={tags} removeItem={removeTag} iconSize={15}/>
         </>
@@ -75,4 +75,4 @@ const Tags = () => {
   </>;
 };
 
-export default Tags;
+export default TagsSection;

@@ -1,4 +1,4 @@
-const OutputMatchPolicy = () => {
+const OutputMatchPolicySection = () => {
   // const [isEditing, setIsEditing] = useState(false);
   // const {textItems, addTextItem, removeTextItem} = useTextItems();
   // TODO
@@ -41,4 +41,4 @@ const OutputMatchPolicy = () => {
   // </>;
 };
 
-export default OutputMatchPolicy;
+export default OutputMatchPolicySection;

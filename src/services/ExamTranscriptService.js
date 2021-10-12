@@ -19,7 +19,7 @@ class ExamTranscriptService extends AbstractService {
     this.getExamScoreboard(examId).then(next); // the first call without delay
     const id = setInterval(() => {
       this.getExamScoreboard(examId).then(next);
-    }, 300, 8000);
+    }, 3000, 8000);
     return {
       unsubscribe: () => {
         console.info('Unsubscribe the polling of exam\'s scoreboard.');

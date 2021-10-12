@@ -1,5 +1,5 @@
-import React from 'react';
 import './EditSaveCancelButton.scss';
+import React from 'react';
 import DotLoader from 'react-spinners/DotLoader';
 
 export const EditSaveCancelButton = ({isEditing, disableSave=false, loading=false, onClickEdit, onClickSave, onClickCancel}) => {

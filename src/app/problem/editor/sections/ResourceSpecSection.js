@@ -1,5 +1,5 @@
 import React from 'react';
-import EditorSection from './EditorSection';
+import EditorSection from './commons/EditorSection';
 import {useEffect, useState} from 'react';
 import {EditSaveCancelButton} from '../../commons/EditSaveCancelButton';
 import {FiCpu} from 'react-icons/all';
@@ -7,7 +7,7 @@ import {problemService} from '../../../../services/services';
 import {ACTION_UPDATE_LANGUAGE_ENV, useProblemEditorContext} from '../context';
 
 
-const ResourceSpec = () => {
+const ResourceSpecSection = () => {
   const {problem, dispatch} = useProblemEditorContext();
   const [isEditing, setIsEditing] = useState(false);
   const [resourceSpec, setResourceSpec] = useState(undefined);
@@ -61,7 +61,7 @@ const ResourceSpec = () => {
           onClickCancel={onClickCancel}/>
       }>
       {/* TODO: Refactor to a new component. */}
-      {/* TODO: Move css properties to ProblemEditor.scss. */}
+      {/* TODO: Move css properties to ProblemEditorRoot.scss. */}
       <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center', height: '1.5em'}}>
         <FiCpu/>
         <span style={{width: '35px', marginLeft: '5px', color: 'rgba(18, 115, 186, 1)'}}>CPU</span>
@@ -86,4 +86,4 @@ const ResourceSpec = () => {
   </>;
 };
 
-export default ResourceSpec;
+export default ResourceSpecSection;

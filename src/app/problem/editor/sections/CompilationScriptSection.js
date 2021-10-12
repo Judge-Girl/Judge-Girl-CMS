@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import './CompilationScript.scss';
-import EditorSection from './EditorSection';
+import './CompilationScriptSection.scss';
+import EditorSection from './commons/EditorSection';
 import {EditSaveCancelButton} from '../../commons/EditSaveCancelButton';
 import {problemService} from '../../../../services/services';
 import {ACTION_UPDATE_LANGUAGE_ENV, useProblemEditorContext} from '../context';
 
-const CompilationScript = () => {
+const CompilationScriptSection = () => {
   const {problem, dispatch} = useProblemEditorContext();
   const [compilation, setCompilation] = useState(undefined);
   const [compilationBackup, setCompilationBackup] = useState(undefined);
@@ -73,4 +73,4 @@ const CompilationScript = () => {
   </>;
 };
 
-export default CompilationScript;
+export default CompilationScriptSection;

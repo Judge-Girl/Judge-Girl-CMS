@@ -1,5 +1,5 @@
 import {AiOutlineClose} from 'react-icons/ai';
-import '../../../commons/TextInputForm/FixedTextInputField.scss';
+import '../../../../commons/TextInputForm/FixedTextInputField.scss';
 import {VscFileCode} from 'react-icons/all';
 import React from 'react';
 

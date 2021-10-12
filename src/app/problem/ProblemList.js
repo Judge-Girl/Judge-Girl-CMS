@@ -6,7 +6,7 @@ import CreateProblemModal from './modals/CreateProblemModal';
 import {problemService} from '../../services/services';
 import {Spinner} from '../commons/Spinner';
 import {Link, Route, useHistory} from 'react-router-dom';
-import ProblemEditor from './editor/ProblemEditor';
+import ProblemEditorRoot from './editor/ProblemEditorRoot';
 
 
 const ProblemList = () => {
@@ -117,7 +117,7 @@ const ProblemList = () => {
       </div>
     </Route>
     <Route path="/problems/:problemId/edit">
-      <ProblemEditor/>
+      <ProblemEditorRoot/>
     </Route>
   </>;
 };

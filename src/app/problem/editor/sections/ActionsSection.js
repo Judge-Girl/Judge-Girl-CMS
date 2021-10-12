@@ -1,7 +1,7 @@
-import EditorSection from './EditorSection';
-import './ActionItem.scss';
+import EditorSection from './commons/EditorSection';
+import './ActionsSection.scss';
 import React, {useState} from 'react';
-import {Divider} from './Divider';
+import {Divider} from './commons/Divider';
 import {useHistory} from 'react-router-dom';
 import {ACTION_DELETE, ACTION_UPDATE_ARCHIVED, useProblemEditorContext} from '../context';
 import {problemService} from '../../../../services/services';
@@ -15,7 +15,7 @@ const ActionItem = ({title, description, buttonName, onClick}) => {
   </div>;
 };
 
-const Actions = () => {
+const ActionsSection = () => {
   const history = useHistory();
   const {problem, dispatch} = useProblemEditorContext();
   const [showDeleteProblemModal, setShowDeleteProblemModal] = useState(false);
@@ -50,7 +50,7 @@ const Actions = () => {
   }
 
   return <>
-    <EditorSection title="Actions" id="problem-editor-actions">
+    <EditorSection title="ActionsSection" id="problem-editor-actions">
       {problem.archived ?
         <>
           <ActionItem title="Restore"
@@ -88,4 +88,4 @@ const Actions = () => {
   </>;
 };
 
-export default Actions;
+export default ActionsSection;

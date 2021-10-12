@@ -1,5 +1,5 @@
 import React from 'react';
-import EditorSection from './EditorSection';
+import EditorSection from './commons/EditorSection';
 import {useEffect, useState} from 'react';
 import {useTextItems} from '../../../usecases/TextItemUseCase';
 import {TextInputField} from '../../../commons/TextInputForm/TextInputField';

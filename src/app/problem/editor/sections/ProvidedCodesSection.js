@@ -1,17 +1,17 @@
 import React from 'react';
-import EditorSection from './EditorSection';
+import EditorSection from './commons/EditorSection';
 import {useEffect, useState} from 'react';
 import {EditSaveCancelButton} from '../../commons/EditSaveCancelButton';
 import {useUploads} from '../../../usecases/UploadFilesUseCase';
 import {ACTION_UPDATE_PROVIDEDCODES, useProblemEditorContext} from '../context';
 import IconTextItems from '../../../commons/TextInputForm/IconTextItems';
-import FixedUploadFileItems from './FixedUploadFileItems';
+import FixedUploadFileItems from './commons/FixedUploadFileItems';
 import UploadFileButton from '../../commons/UploadFileButton';
 import {VscFileCode} from 'react-icons/all';
 import {problemService} from '../../../../services/services';
 
 
-const ProvidedCodes = () => {
+const ProvidedCodesSection = () => {
   const {problem, dispatch} = useProblemEditorContext();
   const [isEditing, setIsEditing] = useState(false);
   const [saving, setSaving] = useState(false);
@@ -21,7 +21,7 @@ const ProvidedCodes = () => {
   useEffect(() => {
     if (problem) {
       if (!providedCodes) {
-        /* ProvidedCodes may not exist in languageEnv,
+        /* ProvidedCodesSection may not exist in languageEnv,
                  * If providedCodes doesn't exist, set an empty array for providedCodesFileNames
                  */
         setProvidedCodes(problem.languageEnvs[0].providedCodes || {fileNames: [], fileId: ''});
@@ -92,4 +92,4 @@ const ProvidedCodes = () => {
   </>;
 };
 
-export default ProvidedCodes;
+export default ProvidedCodesSection;

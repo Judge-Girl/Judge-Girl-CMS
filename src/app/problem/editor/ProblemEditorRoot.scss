@@ -1,0 +1,67 @@
+@media all {
+  %problem-editor-markdown {
+    h1 { font-size: 2em; }
+    h2 { font-size: 1.5em; }
+    h3 { font-size: 1.3em; }
+    h4 { font-size: 1em; }
+    h5 { font-size: 0.8em; }
+    h6 { font-size: 0.7em; }
+    list-style-position: inside;
+  }
+  #problem-editor-root {
+    display: flex;
+    flex-direction: row;
+    padding-top: 50px;
+    padding-bottom: 100px;
+
+    .section-nav-bar {
+      --navigationBarAnchor: rgba(164, 164, 164, 1);
+      --navigationBarAnchorHover: rgba(111, 111, 111, 1);
+
+      width: 25%;
+      font-size: 20px;
+
+      .nav-bar {
+        text-align: right;
+        a {
+          display: block;
+        }
+      }
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-end;
+      padding-right: 40px;
+      flex-shrink: 0;
+
+      a {
+        color: var(--navigationBarAnchor);
+      }
+
+      a:hover {
+        color: var(--navigationBarAnchorHover);
+      }
+    }
+
+    .problem-editor {
+      @extend %problem-editor-markdown;
+      min-width: 500px;
+      flex-shrink: 0;
+      width: 60%;
+    }
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  #problem-editor-root {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .section-nav-bar {
+      display: none;
+    }
+    .problem-editor {
+      width: 90%;
+    }
+  }
+}

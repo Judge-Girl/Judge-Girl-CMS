@@ -1,11 +1,11 @@
 import React from 'react';
-import './Visible.scss';
-import EditorSection from './EditorSection';
+import './VisibleSection.scss';
+import EditorSection from './commons/EditorSection';
 import {useEffect, useState} from 'react';
 import {ACTION_UPDATE_VISIBILITY, useProblemEditorContext} from '../context';
 import {problemService} from '../../../../services/services';
 
-const Visible = () => {
+const VisibilitySection = () => {
   const {problem, dispatch} = useProblemEditorContext();
   const [visibility, setVisibility] = useState(undefined);
 
@@ -29,7 +29,7 @@ const Visible = () => {
   };
 
   return <>
-    <EditorSection title="Visible"
+    <EditorSection title="VisibilitySection"
       id="problem-editor-visible"
       titleButton={
         <div className="is-flex-direction-row">
@@ -49,4 +49,4 @@ const Visible = () => {
   </>;
 };
 
-export default Visible;
+export default VisibilitySection;

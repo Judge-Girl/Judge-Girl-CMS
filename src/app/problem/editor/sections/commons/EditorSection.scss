@@ -1,0 +1,27 @@
+
+.problem-editor {
+  .block-title {
+    .block-title-item {
+      margin-top: 3.3rem;
+    }
+
+    .down {
+      margin-top: 1rem;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+    }
+  }
+
+  .block-content {
+    margin-top: 1rem;
+    min-height: 30px;
+
+    hr {
+      margin: 1rem 0;
+    }
+  }
+
+
+
+}

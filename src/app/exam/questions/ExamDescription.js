@@ -1,7 +1,7 @@
 import './ExamDescription.scss';
 import React, {useEffect, useState} from 'react';
 import {examService} from '../../../services/services';
-import EditorSection from '../../problem/editor/right/EditorSection';
+import EditorSection from '../../problem/editor/sections/commons/EditorSection';
 import {EditSaveCancelButton} from '../../problem/commons/EditSaveCancelButton';
 import MarkdownEditor from '../../problem/commons/MarkdownEditor';
 import MarkdownEditorWriteTab from '../../problem/commons/MarkdownEditorWriteTab';

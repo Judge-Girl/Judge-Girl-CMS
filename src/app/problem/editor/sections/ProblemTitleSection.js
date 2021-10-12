@@ -1,4 +1,5 @@
 import React from 'react';
+import './ProblemTitleSection.scss';
 import {ACTION_UPDATE_TITLE, useProblemEditorContext} from '../context';
 import {useEffect, useState} from 'react';
 import {problemService} from '../../../../services/services';
@@ -6,7 +7,7 @@ import {FaEdit} from 'react-icons/all';
 import {EditSaveCancelButton} from '../../commons/EditSaveCancelButton';
 
 
-const ProblemTitle = () => {
+const ProblemTitleSection = () => {
   const {problem, dispatch} = useProblemEditorContext();
   const [title, setTitle] = useState(undefined);
   const [titleBackup, setTitleBackup] = useState(undefined);
@@ -73,4 +74,4 @@ const ProblemTitle = () => {
   </>;
 };
 
-export default ProblemTitle;
+export default ProblemTitleSection;

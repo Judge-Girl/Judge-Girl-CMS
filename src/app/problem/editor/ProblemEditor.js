@@ -1,30 +1,52 @@
-import './ProblemEditor.scss';
-import LeftBar from './left/LeftBar';
-import RightBar from './right/RightBar';
-import {ACTION_INITIALIZE, Context} from '../editor/context';
-import {problemService} from '../../../services/services';
-import {useParams} from 'react-router';
-import React, {useEffect, useReducer} from 'react';
-import {reducer} from './context';
+import React from 'react';
+import TagsSection from './sections/TagsSection';
+import ProvidedCodesSection from './sections/ProvidedCodesSection';
+import SubmittedCodeSpec from './sections/SubmittedCodeSpec';
+import ResourceSpecSection from './sections/ResourceSpecSection';
+import CompilationScriptSection from './sections/CompilationScriptSection';
+import VisibilitySection from './sections/VisibilitySection';
+import ProblemDescriptionEditor from './sections/ProblemDescriptionEditor';
+
+import TestcasesSection from './sections/testcases/TestcasesSection';
+import ActionsSection from './sections/ActionsSection';
+import ProblemTitleSection from './sections/ProblemTitleSection';
+import {Divider} from './sections/commons/Divider';
 
 
 const ProblemEditor = () => {
-  const {problemId} = useParams();
-  const [problem, dispatch] = useReducer(reducer, undefined);
-
-  useEffect(() => {
-    if (!problem) {
-      problemService.getProblemById(problemId)
-        .then(problem => dispatch({type: ACTION_INITIALIZE, problem}));
-    }
-  });
-
   return <>
-    <Context.Provider value={{problem, dispatch}}>
-      <div id="problem-editor" className="problem-editor">
-        <LeftBar/><RightBar/>
-      </div>
-    </Context.Provider>
+    <div className="problem-editor">
+      <ProblemTitleSection/>
+
+      <TagsSection/>
+      <Divider/>
+
+      <ProvidedCodesSection/>
+      <Divider/>
+
+      <SubmittedCodeSpec/>
+      <Divider/>
+
+      <ResourceSpecSection/>
+      <Divider/>
+
+      <CompilationScriptSection/>
+      <Divider/>
+
+      {/*<OutputMatchPolicySection/>*/}
+      {/*<Divider/>*/}
+
+      <VisibilitySection/>
+      <Divider/>
+
+      <ProblemDescriptionEditor/>
+      <Divider/>
+
+      <TestcasesSection/>
+      <Divider/>
+
+      <ActionsSection/>
+    </div>
   </>;
 };
 

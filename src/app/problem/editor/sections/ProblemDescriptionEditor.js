@@ -1,5 +1,6 @@
 import React from 'react';
-import EditorSection from './EditorSection';
+import './ProblemDescriptionEditor.scss';
+import EditorSection from './commons/EditorSection';
 import {useEffect, useState} from 'react';
 import MarkdownEditorWriteTab from '../../commons/MarkdownEditorWriteTab';
 import MarkdownEditorPreviewTab from '../../commons/MarkdownEditorPreviewTab';
@@ -9,7 +10,7 @@ import {ACTION_UPDATE_DESCRIPTION, useProblemEditorContext} from '../context';
 import {problemService} from '../../../../services/services';
 
 
-const ProblemDescription = () => {
+const ProblemDescriptionEditor = () => {
   const {problem, dispatch} = useProblemEditorContext();
   const [isEditing, setIsEditing] = useState(false);
   const [markdownText, setMarkdownText] = useState(undefined);
@@ -67,4 +68,4 @@ const ProblemDescription = () => {
   </>;
 };
 
-export default ProblemDescription;
+export default ProblemDescriptionEditor;

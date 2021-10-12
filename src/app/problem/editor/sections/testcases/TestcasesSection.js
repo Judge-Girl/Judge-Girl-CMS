@@ -1,13 +1,13 @@
 import React, {useEffect} from 'react';
-import './Testcases.scss';
-import EditorSection from '../EditorSection';
+import './TestcasesSection.scss';
+import EditorSection from '../commons/EditorSection';
 import {useTestcaseEditList} from './usecase';
 import TestcaseEditor from './TestcaseEditor';
 import {problemService} from '../../../../../services/services';
 import {useProblemEditorContext} from '../../context';
 
 
-const Testcases = () => {
+const TestcasesSection = () => {
   const {problem} = useProblemEditorContext();
   const {setProblem, testcaseEdits, initializeTestcases, addNewTestcase, deleteTestcase} = useTestcaseEditList();
 
@@ -60,4 +60,4 @@ const Testcases = () => {
   </>;
 };
 
-export default Testcases;
+export default TestcasesSection;

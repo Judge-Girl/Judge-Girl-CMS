@@ -1,0 +1,45 @@
+.edit-save-cancel-button {
+  //border-radius: 10;
+  //border-width: 1px;
+  //font-weight: 600;
+  //padding: 10px;
+  //outline: none;
+  //box-shadow: none;
+  .edit {
+    border: 1px solid #D2D2D2;
+    font-weight: 600;
+    padding: 10px;
+    outline: none;
+    box-shadow: none;
+    width: 70px;
+    height: 36px;
+    border-radius: 50px;
+    color: rgba(124,124,124,1);
+  }
+
+  .save {
+    border: none;
+    font-weight: 600;
+    padding: 10px;
+    outline: none;
+    box-shadow: none;
+    background-color: rgba(88, 214, 141, 1);
+    color: #FFF;
+    width: 70px;
+    height: 36px;
+    border-radius: 50px;
+  }
+
+  .cancel {
+    border-width: 1px;
+    font-weight: 600;
+    padding: 10px;
+    outline: none;
+    box-shadow: none;
+    color: rgba(124,124,124,1);
+    width: 87px;
+    height: 36px;
+    border-radius: 50px;
+    margin-left: 10px;
+  }
+}

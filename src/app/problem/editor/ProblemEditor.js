@@ -9,23 +9,23 @@ import {reducer} from './context';
 
 
 const ProblemEditor = () => {
-	const {problemId} = useParams();
-	const [problem, dispatch] = useReducer(reducer, undefined);
+  const {problemId} = useParams();
+  const [problem, dispatch] = useReducer(reducer, undefined);
 
-	useEffect(() => {
-		if (!problem) {
-			problemService.getProblemById(problemId)
-				.then(problem => dispatch({type: ACTION_INITIALIZE, problem}));
-		}
-	});
+  useEffect(() => {
+    if (!problem) {
+      problemService.getProblemById(problemId)
+        .then(problem => dispatch({type: ACTION_INITIALIZE, problem}));
+    }
+  });
 
-	return <>
-		<Context.Provider value={{problem, dispatch}}>
-			<div id="problem-editor" className="problem-editor">
-				<LeftBar/><RightBar/>
-			</div>
-		</Context.Provider>
-	</>;
+  return <>
+    <Context.Provider value={{problem, dispatch}}>
+      <div id="problem-editor" className="problem-editor">
+        <LeftBar/><RightBar/>
+      </div>
+    </Context.Provider>
+  </>;
 };
 
 export default ProblemEditor;

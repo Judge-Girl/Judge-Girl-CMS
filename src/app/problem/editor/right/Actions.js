@@ -1,4 +1,4 @@
-import Block from './Block';
+import EditorSection from './EditorSection';
 import './ActionItem.scss';
 import React, {useState} from 'react';
 import {Divider} from './Divider';
@@ -8,84 +8,84 @@ import {problemService} from '../../../../services/services';
 import {DeleteConfirmationModal} from '../../../commons/modals/ConfirmationModal';
 
 const ActionItem = ({title, description, buttonName, onClick}) => {
-	return <div className="action-item">
-		<p className="action-title">{title}</p>
-		<p className="action-description">{description}</p>
-		<button className="action-btn" onClick={onClick}>{buttonName}</button>
-	</div>;
+  return <div className="action-item">
+    <p className="action-title">{title}</p>
+    <p className="action-description">{description}</p>
+    <button className="action-btn" onClick={onClick}>{buttonName}</button>
+  </div>;
 };
 
 const Actions = () => {
-	const history = useHistory();
-	const {problem, dispatch} = useProblemEditorContext();
-	const [showDeleteProblemModal, setShowDeleteProblemModal] = useState(false);
+  const history = useHistory();
+  const {problem, dispatch} = useProblemEditorContext();
+  const [showDeleteProblemModal, setShowDeleteProblemModal] = useState(false);
 
-	const archiveProblem = () => {
-		problemService.archiveOrDeleteProblem(problem.id)
-			.then(() => {
-				console.log(`Problem ${problem.id} has been archived`);
-				dispatch({type: ACTION_UPDATE_ARCHIVED, archived: true});
-			});
-	};
+  const archiveProblem = () => {
+    problemService.archiveOrDeleteProblem(problem.id)
+      .then(() => {
+        console.log(`Problem ${problem.id} has been archived`);
+        dispatch({type: ACTION_UPDATE_ARCHIVED, archived: true});
+      });
+  };
 
-	const restoreProblem = () => {
-		problemService.restoreProblem(problem.id)
-			.then(() => {
-				console.log(`Problem ${problem.id} has been restored`);
-				dispatch({type: ACTION_UPDATE_ARCHIVED, archived: false});
-			});
-	};
+  const restoreProblem = () => {
+    problemService.restoreProblem(problem.id)
+      .then(() => {
+        console.log(`Problem ${problem.id} has been restored`);
+        dispatch({type: ACTION_UPDATE_ARCHIVED, archived: false});
+      });
+  };
 
-	const deleteProblem = () => {
-		problemService.archiveOrDeleteProblem(problem.id)
-			.then(() => {
-				console.log(`Problem ${problem.id} has been deleted`);
-				dispatch({type: ACTION_DELETE});
-				history.push('/problems');
-			});
-	};
+  const deleteProblem = () => {
+    problemService.archiveOrDeleteProblem(problem.id)
+      .then(() => {
+        console.log(`Problem ${problem.id} has been deleted`);
+        dispatch({type: ACTION_DELETE});
+        history.push('/problems');
+      });
+  };
 
-	if (!problem) {
-		return '';
-	}
+  if (!problem) {
+    return '';
+  }
 
-	return <>
-		<Block title="Actions" id="problem-editor-actions">
-			{problem.archived ?
-				<>
-					<ActionItem title="Restore"
-						description="*You can see this problem on the problem list after restore this problem."
-						buttonName="Restore This Problem"
-						onClick={restoreProblem}/>
+  return <>
+    <EditorSection title="Actions" id="problem-editor-actions">
+      {problem.archived ?
+        <>
+          <ActionItem title="Restore"
+            description="*You can see this problem on the problem list after restore this problem."
+            buttonName="Restore This Problem"
+            onClick={restoreProblem}/>
 
-					<Divider/>
-					<ActionItem title="Delete"
-						description="*Once you delete a problem, there is no going back. Please be certain."
-						buttonName="Delete This Problem"
-						onClick={() => setShowDeleteProblemModal(true)}/>
-				</>
-				:
-				<ActionItem title="Archive"
-					description={<>
+          <Divider/>
+          <ActionItem title="Delete"
+            description="*Once you delete a problem, there is no going back. Please be certain."
+            buttonName="Delete This Problem"
+            onClick={() => setShowDeleteProblemModal(true)}/>
+        </>
+        :
+        <ActionItem title="Archive"
+          description={<>
                                 *Archive action will remove this problem from the problem list but it hasn’t been deleted.<br/>
                                 You can find archive problems in the <i>Archived Problem list</i>.
-					</>}
-					buttonName="Archive This Problem"
-					onClick={archiveProblem}/>
-			}
-		</Block>
+          </>}
+          buttonName="Archive This Problem"
+          onClick={archiveProblem}/>
+      }
+    </EditorSection>
 
-		<DeleteConfirmationModal title="Delete the Problem"
-			data={[
-				{
-					title: 'Problem Title: ',
-					value: problem?.title
-				}
-			]}
-			show={showDeleteProblemModal}
-			onClose={() => setShowDeleteProblemModal(false)}
-			onSubmit={deleteProblem}/>
-	</>;
+    <DeleteConfirmationModal title="Delete the Problem"
+      data={[
+        {
+          title: 'Problem Title: ',
+          value: problem?.title
+        }
+      ]}
+      show={showDeleteProblemModal}
+      onClose={() => setShowDeleteProblemModal(false)}
+      onSubmit={deleteProblem}/>
+  </>;
 };
 
 export default Actions;

@@ -50,7 +50,6 @@
       font-style: normal;
       font-weight: 600;
       min-height: 70px;
-      margin-bottom: 2rem;
 
       .not-on-edit {
         color: var(--problemTitleNotOnEdit);
@@ -91,18 +90,16 @@
       }
     }
 
-    // TODO: the refactoring will start from here.
     .block-title {
-      margin-top: -4.5rem;
 
       .block-title-item {
-        margin-top: 4.5rem;
+        margin-top: 3.3rem;
       }
     }
 
     .block-content {
       margin-top: 1rem;
-      min-height: 90px;
+      min-height: 30px;
 
       hr {
         margin: 1rem 0;
@@ -116,8 +113,8 @@
       justify-content: flex-end;
     }
 
-    .padding-hr {
-      margin-top: 4.5rem;
+    .divider {
+      margin-top: 2rem;
     }
 
     // Description.

@@ -9,29 +9,29 @@ import {BsThreeDotsVertical} from 'react-icons/bs';
  */
 
 const ThreeDotsButton = ({dropDownItems}) => {
-	const [active, setActive] = useState(true);
+  const [active, setActive] = useState(true);
 
-	return (
-		<div className={'dropdown three-dot-button' + (active ? '' : ' is-active')}>
-			<div className="dropdown-trigger">
-				<button className="button" aria-haspopup="true" aria-controls="dropdown-menu"
-					onClick={() => setActive(active => !active)}
-					onBlur={() => setActive(active => !active)}>
-					<BsThreeDotsVertical/>
-				</button>
-			</div>
-			<div className="dropdown-menu" id="dropdown-menu" role="menu">
-				<div className="dropdown-content">
-					{
-						dropDownItems?.map(item =>
-							<p key={item.name}
-								className={`dropdown-item ${item.dangerous ? ' is-dangerous' : ''}`}
-								onMouseDown={item.onClick}>{item.name}</p>)
-					}
-				</div>
-			</div>
-		</div>
-	);
+  return (
+    <div className={'dropdown three-dot-button' + (active ? '' : ' is-active')}>
+      <div className="dropdown-trigger">
+        <button className="button" aria-haspopup="true" aria-controls="dropdown-menu"
+          onClick={() => setActive(active => !active)}
+          onBlur={() => setActive(active => !active)}>
+          <BsThreeDotsVertical/>
+        </button>
+      </div>
+      <div className="dropdown-menu" id="dropdown-menu" role="menu">
+        <div className="dropdown-content">
+          {
+            dropDownItems?.map(item =>
+              <p key={item.name}
+                className={`dropdown-item ${item.dangerous ? ' is-dangerous' : ''}`}
+                onMouseDown={item.onClick}>{item.name}</p>)
+          }
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export {ThreeDotsButton};

@@ -16,30 +16,30 @@ import './App.css';
 import {ScrollToTop} from './commons/control/ScrollToTop';
 
 function App() {
-	const [admin, setAdmin] = useState(null);
+  const [admin, setAdmin] = useState(null);
 
-	return (
-		<AuthContext.Provider value={{admin, setAdmin}}>
-			<Router>
-				<div className="App">
-					<NavigationBar/>
-					<Switch>
-						<Route path="/" exact component={Login}/>
-						<PrivateRoute path="/problems" component={ProblemList}/>
-						<PrivateRoute path="/exams" component={ExamList}/>
-						<PrivateRoute path="/students" component={StudentList}/>
-						<PrivateRoute path="/homework" component={HomeworkList}/>
-						<PrivateRoute path="/groups" component={GroupList}/>
-						<PrivateRoute path="/admins" component={AdminList}/>
-						<Route path="*">
-							<Redirect to="/"/>
-						</Route>
-					</Switch>
-					<ScrollToTop/>
-				</div>
-			</Router>
-		</AuthContext.Provider>
-	);
+  return (
+    <AuthContext.Provider value={{admin, setAdmin}}>
+      <Router>
+        <div className="App">
+          <NavigationBar/>
+          <Switch>
+            <Route path="/" exact component={Login}/>
+            <PrivateRoute path="/problems" component={ProblemList}/>
+            <PrivateRoute path="/exams" component={ExamList}/>
+            <PrivateRoute path="/students" component={StudentList}/>
+            <PrivateRoute path="/homework" component={HomeworkList}/>
+            <PrivateRoute path="/groups" component={GroupList}/>
+            <PrivateRoute path="/admins" component={AdminList}/>
+            <Route path="*">
+              <Redirect to="/"/>
+            </Route>
+          </Switch>
+          <ScrollToTop/>
+        </div>
+      </Router>
+    </AuthContext.Provider>
+  );
 }
 
 export default App;

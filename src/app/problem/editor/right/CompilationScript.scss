@@ -6,6 +6,7 @@ $light-gray-color: #C4C4C4;
   font-size: 18px;
 
   .compile-script-text-area {
+    display: block;
     font-size: 17px;
     color: $dark-gray-color;
 
@@ -33,5 +34,23 @@ $light-gray-color: #C4C4C4;
     &::placeholder {
       color: $light-gray-color;
     }
+  }
+
+  .auth-generation-button {
+    border-width: 1px;
+    font-weight: 600;
+    outline: none;
+    box-shadow: none;
+    padding: 10px;
+    width: 11em;
+    height: 36px;
+    background-color: rgba(236, 112, 99, 1);
+    font-size: 16px;
+    color: #FFFFFF;
+    border-radius: 50px;
+  }
+
+  .auth-generation-button:hover {
+    color: #FFFFFF; // necessary, remove this the button's text will be black during hovering
   }
 }

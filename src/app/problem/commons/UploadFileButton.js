@@ -11,12 +11,12 @@ import {FiUpload} from 'react-icons/all';
  * @param {string} buttonHeight, the height of the button
  */
 const UploadFileButton = ({buttonName, buttonColor, onFilesUploaded, multipleFiles, fontSize, buttonHeight}) => {
-	return <label className='upload-file-button'>
-		<input type="file" onChange={onFilesUploaded} multiple={multipleFiles}/>
-		<div className="upload-file-button-name" style={{background: buttonColor, fontSize, height: buttonHeight}}>
-			{buttonName} <FiUpload size={18} style={{paddingLeft: '3px'}}/>
-		</div>
-	</label>;
+  return <label className='upload-file-button'>
+    <input type="file" onChange={onFilesUploaded} multiple={multipleFiles}/>
+    <div className="upload-file-button-name" style={{background: buttonColor, fontSize, height: buttonHeight}}>
+      {buttonName} <FiUpload size={18} style={{paddingLeft: '3px'}}/>
+    </div>
+  </label>;
 };
 
 export default UploadFileButton;

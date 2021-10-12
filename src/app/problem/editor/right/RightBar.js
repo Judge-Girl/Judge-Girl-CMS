@@ -1,54 +1,54 @@
-import React from "react";
-import Tags from "./Tags";
-import ProvidedCodes from "./ProvidedCodes";
-import SubmittedCodeSpec from "./SubmittedCodeSpec";
-import ResourceSpec from "./ResourceSpec";
-import CompilationScript from "./CompilationScript";
-import OutputMatchPolicy from "./OutputMatchPolicy";
-import Visible from "./Visible";
-import ProblemDescription from "./ProblemDescription";
+import React from 'react';
+import Tags from './Tags';
+import ProvidedCodes from './ProvidedCodes';
+import SubmittedCodeSpec from './SubmittedCodeSpec';
+import ResourceSpec from './ResourceSpec';
+import CompilationScript from './CompilationScript';
+import OutputMatchPolicy from './OutputMatchPolicy';
+import Visible from './Visible';
+import ProblemDescription from './ProblemDescription';
 
-import Testcases from "./testcases/Testcases";
-import Actions from "./Actions";
-import ProblemTitle from "./ProblemTitle";
-import {Divider} from "./Divider";
+import Testcases from './testcases/Testcases';
+import Actions from './Actions';
+import ProblemTitle from './ProblemTitle';
+import {Divider} from './Divider';
 
 
 const RightBar = () => {
-    return <>
-        <div className="right-bar">
-            <ProblemTitle/>
+	return <>
+		<div className="right-bar">
+			<ProblemTitle/>
 
-            <Tags/>
-            <Divider/>
+			<Tags/>
+			<Divider/>
 
-            <ProvidedCodes/>
-            <Divider/>
+			<ProvidedCodes/>
+			<Divider/>
 
-            <SubmittedCodeSpec/>
-            <Divider/>
+			<SubmittedCodeSpec/>
+			<Divider/>
 
-            <ResourceSpec/>
-            <Divider/>
+			<ResourceSpec/>
+			<Divider/>
 
-            <CompilationScript/>
-            <Divider/>
+			<CompilationScript/>
+			<Divider/>
 
-            <OutputMatchPolicy/>
-            <Divider/>
+			<OutputMatchPolicy/>
+			<Divider/>
 
-            <Visible/>
-            <Divider/>
+			<Visible/>
+			<Divider/>
 
-            <ProblemDescription/>
-            <Divider/>
+			<ProblemDescription/>
+			<Divider/>
 
-            <Testcases/>
-            <Divider/>
+			<Testcases/>
+			<Divider/>
 
-            <Actions/>
-        </div>
-    </>;
+			<Actions/>
+		</div>
+	</>;
 };
 
 export default RightBar;

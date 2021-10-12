@@ -1,19 +1,19 @@
-import NotFoundPage from "../commons/notFoundPage/NotFoundPage";
-import React, {useState} from "react";
-import {Redirect} from "react-router-dom";
+import NotFoundPage from '../commons/notFoundPage/NotFoundPage';
+import React, {useState} from 'react';
+import {Redirect} from 'react-router-dom';
 
 const ProblemNotFound = () => {
-    const [shouldRedirect, setShouldRedirect] = useState(false)
+	const [shouldRedirect, setShouldRedirect] = useState(false);
 
-    if (shouldRedirect) {
-        return (<Redirect to={`/problems`}/>);
-    }
+	if (shouldRedirect) {
+		return (<Redirect to={'/problems'}/>);
+	}
 
-    return (
-        <NotFoundPage
-            errorMsg={['We can not find this problem !', 'If you find this wrong, please contact the admin.']}
-            onGoBackClick={() => setShouldRedirect(true)}/>
-    )
-}
+	return (
+		<NotFoundPage
+			errorMsg={['We can not find this problem !', 'If you find this wrong, please contact the admin.']}
+			onGoBackClick={() => setShouldRedirect(true)}/>
+	);
+};
 
-export default ProblemNotFound
+export default ProblemNotFound;

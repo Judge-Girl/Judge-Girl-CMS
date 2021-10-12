@@ -29,7 +29,7 @@ const GroupOptions =() => {
 		if (!currentGroup) {
 			studentService.getGroupById(groupId)
 				.then(group => setCurrentGroup(group))
-				.catch(reason => setGroupIdNotFound(true));
+				.catch(() => setGroupIdNotFound(true));
 		}
 	});
 

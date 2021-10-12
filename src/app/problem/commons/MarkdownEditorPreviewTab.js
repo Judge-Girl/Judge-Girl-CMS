@@ -1,3 +1,4 @@
+import React from 'react';
 import {MathJax, MathJaxContext} from 'better-react-mathjax';
 import ReactMarkdown from 'react-markdown';
 

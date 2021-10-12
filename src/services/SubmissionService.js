@@ -16,7 +16,7 @@ export class SubmissionService extends AbstractService {
 			.then(res => res.data.map(obj => new Submission(obj)));
 	}
 
-	async rejudge({examId, problemId}) {
+	async rejudge(/*{examId, problemId}*/) {
 		return new Promise((res) => {
 			setTimeout(() => {
 				// TODO

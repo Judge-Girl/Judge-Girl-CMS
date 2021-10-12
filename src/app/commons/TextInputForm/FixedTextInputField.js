@@ -1,3 +1,4 @@
+import React from 'react';
 import {AiOutlineClose} from 'react-icons/ai';
 import './FixedTextInputField.scss';
 

@@ -1,5 +1,5 @@
 import './ExamDescription.scss';
-import {useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {examService} from '../../../services/services';
 import Block from '../../problem/editor/right/Block';
 import {EditSaveCancelButton} from '../../problem/commons/EditSaveCancelButton';

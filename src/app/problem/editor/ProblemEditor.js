@@ -4,7 +4,7 @@ import RightBar from './right/RightBar';
 import {ACTION_INITIALIZE, Context} from '../editor/context';
 import {problemService} from '../../../services/services';
 import {useParams} from 'react-router';
-import {useEffect, useReducer} from 'react';
+import React, {useEffect, useReducer} from 'react';
 import {reducer} from './context';
 
 

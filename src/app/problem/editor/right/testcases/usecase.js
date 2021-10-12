@@ -54,8 +54,7 @@ const useTestcaseEditList = () => {
 
 class TestcaseEdit {
 	constructor({
-		id, problemId, name, timeLimit, memoryLimit, outputLimit,
-		threadNumberLimit, grade,
+		id, problemId, name, timeLimit, memoryLimit, outputLimit, grade,
 		ioFileId, stdIn, stdOut, inputFiles, outputFiles,
 
 		// the manipulation of editing properties

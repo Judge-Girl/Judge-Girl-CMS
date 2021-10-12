@@ -1,6 +1,7 @@
-import * as React from 'react';
+import React from 'react';
 import './ModalInput.css';
 
+// eslint-disable-next-line react/display-name
 export const ModalInput = React.forwardRef((
 	{
 		type = 'text', value,

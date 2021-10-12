@@ -1,4 +1,4 @@
-
+import React from 'react';
 
 /**
  * @param id, give an id to this block.

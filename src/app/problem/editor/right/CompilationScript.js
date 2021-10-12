@@ -1,3 +1,4 @@
+import React from 'react';
 import './CompilationScript.scss';
 import Block from './Block';
 import {useEffect, useState} from 'react';

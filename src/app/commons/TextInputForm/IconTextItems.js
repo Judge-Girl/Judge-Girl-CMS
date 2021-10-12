@@ -1,3 +1,4 @@
+import React from 'react';
 import './IconTextItems.scss';
 
 const IconTextItems = ({icon, items, placeholder = 'Empty.', style}) => {

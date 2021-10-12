@@ -19,7 +19,7 @@ const CreateGroupModal = ({show, onModalClose, onGroupCreated}) => {
 				closeIconRef.current.click();
 				onGroupCreated(group);
 			})
-			.catch(err => setDuplicateGroup(true));
+			.catch(() => setDuplicateGroup(true));
 	};
 
 	const onClose = () => {

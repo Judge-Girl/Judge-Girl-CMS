@@ -10,7 +10,7 @@ const renderModal = ({modalClassName, modalWidth, contentRendering, show, closeI
 				<section className="modal-card-body has-text-centered p-0">
 					<button className="delete m-2" ref={closeIconRef}
 						style={{float: 'right'}}
-						aria-label="close" onClick={e => onClose()}/>
+						aria-label="close" onClick={() => onClose()}/>
 					<div>
 						{contentRendering()}
 					</div>

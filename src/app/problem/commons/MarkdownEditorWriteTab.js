@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import React, {useState} from 'react';
 
 const defaultLines = [
 	'Press Edit Description to start writing the description. :smile:',

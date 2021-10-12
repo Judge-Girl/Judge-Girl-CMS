@@ -1,3 +1,4 @@
+import React from 'react';
 import {useState} from 'react';
 import {BrowserRouter as Router, Redirect, Route, Switch} from 'react-router-dom';
 import PrivateRoute from './commons/access-control/PrivateRoute';

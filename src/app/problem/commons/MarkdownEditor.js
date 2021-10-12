@@ -1,3 +1,4 @@
+import React from 'react';
 import {useState} from 'react';
 
 
@@ -10,13 +11,13 @@ const MarkdownEditor = ({className, tags, defaultTabIndex, isEditing}) => {
 			<div className="tabs">
 				{isEditing?
 					[tags.map((tag, i) =>
-						<button className={['tab', i === currentTabIndex? 'current': ''].join(' ')}
+						<button key={tag.title} className={['tab', i === currentTabIndex? 'current': ''].join(' ')}
 							style={i !== LEFTMOST_TAB_INDEX? {marginLeft: '-1px'}: {}}
 							onClick={() => setCurrentTabIndex(i)}>
 							{tag.title}
 						</button>),
 					/* TODO: Is it possible to replace this by css? */
-					<div className="placeholder" style={{flex: 1}}/>
+					<div key="placeholder" className="placeholder" style={{flex: 1}}/>
 					]
 					: ''
 				}

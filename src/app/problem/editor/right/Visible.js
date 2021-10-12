@@ -1,3 +1,4 @@
+import React from 'react';
 import {EditorButton} from '../../commons/EditorButton';
 import Block from './Block';
 import {useEffect, useState} from 'react';

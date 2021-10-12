@@ -1,3 +1,4 @@
+import React from 'react';
 import {SubtitleLine} from '../../commons/titles/TitleLine';
 import {ModalInput} from '../../commons/modals/ModalInput';
 

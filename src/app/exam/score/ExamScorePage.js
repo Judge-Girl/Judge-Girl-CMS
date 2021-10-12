@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-key */
 import { ItemListPage } from '../../commons/ItemListPage/ItemListPage';
 import { useParams } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';

@@ -1,3 +1,4 @@
+import React from 'react';
 import './InlineInputBox.scss';
 
 const InlineInputBox = ({title = 'title', type = 'text', fontSize = 'fontSize', value = ''}) => {

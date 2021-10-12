@@ -41,7 +41,7 @@ const GroupList = () => {
 							list: groups,
 							key: (group) => group.name,
 							data: (group) => [
-								<Link to={`/groups/${group.id}/members`}
+								<Link key={`${group.id}-link`} to={`/groups/${group.id}/members`}
 									onClick={() => setCurrentGroup(group)}
 								>{group.name}</Link>
 							]

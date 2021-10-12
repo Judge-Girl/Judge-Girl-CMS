@@ -1,3 +1,4 @@
+import React from 'react';
 import {InPageNavigationBar} from '../commons/IndexBanner/InPageNavigationBar';
 import {AiOutlineSetting, FaUserGraduate} from 'react-icons/all';
 

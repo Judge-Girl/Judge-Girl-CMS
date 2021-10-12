@@ -1,3 +1,4 @@
+import React from 'react';
 import {InPageNavigationBar} from '../commons/IndexBanner/InPageNavigationBar';
 import {AiFillYoutube} from 'react-icons/all';
 

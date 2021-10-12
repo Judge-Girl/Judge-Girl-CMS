@@ -1,3 +1,4 @@
+import React from 'react';
 import './UploadFileButton.scss';
 import {FiUpload} from 'react-icons/all';
 

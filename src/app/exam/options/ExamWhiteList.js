@@ -1,3 +1,4 @@
+import React from 'react';
 import {SubtitleLine} from '../../commons/titles/TitleLine';
 import {useTextItems} from '../../usecases/TextItemUseCase';
 import {TextInputField} from '../../commons/TextInputForm/TextInputField';

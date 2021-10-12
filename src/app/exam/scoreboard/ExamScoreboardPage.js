@@ -58,7 +58,7 @@ const ExamScoreboardPage = () => {
 										<div>No Submission: {data.chartData.noSubmission} / Average: {data.average}</div>
 									</div>}
 								charts={[
-									<Bar type="bar"
+									<Bar key="testcases" type="bar"
 										options={optionsTemplate('Students', 'testcases')}
 										data={dataTemplate(
 											data.chartData.testcasesLabels,
@@ -69,7 +69,7 @@ const ExamScoreboardPage = () => {
 												borderColor: ['rgba(75, 192, 192, 1)']
 											}
 										)}/>,
-									<Bar type="bar"
+									<Bar key="total-pass-testcases" type="bar"
 										options={optionsTemplate('Students', 'total pass testcases')}
 										data={dataTemplate(
 											data.chartData.totalPassLabels,

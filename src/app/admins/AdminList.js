@@ -33,17 +33,17 @@ const AdminList = () => {
 						Button={() =>
 							<CreateButton onClick={() => setShowCreateAdminAccountModal(true)}/>}
 						tableHeaders={[
-							<TableCell>Name</TableCell>,
-							<TableCell>Email</TableCell>,
-							<EmptyCell/>
+							<TableCell key="name">Name</TableCell>,
+							<TableCell key="email">Email</TableCell>,
+							<EmptyCell key="empty"/>
 						]}
 						tableRowGenerator={{
 							list: admins,
 							key: (admin) => admin.id,
 							data: (admin) => [
-								<FakeLink>{admin.name}</FakeLink>,
-								<FakeLink>{admin.email}</FakeLink>,
-								<EmptyCell/>
+								<FakeLink key={admin.name}>{admin.name}</FakeLink>,
+								<FakeLink key={admin.email}>{admin.email}</FakeLink>,
+								<EmptyCell key="empty"/>
 							]
 						}}
 						tableDataStyle={{textAlign: 'left'}}/>

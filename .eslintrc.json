@@ -23,11 +23,9 @@
         "react"
     ],
     "rules": {
+        "template-curly-spacing" : "off",
         "react/prop-types": "off",
-        "indent": [
-            "error",
-            "tab"
-        ],
+        "indent": "off",
         "linebreak-style": [
             "error",
             "unix"

@@ -2,7 +2,7 @@ import './ProblemList.scss';
 import React, {useCallback, useEffect, useState} from 'react';
 import {ItemListPage} from '../commons/ItemListPage/ItemListPage';
 import {CreateButton} from '../commons/buttons/CreateButton';
-import CreateProblemModal from './Modal/CreateProblemModal';
+import CreateProblemModal from './modals/CreateProblemModal';
 import {problemService} from '../../services/services';
 import {Spinner} from '../commons/Spinner';
 import {Link, Route, useHistory} from 'react-router-dom';

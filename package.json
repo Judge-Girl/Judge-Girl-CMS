@@ -2,6 +2,12 @@
   "name": "judge-girl-cms",
   "version": "0.1.0",
   "private": true,
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --passWithNoTests",
+    "eject": "react-scripts eject"
+  },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.34",
     "@fortawesome/free-brands-svg-icons": "^5.15.2",
@@ -37,21 +43,6 @@
     "rxjs": "^7.3.1",
     "web-vitals": "^1.1.0"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --passWithNoTests",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ],
-    "rules": {
-      "jsx-a11y/anchor-is-valid": "off"
-    }
-  },
   "browserslist": {
     "production": [
       ">0.2%",
@@ -66,6 +57,7 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-methods": "^7.14.5",
-    "@babel/plugin-syntax-class-properties": "^7.12.13"
+    "@babel/plugin-syntax-class-properties": "^7.12.13",
+    "eslint": "^6.0.0"
   }
 }

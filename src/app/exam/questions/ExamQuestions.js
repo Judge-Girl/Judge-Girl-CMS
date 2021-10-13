@@ -32,6 +32,7 @@ const ExamQuestions = () => {
     examService.getExamOverview(examId)
       .then(exam => {
         exam.questions.sort((questionA, questionB) => questionA.questionOrder - questionB.questionOrder);
+        exam.questions.forEach((question, index) => question.questionOrder = index);
         setQuestions(exam.questions);
       });
   }, [examId, setQuestions]);
@@ -95,6 +96,24 @@ const ExamQuestions = () => {
     return <Spinner/>;
   }
 
+  const ondragQuestion = (e, dragExamQuestion) => {
+    e.dataTransfer.setData('dragQuestionId', dragExamQuestion.problemId);
+  };
+
+  const ondropQuestion = (e, dropExamQuestion) => {
+    e.preventDefault();
+    const questions = exam.questions;
+    const dragQuestion = questions.find(question => question.problemId === parseInt(e.dataTransfer.getData('dragQuestionId')));
+    const dropQuestion = questions.find(question => question.problemId === dropExamQuestion.problemId);
+    const tempDropQuestionOrder = dragQuestion.questionOrder;
+    dragQuestion.questionOrder = dropQuestion.questionOrder;
+    dropQuestion.questionOrder = tempDropQuestionOrder;
+    const reorders = questions.map(question => question.questionOrder);
+    examService.reorderQuestions(examId, reorders)
+      .then(fetchExam)
+      .catch((error) => console.log(`update question's order fail: ${error.message}`));
+  };
+
   return (
     <div className="exam-questions font-poppins">
       <div className="exam-content">
@@ -141,7 +160,10 @@ const ExamQuestions = () => {
               </div>
             ]
           }}
-          showFilterSearchBar={false}/>
+          showFilterSearchBar={false}
+          draggable={true}
+          ondrag={ondragQuestion}
+          ondrop={ondropQuestion}/>
         <div className="add-question-btn"
           onClick={() => setShowAddQuestionModal(true)}>
           <span>Add New Question</span>

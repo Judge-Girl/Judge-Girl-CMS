@@ -47,22 +47,22 @@ const CompilationScriptSection = () => {
   }
   return <>
     <EditorSection title="Compilation Script"
-                   id="problem-editor-compilation-script"
-                   titleButton={
-                     <EditSaveCancelButton
-                       isEditing={isEditing}
-                       onClickEdit={onClickEdit}
-                       onClickSave={onClickSave}
-                       onClickCancel={onClickCancel}/>
-                   }>
+      id="problem-editor-compilation-script"
+      titleButton={
+        <EditSaveCancelButton
+          isEditing={isEditing}
+          onClickEdit={onClickEdit}
+          onClickSave={onClickSave}
+          onClickCancel={onClickCancel}/>
+      }>
 
       <div className={'compilation-script'}>
         {isEditing ?
           <>
             <textarea className="compile-script-text-area"
-                      placeholder="gcc a.out -o main.c"
-                      value={compilation.script}
-                      onChange={e => setCompilation({...compilation, script: e.target.value})}/>
+              placeholder="gcc a.out -o main.c"
+              value={compilation.script}
+              onChange={e => setCompilation({...compilation, script: e.target.value})}/>
             <button className="auth-generation-button button">
               Auto Generate
             </button>

@@ -10,8 +10,8 @@ export const EditSaveCancelButton = ({isEditing, disableSave=false, loading=fals
         :
         <>
           <button className="save button"
-                  disabled={disableSave}
-                  onClick={onClickSave}>Save</button>
+            disabled={disableSave}
+            onClick={onClickSave}>Save</button>
           <button className="cancel button" onClick={onClickCancel}>Cancel</button>
           <DotLoader color={'white'} loading={loading} css={{marginLeft: '10px'}} size={10} />
         </>

@@ -32,15 +32,15 @@ const SectionNavigationBar = () => {
     <div className="section-nav-bar">
       <div className="nav-bar">
         <a key="#"
-           href={`/problems/${problemId}/edit`}
-           onClick={backToTop}>
+          href={`/problems/${problemId}/edit`}
+          onClick={backToTop}>
           ID: {problemId}
         </a>
 
         {SECTIONS.map(section =>
           <a key={section.id}
-             href={`#${section.id}`}
-             onClick={e => scrollToSection(section.id, e)}>
+            href={`#${section.id}`}
+            onClick={e => scrollToSection(section.id, e)}>
             {section.name}
           </a>)
         }

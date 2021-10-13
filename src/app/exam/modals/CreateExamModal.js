@@ -1,18 +1,17 @@
 import * as React from 'react';
 import {createRef, useState} from 'react';
 import {SubtitleLine} from '../../commons/titles/TitleLine';
-import {now} from 'moment';
+import moment, {now} from 'moment';
 import {examService} from '../../../services/services';
 import {renderModal} from '../../commons/modals/modal';
 import {ModalInput} from '../../commons/modals/ModalInput';
 import ScheduleItem from '../../commons/ScheduleItem';
 import {SECS_ONE_HOUR} from '../../../utils/times';
 import './CreateExamModel.css';
-import moment from 'moment';
 
 
 const CreateExamModal = ({show, onClose, onExamCreated}) => {
-    const [name, setName] = useState(null);
+    const [name, setName] = useState(undefined);
     const nameInputRef = createRef();
     const [startTime, setStartTime] = useState(now() + SECS_ONE_HOUR);
     const startTimeInputRef = createRef();

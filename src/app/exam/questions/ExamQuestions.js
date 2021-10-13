@@ -32,6 +32,7 @@ const ExamQuestions = () => {
         examService.getExamOverview(examId)
             .then(exam => {
                 exam.questions.sort((questionA, questionB) => questionA.questionOrder - questionB.questionOrder);
+                exam.questions.forEach((question, index) => question.questionOrder = index);
                 setQuestions(exam.questions);
             });
     }, [examId, setQuestions]);

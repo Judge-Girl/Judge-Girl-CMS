@@ -18,6 +18,11 @@ const FilterSearchBar = ({filterItems, Button}) => {
 };
 
 /**
+ * This callback is displayed as a item dragging function or a item dropping function.
+ * @callback callback
+ */
+
+/**
  * @callback callback
  * @param {string} title the title (str) of the page
  * @param {string[]} filterItems the item's name (str) that is included in the filter drop-down list

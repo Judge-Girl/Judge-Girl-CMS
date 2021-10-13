@@ -25,7 +25,6 @@ const FilterSearchBar = ({filterItems, Button}) => {
  */
 
 /**
- * @callback callback
  * @param {string} title the title (str) of the page
  * @param {string[]} filterItems the item's name (str) that is included in the filter drop-down list
  * @param {component} Button the green 'Create' button

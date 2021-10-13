@@ -20,6 +20,8 @@ const FilterSearchBar = ({filterItems, Button}) => {
 /**
  * This callback is displayed as a item dragging function or a item dropping function.
  * @callback callback
+ * @param {event} event the html event
+ * @param {{obj}} item the item of list
  */
 
 /**

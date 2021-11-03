@@ -19,17 +19,20 @@ export class AuthenticationFailureError extends Error {
 let currentAdmin = undefined;
 
 export const KEY_TOKEN = 'token';
+export const KEY_TOKEN_EXPIRY_TIME = 'expiryTime';
 
 function updateCurrentAdmin(admin) {
   currentAdmin = admin;
   localStorage.setItem(KEY_TOKEN, currentAdmin.token);
+  localStorage.setItem(KEY_TOKEN_EXPIRY_TIME, currentAdmin.expiryTime);
   axios.defaults.headers.common['Authorization'] = `Bearer ${currentAdmin.token}`;
   return currentAdmin;
 }
 
 function clearCurrentAdmin() {
-  currentAdmin = null;
+  currentAdmin = undefined;
   localStorage.removeItem(KEY_TOKEN);
+  localStorage.removeItem(KEY_TOKEN_EXPIRY_TIME);
 }
 
 

@@ -1,5 +1,5 @@
 import './ProblemList.scss';
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {createContext, useCallback, useContext, useEffect, useState} from 'react';
 import {ItemListPage} from '../commons/ItemListPage/ItemListPage';
 import {CreateButton} from '../commons/buttons/CreateButton';
 import CreateProblemModal from './modals/CreateProblemModal';
@@ -8,26 +8,46 @@ import {Spinner} from '../commons/Spinner';
 import {Link, Route, useHistory} from 'react-router-dom';
 import ProblemEditorRoot from './editor/ProblemEditorRoot';
 
+export const ProblemContext = createContext(undefined);
+
+export const useProblemContext = () => {
+  return useContext(ProblemContext);
+};
 
 const ProblemList = () => {
   const history = useHistory();
   const [problems, setProblems] = useState(undefined);
   const [showCreateProblemModal, setShowCreateProblemModal] = useState(false);
-  const [problemTabActiveIndex, setProblemTabActiveIndex] = useState(1);
-  const fetchAllProblems = useCallback(() => {
-    problemService.getAllProblems()
-      .then(setProblems);
-  }, [setProblems]);
+  const [problemTabActive, setProblemTabActive] = useState('Problems');
+  const fetchProblems = useCallback(() => {
+    switch (problemTabActive) {
+    case 'Problems':
+      problemService.getNonArchivedAndVisibleProblems()
+        .then(setProblems);
+      break;
+    case 'Invisible':
+      problemService.getNonArchivedAndInvisibleProblems()
+        .then(setProblems);
+      break;
+    case 'Archive':
+      problemService.getArchiveProblems()
+        .then(setProblems);
+      break;
+    }
+  }, [problemTabActive]);
 
   useEffect(() => {
     if (!problems) {
-      problemService.getNonArchivedAndVisibleProblems()
-        .then(setProblems);
+      fetchProblems();
     }
   }, [problems]);
 
+  useEffect(() => {
+    fetchProblems();
+  }, [problemTabActive]);
+
   const onProblemCreated = problem => {
-    fetchAllProblems();
+    fetchProblems();
     history.push(`/problems/${problem.id}/edit`);
   };
 
@@ -44,34 +64,15 @@ const ProblemList = () => {
   };
 
   const ProblemTabs = () => {
-
-    const onProblemsTabClick = () => {
-      setProblemTabActiveIndex(1);
-      problemService.getNonArchivedAndVisibleProblems()
-        .then(setProblems);
-    };
-
-    const onInvisibleTabClick = () => {
-      setProblemTabActiveIndex(2);
-      problemService.getNonArchivedAndInvisibleProblems()
-        .then(setProblems);
-    };
-
-    const onArchiveTabClick = () => {
-      setProblemTabActiveIndex(3);
-      problemService.getArchiveProblems()
-        .then(setProblems);
-    };
-
     return (
       <div className="tabs is-medium">
         <ul>
-          <li><a className={problemTabActiveIndex === 1 ? 'is-Active' : ''}
-            onClick={onProblemsTabClick}>Problems</a></li>
-          <li><a className={problemTabActiveIndex === 2 ? 'is-Active' : ''}
-            onClick={onInvisibleTabClick}>Invisible</a></li>
-          <li><a className={problemTabActiveIndex === 3 ? 'is-Active' : ''}
-            onClick={onArchiveTabClick}>Archive</a></li>
+          <li><a className={problemTabActive === 'Problems' ? 'is-Active' : ''}
+            onClick={() => setProblemTabActive('Problems')}>Problems</a></li>
+          <li><a className={problemTabActive === 'Invisible' ? 'is-Active' : ''}
+            onClick={() => setProblemTabActive('Invisible')}>Invisible</a></li>
+          <li><a className={problemTabActive === 'Archive' ? 'is-Active' : ''}
+            onClick={() => setProblemTabActive('Archive')}>Archive</a></li>
         </ul>
       </div>
     );
@@ -116,9 +117,11 @@ const ProblemList = () => {
         </div>
       </div>
     </Route>
-    <Route path="/problems/:problemId/edit">
-      <ProblemEditorRoot/>
-    </Route>
+    <ProblemContext.Provider value={{fetchProblems}}>
+      <Route path="/problems/:problemId/edit">
+        <ProblemEditorRoot/>
+      </Route>
+    </ProblemContext.Provider>
   </>;
 };
 

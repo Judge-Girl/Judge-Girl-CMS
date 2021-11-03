@@ -31,7 +31,7 @@ export function reducer(problem, action) {
   case ACTION_UPDATE_VISIBILITY:
     return newProblem({...problem, visible: action.visible});
   case ACTION_UPDATE_ARCHIVED:
-    return newProblem({...problem, archived: true});
+    return newProblem({...problem, archived: action.archived});
   case ACTION_UPDATE_COMPILATION:
   case ACTION_UPDATE_LANGUAGE_ENV:
   case ACTION_UPDATE_PROVIDEDCODES:

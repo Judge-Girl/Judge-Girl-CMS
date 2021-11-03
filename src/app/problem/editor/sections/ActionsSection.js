@@ -6,6 +6,7 @@ import {useHistory} from 'react-router-dom';
 import {ACTION_DELETE, ACTION_UPDATE_ARCHIVED, useProblemEditorContext} from '../context';
 import {problemService} from '../../../../services/services';
 import {DeleteConfirmationModal} from '../../../commons/modals/ConfirmationModal';
+import {useProblemContext} from '../../ProblemList';
 
 const ActionItem = ({title, description, buttonName, onClick}) => {
   return <div className="action-item">
@@ -17,6 +18,7 @@ const ActionItem = ({title, description, buttonName, onClick}) => {
 
 const ActionsSection = () => {
   const history = useHistory();
+  const {fetchProblems} = useProblemContext();
   const {problem, dispatch} = useProblemEditorContext();
   const [showDeleteProblemModal, setShowDeleteProblemModal] = useState(false);
 
@@ -25,7 +27,8 @@ const ActionsSection = () => {
       .then(() => {
         console.log(`Problem ${problem.id} has been archived`);
         dispatch({type: ACTION_UPDATE_ARCHIVED, archived: true});
-      });
+      })
+      .then(fetchProblems);
   };
 
   const restoreProblem = () => {
@@ -33,7 +36,8 @@ const ActionsSection = () => {
       .then(() => {
         console.log(`Problem ${problem.id} has been restored`);
         dispatch({type: ACTION_UPDATE_ARCHIVED, archived: false});
-      });
+      })
+      .then(fetchProblems);
   };
 
   const deleteProblem = () => {
@@ -42,7 +46,8 @@ const ActionsSection = () => {
         console.log(`Problem ${problem.id} has been deleted`);
         dispatch({type: ACTION_DELETE});
         history.push('/problems');
-      });
+      })
+      .then(fetchProblems);
   };
 
   if (!problem) {

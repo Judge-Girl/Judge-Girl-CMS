@@ -1,10 +1,10 @@
-import { Client } from '@stomp/stompjs';
+import {Client} from '@stomp/stompjs';
 
 
 export default class StompClient {
   constructor() {
     this.onConnectListeners = [];
-    this.stompClientImpl = null;
+    this.stompClientImpl = undefined;
   }
 
   onConnect(onConnectListener) {

@@ -1,6 +1,5 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import EditorSection from './commons/EditorSection';
-import {useEffect, useState} from 'react';
 import {EditSaveCancelButton} from '../../commons/EditSaveCancelButton';
 import {TextInputField} from '../../../commons/TextInputForm/TextInputField';
 import {FixedTextInputField} from '../../../commons/TextInputForm/FixedTextInputField';
@@ -9,9 +8,11 @@ import {useTextItems} from '../../../usecases/TextItemUseCase';
 import {BsTag} from 'react-icons/all';
 import {problemService} from '../../../../services/services';
 import {ACTION_UPDATE_TAGS, useProblemEditorContext} from '../context';
+import {useProblemContext} from '../../ProblemList';
 
 
 const TagsSection = () => {
+  const {fetchProblems} = useProblemContext();
   const {problem, dispatch} = useProblemEditorContext();
   const [tagsBackUp, setTagsBackup] = useState(undefined);
   const {textItems: tags, setTextItems: setTags, addTextItem: addTag, removeTextItem: removeTag} = useTextItems(undefined);
@@ -39,7 +40,8 @@ const TagsSection = () => {
         dispatch({type: ACTION_UPDATE_TAGS, tags});
         console.log('The problem\'s tags has been modified');
         setTagsBackup(tags);
-      });
+      })
+      .then(fetchProblems);
   };
 
   const onClickCancel = () => {

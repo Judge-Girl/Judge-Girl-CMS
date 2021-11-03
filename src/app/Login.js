@@ -4,6 +4,7 @@ import {studentService} from '../services/services';
 import {useAuth} from './commons/access-control/auth';
 import {useEffect, useState} from 'react';
 import {KEY_TOKEN_EXPIRY_TIME} from '../services/StudentService';
+import {now} from 'moment';
 
 const Login = withRouter(({history, location}) => {
   const [hasTriedAuth, setHasTriedAuth] = useState(false);
@@ -31,7 +32,7 @@ const Login = withRouter(({history, location}) => {
       console.log('token expired...');
       studentService.logout()
         .then(() => history.push('/'));
-    }, localStorage.getItem(KEY_TOKEN_EXPIRY_TIME) - Date.now());
+    }, localStorage.getItem(KEY_TOKEN_EXPIRY_TIME) - now());
   };
 
   const onSubmit = (e) => {

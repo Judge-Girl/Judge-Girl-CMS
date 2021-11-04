@@ -102,13 +102,22 @@ function TestcaseEditor({
             // for the new testcaseEdit, must save it on the first edition
             || !testcaseEdit.saved;
 
+    async function createTestcaseWithIo() {
+        await saveTestcase(new Testcase(testcaseEdit));
+        patchTestcaseIOs(testcaseIOsPatch);
+    }
+
     if (shouldSave) {
       setSaving(true);
-      if (testcaseEdit.edited || !testcaseEdit.saved) {
-        saveTestcase(new Testcase(testcaseEdit));
-      }
-      if (!testcaseIOsPatch.isEmpty()) {
-        patchTestcaseIOs(testcaseIOsPatch);
+      if (!testcaseEdit.saved && !testcaseIOsPatch.isEmpty()) {
+          createTestcaseWithIo();
+      } else {
+          if (testcaseEdit.edited || !testcaseEdit.saved) {
+              saveTestcase(new Testcase(testcaseEdit));
+          }
+          if (!testcaseIOsPatch.isEmpty()) {
+              patchTestcaseIOs(testcaseIOsPatch);
+          }
       }
     } else {
       setTestcaseEdit(testcaseEdit.cancelEditing());

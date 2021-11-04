@@ -3,6 +3,8 @@ import {withRouter} from 'react-router';
 import {studentService} from '../services/services';
 import {useAuth} from './commons/access-control/auth';
 import {useEffect, useState} from 'react';
+import {KEY_TOKEN_EXPIRY_TIME} from '../services/StudentService';
+import {now} from 'moment';
 
 const Login = withRouter(({history, location}) => {
   const [hasTriedAuth, setHasTriedAuth] = useState(false);
@@ -25,6 +27,14 @@ const Login = withRouter(({history, location}) => {
     return function cleanup () { document.body.style.backgroundColor = 'var(--background)'; };
   }, [hasTriedAuth, history, setAdmin, referer]);
 
+  const autoLogoutWhenExpiryTime = () => {
+    setTimeout(() => {
+      console.log('token expired...');
+      studentService.logout()
+        .then(() => history.push('/'));
+    }, localStorage.getItem(KEY_TOKEN_EXPIRY_TIME) - now());
+  };
+
   const onSubmit = (e) => {
     e.preventDefault();  // don't submit the form
 
@@ -36,6 +46,7 @@ const Login = withRouter(({history, location}) => {
       .then(admin => {
         setAdmin(admin);
         history.push(referer);
+        autoLogoutWhenExpiryTime();
       }).catch((err) => alert(`Login failed: ${err.message}`));
   };
   return (

@@ -18,9 +18,9 @@ const ProblemList = () => {
   const history = useHistory();
   const [problems, setProblems] = useState(undefined);
   const [showCreateProblemModal, setShowCreateProblemModal] = useState(false);
-  const [problemTabActive, setProblemTabActive] = useState('Problems');
+  const [activeProblemTab, setActiveProblemTab] = useState('Problems');
   const fetchProblems = useCallback(() => {
-    switch (problemTabActive) {
+    switch (activeProblemTab) {
     case 'Problems':
       problemService.getNonArchivedAndVisibleProblems()
         .then(setProblems);
@@ -34,7 +34,7 @@ const ProblemList = () => {
         .then(setProblems);
       break;
     }
-  }, [problemTabActive]);
+  }, [activeProblemTab]);
 
   useEffect(() => {
     if (!problems) {
@@ -44,7 +44,7 @@ const ProblemList = () => {
 
   useEffect(() => {
     fetchProblems();
-  }, [problemTabActive]);
+  }, [activeProblemTab]);
 
   const onProblemCreated = problem => {
     fetchProblems();
@@ -67,12 +67,12 @@ const ProblemList = () => {
     return (
       <div className="tabs is-medium">
         <ul>
-          <li><a className={problemTabActive === 'Problems' ? 'is-Active' : ''}
-            onClick={() => setProblemTabActive('Problems')}>Problems</a></li>
-          <li><a className={problemTabActive === 'Invisible' ? 'is-Active' : ''}
-            onClick={() => setProblemTabActive('Invisible')}>Invisible</a></li>
-          <li><a className={problemTabActive === 'Archive' ? 'is-Active' : ''}
-            onClick={() => setProblemTabActive('Archive')}>Archive</a></li>
+          <li><a className={activeProblemTab === 'Problems' ? 'is-Active' : ''}
+            onClick={() => setActiveProblemTab('Problems')}>Problems</a></li>
+          <li><a className={activeProblemTab === 'Invisible' ? 'is-Active' : ''}
+            onClick={() => setActiveProblemTab('Invisible')}>Invisible</a></li>
+          <li><a className={activeProblemTab === 'Archive' ? 'is-Active' : ''}
+            onClick={() => setActiveProblemTab('Archive')}>Archive</a></li>
         </ul>
       </div>
     );

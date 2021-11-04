@@ -102,13 +102,20 @@ function TestcaseEditor({
             // for the new testcaseEdit, must save it on the first edition
             || !testcaseEdit.saved;
 
+
     if (shouldSave) {
       setSaving(true);
-      if (testcaseEdit.edited || !testcaseEdit.saved) {
-        saveTestcase(new Testcase(testcaseEdit));
-      }
-      if (!testcaseIOsPatch.isEmpty()) {
-        patchTestcaseIOs(testcaseIOsPatch);
+       // createTestcaseWithIo
+      if (!testcaseEdit.saved && !testcaseIOsPatch.isEmpty()) {
+          Promise.resolve(saveTestcase(new Testcase(testcaseEdit)))
+              .then(() => patchTestcaseIOs(testcaseIOsPatch));
+      } else {
+          if (testcaseEdit.edited || !testcaseEdit.saved) {
+              saveTestcase(new Testcase(testcaseEdit));
+          }
+          if (!testcaseIOsPatch.isEmpty()) {
+              patchTestcaseIOs(testcaseIOsPatch);
+          }
       }
     } else {
       setTestcaseEdit(testcaseEdit.cancelEditing());
@@ -134,6 +141,7 @@ function TestcaseEditor({
     problemService.saveTestcase(testcase)
       .then(() => {
         setTestcaseEdit(testcaseEdit.save());
+        console.log('saveTestcase');
       })
       .catch(error => {
         alert(error.message);
@@ -147,10 +155,12 @@ function TestcaseEditor({
         Object.assign(testcaseEdit, patchedTestcase);
         setTestcaseEdit(testcaseEdit.save());
         commitTestcaseIOsPatching();
+          console.log('patchTestcaseIO');
       })
       .catch(error => {
         alert(error.message);
         setTestcaseEdit(testcaseEdit.error(error.message));
+          console.log('fail patchTestcaseIO');
       }).finally(() => setSaving(false));
   };
 

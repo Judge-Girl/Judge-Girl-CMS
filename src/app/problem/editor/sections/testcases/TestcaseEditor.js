@@ -141,7 +141,6 @@ function TestcaseEditor({
     problemService.saveTestcase(testcase)
       .then(() => {
         setTestcaseEdit(testcaseEdit.save());
-        console.log('saveTestcase');
       })
       .catch(error => {
         alert(error.message);
@@ -155,12 +154,10 @@ function TestcaseEditor({
         Object.assign(testcaseEdit, patchedTestcase);
         setTestcaseEdit(testcaseEdit.save());
         commitTestcaseIOsPatching();
-          console.log('patchTestcaseIO');
       })
       .catch(error => {
         alert(error.message);
         setTestcaseEdit(testcaseEdit.error(error.message));
-          console.log('fail patchTestcaseIO');
       }).finally(() => setSaving(false));
   };
 

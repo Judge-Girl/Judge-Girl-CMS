@@ -102,13 +102,15 @@ function TestcaseEditor({
             // for the new testcaseEdit, must save it on the first edition
             || !testcaseEdit.saved;
 
+    async function createTestcaseWithIo() {
+        await saveTestcase(new Testcase(testcaseEdit));
+        patchTestcaseIOs(testcaseIOsPatch);
+    }
 
     if (shouldSave) {
       setSaving(true);
-       // createTestcaseWithIo
       if (!testcaseEdit.saved && !testcaseIOsPatch.isEmpty()) {
-          Promise.resolve(saveTestcase(new Testcase(testcaseEdit)))
-              .then(() => patchTestcaseIOs(testcaseIOsPatch));
+          createTestcaseWithIo();
       } else {
           if (testcaseEdit.edited || !testcaseEdit.saved) {
               saveTestcase(new Testcase(testcaseEdit));

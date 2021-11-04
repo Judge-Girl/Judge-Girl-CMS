@@ -3,8 +3,10 @@ import './VisibleSection.scss';
 import EditorSection from './commons/EditorSection';
 import {ACTION_UPDATE_VISIBILITY, useProblemEditorContext} from '../context';
 import {problemService} from '../../../../services/services';
+import {useProblemContext} from '../../ProblemList';
 
 const VisibilitySection = () => {
+  const {fetchProblems} = useProblemContext();
   const {problem, dispatch} = useProblemEditorContext();
   const [visibility, setVisibility] = useState(undefined);
 
@@ -23,7 +25,8 @@ const VisibilitySection = () => {
         .then(() => {
           console.log(`The problem's visibility has been modified to --> ${newVisibility}`);
           dispatch({type: ACTION_UPDATE_VISIBILITY, visible: newVisibility});
-        });
+        })
+        .then(fetchProblems);
     }
   };
 

@@ -18,7 +18,7 @@ export class LiveSubmissionsService extends AbstractService {
   }
 
   async queryLatestExamSubmissions(examId) {
-    let queryParameters = {examId, sortBy: 'submissionTime', ascending: false};
+    const queryParameters = {examId, sortBy: 'submissionTime', ascending: false};
     const liveSubmissions = await this.submissionService.getSubmissions(queryParameters)
       .then(submissions => submissions.map(submission => this.toLiveSubmission(submission)));
     return await this.completeLiveSubmissionsFields(liveSubmissions);
@@ -45,8 +45,8 @@ export class LiveSubmissionsService extends AbstractService {
     const students = await this.studentService.getStudentsByIds(studentIds);
 
     liveSubmissions.forEach(liveSubmission => {
-      liveSubmission.problemTitle = problems.find(problem => problem.id === liveSubmission.problemId).title;
-      liveSubmission.studentName = students.find(student => student.id === liveSubmission.studentId).name;
+      liveSubmission.problemTitle = problems.find(problem => problem.id === liveSubmission.problemId)?.title;
+      liveSubmission.studentName = students.find(student => student.id === liveSubmission.studentId)?.name;
     });
     return liveSubmissions;
   }

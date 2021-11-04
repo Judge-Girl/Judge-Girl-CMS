@@ -1,11 +1,10 @@
 import './ProblemEditorRoot.scss';
 import SectionNavigationBar from './SectionNavigationBar';
 import ProblemEditor from './ProblemEditor';
-import {ACTION_INITIALIZE, Context} from '../editor/context';
+import {ACTION_INITIALIZE, Context, reducer} from './context';
 import {problemService} from '../../../services/services';
 import {useParams} from 'react-router';
 import React, {useEffect, useReducer} from 'react';
-import {reducer} from './context';
 
 
 const ProblemEditorRoot = () => {

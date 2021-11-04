@@ -1,13 +1,13 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import './ProblemTitleSection.scss';
 import {ACTION_UPDATE_TITLE, useProblemEditorContext} from '../context';
-import {useEffect, useState} from 'react';
 import {problemService} from '../../../../services/services';
 import {FaEdit} from 'react-icons/all';
 import {EditSaveCancelButton} from '../../commons/EditSaveCancelButton';
-
+import {useProblemContext} from '../../ProblemList';
 
 const ProblemTitleSection = () => {
+  const {fetchProblems} = useProblemContext();
   const {problem, dispatch} = useProblemEditorContext();
   const [title, setTitle] = useState(undefined);
   const [titleBackup, setTitleBackup] = useState(undefined);
@@ -38,7 +38,8 @@ const ProblemTitleSection = () => {
       .then(() => {
         dispatch({type: ACTION_UPDATE_TITLE, title});
         console.log('The problem\'s title has been modified');
-      });
+      })
+      .then(fetchProblems);
     setIsEditing(false);
   };
 

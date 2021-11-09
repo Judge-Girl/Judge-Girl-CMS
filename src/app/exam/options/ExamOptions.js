@@ -11,6 +11,7 @@ import {Spinner} from '../../commons/Spinner';
 import {DangerZone} from '../../commons/dangerZone/DangerZone';
 import moment from 'moment';
 import {DeleteConfirmationModal} from '../../commons/modals/ConfirmationModal';
+import ExamWhiteList from './ExamWhiteList';
 
 
 const ExamOptions = () => {
@@ -21,6 +22,7 @@ const ExamOptions = () => {
   const [examName, setExamName] = useState(undefined);
   const [startTime, setStartTime] = useState(formatDate(undefined));
   const [endTime, setEndTime] = useState(formatDate(undefined));
+  const [whitelist, setWhitelist] = useState([]);
   const [showDeleteExamModal, setShowDeleteExamModal] = useState(false);
   const examScheduleRef = useRef();
 
@@ -32,6 +34,7 @@ const ExamOptions = () => {
           setStartTime(formatDate(exam?.startTime));
           setEndTime(formatDate(exam?.endTime));
           setExam(exam);
+          setWhitelist(exam.whitelist);
         });
     }
   }, [exam, examId, setExam]);
@@ -43,9 +46,9 @@ const ExamOptions = () => {
         name: examName,
         startTime: moment(startTime).valueOf(),
         endTime: moment(endTime).valueOf(),
-        description: exam.description
-      })
-        .then(updateExams);
+        description: exam.description,
+        whitelist
+      }).then(updateExams);
     }
   };
 
@@ -76,12 +79,9 @@ const ExamOptions = () => {
               setStartTime={setStartTime}
               setEndTime={setEndTime}/>
           </section>
-          {/*<section>*/}
-          {
-            //TODO Because it has problem(issue #232)
-            /*<ExamWhiteList/>*/
-          }
-          {/*</section>*/}
+          <section>
+            <ExamWhiteList whitelist={whitelist} onWhitelistChange={setWhitelist}/>
+          </section>
           <section>
             <button className="button update-button"
               onClick={onButtonUpdateChangeClick}>

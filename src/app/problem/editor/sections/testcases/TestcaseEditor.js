@@ -103,21 +103,21 @@ function TestcaseEditor({
             || !testcaseEdit.saved;
 
     async function createTestcaseWithIo() {
-        await saveTestcase(new Testcase(testcaseEdit));
-        patchTestcaseIOs(testcaseIOsPatch);
+      await saveTestcase(new Testcase(testcaseEdit));
+      patchTestcaseIOs(testcaseIOsPatch);
     }
 
     if (shouldSave) {
       setSaving(true);
       if (!testcaseEdit.saved && !testcaseIOsPatch.isEmpty()) {
-          createTestcaseWithIo();
+        createTestcaseWithIo();
       } else {
-          if (testcaseEdit.edited || !testcaseEdit.saved) {
-              saveTestcase(new Testcase(testcaseEdit));
-          }
-          if (!testcaseIOsPatch.isEmpty()) {
-              patchTestcaseIOs(testcaseIOsPatch);
-          }
+        if (testcaseEdit.edited || !testcaseEdit.saved) {
+          saveTestcase(new Testcase(testcaseEdit));
+        }
+        if (!testcaseIOsPatch.isEmpty()) {
+          patchTestcaseIOs(testcaseIOsPatch);
+        }
       }
     } else {
       setTestcaseEdit(testcaseEdit.cancelEditing());

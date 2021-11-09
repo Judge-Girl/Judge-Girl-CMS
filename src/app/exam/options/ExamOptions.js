@@ -40,7 +40,6 @@ const ExamOptions = () => {
   }, [exam, examId, setExam]);
 
   const onButtonUpdateChangeClick = () => {
-    console.log(whitelist);
     if (examScheduleRef.current?.validateTimes(startTime, endTime)) {
       examService.updateExam(examId, {
         examId,

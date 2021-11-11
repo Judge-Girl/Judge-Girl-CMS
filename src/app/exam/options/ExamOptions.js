@@ -33,8 +33,8 @@ const ExamOptions = () => {
           setExamName(exam.name);
           setStartTime(formatDate(exam?.startTime));
           setEndTime(formatDate(exam?.endTime));
-          setExam(exam);
           setWhitelist(exam.whitelist);
+          setExam(exam);
         });
     }
   }, [exam, examId, setExam]);

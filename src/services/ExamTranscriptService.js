@@ -35,13 +35,14 @@ class ExamTranscriptService extends AbstractService {
       this.examService.getExamTranscript(examId),
     ]).then(async ([examinees, examOverview, examTranscript]) => {
       const totalTestCasesOf = {};
+      examOverview.questions = examOverview.questions.filter(problem => !problem.notFound);
       const ids = examOverview.questions.map(question => question.problemId);
       await this.problemService.getProblemsByIds(ids)
         .then(problems => problems
           .forEach(problem => totalTestCasesOf[problem.id] = problem.testcases.length));
-      return {examinees, examOverview, examTranscript, totalTestCasesOf};
-    }).then(data => new ExamScoreboard({...data}));
-  }
-}
-
-export {ExamTranscriptService};
+          return {examinees, examOverview, examTranscript, totalTestCasesOf};
+        }).then(data => new ExamScoreboard({...data}));
+      }
+    }
+    
+    export {ExamTranscriptService};

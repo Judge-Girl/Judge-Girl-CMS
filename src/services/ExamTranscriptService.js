@@ -40,9 +40,9 @@ class ExamTranscriptService extends AbstractService {
       await this.problemService.getProblemsByIds(ids)
         .then(problems => problems
           .forEach(problem => totalTestCasesOf[problem.id] = problem.testcases.length));
-          return {examinees, examOverview, examTranscript, totalTestCasesOf};
-        }).then(data => new ExamScoreboard({...data}));
-      }
-    }
-    
-    export {ExamTranscriptService};
+      return {examinees, examOverview, examTranscript, totalTestCasesOf};
+    }).then(data => new ExamScoreboard({...data}));
+  }
+}
+
+export {ExamTranscriptService};

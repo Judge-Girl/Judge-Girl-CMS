@@ -107,8 +107,9 @@ export class ExamScoreboard {
 
   questionAverageByOneProblemId(problemId) {
     const sumOfGrades = this.submissionsByProblemId(problemId)
-      .reduce((sum, submission) => sum + parseFloat(submission.verdict.totalGrade), 0);
-    return parseFloat((sumOfGrades / this.totalExaminees).toFixed(2));
+        .reduce((sum, submission) => sum + parseFloat(submission.verdict.totalGrade), 0);
+    const average = parseFloat((sumOfGrades / this.totalExaminees).toFixed(2));
+    return Number.isNaN(average) ? 0 : average;
   }
 
   countNoSubmissionByProblemId(problemId) {
@@ -137,7 +138,8 @@ export class ExamScoreboard {
 
   get crossAverage() {
     const sumOfStudentTotalScore = this.examinees.reduce((sum, e) => sum + this.studentTotalScore(e.id), 0);
-    return parseFloat((sumOfStudentTotalScore / this.totalExaminees).toFixed(2));
+    const crossAverage = parseFloat((sumOfStudentTotalScore / this.totalExaminees).toFixed(2));
+    return Number.isNaN(crossAverage) ? 0 : crossAverage;
   }
 
   get sumOfMaxScores() {
